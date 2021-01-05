@@ -23,7 +23,7 @@ export const LoginModal: React.FC<{
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <LoginForm />
+            <LoginForm onClose={onClose} />
           </ModalBody>
 
           <ModalFooter>

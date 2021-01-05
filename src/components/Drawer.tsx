@@ -9,12 +9,25 @@ import {
   Input,
   DrawerFooter,
 } from '@chakra-ui/react';
+import { ApolloError } from '@apollo/client';
+
 import * as React from 'react';
 
-export const DrawerLeft: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
-  isOpen,
-  onClose,
-}) => {
+interface ProfileData {
+  isLoading: boolean;
+  error: ApolloError | undefined;
+  data: {
+    numAds: number | undefined;
+    numNegs: number | undefined;
+    name: string | undefined;
+  };
+}
+export const DrawerLeft: React.FC<{
+  data: ProfileData;
+  isOpen: boolean;
+  onClose: () => void;
+}> = ({ isOpen, onClose, data }) => {
+  console.log(data.error, data.isLoading, data.data);
   return (
     <>
       <Drawer isOpen={isOpen} placement='left' onClose={onClose}>

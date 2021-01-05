@@ -8,8 +8,9 @@ import {
   extendTheme,
 } from '@chakra-ui/react';
 //import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Header } from './page-header';
-
+import { Pages } from './pages';
+//import { Login } from './pages/Login';
+//
 const colors = {
   brand: {
     900: '#1a365d',
@@ -24,7 +25,7 @@ export const App: React.FC = () => (
   <ChakraProvider theme={theme}>
     <Box textAlign='center' fontSize='xl'>
       <Grid minH='100vh' p={3}>
-        <Header />
+        <Pages />
       </Grid>
     </Box>
   </ChakraProvider>
