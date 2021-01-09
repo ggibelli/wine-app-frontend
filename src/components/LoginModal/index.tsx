@@ -9,31 +9,29 @@ import {
   Button,
 } from '@chakra-ui/react';
 import * as React from 'react';
-import { LoginForm } from './LoginForm';
+import { LoginData, LoginForm } from './LoginForm';
 
 export const LoginModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
-}> = ({ isOpen, onClose }) => {
+  onSubmit: (values: LoginData) => void;
+}> = ({ isOpen, onClose, onSubmit }) => {
   return (
-    <>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <LoginForm onClose={onClose} />
-          </ModalBody>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Login</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <LoginForm onSubmit={onSubmit} />
+        </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant='ghost'>Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+        <ModalFooter>
+          <Button colorScheme='blue' mr={3} onClick={onClose}>
+            Close
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };

@@ -5,14 +5,15 @@ export const LOGIN = gql`
     login(email: $email, password: $password) {
       response {
         token
-        user {
-          _id
-          firstName
-        }
-      }
-      errors {
-        name
-        text
+        #   user {
+        #     _id
+        #     firstName
+        #   }
+        # }
+        # errors {
+        #   name
+        #   text
+        # }
       }
     }
   }

@@ -13,16 +13,50 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import { DrawerLeft } from './Drawer';
 import { LoginModal } from './LoginModal';
 import { LogoutButton } from './LogoutButton';
-import { useIsUserLoggedInQuery, useMeLazyQuery } from '../generated/graphql';
-
+import { Notification } from './Notification';
+import { useLoginMutation, useMeLazyQuery, useIsUserLoggedInQuery } from '../generated/graphql';
+import { isLoggedInVar, notificationMessage, notificationType } from '../cache';
 export const Header: React.FC = () => {
-  const { data } = useIsUserLoggedInQuery();
+  const onSubmit = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    await loginMutation({
+      variables: {
+        email: email,
+        password: password,
+      },
+    });
+  };
+  const loggedUser = useIsUserLoggedInQuery();
   const [lazyQuery, result] = useMeLazyQuery();
-  React.useEffect(() => {
-    if (data?.isLoggedIn) {
-      lazyQuery();
-    }
-  }, [data?.isLoggedIn]);
+  const [loginMutation, { data }] = useLoginMutation({
+    onError: (error) => console.log(error, data),
+    onCompleted: ({ login }) => {
+      if (login?.errors?.length === 0) {
+        localStorage.setItem(
+          'wineapp-user-token',
+          login?.response?.token as string
+        );
+        isLoggedInVar(true);
+        notificationType('success');
+        notificationMessage('Welcome back');
+        lazyQuery();
+        
+      }
+      if (login?.errors?.length) {
+        
+        console.log('error');
+        notificationType('error');
+        notificationMessage(login?.errors[0]?.text);
+      }
+      modal.onClose();
+    },
+  });
+
   const drawerData = {
     isLoading: result.loading,
     error: result.error,
@@ -51,31 +85,42 @@ export const Header: React.FC = () => {
       <Spacer />
     </>
   );
-  const signinButton = () => (
-    <>
-      <Box>
+  const SigninButton = () => {
+    if (loggedUser.data?.isLoggedIn) {
+      return <LogoutButton />;
+    }
+    return (
+      <>
         <Button colorScheme='teal' mr='4'>
           Sign Up
         </Button>
         <Button colorScheme='teal' onClick={modal.onOpen}>
           Log in
         </Button>
-        <LoginModal isOpen={modal.isOpen} onClose={modal.onClose} />
-        <ColorModeSwitcher />
-      </Box>
-    </>
+        
+        
+      </>
   );
-  //const btnRef = React.useRef<HTMLButtonElement>(null);
+};
   return (
     <>
       <Flex>
-        {data?.isLoggedIn ? sideBarButton() : null}
+        {loggedUser.data?.isLoggedIn ? sideBarButton() : null}
         <Box>
           <Text>LOGO</Text>
         </Box>
         <Spacer />
-        {!data?.isLoggedIn ? signinButton() : <LogoutButton />}
+        <Box>
+          <SigninButton />
+          <LoginModal
+            isOpen={modal.isOpen}
+            onClose={modal.onClose}
+            onSubmit={onSubmit}
+          />
+          <ColorModeSwitcher />
+        </Box>
       </Flex>
+      <Notification />
     </>
   );
 };
