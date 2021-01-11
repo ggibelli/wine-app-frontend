@@ -7,6 +7,7 @@ import {
   Spacer,
   IconButton,
   useDisclosure,
+  Stack,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { HamburgerIcon } from '@chakra-ui/icons';
@@ -14,8 +15,12 @@ import { DrawerLeft } from './Drawer';
 import { LoginModal } from './LoginModal';
 import { LogoutButton } from './LogoutButton';
 import { Notification } from './Notification';
-import { useLoginMutation, useMeLazyQuery, useIsUserLoggedInQuery } from '../generated/graphql';
-import { isLoggedInVar, notificationMessage, notificationType } from '../cache';
+import {
+  useLoginMutation,
+  useMeLazyQuery,
+  useIsUserLoggedInQuery,
+} from '../generated/graphql';
+import { isLoggedInVar, notification } from '../cache';
 export const Header: React.FC = () => {
   const onSubmit = async ({
     email,
@@ -42,16 +47,18 @@ export const Header: React.FC = () => {
           login?.response?.token as string
         );
         isLoggedInVar(true);
-        notificationType('success');
-        notificationMessage('Welcome back');
+        notification({
+          type: 'success',
+          message: 'welcome back',
+        });
+        //notificationMessage('Welcome back');
         lazyQuery();
-        
       }
       if (login?.errors?.length) {
-        
-        console.log('error');
-        notificationType('error');
-        notificationMessage(login?.errors[0]?.text);
+        notification({
+          type: 'error',
+          message: 'errore',
+        });
       }
       modal.onClose();
     },
@@ -97,13 +104,11 @@ export const Header: React.FC = () => {
         <Button colorScheme='teal' onClick={modal.onOpen}>
           Log in
         </Button>
-        
-        
       </>
-  );
-};
+    );
+  };
   return (
-    <>
+    <Stack spacing={1}>
       <Flex>
         {loggedUser.data?.isLoggedIn ? sideBarButton() : null}
         <Box>
@@ -121,6 +126,6 @@ export const Header: React.FC = () => {
         </Box>
       </Flex>
       <Notification />
-    </>
+    </Stack>
   );
 };

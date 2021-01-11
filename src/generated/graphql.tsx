@@ -15,7 +15,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  Date: Date;
+  Date: any;
 };
 
 export type Address = {
@@ -184,6 +184,7 @@ export type Query = {
   negotiations?: Maybe<Array<Negotiation>>;
   negotiationsForAd?: Maybe<Array<Negotiation>>;
   negotiationsWithUser?: Maybe<Array<Negotiation>>;
+  notification?: Maybe<Notification>;
   review?: Maybe<Review>;
   reviews?: Maybe<Array<Review>>;
   user?: Maybe<User>;
@@ -815,12 +816,18 @@ export type Errors = {
   text?: Maybe<Scalars['String']>;
 };
 
-export type IsUserLoggedInQueryVariables = Exact<{ [key: string]: never }>;
+export enum AlertStatus {
+  Success = 'success',
+  Warning = 'warning',
+  Info = 'info',
+  Error = 'error',
+}
 
-export type IsUserLoggedInQuery = { __typename?: 'Query' } & Pick<
-  Query,
-  'isLoggedIn'
->;
+export type Notification = {
+  __typename?: 'Notification';
+  type?: AlertStatus;
+  message?: Maybe<Scalars['String']>;
+};
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -876,59 +883,21 @@ export type MeQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export const IsUserLoggedInDocument = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
+export type IsUserLoggedInQueryVariables = Exact<{ [key: string]: never }>;
 
-/**
- * __useIsUserLoggedInQuery__
- *
- * To run a query within a React component, call `useIsUserLoggedInQuery` and pass it any options that fit your needs.
- * When your component renders, `useIsUserLoggedInQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useIsUserLoggedInQuery({
- *   variables: {
- *   },
- * });
- */
-export function useIsUserLoggedInQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    IsUserLoggedInQuery,
-    IsUserLoggedInQueryVariables
-  >
-) {
-  return Apollo.useQuery<IsUserLoggedInQuery, IsUserLoggedInQueryVariables>(
-    IsUserLoggedInDocument,
-    baseOptions
-  );
-}
-export function useIsUserLoggedInLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    IsUserLoggedInQuery,
-    IsUserLoggedInQueryVariables
-  >
-) {
-  return Apollo.useLazyQuery<IsUserLoggedInQuery, IsUserLoggedInQueryVariables>(
-    IsUserLoggedInDocument,
-    baseOptions
-  );
-}
-export type IsUserLoggedInQueryHookResult = ReturnType<
-  typeof useIsUserLoggedInQuery
+export type IsUserLoggedInQuery = { __typename?: 'Query' } & Pick<
+  Query,
+  'isLoggedIn'
 >;
-export type IsUserLoggedInLazyQueryHookResult = ReturnType<
-  typeof useIsUserLoggedInLazyQuery
->;
-export type IsUserLoggedInQueryResult = Apollo.QueryResult<
-  IsUserLoggedInQuery,
-  IsUserLoggedInQueryVariables
->;
+
+export type NotificationQueryVariables = Exact<{ [key: string]: never }>;
+
+export type NotificationQuery = { __typename?: 'Query' } & {
+  notification?: Maybe<
+    { __typename?: 'Notification' } & Pick<Notification, 'type' | 'message'>
+  >;
+};
+
 export const LoginDocument = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -1047,3 +1016,112 @@ export function useMeLazyQuery(
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const IsUserLoggedInDocument = gql`
+  query IsUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
+
+/**
+ * __useIsUserLoggedInQuery__
+ *
+ * To run a query within a React component, call `useIsUserLoggedInQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsUserLoggedInQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIsUserLoggedInQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useIsUserLoggedInQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    IsUserLoggedInQuery,
+    IsUserLoggedInQueryVariables
+  >
+) {
+  return Apollo.useQuery<IsUserLoggedInQuery, IsUserLoggedInQueryVariables>(
+    IsUserLoggedInDocument,
+    baseOptions
+  );
+}
+export function useIsUserLoggedInLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    IsUserLoggedInQuery,
+    IsUserLoggedInQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<IsUserLoggedInQuery, IsUserLoggedInQueryVariables>(
+    IsUserLoggedInDocument,
+    baseOptions
+  );
+}
+export type IsUserLoggedInQueryHookResult = ReturnType<
+  typeof useIsUserLoggedInQuery
+>;
+export type IsUserLoggedInLazyQueryHookResult = ReturnType<
+  typeof useIsUserLoggedInLazyQuery
+>;
+export type IsUserLoggedInQueryResult = Apollo.QueryResult<
+  IsUserLoggedInQuery,
+  IsUserLoggedInQueryVariables
+>;
+export const NotificationDocument = gql`
+  query Notification {
+    notification @client {
+      type @client
+      message @client
+    }
+  }
+`;
+
+/**
+ * __useNotificationQuery__
+ *
+ * To run a query within a React component, call `useNotificationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNotificationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNotificationQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNotificationQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    NotificationQuery,
+    NotificationQueryVariables
+  >
+) {
+  return Apollo.useQuery<NotificationQuery, NotificationQueryVariables>(
+    NotificationDocument,
+    baseOptions
+  );
+}
+export function useNotificationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NotificationQuery,
+    NotificationQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<NotificationQuery, NotificationQueryVariables>(
+    NotificationDocument,
+    baseOptions
+  );
+}
+export type NotificationQueryHookResult = ReturnType<
+  typeof useNotificationQuery
+>;
+export type NotificationLazyQueryHookResult = ReturnType<
+  typeof useNotificationLazyQuery
+>;
+export type NotificationQueryResult = Apollo.QueryResult<
+  NotificationQuery,
+  NotificationQueryVariables
+>;

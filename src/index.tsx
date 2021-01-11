@@ -19,8 +19,20 @@ import { WebSocketLink } from '@apollo/link-ws';
 import { cache } from './cache';
 
 export const typeDefs = gql`
+  enum AlertStatus {
+    Success
+    Warning
+    Info
+    Error
+  }
+
+  type Notification {
+    type: AlertStatus
+    message: String
+  }
   extend type Query {
     isLoggedIn: Boolean!
+    notification: Notification
   }
 `;
 

@@ -9,6 +9,11 @@ export const cache: InMemoryCache = new InMemoryCache({
             return isLoggedInVar();
           },
         },
+        notification: {
+          read() {
+            return notification();
+          },
+        },
       },
     },
   },
@@ -26,10 +31,11 @@ interface DrawerProfile {
   ads: number;
 }
 
-export const notificationMessage = makeVar<string | undefined | null>(
-  undefined
-);
+interface Notification {
+  type: AlertStatus;
+  message: string;
+}
 
-export const notificationType = makeVar<AlertStatus>(undefined);
+export const notification = makeVar<Notification | undefined>(undefined);
 
 export const drawerProfile = makeVar<DrawerProfile | undefined>(undefined);

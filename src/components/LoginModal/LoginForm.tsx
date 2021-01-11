@@ -25,7 +25,6 @@ export const LoginForm: React.FC<{ onSubmit: (values: LoginData) => void }> = ({
   const [show, setShow] = React.useState<boolean>(false);
   const handleClick = (): void => setShow(!show);
   const validate = (values: LoginData) => {
-    
     const errors: { [field: string]: string } = {};
     if (!values.email) {
       errors.email = 'Email is required';
@@ -37,11 +36,11 @@ export const LoginForm: React.FC<{ onSubmit: (values: LoginData) => void }> = ({
   };
 
   return (
-    <Formik 
+    <Formik
       onSubmit={onSubmit}
       initialValues={initialValues}
-      validate={validate} 
-    > 
+      validate={validate}
+    >
       {({ isValid, dirty, errors, isValidating, isSubmitting }) => {
         return (
           <Form>
@@ -49,7 +48,9 @@ export const LoginForm: React.FC<{ onSubmit: (values: LoginData) => void }> = ({
               {({ field }: any) => (
                 <FormControl isInvalid={errors.email !== undefined}>
                   <FormLabel htmlFor='email'>Email</FormLabel>
-                  <Input {...field}
+                  <Input
+                    {...field}
+                    data-testid='email'
                     aria-label='email'
                     size='md'
                     pr='4.5rem'
@@ -63,25 +64,30 @@ export const LoginForm: React.FC<{ onSubmit: (values: LoginData) => void }> = ({
             <Field name='password'>
               {({ field }: any) => (
                 <FormControl isInvalid={errors.password !== undefined}>
-                <FormLabel htmlFor='password'>Password</FormLabel>
-                <InputGroup size='md'>
-                  <Input {...field}
-                    data-testid='password-input'
-                    aria-label='password'
-                    pr='4.5rem'
-                    type={show ? 'text' : 'password'}
-                    placeholder='Enter password'
-                  />
-                  <InputRightElement width='4.5rem'>
-                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                      {show ? 'Hide' : 'Show'}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                <FormErrorMessage>{errors.password}</FormErrorMessage>
-              </FormControl>
+                  <FormLabel htmlFor='password'>Password</FormLabel>
+                  <InputGroup size='md'>
+                    <Input
+                      {...field}
+                      data-testid='password'
+                      aria-label='password'
+                      pr='4.5rem'
+                      type={show ? 'text' : 'password'}
+                      placeholder='Enter password'
+                    />
+                    <InputRightElement width='4.5rem'>
+                      <Button
+                        h='1.75rem'
+                        size='sm'
+                        onClick={handleClick}
+                        data-testid='submit'
+                      >
+                        {show ? 'Hide' : 'Show'}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  <FormErrorMessage>{errors.password}</FormErrorMessage>
+                </FormControl>
               )}
-              
             </Field>
 
             <Button

@@ -34,4 +34,10 @@ export const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
     isLoggedIn @client
   }
+  query Notification {
+    notification @client {
+      type @client
+      message @client
+    }
+  }
 `;
