@@ -16,7 +16,7 @@ export const Pages: React.FC = () => (
         <Ads path='/annunci' />
         <Ad path='/annunci/:id' />
         <Profile path='/profilo' />
-        <SignUp path='/registrati' />
+        <SignUp path='/signup' />
       </Router>
     </PageContainer>
   </>

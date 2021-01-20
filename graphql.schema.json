@@ -5219,13 +5219,19 @@
             "deprecationReason": null
           },
           {
-            "name": "AR",
+            "name": "AP",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "AP",
+            "name": "AQ",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "AR",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5249,18 +5255,6 @@
             "deprecationReason": null
           },
           {
-            "name": "BL",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "BN",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "BG",
             "description": null,
             "isDeprecated": false,
@@ -5273,19 +5267,19 @@
             "deprecationReason": null
           },
           {
+            "name": "BL",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "BN",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "BO",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "BZ",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "BS",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5297,13 +5291,25 @@
             "deprecationReason": null
           },
           {
-            "name": "CA",
+            "name": "BS",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "CL",
+            "name": "BT",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "BZ",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CA",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5321,6 +5327,42 @@
             "deprecationReason": null
           },
           {
+            "name": "CH",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CL",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CN",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CO",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CR",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "CT",
             "description": null,
             "isDeprecated": false,
@@ -5333,49 +5375,13 @@
             "deprecationReason": null
           },
           {
-            "name": "CH",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "CO",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "CS",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "CR",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "KR",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "CN",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "EN",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "FM",
+            "name": "FC",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5387,25 +5393,19 @@
             "deprecationReason": null
           },
           {
-            "name": "FI",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "FG",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "FO",
+            "name": "FI",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "FC",
+            "name": "FM",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5447,31 +5447,19 @@
             "deprecationReason": null
           },
           {
-            "name": "SP",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "AQ",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "LT",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "LE",
+            "name": "KR",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "LC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LE",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5489,31 +5477,25 @@
             "deprecationReason": null
           },
           {
+            "name": "LT",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "LU",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
+            "name": "MB",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "MC",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "MN",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "MS",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "MT",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5531,13 +5513,25 @@
             "deprecationReason": null
           },
           {
+            "name": "MN",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "MO",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "MB",
+            "name": "MS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MT",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5567,49 +5561,7 @@
             "deprecationReason": null
           },
           {
-            "name": "PD",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "PA",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PR",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PV",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PG",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PS",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PU",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PE",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5621,13 +5573,25 @@
             "deprecationReason": null
           },
           {
-            "name": "PI",
+            "name": "PD",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "PT",
+            "name": "PE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PG",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PI",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5639,19 +5603,37 @@
             "deprecationReason": null
           },
           {
-            "name": "PZ",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "PO",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "RG",
+            "name": "PR",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PT",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PU",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PV",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PZ",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5675,19 +5657,25 @@
             "deprecationReason": null
           },
           {
+            "name": "RG",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "RI",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "RN",
+            "name": "RM",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "RM",
+            "name": "RN",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5705,19 +5693,19 @@
             "deprecationReason": null
           },
           {
-            "name": "SS",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "SV",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "SI",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SO",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SP",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5729,7 +5717,19 @@
             "deprecationReason": null
           },
           {
-            "name": "SO",
+            "name": "SS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SU",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SV",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5747,7 +5747,7 @@
             "deprecationReason": null
           },
           {
-            "name": "TR",
+            "name": "TN",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5765,19 +5765,19 @@
             "deprecationReason": null
           },
           {
-            "name": "TN",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "TV",
+            "name": "TR",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TV",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5795,12 +5795,6 @@
             "deprecationReason": null
           },
           {
-            "name": "VE",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "VB",
             "description": null,
             "isDeprecated": false,
@@ -5813,13 +5807,7 @@
             "deprecationReason": null
           },
           {
-            "name": "VR",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "VV",
+            "name": "VE",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5831,7 +5819,19 @@
             "deprecationReason": null
           },
           {
+            "name": "VR",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "VT",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "VV",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -5944,13 +5944,7 @@
             "deprecationReason": null
           },
           {
-            "name": "BOLZANO",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "TRENTO",
+            "name": "TRENTINO",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

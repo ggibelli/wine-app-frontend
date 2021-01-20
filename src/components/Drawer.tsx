@@ -34,7 +34,7 @@ export const DrawerLeft: React.FC<{
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Create your account</DrawerHeader>
+            <DrawerHeader>{data.data.name}</DrawerHeader>
 
             <DrawerBody>
               <Input placeholder='Type here...' />

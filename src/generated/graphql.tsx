@@ -21,7 +21,7 @@ export type Scalars = {
 export type Address = {
   __typename?: 'Address';
   via: Scalars['String'];
-  CAP: Scalars['Int'];
+  CAP: Scalars['String'];
   comune: Scalars['String'];
   provincia: Province;
   regione: Regioni;
@@ -29,7 +29,7 @@ export type Address = {
 
 export type AddressInput = {
   via: Scalars['String'];
-  CAP: Scalars['Int'];
+  CAP: Scalars['String'];
   comune: Scalars['String'];
   provincia: Province;
   regione: Regioni;
@@ -618,113 +618,113 @@ export type VineyardPayload = {
 };
 
 export enum Province {
-  Ag = 'AG',
-  Al = 'AL',
-  An = 'AN',
-  Ao = 'AO',
-  Ar = 'AR',
-  Ap = 'AP',
-  At = 'AT',
-  Av = 'AV',
-  Ba = 'BA',
-  Bl = 'BL',
-  Bn = 'BN',
-  Bg = 'BG',
-  Bi = 'BI',
-  Bo = 'BO',
-  Bz = 'BZ',
-  Bs = 'BS',
-  Br = 'BR',
-  Ca = 'CA',
-  Cl = 'CL',
-  Cb = 'CB',
-  Ce = 'CE',
-  Ct = 'CT',
-  Cz = 'CZ',
-  Ch = 'CH',
-  Co = 'CO',
-  Cs = 'CS',
-  Cr = 'CR',
-  Kr = 'KR',
-  Cn = 'CN',
-  En = 'EN',
-  Fm = 'FM',
-  Fe = 'FE',
-  Fi = 'FI',
-  Fg = 'FG',
-  Fo = 'FO',
-  Fc = 'FC',
-  Fr = 'FR',
-  Ge = 'GE',
-  Go = 'GO',
-  Gr = 'GR',
-  Im = 'IM',
-  Is = 'IS',
-  Sp = 'SP',
-  Aq = 'AQ',
-  Lt = 'LT',
-  Le = 'LE',
-  Lc = 'LC',
-  Li = 'LI',
-  Lo = 'LO',
-  Lu = 'LU',
-  Mc = 'MC',
-  Mn = 'MN',
-  Ms = 'MS',
-  Mt = 'MT',
-  Me = 'ME',
-  Mi = 'MI',
-  Mo = 'MO',
-  Mb = 'MB',
-  Na = 'NA',
-  No = 'NO',
-  Nu = 'NU',
-  Or = 'OR',
-  Pd = 'PD',
-  Pa = 'PA',
-  Pr = 'PR',
-  Pv = 'PV',
-  Pg = 'PG',
-  Ps = 'PS',
-  Pu = 'PU',
-  Pe = 'PE',
-  Pc = 'PC',
-  Pi = 'PI',
-  Pt = 'PT',
-  Pn = 'PN',
-  Pz = 'PZ',
-  Po = 'PO',
-  Rg = 'RG',
-  Ra = 'RA',
-  Rc = 'RC',
-  Re = 'RE',
-  Ri = 'RI',
-  Rn = 'RN',
-  Rm = 'RM',
-  Ro = 'RO',
-  Sa = 'SA',
-  Ss = 'SS',
-  Sv = 'SV',
-  Si = 'SI',
-  Sr = 'SR',
-  So = 'SO',
-  Ta = 'TA',
-  Te = 'TE',
-  Tr = 'TR',
-  To = 'TO',
-  Tp = 'TP',
-  Tn = 'TN',
-  Tv = 'TV',
-  Ts = 'TS',
-  Ud = 'UD',
-  Va = 'VA',
-  Ve = 'VE',
-  Vb = 'VB',
-  Vc = 'VC',
-  Vr = 'VR',
-  Vv = 'VV',
-  Vi = 'VI',
-  Vt = 'VT',
+  AG = 'AG',
+  AL = 'AL',
+  AN = 'AN',
+  AO = 'AO',
+  AP = 'AP',
+  AQ = 'AQ',
+  AR = 'AR',
+  AT = 'AT',
+  AV = 'AV',
+  BA = 'BA',
+  BG = 'BG',
+  BI = 'BI',
+  BL = 'BL',
+  BN = 'BN',
+  BO = 'BO',
+  BR = 'BR',
+  BS = 'BS',
+  BT = 'BT',
+  BZ = 'BZ',
+  CA = 'CA',
+  CB = 'CB',
+  CE = 'CE',
+  CH = 'CH',
+  CL = 'CL',
+  CN = 'CN',
+  CO = 'CO',
+  CR = 'CR',
+  CS = 'CS',
+  CT = 'CT',
+  CZ = 'CZ',
+  EN = 'EN',
+  FC = 'FC',
+  FE = 'FE',
+  FG = 'FG',
+  FI = 'FI',
+  FM = 'FM',
+  FR = 'FR',
+  GE = 'GE',
+  GO = 'GO',
+  GR = 'GR',
+  IM = 'IM',
+  IS = 'IS',
+  KR = 'KR',
+  LC = 'LC',
+  LE = 'LE',
+  LI = 'LI',
+  LO = 'LO',
+  LT = 'LT',
+  LU = 'LU',
+  MB = 'MB',
+  MC = 'MC',
+  ME = 'ME',
+  MI = 'MI',
+  MN = 'MN',
+  MO = 'MO',
+  MS = 'MS',
+  MT = 'MT',
+  NA = 'NA',
+  NO = 'NO',
+  NU = 'NU',
+  OR = 'OR',
+  PA = 'PA',
+  PC = 'PC',
+  PD = 'PD',
+  PE = 'PE',
+  PG = 'PG',
+  PI = 'PI',
+  PN = 'PN',
+  PO = 'PO',
+  PR = 'PR',
+  PT = 'PT',
+  PU = 'PU',
+  PV = 'PV',
+  PZ = 'PZ',
+  RA = 'RA',
+  RC = 'RC',
+  RE = 'RE',
+  RG = 'RG',
+  RI = 'RI',
+  RM = 'RM',
+  RN = 'RN',
+  RO = 'RO',
+  SA = 'SA',
+  SI = 'SI',
+  SO = 'SO',
+  SP = 'SP',
+  SR = 'SR',
+  SS = 'SS',
+  SU = 'SU',
+  SV = 'SV',
+  TA = 'TA',
+  TE = 'TE',
+  TN = 'TN',
+  TO = 'TO',
+  TP = 'TP',
+  TR = 'TR',
+  TS = 'TS',
+  TV = 'TV',
+  UD = 'UD',
+  VA = 'VA',
+  VB = 'VB',
+  VC = 'VC',
+  VE = 'VE',
+  VI = 'VI',
+  VR = 'VR',
+  VT = 'VT',
+  VV = 'VV',
 }
 
 export enum Regioni {
@@ -744,8 +744,7 @@ export enum Regioni {
   Sardegna = 'SARDEGNA',
   Sicilia = 'SICILIA',
   Toscana = 'TOSCANA',
-  Bolzano = 'BOLZANO',
-  Trento = 'TRENTO',
+  Trentino = 'TRENTINO',
   Umbria = 'UMBRIA',
   Valdaosta = 'VALDAOSTA',
   Veneto = 'VENETO',
@@ -836,6 +835,25 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
   login?: Maybe<
+    { __typename?: 'AuthUserPayload' } & {
+      response?: Maybe<
+        { __typename?: 'AuthUser' } & Pick<AuthUser, 'token'> & {
+            user: { __typename?: 'User' } & Pick<User, '_id' | 'firstName'>;
+          }
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type CreateUserMutationVariables = Exact<{
+  userInput: UserInput;
+}>;
+
+export type CreateUserMutation = { __typename?: 'Mutation' } & {
+  createUser?: Maybe<
     { __typename?: 'AuthUserPayload' } & {
       response?: Maybe<
         { __typename?: 'AuthUser' } & Pick<AuthUser, 'token'> & {
@@ -954,6 +972,64 @@ export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginMutation,
   LoginMutationVariables
+>;
+export const CreateUserDocument = gql`
+  mutation CreateUser($userInput: UserInput!) {
+    createUser(user: $userInput) {
+      response {
+        token
+        user {
+          _id
+          firstName
+        }
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+export type CreateUserMutationFn = Apollo.MutationFunction<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      userInput: // value for 'userInput'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateUserMutation,
+    CreateUserMutationVariables
+  >
+) {
+  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
+    baseOptions
+  );
+}
+export type CreateUserMutationHookResult = ReturnType<
+  typeof useCreateUserMutation
+>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
+  CreateUserMutation,
+  CreateUserMutationVariables
 >;
 export const MeDocument = gql`
   query me {

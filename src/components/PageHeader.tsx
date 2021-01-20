@@ -18,10 +18,13 @@ import { Notification } from './Notification';
 import {
   useLoginMutation,
   useMeLazyQuery,
+  //useMeQuery,
   useIsUserLoggedInQuery,
 } from '../generated/graphql';
 import { isLoggedInVar, notification } from '../cache';
+
 export const Header: React.FC = () => {
+  console.log('render header');
   const onSubmit = async ({
     email,
     password,
@@ -37,9 +40,20 @@ export const Header: React.FC = () => {
     });
   };
   const loggedUser = useIsUserLoggedInQuery();
+  React.useEffect(() => {
+    if (loggedUser.data?.isLoggedIn) {
+      lazyQuery();
+    }
+  }, [loggedUser.data?.isLoggedIn]);
+  //const result = useMeQuery();
+  //console.log(diocrin);
   const [lazyQuery, result] = useMeLazyQuery();
-  const [loginMutation, { data }] = useLoginMutation({
-    onError: (error) => console.log(error, data),
+  const [loginMutation] = useLoginMutation({
+    onError: (error) =>
+      notification({
+        type: 'error',
+        message: error.message,
+      }),
     onCompleted: ({ login }) => {
       if (login?.errors?.length === 0) {
         localStorage.setItem(
@@ -97,14 +111,9 @@ export const Header: React.FC = () => {
       return <LogoutButton />;
     }
     return (
-      <>
-        <Button colorScheme='teal' mr='4'>
-          Sign Up
-        </Button>
-        <Button colorScheme='teal' onClick={modal.onOpen}>
-          Log in
-        </Button>
-      </>
+      <Button colorScheme='teal' onClick={modal.onOpen}>
+        Log in
+      </Button>
     );
   };
   return (

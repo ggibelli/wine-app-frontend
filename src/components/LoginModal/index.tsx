@@ -8,6 +8,7 @@ import {
   ModalFooter,
   Button,
 } from '@chakra-ui/react';
+import { Link } from '@reach/router';
 import * as React from 'react';
 import { LoginData, LoginForm } from './LoginForm';
 
@@ -25,11 +26,12 @@ export const LoginModal: React.FC<{
         <ModalBody>
           <LoginForm onSubmit={onSubmit} />
         </ModalBody>
-
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={onClose}>
-            Close
-          </Button>
+          <Link to='/signup'>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Sign Up
+            </Button>
+          </Link>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import {
   Alert,
   AlertIcon,
@@ -9,21 +10,34 @@ import { notification } from '../cache';
 import { useNotificationQuery } from '../generated/graphql';
 
 export const Notification: React.FC = () => {
-  console.log('yoyo');
+  const client = useApolloClient();
+  const onClose = () => {
+    notification(undefined);
+    setIsVisible(false);
+    client.cache.evict({ fieldName: 'notification' });
+    client.cache.gc();
+  };
   const { data, loading, error } = useNotificationQuery();
   const [isVisible, setIsVisible] = React.useState(false);
-
+  const timeoutId = React.useRef<number | undefined>(undefined);
   React.useEffect(() => {
     if (data && !loading) {
       setIsVisible(true);
     }
+    clearTimeout(timeoutId.current);
   }, [data, loading]);
 
-  const onClose = () => {
-    notification(undefined);
-    setIsVisible(false);
-  };
-  console.log(isVisible);
+  React.useEffect(() => {
+    if (isVisible) {
+      timeoutId.current = window.setTimeout(() => {
+        onClose();
+      }, 10000);
+    }
+    // return () => {
+    //   clearTimeout(timeoutId.current);
+    // };
+  }, [isVisible, data?.notification?.message]);
+
   if (!isVisible || error) {
     return null;
   }
