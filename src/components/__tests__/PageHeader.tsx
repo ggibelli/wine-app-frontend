@@ -32,7 +32,7 @@ describe('PageHeader', () => {
     expect(sibeBarButton).not.toBeInTheDocument();
   });
 
-  it.only('renders Header without login button and sidebar', async () => {
+  it('renders Header without login button and sidebar', async () => {
     const mocks = [
       {
         request: {

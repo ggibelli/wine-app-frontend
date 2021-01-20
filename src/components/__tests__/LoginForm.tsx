@@ -5,7 +5,7 @@ import {
   cleanup,
   fireEvent,
   screen,
-waitFor
+  waitFor,
 } from '../../test-utils';
 
 describe('Login form', () => {
@@ -21,7 +21,7 @@ describe('Login form', () => {
   });
 
   it('should validate form fields and not submit if fields empty', async () => {
-const onSubmit = jest.fn();
+    const onSubmit = jest.fn();
     const { getByText } = renderApollo(<LoginForm onSubmit={onSubmit} />);
 
     fireEvent.input(screen.getByRole('textbox', { name: /email/i }), {
@@ -29,16 +29,16 @@ const onSubmit = jest.fn();
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('password-input'), {
+    fireEvent.input(screen.getByTestId('password'), {
       target: {
         value: '',
       },
     });
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
-          expect(onSubmit).toBeCalledTimes(0);
-          expect(getByText('Email is required')).toBeVisible();
-expect(getByText('Password is required')).toBeVisible();
+      expect(onSubmit).toBeCalledTimes(0);
+      expect(getByText('Required')).toBeVisible();
+      expect(getByText('Required')).toBeVisible();
     });
   });
 
@@ -51,7 +51,7 @@ expect(getByText('Password is required')).toBeVisible();
         value: 'gio@prova.it',
       },
     });
-    fireEvent.input(screen.getByTestId('password-input'), {
+    fireEvent.input(screen.getByTestId('password'), {
       target: {
         value: 'giovanni123',
       },
@@ -65,7 +65,6 @@ expect(getByText('Password is required')).toBeVisible();
         },
         expect.anything()
       );
-      
     });
   });
 });
