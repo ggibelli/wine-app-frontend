@@ -20,10 +20,20 @@ import { cache } from './cache';
 
 export const typeDefs = gql`
   enum AlertStatus {
-    Success
-    Warning
-    Info
-    Error
+    success
+    warning
+    info
+    error
+  }
+
+  type WineSearched {
+    typeAd: TypeAd
+    typeProduct: TypeProduct
+    wineName: String
+    harvest: Int
+    abv: Float
+    price: Float
+    liters: Int
   }
 
   type Notification {
@@ -33,6 +43,7 @@ export const typeDefs = gql`
   extend type Query {
     isLoggedIn: Boolean!
     notification: Notification
+    searchedWine: WineSearched
   }
 `;
 

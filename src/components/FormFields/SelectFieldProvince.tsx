@@ -34,7 +34,11 @@ export const SelectFieldProvince: React.FC<Props> = ({ name, label }) => {
         {provinceConRegione
           .filter((provincia) => provincia.regione === values.address.regione)
           .map((option) => (
-            <option key={option.provincia} value={option.provincia}>
+            <option
+              data-testid='test-option-province'
+              key={option.provincia}
+              value={option.provincia}
+            >
               {option.provincia}
             </option>
           ))}

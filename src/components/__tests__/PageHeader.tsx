@@ -2,17 +2,8 @@ import { Header } from '../PageHeader';
 import * as React from 'react';
 import { renderApollo, cleanup, fireEvent } from '../../test-utils';
 import { act, screen, waitFor } from '@testing-library/react';
-import {
-  LoginDocument,
-  useMeLazyQuery,
-  IsUserLoggedInDocument,
-} from '../../generated/graphql';
-import {
-  isLoggedInVar,
-  notificationMessage,
-  notificationType,
-  cache,
-} from '../../cache';
+import { LoginDocument } from '../../generated/graphql';
+import { isLoggedInVar, cache } from '../../cache';
 import userEvent from '@testing-library/user-event';
 
 describe('PageHeader', () => {
@@ -20,7 +11,7 @@ describe('PageHeader', () => {
   afterEach(cleanup);
 
   it('renders Header with login button and no sidebar if no user loggedin', async () => {
-    const mocks = [];
+    const mocks: any[] = [];
     const { getByText, queryByText } = renderApollo(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       <Header />,
@@ -58,7 +49,7 @@ describe('PageHeader', () => {
         },
       },
     ];
-    const { getByText, getByTestId, findByText } = renderApollo(
+    const { getByText } = renderApollo(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       <Header />,
       { mocks, cache, addTypename: true, resolvers: {} }

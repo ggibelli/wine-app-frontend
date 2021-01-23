@@ -18,13 +18,11 @@ import { Notification } from './Notification';
 import {
   useLoginMutation,
   useMeLazyQuery,
-  //useMeQuery,
   useIsUserLoggedInQuery,
 } from '../generated/graphql';
 import { isLoggedInVar, notification } from '../cache';
 
 export const Header: React.FC = () => {
-  console.log('render header');
   const onSubmit = async ({
     email,
     password,
@@ -45,8 +43,6 @@ export const Header: React.FC = () => {
       lazyQuery();
     }
   }, [loggedUser.data?.isLoggedIn]);
-  //const result = useMeQuery();
-  //console.log(diocrin);
   const [lazyQuery, result] = useMeLazyQuery();
   const [loginMutation] = useLoginMutation({
     onError: (error) =>
@@ -65,7 +61,6 @@ export const Header: React.FC = () => {
           type: 'success',
           message: 'welcome back',
         });
-        //notificationMessage('Welcome back');
         lazyQuery();
       }
       if (login?.errors?.length) {

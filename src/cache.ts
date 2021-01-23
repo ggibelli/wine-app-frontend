@@ -1,4 +1,5 @@
 import { InMemoryCache, makeVar } from '@apollo/client';
+import { TypeAd, TypeProduct } from './generated/graphql';
 
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
@@ -12,6 +13,11 @@ export const cache: InMemoryCache = new InMemoryCache({
         notification: {
           read() {
             return notification();
+          },
+        },
+        searchedWine: {
+          read() {
+            return searchedWine();
           },
         },
       },
@@ -30,6 +36,18 @@ interface DrawerProfile {
   negotiations: number;
   ads: number;
 }
+
+interface WineSearched {
+  typeAd: TypeAd;
+  typeProduct: TypeProduct;
+  wineName: string;
+  harvest: number;
+  abv: number;
+  price: number;
+  liters: number;
+}
+
+export const searchedWine = makeVar<WineSearched | undefined>(undefined);
 
 interface Notification {
   type: AlertStatus;

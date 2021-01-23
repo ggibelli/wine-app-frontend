@@ -18,12 +18,13 @@ export const SliderField: React.FC<Props> = (props) => {
   });
   return (
     <FormControl
+      //data-testid={props.name}
       display='flex'
       alignItems='center'
       isInvalid={error !== undefined && touched}
     >
       <FormLabel htmlFor={props.label}>{props.label}</FormLabel>
-      <Switch {...field} />
+      <Switch {...field} data-testid={props.name} />
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>
   );

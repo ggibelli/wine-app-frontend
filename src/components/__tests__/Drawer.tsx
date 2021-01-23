@@ -1,7 +1,6 @@
 import { DrawerLeft } from '../Drawer';
 import * as React from 'react';
-import { renderApollo, cleanup, fireEvent } from '../../test-utils';
-import { cache, isLoggedInVar } from '../../cache';
+import { renderApollo, cleanup } from '../../test-utils';
 
 const mockUser = {
   isLoading: false,

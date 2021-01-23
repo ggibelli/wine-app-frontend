@@ -27,7 +27,6 @@ export const DrawerLeft: React.FC<{
   isOpen: boolean;
   onClose: () => void;
 }> = ({ isOpen, onClose, data }) => {
-  console.log(data.error, data.isLoading, data.data);
   return (
     <>
       <Drawer isOpen={isOpen} placement='left' onClose={onClose}>

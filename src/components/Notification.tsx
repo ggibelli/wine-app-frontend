@@ -33,9 +33,6 @@ export const Notification: React.FC = () => {
         onClose();
       }, 10000);
     }
-    // return () => {
-    //   clearTimeout(timeoutId.current);
-    // };
   }, [isVisible, data?.notification?.message]);
 
   if (!isVisible || error) {
@@ -46,6 +43,7 @@ export const Notification: React.FC = () => {
       <AlertIcon />
       <AlertDescription>{data?.notification?.message}</AlertDescription>
       <CloseButton
+        data-testid='close-notification-test'
         position='absolute'
         right='8px'
         top='8px'

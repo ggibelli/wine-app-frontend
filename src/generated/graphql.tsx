@@ -187,6 +187,7 @@ export type Query = {
   notification?: Maybe<Notification>;
   review?: Maybe<Review>;
   reviews?: Maybe<Array<Review>>;
+  searchedWine?: Maybe<WineSearched>;
   user?: Maybe<User>;
   users?: Maybe<Array<User>>;
   vineyard?: Maybe<Vineyard>;
@@ -822,6 +823,17 @@ export enum AlertStatus {
   Error = 'error',
 }
 
+export type WineSearched = {
+  __typename?: 'WineSearched';
+  typeAd?: Maybe<TypeAd>;
+  typeProduct?: Maybe<TypeProduct>;
+  wineName?: Maybe<Scalars['String']>;
+  harvest?: Maybe<Scalars['Int']>;
+  abv?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  liters?: Maybe<Scalars['Int']>;
+};
+
 export type Notification = {
   __typename?: 'Notification';
   type?: AlertStatus;
@@ -913,6 +925,99 @@ export type NotificationQueryVariables = Exact<{ [key: string]: never }>;
 export type NotificationQuery = { __typename?: 'Query' } & {
   notification?: Maybe<
     { __typename?: 'Notification' } & Pick<Notification, 'type' | 'message'>
+  >;
+};
+
+export type WineSearchedQueryVariables = Exact<{ [key: string]: never }>;
+
+export type WineSearchedQuery = { __typename?: 'Query' } & {
+  searchedWine?: Maybe<
+    { __typename?: 'WineSearched' } & Pick<
+      WineSearched,
+      | 'typeAd'
+      | 'typeProduct'
+      | 'wineName'
+      | 'harvest'
+      | 'abv'
+      | 'price'
+      | 'liters'
+    >
+  >;
+};
+
+export type AdsWineQueryVariables = Exact<{
+  typeAd: TypeAd;
+  typeProduct: TypeProduct;
+  wineName?: Maybe<Scalars['String']>;
+  skip?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+}>;
+
+export type AdsWineQuery = { __typename?: 'Query' } & {
+  ads?: Maybe<
+    Array<
+      Maybe<
+        | ({ __typename?: 'AdWine' } & Pick<
+            AdWine,
+            | 'wineName'
+            | 'litersFrom'
+            | 'litersTo'
+            | '_id'
+            | 'harvest'
+            | 'abv'
+            | 'priceFrom'
+            | 'priceTo'
+            | 'activeNegotiations'
+            | 'datePosted'
+          > & {
+              postedBy: { __typename?: 'User' } & Pick<
+                User,
+                '_id' | 'firstName' | 'lastName'
+              >;
+              address: { __typename?: 'Address' } & Pick<
+                Address,
+                'regione' | 'provincia'
+              >;
+            })
+        | ({ __typename?: 'AdGrape' } & Pick<
+            AdGrape,
+            | '_id'
+            | 'harvest'
+            | 'abv'
+            | 'priceFrom'
+            | 'priceTo'
+            | 'activeNegotiations'
+            | 'datePosted'
+          > & {
+              postedBy: { __typename?: 'User' } & Pick<
+                User,
+                '_id' | 'firstName' | 'lastName'
+              >;
+              address: { __typename?: 'Address' } & Pick<
+                Address,
+                'regione' | 'provincia'
+              >;
+            })
+      >
+    >
+  >;
+};
+
+export type WinesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type WinesQuery = { __typename?: 'Query' } & {
+  wines?: Maybe<
+    Array<
+      { __typename?: 'Wine' } & Pick<
+        Wine,
+        | '_id'
+        | 'denominazioneVino'
+        | 'espressioneComunitaria'
+        | 'denominazioneZona'
+        | 'regione'
+      >
+    >
   >;
 };
 
@@ -1200,4 +1305,199 @@ export type NotificationLazyQueryHookResult = ReturnType<
 export type NotificationQueryResult = Apollo.QueryResult<
   NotificationQuery,
   NotificationQueryVariables
+>;
+export const WineSearchedDocument = gql`
+  query WineSearched {
+    searchedWine @client {
+      typeAd @client
+      typeProduct @client
+      wineName @client
+      harvest @client
+      abv @client
+      price @client
+      liters @client
+    }
+  }
+`;
+
+/**
+ * __useWineSearchedQuery__
+ *
+ * To run a query within a React component, call `useWineSearchedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWineSearchedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWineSearchedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useWineSearchedQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    WineSearchedQuery,
+    WineSearchedQueryVariables
+  >
+) {
+  return Apollo.useQuery<WineSearchedQuery, WineSearchedQueryVariables>(
+    WineSearchedDocument,
+    baseOptions
+  );
+}
+export function useWineSearchedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    WineSearchedQuery,
+    WineSearchedQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<WineSearchedQuery, WineSearchedQueryVariables>(
+    WineSearchedDocument,
+    baseOptions
+  );
+}
+export type WineSearchedQueryHookResult = ReturnType<
+  typeof useWineSearchedQuery
+>;
+export type WineSearchedLazyQueryHookResult = ReturnType<
+  typeof useWineSearchedLazyQuery
+>;
+export type WineSearchedQueryResult = Apollo.QueryResult<
+  WineSearchedQuery,
+  WineSearchedQueryVariables
+>;
+export const AdsWineDocument = gql`
+  query AdsWine(
+    $typeAd: TypeAd!
+    $typeProduct: TypeProduct!
+    $wineName: String
+    $skip: Int
+    $orderBy: QueryOrderBy
+    $limit: Int
+  ) {
+    ads(
+      typeAd: $typeAd
+      typeProduct: $typeProduct
+      wineName: $wineName
+      skip: $skip
+      orderBy: $orderBy
+      limit: $limit
+    ) {
+      _id
+      postedBy {
+        _id
+        firstName
+        lastName
+      }
+      harvest
+      abv
+      priceFrom
+      priceTo
+      ... on AdWine {
+        wineName
+        litersFrom
+        litersTo
+      }
+      address {
+        regione
+        provincia
+      }
+      activeNegotiations
+      datePosted
+    }
+  }
+`;
+
+/**
+ * __useAdsWineQuery__
+ *
+ * To run a query within a React component, call `useAdsWineQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdsWineQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdsWineQuery({
+ *   variables: {
+ *      typeAd: // value for 'typeAd'
+ *      typeProduct: // value for 'typeProduct'
+ *      wineName: // value for 'wineName'
+ *      skip: // value for 'skip'
+ *      orderBy: // value for 'orderBy'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useAdsWineQuery(
+  baseOptions: Apollo.QueryHookOptions<AdsWineQuery, AdsWineQueryVariables>
+) {
+  return Apollo.useQuery<AdsWineQuery, AdsWineQueryVariables>(
+    AdsWineDocument,
+    baseOptions
+  );
+}
+export function useAdsWineLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AdsWineQuery, AdsWineQueryVariables>
+) {
+  return Apollo.useLazyQuery<AdsWineQuery, AdsWineQueryVariables>(
+    AdsWineDocument,
+    baseOptions
+  );
+}
+export type AdsWineQueryHookResult = ReturnType<typeof useAdsWineQuery>;
+export type AdsWineLazyQueryHookResult = ReturnType<typeof useAdsWineLazyQuery>;
+export type AdsWineQueryResult = Apollo.QueryResult<
+  AdsWineQuery,
+  AdsWineQueryVariables
+>;
+export const WinesDocument = gql`
+  query Wines {
+    wines {
+      _id
+      denominazioneVino
+      espressioneComunitaria
+      denominazioneZona
+      regione
+    }
+  }
+`;
+
+/**
+ * __useWinesQuery__
+ *
+ * To run a query within a React component, call `useWinesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWinesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWinesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useWinesQuery(
+  baseOptions?: Apollo.QueryHookOptions<WinesQuery, WinesQueryVariables>
+) {
+  return Apollo.useQuery<WinesQuery, WinesQueryVariables>(
+    WinesDocument,
+    baseOptions
+  );
+}
+export function useWinesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<WinesQuery, WinesQueryVariables>
+) {
+  return Apollo.useLazyQuery<WinesQuery, WinesQueryVariables>(
+    WinesDocument,
+    baseOptions
+  );
+}
+export type WinesQueryHookResult = ReturnType<typeof useWinesQuery>;
+export type WinesLazyQueryHookResult = ReturnType<typeof useWinesLazyQuery>;
+export type WinesQueryResult = Apollo.QueryResult<
+  WinesQuery,
+  WinesQueryVariables
 >;

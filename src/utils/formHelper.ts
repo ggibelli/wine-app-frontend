@@ -31,7 +31,7 @@ export const validationSchema = Yup.object({
     ),
   pIva: Yup.string()
     .required('Required')
-    .test('Partita ', 'Il numero di telefono non e valido', (value) => {
+    .test('Partita ', 'La partita iva non e valida', (value) => {
       if (!value) return false;
       return isPivaValid(value);
     }),

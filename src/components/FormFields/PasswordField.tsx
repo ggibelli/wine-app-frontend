@@ -24,7 +24,7 @@ export const PasswordField: React.FC<{ name: string }> = ({ name }) => {
         <Input
           {...field}
           name={name}
-          data-testid='password'
+          data-testid={name}
           aria-label='password'
           pr='4.5rem'
           type={show ? 'text' : 'password'}
