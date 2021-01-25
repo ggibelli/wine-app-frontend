@@ -3,14 +3,18 @@ import { Field, useField } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-interface Option {
-  value: string;
-  label: string;
-  firstLetter?: string;
+interface Wine {
+  denominazioneVino: string;
+  regione: [string];
 }
 
-export const ComboboxField: React.FC<{
-  items: Array<Option>;
+interface WineCombobox {
+  denominazioneVino: string;
+  regione: string;
+}
+
+export const Combobox: React.FC<{
+  items: Wine[];
   label: string;
   name: string;
   setFieldValue: (name: string, value: string) => void;
@@ -19,15 +23,26 @@ export const ComboboxField: React.FC<{
   const [_, { error, touched }] = useField({
     name: name,
   });
+  const options = items.map((option) => {
+    const regione = option.regione[0];
+    const { denominazioneVino } = option;
+    return {
+      regione,
+      denominazioneVino,
+    };
+  });
 
   return (
     <Autocomplete
-      data-testid={name}
-      options={items}
-      getOptionLabel={(item: Option) => item.label}
+      data-testid='combobox-wines'
+      options={options.sort(
+        (a, b) => -b.denominazioneVino.localeCompare(a.denominazioneVino)
+      )}
+      groupBy={(option: WineCombobox) => option.regione[0]}
+      getOptionLabel={(option: WineCombobox) => option.denominazioneVino}
       style={{ width: 300 }}
       onChange={(e, option) => {
-        setFieldValue('address.regione', option?.value as string);
+        setFieldValue(name, option?.denominazioneVino as string);
       }}
       renderInput={(params) => (
         <Field
@@ -35,7 +50,7 @@ export const ComboboxField: React.FC<{
           {...params}
           label={label}
           variant='outlined'
-          error={error !== undefined}
+          error={touched && error !== undefined}
           helperText={error}
           inputProps={{
             ...params.inputProps,

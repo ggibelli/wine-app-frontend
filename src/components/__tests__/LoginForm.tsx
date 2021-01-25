@@ -22,14 +22,14 @@ describe('Login form', () => {
 
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
-    const { getByText } = renderApollo(<LoginForm onSubmit={onSubmit} />);
+    const { getAllByText } = renderApollo(<LoginForm onSubmit={onSubmit} />);
 
     fireEvent.input(screen.getByRole('textbox', { name: /email/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('password'), {
+    fireEvent.change(screen.getByTestId('password'), {
       target: {
         value: '',
       },
@@ -37,8 +37,7 @@ describe('Login form', () => {
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
       expect(onSubmit).toBeCalledTimes(0);
-      expect(getByText('Required')).toBeVisible();
-      expect(getByText('Required')).toBeVisible();
+      expect(getAllByText('Required')).toHaveLength(2);
     });
   });
 

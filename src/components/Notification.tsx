@@ -1,10 +1,6 @@
 import { useApolloClient } from '@apollo/client';
-import {
-  Alert,
-  AlertIcon,
-  AlertDescription,
-  CloseButton,
-} from '@chakra-ui/react';
+import Alert from '@material-ui/lab/Alert';
+
 import * as React from 'react';
 import { notification } from '../cache';
 import { useNotificationQuery } from '../generated/graphql';
@@ -39,16 +35,8 @@ export const Notification: React.FC = () => {
     return null;
   }
   return (
-    <Alert status={data?.notification?.type}>
-      <AlertIcon />
-      <AlertDescription>{data?.notification?.message}</AlertDescription>
-      <CloseButton
-        data-testid='close-notification-test'
-        position='absolute'
-        right='8px'
-        top='8px'
-        onClick={onClose}
-      />
+    <Alert severity={data?.notification?.type} onClose={onClose}>
+      {data?.notification?.message}
     </Alert>
   );
 };

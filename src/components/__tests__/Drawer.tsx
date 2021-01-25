@@ -1,4 +1,4 @@
-import { DrawerLeft } from '../Drawer';
+import { Drawer } from '../Navigation/Drawer';
 import * as React from 'react';
 import { renderApollo, cleanup } from '../../test-utils';
 
@@ -19,7 +19,7 @@ describe('Drawer', () => {
   it('renders drawer', () => {
     renderApollo(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      <DrawerLeft isOpen={true} onClose={() => {}} data={mockUser} />
+      <Drawer state={true} toggleDrawer={() => {}} />
     );
   });
 });

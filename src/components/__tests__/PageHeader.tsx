@@ -1,4 +1,4 @@
-import { Header } from '../PageHeader';
+import { HeaderBar } from '../Navigation/AppBar';
 import * as React from 'react';
 import { renderApollo, cleanup, fireEvent } from '../../test-utils';
 import { act, screen, waitFor } from '@testing-library/react';
@@ -14,7 +14,7 @@ describe('PageHeader', () => {
     const mocks: any[] = [];
     const { getByText, queryByText } = renderApollo(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      <Header />,
+      <HeaderBar />,
       { mocks, addTypename: false }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -51,7 +51,7 @@ describe('PageHeader', () => {
     ];
     const { getByText } = renderApollo(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      <Header />,
+      <HeaderBar />,
       { mocks, cache, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -62,7 +62,7 @@ describe('PageHeader', () => {
       fireEvent.click(loginButton);
     });
     userEvent.type(screen.getByLabelText(/email/i), 'jhon.dee@someemail.com');
-    userEvent.type(screen.getByLabelText(/password/i), 'giovanni');
+    userEvent.type(screen.getByTestId('password'), 'giovanni');
     userEvent.click(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
       expect(isLoggedInVar()).toBeTruthy();

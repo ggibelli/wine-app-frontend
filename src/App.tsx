@@ -1,32 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Grid,
-  //theme,
-  extendTheme,
-} from '@chakra-ui/react';
+
+import { ThemeProvider } from '@material-ui/core/styles';
+
 //import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Pages } from './pages';
 //import { Login } from './pages/Login';
 //
-const colors = {
-  brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac',
-  },
-};
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
+import purple from '@material-ui/core/colors/purple';
 
-const theme = extendTheme({ colors });
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: '#f44336',
+    },
+  },
+});
 
 export const App: React.FC = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign='center' fontSize='xl'>
-      <Grid minH='100vh' p={3}>
-        <Pages />
-      </Grid>
-    </Box>
-  </ChakraProvider>
+  <ThemeProvider theme={theme}>
+    <Pages />
+  </ThemeProvider>
 );

@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { useField } from 'formik';
-import {
-  FormErrorMessage,
-  FormLabel,
-  FormControl,
-  Input,
-  Button,
-  InputGroup,
-  InputRightElement,
-} from '@chakra-ui/react';
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 export const PasswordField: React.FC<{ name: string }> = ({ name }) => {
   const [show, setShow] = React.useState<boolean>(false);
@@ -17,31 +16,32 @@ export const PasswordField: React.FC<{ name: string }> = ({ name }) => {
     name: name,
     type: show ? 'text' : 'password',
   });
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
   return (
-    <FormControl isInvalid={error !== undefined && touched}>
-      <FormLabel htmlFor='password'>Password</FormLabel>
-      <InputGroup size='md'>
-        <Input
-          {...field}
-          name={name}
-          data-testid={name}
-          aria-label='password'
-          pr='4.5rem'
-          type={show ? 'text' : 'password'}
-          placeholder='Enter password'
-        />
-        <InputRightElement width='4.5rem'>
-          <Button
-            h='1.75rem'
-            size='sm'
-            onClick={handleClick}
-            data-testid='submit'
-          >
-            {show ? 'Hide' : 'Show'}
-          </Button>
-        </InputRightElement>
-      </InputGroup>
-      <FormErrorMessage>{error}</FormErrorMessage>
+    <FormControl error={touched && error !== undefined}>
+      <InputLabel htmlFor='standard-adornment-password'>Password</InputLabel>
+      <Input
+        //data-testid={name}
+        {...field}
+        inputProps={{ 'aria-label': name, 'data-testid': name }}
+        type={show ? 'text' : 'password'}
+        endAdornment={
+          <InputAdornment position='end'>
+            <IconButton
+              aria-label='toggle password visibility'
+              onClick={handleClick}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {show ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+      <FormHelperText>{error}</FormHelperText>
     </FormControl>
   );
 };

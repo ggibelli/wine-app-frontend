@@ -48,7 +48,7 @@ describe('Notification', () => {
     expect(notification()).toBeTruthy();
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     //expect(notification()).toBeTruthy();
-    fireEvent.click(screen.getByTestId('close-notification-test'));
+    fireEvent.click(screen.getByRole('button', { name: /close/i }));
     await waitFor(() => {
       expect(notification()).toBeFalsy();
     });

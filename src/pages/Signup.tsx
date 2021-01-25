@@ -27,9 +27,10 @@ export const SignUp: React.FC<RouteComponentProps> = () => {
         void navigate('/');
       }
       if (createUser?.errors?.length) {
+        const errorMessages = createUser.errors.map((error) => error?.text);
         notification({
           type: 'error',
-          message: 'errore',
+          message: errorMessages.toString(),
         });
       }
     },

@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { isLoggedInVar } from '../cache';
+import { isLoggedInVar } from '../../cache';
 import { useApolloClient } from '@apollo/client';
-import { Button } from '@chakra-ui/react';
+import Button from '@material-ui/core/Button';
 export const LogoutButton: React.FC = () => {
   const client = useApolloClient();
   return (
     <Button
+      variant='contained'
       data-testid='logout-button'
       onClick={() => {
         // Since we're logging out, remove all traces of the current user

@@ -6,8 +6,8 @@ import {
   fireEvent,
   screen,
   waitFor,
+  within,
 } from '../../test-utils';
-import { Regioni } from '../../generated/graphql';
 
 describe('User form', () => {
   // automatically unmount and cleanup DOM after the test is finished.
@@ -32,15 +32,15 @@ describe('User form', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /via/ })).toBeInTheDocument();
     expect(
-      screen.getByRole('combobox', { name: /address.comune/ })
+      screen.getByRole('textbox', { name: /comune/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('combobox', { name: /provincia/ })
+      screen.getByRole('textbox', { name: /provincia/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('combobox', { name: /address.regione/ })
+      screen.getByRole('textbox', { name: /regione/i })
     ).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: /CAP/ })).toBeInTheDocument();
+    expect(screen.getByRole('spinbutton', { name: /CAP/ })).toBeInTheDocument();
     expect(screen.getByTestId('password')).toBeInTheDocument();
     expect(screen.getByTestId('hideContact')).toBeInTheDocument();
     expect(screen.getByTestId('rePassword')).toBeInTheDocument();
@@ -50,12 +50,12 @@ describe('User form', () => {
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
     const { getAllByText } = renderApollo(<UserForm onSubmit={onSubmit} />);
-    fireEvent.input(screen.getByTestId('email'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /email/ }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('reEmail'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /reemail/i }), {
       target: {
         value: '',
       },
@@ -70,47 +70,47 @@ describe('User form', () => {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('firstName'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /firstname/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('lastName'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /lastname/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('address.via'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /via/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('address.comune'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /comune/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('address.provincia'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /provincia/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('address.regione'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /regione/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('address.CAP'), {
+    fireEvent.input(screen.getByRole('spinbutton', { name: /cap/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('pIva'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /piva/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.input(screen.getByTestId('phoneNumber'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /phonenumber/i }), {
       target: {
         value: '',
       },
@@ -131,69 +131,69 @@ describe('User form', () => {
     const onSubmit = jest.fn();
     const { getByText } = renderApollo(<UserForm onSubmit={onSubmit} />);
 
-    fireEvent.input(screen.getByTestId('email'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /email/ }), {
       target: {
-        value: 'ciaociao',
+        value: 'gioprova.it',
       },
     });
-    fireEvent.input(screen.getByTestId('reEmail'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /reemail/i }), {
       target: {
-        value: 'provaprova@prova.it',
+        value: 'gio@2.it',
       },
     });
     fireEvent.input(screen.getByTestId('password'), {
       target: {
-        value: 'ciao123',
+        value: 'gioVa',
       },
     });
     fireEvent.input(screen.getByTestId('rePassword'), {
       target: {
-        value: 'ciao123',
+        value: '21!234',
       },
     });
-    fireEvent.input(screen.getByTestId('firstName'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /firstname/i }), {
       target: {
-        value: 'giovanni',
+        value: 'proprova',
       },
     });
-    fireEvent.input(screen.getByTestId('lastName'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /lastname/i }), {
       target: {
-        value: 'prova',
+        value: 'aprov',
       },
     });
-    fireEvent.input(screen.getByTestId('address.via'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /via/i }), {
       target: {
-        value: 'via della prova 123',
+        value: 'via della prova 1',
       },
     });
-    fireEvent.input(screen.getByTestId('address.comune'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /comune/i }), {
       target: {
         value: 'Canelli',
       },
     });
-    fireEvent.input(screen.getByTestId('address.provincia'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /provincia/i }), {
       target: {
-        value: 'AT',
+        value: 'At',
       },
     });
-    fireEvent.input(screen.getByTestId('address.regione'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /regione/i }), {
       target: {
         value: 'Piemonte',
       },
     });
-    fireEvent.input(screen.getByTestId('address.CAP'), {
+    fireEvent.input(screen.getByRole('spinbutton', { name: /cap/i }), {
       target: {
-        value: '111111',
+        value: '122',
       },
     });
-    fireEvent.input(screen.getByTestId('pIva'), {
+    fireEvent.change(screen.getByRole('textbox', { name: /piva/i }), {
       target: {
-        value: '1234567890',
+        value: '123456789',
       },
     });
-    fireEvent.input(screen.getByTestId('phoneNumber'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /phonenumber/i }), {
       target: {
-        value: '1111111111',
+        value: '1234223',
       },
     });
     fireEvent.change(screen.getByTestId('hideContact'), {
@@ -201,6 +201,7 @@ describe('User form', () => {
         checked: true,
       },
     });
+
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
       expect(onSubmit).toBeCalledTimes(0);
@@ -208,82 +209,101 @@ describe('User form', () => {
       expect(getByText('Email does not match')).toBeVisible();
       expect(getByText('Password not safe')).toBeVisible();
       expect(getByText('Il numero di telefono non e valido')).toBeVisible();
-      expect(getByText('La partita iva non e valida')).toBeVisible();
+      expect(getByText(/La partita iva /i)).toBeVisible();
       expect(getByText('Must be exactly 5 characters')).toBeVisible();
     });
-  });
+  }, 10000);
 
-  it.only('should validate form fields and submit if fields are valid', async () => {
+  it('should validate form fields and submit if fields are valid', async () => {
     const onSubmit = jest.fn();
-    renderApollo(<UserForm onSubmit={onSubmit} />);
+    const { getByTestId } = renderApollo(<UserForm onSubmit={onSubmit} />);
 
-    fireEvent.input(screen.getByTestId('email'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /email/ }), {
       target: {
-        value: 'prova@prova.it',
+        value: 'gio@prova.it',
       },
     });
-    fireEvent.input(screen.getByTestId('reEmail'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /reemail/i }), {
       target: {
-        value: 'prova@prova.it',
+        value: 'gio@prova.it',
       },
     });
     fireEvent.input(screen.getByTestId('password'), {
       target: {
-        value: 'Ciao!!ciao123',
+        value: 'gioVann!234',
       },
     });
     fireEvent.input(screen.getByTestId('rePassword'), {
       target: {
-        value: 'Ciao!!ciao123',
+        value: 'gioVann!234',
       },
     });
-    fireEvent.input(screen.getByTestId('firstName'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /firstname/i }), {
       target: {
-        value: 'giovanni',
+        value: 'proprova',
       },
     });
-    fireEvent.input(screen.getByTestId('lastName'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /lastname/i }), {
       target: {
-        value: 'prova',
+        value: 'aprov',
       },
     });
-    fireEvent.input(screen.getByTestId('address.via'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /via/i }), {
       target: {
-        value: 'via della prova 123',
+        value: 'via della prova 1',
       },
     });
-    fireEvent.change(screen.getByTestId('address.regione'), {
-      target: {
-        value: Regioni.Piemonte,
-      },
+    const comboboxRegioni = getByTestId('address.regione');
+    const input = within(comboboxRegioni).getByRole('textbox');
+    comboboxRegioni.focus();
+    fireEvent.change(input, { target: { value: 'a' } });
+    await waitFor(() => {
+      //const input = within(combobox).querySelector('input');
+
+      fireEvent.keyDown(comboboxRegioni, { key: 'ArrowDown' });
     });
     await waitFor(() => {
-      fireEvent.change(screen.getByTestId('address.provincia'), {
-        target: {
-          value: 'AT',
-        },
-      });
+      fireEvent.keyDown(comboboxRegioni, { key: 'Enter' });
+    });
+
+    const comboboxProvince = getByTestId('combobox-province');
+    const inputProvince = within(comboboxProvince).getByRole('textbox');
+    comboboxProvince.focus();
+    fireEvent.change(inputProvince, { target: { value: 'a' } });
+    await waitFor(() => {
+      //const input = within(combobox).querySelector('input');
+
+      fireEvent.keyDown(comboboxProvince, { key: 'ArrowDown' });
     });
     await waitFor(() => {
-      fireEvent.change(screen.getByTestId('address.comune'), {
-        target: {
-          value: 'Canelli',
-        },
-      });
+      fireEvent.keyDown(comboboxProvince, { key: 'Enter' });
     });
-    fireEvent.input(screen.getByTestId('address.CAP'), {
+
+    const comboboxComuni = getByTestId('combobox-comuni');
+    const inputComuni = within(comboboxComuni).getByRole('textbox');
+    comboboxProvince.focus();
+    fireEvent.change(inputComuni, { target: { value: 'a' } });
+    await waitFor(() => {
+      //const input = within(combobox).querySelector('input');
+
+      fireEvent.keyDown(comboboxComuni, { key: 'ArrowDown' });
+    });
+    await waitFor(() => {
+      fireEvent.keyDown(comboboxComuni, { key: 'Enter' });
+    });
+    fireEvent.input(screen.getByRole('spinbutton', { name: /cap/i }), {
       target: {
-        value: '12345',
+        value: '12245',
       },
     });
-    fireEvent.input(screen.getByTestId('pIva'), {
+    fireEvent.change(screen.getByRole('textbox', { name: /piva/i }), {
       target: {
-        value: '63477230385',
+        value: '26264321204',
       },
     });
-    fireEvent.input(screen.getByTestId('phoneNumber'), {
+    fireEvent.input(screen.getByRole('textbox', { name: /phonenumber/i }), {
       target: {
-        value: '3477984716',
+        value: '3201234567',
       },
     });
     fireEvent.change(screen.getByTestId('hideContact'), {
@@ -295,5 +315,5 @@ describe('User form', () => {
     await waitFor(() => {
       expect(onSubmit).toBeCalledTimes(1);
     });
-  });
+  }, 10000);
 });

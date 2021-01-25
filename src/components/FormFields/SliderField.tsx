@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { useField } from 'formik';
-import {
-  FormErrorMessage,
-  FormLabel,
-  FormControl,
-  Switch,
-} from '@chakra-ui/react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 
 interface Props {
   name: string;
@@ -17,15 +15,12 @@ export const SliderField: React.FC<Props> = (props) => {
     name: props.name,
   });
   return (
-    <FormControl
-      //data-testid={props.name}
-      display='flex'
-      alignItems='center'
-      isInvalid={error !== undefined && touched}
-    >
-      <FormLabel htmlFor={props.label}>{props.label}</FormLabel>
-      <Switch {...field} data-testid={props.name} />
-      <FormErrorMessage>{error}</FormErrorMessage>
+    <FormControl error={touched && error !== undefined}>
+      <FormControlLabel
+        control={<Switch data-testid={props.name} {...field} />}
+        label={props.label}
+      />
+      <FormHelperText>{error}</FormHelperText>
     </FormControl>
   );
 };

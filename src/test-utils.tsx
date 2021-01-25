@@ -1,12 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { ChakraProvider, theme } from '@chakra-ui/react';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
 import '@testing-library/jest-dom/extend-expect';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { purple } from '@material-ui/core/colors';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: '#f44336',
+    },
+  },
+});
 
 const AllProviders = ({ children }: { children?: React.ReactNode }) => (
-  <ChakraProvider theme={theme}>{children}</ChakraProvider>
+  <ThemeProvider theme={theme}>{children}</ThemeProvider>
 );
 
 const customRender = (ui: React.ReactElement, options?: RenderOptions) =>

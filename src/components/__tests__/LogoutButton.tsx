@@ -1,4 +1,4 @@
-import { LogoutButton } from '../LogoutButton';
+import { LogoutButton } from '../Navigation/LogoutButton';
 import * as React from 'react';
 import { renderApollo, cleanup, fireEvent } from '../../test-utils';
 import { cache, isLoggedInVar } from '../../cache';

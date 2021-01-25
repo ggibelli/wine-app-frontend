@@ -11,10 +11,10 @@ describe('LoginModal', () => {
     const onSubmit = jest.fn();
     const { getByText, getByRole } = renderApollo(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      <LoginModal isOpen={true} onClose={handleClose} onSubmit={onSubmit} />
+      <LoginModal open={true} handleClose={handleClose} onSubmit={onSubmit} />
     );
     expect(getByText('Password')).toBeTruthy();
-    fireEvent.click(getByRole('button', { name: /close/i }));
+    fireEvent.click(getByRole('button', { name: /cancel/i }));
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
 });
