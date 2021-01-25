@@ -157,6 +157,7 @@ export const UserForm: React.FC<{
                 <TextField
                   name='address.CAP'
                   type='number'
+                  max='99999'
                   label='CAP'
                   placeholder='CAP'
                 />

@@ -45,6 +45,9 @@ interface Props {
   placeholder: string;
   label: string;
   type: string;
+  min?: string;
+  max?: string;
+  step?: string;
 }
 export const TextField: React.FC<Props> = (props) => {
   const [field, { error, touched }] = useField({
@@ -55,7 +58,12 @@ export const TextField: React.FC<Props> = (props) => {
     <TextFieldMaterial
       {...field}
       type={props.type}
-      inputProps={{ 'aria-label': props.name }}
+      inputProps={{
+        'aria-label': props.name,
+        min: props.min,
+        max: props.max,
+        step: props.step,
+      }}
       error={error !== undefined && touched}
       data-testid={props.name}
       placeholder={props.placeholder}

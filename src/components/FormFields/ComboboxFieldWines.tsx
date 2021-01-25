@@ -35,10 +35,11 @@ export const Combobox: React.FC<{
   return (
     <Autocomplete
       data-testid='combobox-wines'
-      options={options.sort(
-        (a, b) => -b.denominazioneVino.localeCompare(a.denominazioneVino)
-      )}
-      groupBy={(option: WineCombobox) => option.regione[0]}
+      options={options.sort((a, b) => -b.regione.localeCompare(a.regione))}
+      groupBy={(option: WineCombobox) => option.regione}
+      getOptionSelected={(option, value) =>
+        option.denominazioneVino === value.denominazioneVino
+      }
       getOptionLabel={(option: WineCombobox) => option.denominazioneVino}
       style={{ width: 300 }}
       onChange={(e, option) => {
