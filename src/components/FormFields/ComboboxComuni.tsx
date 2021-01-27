@@ -33,9 +33,9 @@ export const ComboboxComuni: React.FC<{
       getOptionSelected={(option, value) => option.value === value.value}
       disabled={items.length === 0}
       options={items}
+      fullWidth
       data-testid='combobox-comuni'
       getOptionLabel={(item: Option) => item.value}
-      style={{ width: 300 }}
       onChange={(e, option) => {
         setFieldValue(name, option?.value as string);
       }}

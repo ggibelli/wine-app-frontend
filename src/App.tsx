@@ -8,15 +8,14 @@ import { Pages } from './pages';
 //import { Login } from './pages/Login';
 //
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
-import purple from '@material-ui/core/colors/purple';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: purple[500],
+      main: '#6d1331',
     },
     secondary: {
-      main: '#f44336',
+      main: '#6c63ff',
     },
   },
 });

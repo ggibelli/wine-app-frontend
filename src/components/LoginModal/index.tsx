@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { Link } from '@reach/router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { LoginForm } from './LoginForm';
 export interface LoginData {
   email: string;
@@ -23,23 +20,13 @@ export const LoginModal: React.FC<{
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
       >
-        <DialogTitle id='form-dialog-title'>Subscribe</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <LoginForm onSubmit={onSubmit} />
+          <LoginForm onSubmit={onSubmit} onClose={handleClose} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Link to='/signup'>
-            <Button color='primary' onClick={handleClose}>
-              Sign Up
-            </Button>
-          </Link>
         </DialogActions>
       </Dialog>
     </div>

@@ -25,7 +25,7 @@ export const ComboboxField: React.FC<{
       data-testid={name}
       options={items}
       getOptionLabel={(item: Option) => item.label}
-      style={{ width: 300 }}
+      fullWidth
       onChange={(e, option) => {
         setFieldValue('address.regione', option?.value as string);
       }}

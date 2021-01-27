@@ -14,15 +14,20 @@ describe('Login form', () => {
 
   it('renders Login form', () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<LoginForm onSubmit={onSubmit} />);
+    const handleClose = jest.fn();
+    renderApollo(<LoginForm onSubmit={onSubmit} onClose={handleClose} />);
     expect(screen.getByRole('textbox', { name: /email/i })).toBeInTheDocument();
     expect(screen.getByText('Password')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /sign up/i })).toBeInTheDocument();
   });
 
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
-    const { getAllByText } = renderApollo(<LoginForm onSubmit={onSubmit} />);
+    const handleClose = jest.fn();
+    const { getAllByText } = renderApollo(
+      <LoginForm onSubmit={onSubmit} onClose={handleClose} />
+    );
 
     fireEvent.input(screen.getByRole('textbox', { name: /email/i }), {
       target: {
@@ -43,7 +48,8 @@ describe('Login form', () => {
 
   it('should validate form fields and submit', async () => {
     const onSubmit = jest.fn();
-    renderApollo(<LoginForm onSubmit={onSubmit} />);
+    const handleClose = jest.fn();
+    renderApollo(<LoginForm onSubmit={onSubmit} onClose={handleClose} />);
 
     fireEvent.input(screen.getByRole('textbox', { name: /email/i }), {
       target: {
@@ -65,5 +71,13 @@ describe('Login form', () => {
         expect.anything()
       );
     });
+  });
+
+  it('it should close modal if click to link', () => {
+    const onSubmit = () => jest.fn();
+    const handleClose = jest.fn();
+    renderApollo(<LoginForm onSubmit={onSubmit} onClose={handleClose} />);
+    fireEvent.click(screen.getByRole('link', { name: /sign up/i }));
+    expect(handleClose).toHaveBeenCalledTimes(1);
   });
 });

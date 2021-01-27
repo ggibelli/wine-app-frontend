@@ -1,35 +1,49 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Form, Formik } from 'formik';
 import * as React from 'react';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-
 import { TextField } from '../FormFields/TextField';
 import { PasswordField } from '../FormFields/PasswordField';
 import * as Yup from 'yup';
+import Avatar from '@material-ui/core/Avatar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import LinkMUI from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import { Link } from '@reach/router';
 
 export interface LoginData {
   email: string;
   password: string;
 }
 
-export const LoginForm: React.FC<{ onSubmit: (values: LoginData) => void }> = ({
-  onSubmit,
-}) => {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const initialValues = { password: '', email: '' };
-  // const validate = (values: LoginData) => {
-  //   const errors: { [field: string]: string } = {};
-  //   if (!values.email) {
-  //     errors.email = 'Email is required';
-  //   }
-  //   if (!values.password) {
-  //     errors.password = 'Password is required';
-  //   }
-  //   return errors;
-  // };
+const useStyles = makeStyles((theme: Theme) => ({
+  paper: {
+    marginTop: theme.spacing(0),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
+export const LoginForm: React.FC<{
+  onSubmit: (values: LoginData) => void;
+  onClose: () => void;
+}> = ({ onSubmit, onClose }) => {
+  const initialValues = { password: '', email: '' };
   return (
     <Formik
       onSubmit={onSubmit}
@@ -38,32 +52,59 @@ export const LoginForm: React.FC<{ onSubmit: (values: LoginData) => void }> = ({
         email: Yup.string().email('Invalid email address').required('Required'),
         password: Yup.string().required('Required'),
       })}
-      //validate={validate}
     >
       {({ isValid, dirty }) => {
+        const classes = useStyles();
         return (
-          <Form>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
+          <Container component='main' maxWidth='xs'>
+            <CssBaseline />
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component='h1' variant='h5'>
+                Sign in
+              </Typography>
+              <Form className={classes.form}>
                 <TextField
                   name='email'
                   type='email'
                   label='Email'
                   placeholder='Email address'
                 />
-              </Grid>
-              <Grid item xs={12}>
+
                 <PasswordField name='password' />
-              </Grid>
-            </Grid>
-            <Button
-              //isLoading={isValidating || isSubmitting}
-              type='submit'
-              disabled={!dirty || !isValid}
-            >
-              Submit
-            </Button>
-          </Form>
+                <Button
+                  //isLoading={isValidating || isSubmitting}
+                  type='submit'
+                  disabled={!dirty || !isValid}
+                  fullWidth
+                  variant='contained'
+                  color='primary'
+                  className={classes.submit}
+                >
+                  Submit
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <LinkMUI href='#' variant='body2'>
+                      Forgot password?
+                    </LinkMUI>
+                  </Grid>
+                  <Grid item>
+                    <LinkMUI
+                      component={Link}
+                      to='/signup'
+                      variant='body2'
+                      onClick={onClose}
+                    >
+                      {"Don't have an account? Sign Up"}
+                    </LinkMUI>
+                  </Grid>
+                </Grid>
+              </Form>
+            </div>
+          </Container>
         );
       }}
     </Formik>

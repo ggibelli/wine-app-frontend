@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { useField } from 'formik';
 import TextFieldMaterial from '@material-ui/core/TextField';
+import { InputAdornment } from '@material-ui/core';
 
 interface Props {
   name: string;
   placeholder: string;
   label: string;
   type: string;
+  adornment: string;
   min?: string;
   max?: string;
   step?: string;
 }
-export const TextField: React.FC<Props> = (props) => {
+export const TextFieldAdornment: React.FC<Props> = (props) => {
   const [field, { error, touched }] = useField({
     name: props.name,
     type: props.type,
@@ -26,6 +28,11 @@ export const TextField: React.FC<Props> = (props) => {
         min: props.min,
         max: props.max,
         step: props.step,
+      }}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position='end'>{props.adornment}</InputAdornment>
+        ),
       }}
       error={error !== undefined && touched}
       data-testid={props.name}

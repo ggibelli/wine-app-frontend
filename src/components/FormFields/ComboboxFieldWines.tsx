@@ -41,7 +41,7 @@ export const Combobox: React.FC<{
         option.denominazioneVino === value.denominazioneVino
       }
       getOptionLabel={(option: WineCombobox) => option.denominazioneVino}
-      style={{ width: 300 }}
+      fullWidth
       onChange={(e, option) => {
         setFieldValue(name, option?.denominazioneVino as string);
       }}

@@ -35,7 +35,7 @@ export const ComboboxProvince: React.FC<{
       disabled={items.length === 0}
       options={items}
       getOptionLabel={(item: Option) => item.value}
-      style={{ width: 300 }}
+      fullWidth
       onChange={(e, option) => {
         setFieldValue(name, option?.value as string);
       }}

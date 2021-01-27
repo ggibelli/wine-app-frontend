@@ -22,10 +22,9 @@ export const PasswordField: React.FC<{ name: string }> = ({ name }) => {
     event.preventDefault();
   };
   return (
-    <FormControl error={touched && error !== undefined}>
+    <FormControl error={touched && error !== undefined} fullWidth>
       <InputLabel htmlFor='standard-adornment-password'>Password</InputLabel>
       <Input
-        //data-testid={name}
         {...field}
         inputProps={{ 'aria-label': name, 'data-testid': name }}
         type={show ? 'text' : 'password'}

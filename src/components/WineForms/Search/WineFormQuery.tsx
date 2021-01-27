@@ -1,11 +1,32 @@
 import { Form, Formik } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { TextFieldAdornment } from '../../FormFields/TextFieldAdornment';
 import { TextField } from '../../FormFields/TextField';
 import { Combobox } from '../../FormFields/ComboboxFieldWines';
 import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import { useWinesQuery } from '../../../generated/graphql';
 //import { searchAndPostParameters } from '../../../cache';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  paper: {
+    marginTop: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(4),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 export interface WineFormQuery {
   wineName: string;
@@ -67,60 +88,79 @@ export const WineFormQuery: React.FC<{
       })}
       onSubmit={onSubmit}
     >
-      {({ isValid, dirty, values, setFieldValue }) => {
-        console.log(values, isValid);
+      {({ isValid, dirty, setFieldValue }) => {
+        const classes = useStyles();
         return (
-          <Form>
-            <Combobox
-              name='wineName'
-              label='Vino'
-              items={wineOptions as Wine[]}
-              setFieldValue={setFieldValue}
-            />
-            <TextField
-              name='harvest'
-              type='number'
-              label='Vendemmia'
-              min='1900'
-              max={`${year}`}
-              step='1'
-              placeholder='Vendemmia anno'
-            />
-            <TextField
-              name='abv'
-              type='number'
-              label='Gradazione alcolica'
-              min='0'
-              max='22'
-              step='0.5'
-              placeholder='Esempio 13.5 vol'
-            />
-            <TextField
-              name='price'
-              type='number'
-              label='Prezzo massimo al litro'
-              min='0'
-              max='100'
-              step='0.5'
-              placeholder='Esempio 3.5 euro'
-            />
-            <TextField
-              name='liters'
-              type='number'
-              label='Litri richiesti'
-              min='0'
-              max='999999'
-              step='1'
-              placeholder='Esempio 1000 litri'
-            />
-            <Button
-              //isLoading={isValidating || isSubmitting}
-              type='submit'
-              disabled={!dirty || !isValid}
-            >
-              Submit
-            </Button>
-          </Form>
+          <Container component='main' maxWidth='xs'>
+            <CssBaseline />
+            <div className={classes.paper}>
+              <Typography component='h1' variant='h4'>
+                Che cosa vuoi comprare?
+              </Typography>
+              <Typography component='p'>
+                Inserisci i dati del prodotto che desideri comprare, noi
+                cercheremo per te il giusto venditore.
+              </Typography>
+              <Form className={classes.form}>
+                <Typography component='h3' variant='h5'>
+                  Dati prodotto
+                </Typography>
+                <Combobox
+                  name='wineName'
+                  label='Vino'
+                  items={wineOptions as Wine[]}
+                  setFieldValue={setFieldValue}
+                />
+                <TextField
+                  name='harvest'
+                  type='number'
+                  label='Vendemmia'
+                  min='1900'
+                  max={`${year}`}
+                  step='1'
+                  placeholder='Vendemmia anno'
+                />
+                <TextFieldAdornment
+                  name='abv'
+                  type='number'
+                  label='Gradazione alcolica'
+                  min='0'
+                  max='22'
+                  step='0.5'
+                  placeholder='Esempio 13.5 vol'
+                  adornment='%'
+                />
+                <TextFieldAdornment
+                  name='price'
+                  type='number'
+                  label='Prezzo massimo al litro'
+                  min='0'
+                  max='100'
+                  step='0.5'
+                  placeholder='Esempio 3.5 euro'
+                  adornment='€'
+                />
+                <TextFieldAdornment
+                  name='liters'
+                  type='number'
+                  label='Litri richiesti'
+                  min='0'
+                  max='999999'
+                  step='1'
+                  placeholder='Esempio 1000 litri'
+                  adornment='l'
+                />
+
+                <Button
+                  //isLoading={isValidating || isSubmitting}
+                  type='submit'
+                  disabled={!dirty || !isValid}
+                >
+                  Submit
+                </Button>
+              </Form>
+            </div>
+          </Container>
         );
       }}
     </Formik>
