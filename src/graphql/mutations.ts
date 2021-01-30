@@ -35,3 +35,23 @@ export const SIGNUP = gql`
     }
   }
 `;
+
+export const CREATE_ADWINE = gql`
+  mutation CreateAdWine($input: AdInput!) {
+    createAd(input: $input) {
+      response {
+        _id
+        content
+        typeProduct
+        typeAd
+        ... on AdWine {
+          wineName
+        }
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;

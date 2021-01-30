@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import * as React from 'react';
 import { TextField } from '../FormFields/TextField';
 import { PasswordField } from '../FormFields/PasswordField';
-import { optionsRegioni } from './data';
+// import { optionsRegioni } from './data';
 import { validationSchema } from '../../utils/formHelper';
 import { SliderField } from '../FormFields/SliderField';
 import Button from '@material-ui/core/Button';
@@ -14,9 +14,10 @@ import LinkMUI from '@material-ui/core/Link';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { ComboboxField } from '../FormFields/ComboboxField';
-import { ComboboxProvince } from '../FormFields/ComboboxProvince';
-import { ComboboxComuni } from '../FormFields/ComboboxComuni';
+// import { ComboboxField } from '../FormFields/ComboboxField';
+// import { ComboboxProvince } from '../FormFields/ComboboxProvince';
+// import { ComboboxComuni } from '../FormFields/ComboboxComuni';
+import { AddressForm } from '../AddressForm';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -157,7 +158,8 @@ export const UserForm: React.FC<{
                       placeholder='Numero di telefono'
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <AddressForm setFieldValue={setFieldValue} />
+                  {/* <Grid item xs={12}>
                     <ComboboxField
                       setFieldValue={setFieldValue}
                       name='address.regione'
@@ -195,7 +197,7 @@ export const UserForm: React.FC<{
                       label='CAP'
                       placeholder='CAP'
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid item xs={12}>
                     <SliderField
                       name='hideContact'

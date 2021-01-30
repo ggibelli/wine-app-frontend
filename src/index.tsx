@@ -33,6 +33,7 @@ export const typeDefs = gql`
     abv: Float
     price: Float
     liters: Int
+    isPost: Boolean
   }
 
   type Notification {

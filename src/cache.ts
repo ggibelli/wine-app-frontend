@@ -45,6 +45,7 @@ interface WineSearched {
   abv: number;
   price: number;
   liters: number;
+  isPost: boolean;
 }
 
 export const searchedWine = makeVar<WineSearched | undefined>(undefined);

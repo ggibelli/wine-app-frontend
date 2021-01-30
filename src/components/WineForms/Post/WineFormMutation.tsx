@@ -9,8 +9,15 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { useWinesQuery } from '../../../generated/graphql';
-//import { searchAndPostParameters } from '../../../cache';
+import {
+  Menzione,
+  MetodoProduttivo,
+  useWinesQuery,
+} from '../../../generated/graphql';
+import { SelectField } from '../../FormFields/SelectField';
+import { SliderField } from '../../FormFields/SliderField';
+import { searchedWine } from '../../../cache';
+import { AddressForm } from '../../AddressForm';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -28,29 +35,43 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export interface WineFormQuery {
+interface AddressInputForm {
+  via: string;
+  comune: string;
+  provincia: string;
+  regione: string;
+  CAP: string;
+}
+
+const initialAddress: AddressInputForm = {
+  via: '',
+  comune: '',
+  provincia: '',
+  regione: '',
+  CAP: '12345',
+};
+
+export interface WineFormMutation {
   wineName: string;
-  harvest?: number | '';
-  abv?: number | '';
-  price?: number | '';
-  liters?: number | '';
+  harvest: number | '';
+  abv: number | '';
+  price: number | '';
+  liters: number | '';
+  sottoZona?: string;
+  menzione?: Menzione | '';
+  content: string;
+  metodoProduttivo?: MetodoProduttivo | '';
+  needsFollowUp: boolean;
+  isSameAddress: boolean;
+  address?: AddressInputForm;
 }
 interface Wine {
   denominazioneVino: string;
   regione: [string];
 }
 
-const initialValues: WineFormQuery = {
-  wineName: '',
-  harvest: 2015,
-  abv: 13.5,
-  price: 1,
-  liters: 100,
-};
-// trovare modo di differenziare se e post o ricerca per il submit, probabilmente aggiungo un campo chiamato ricerca_o_post, grstione on submit nel file Buy/Sell
-// quando la query locale e undefined faccio la ricerca, se ha contenuto faccio post e svuoto la cache
-export const WineFormQuery: React.FC<{
-  onSubmit: (values: WineFormQuery) => void;
+export const WineFormMutation: React.FC<{
+  onSubmit: (values: WineFormMutation) => void;
 }> = ({ onSubmit }) => {
   const { data, loading, error } = useWinesQuery();
   const wineOptions = data?.wines
@@ -61,9 +82,23 @@ export const WineFormQuery: React.FC<{
     : null;
   const today = new Date();
   const year = today.getFullYear();
+  const searchedWineCache = searchedWine();
+  const initialValues: WineFormMutation = {
+    wineName: searchedWineCache?.wineName as string,
+    harvest: searchedWineCache?.harvest as number,
+    abv: searchedWineCache?.abv as number,
+    price: searchedWineCache?.price as number,
+    liters: searchedWineCache?.liters as number,
+    sottoZona: '',
+    menzione: '',
+    metodoProduttivo: '',
+    content: '',
+    needsFollowUp: false,
+    isSameAddress: false,
+    address: initialAddress,
+  };
   if (loading) return <div>loading...</div>;
   if (error) return <div>Error...{error.message}</div>;
-  //const queryRicercaFatta = queryLocale;
   return (
     <Formik
       initialValues={initialValues}
@@ -85,6 +120,26 @@ export const WineFormQuery: React.FC<{
         liters: Yup.number()
           .positive('La quantità deve essere positiva')
           .required('Required'),
+        sottoZona: Yup.string(),
+        menzione: Yup.string(),
+        metodoProduttivo: Yup.string(),
+        content: Yup.string().required('Required'),
+        needsFollowUp: Yup.bool().required('Required'),
+        isSameAddress: Yup.bool().required('Required'),
+        address: Yup.object().shape({
+          via: Yup.string(),
+          CAP: Yup.number().test(
+            'len',
+            'Must be exactly 5 characters',
+            (value) => {
+              if (!value) return false;
+              return value.toString().length === 5;
+            }
+          ),
+          comune: Yup.string(),
+          provincia: Yup.string(),
+          regione: Yup.string(),
+        }),
       })}
       onSubmit={onSubmit}
     >
@@ -98,8 +153,7 @@ export const WineFormQuery: React.FC<{
                 Che cosa vuoi comprare?
               </Typography>
               <Typography component='p'>
-                Inserisci i dati del prodotto che desideri comprare, noi
-                cercheremo per te il giusto venditore.
+                Inserisci i dati dell annuncio che vuoi pubblicare
               </Typography>
               <Form className={classes.form}>
                 <Typography component='h3' variant='h5'>
@@ -108,6 +162,7 @@ export const WineFormQuery: React.FC<{
                 <Combobox
                   name='wineName'
                   label='Vino'
+                  defaultWine={initialValues.wineName}
                   items={wineOptions as Wine[]}
                   setFieldValue={setFieldValue}
                 />
@@ -133,7 +188,7 @@ export const WineFormQuery: React.FC<{
                 <TextFieldAdornment
                   name='price'
                   type='number'
-                  label='Prezzo massimo al litro'
+                  label='Prezzo richiesto al litro'
                   min='0'
                   max='100'
                   step='0.1'
@@ -150,7 +205,38 @@ export const WineFormQuery: React.FC<{
                   placeholder='Esempio 1000 litri'
                   adornment='l'
                 />
-
+                <SelectField
+                  name='menzione'
+                  label='Menzione del vino'
+                  options={Object.values(Menzione)}
+                />
+                <SelectField
+                  name='metodoProduttivo'
+                  label='Metodo produttivo del vino'
+                  options={Object.values(MetodoProduttivo)}
+                />
+                <TextField
+                  name='sottoZona'
+                  type='text'
+                  label='Sotto zona del vino'
+                  placeholder='Sotto zona del vino'
+                />
+                <TextField
+                  name='content'
+                  type='text'
+                  multiline={true}
+                  label='Descrizione'
+                  placeholder='Vino veramente buono'
+                />
+                <SliderField
+                  name='needsFollowUp'
+                  label='Aggiornami se nuovi annunci pertinenti'
+                />
+                <SliderField
+                  name='isSameAddress'
+                  label='Indirizzo uguale a quello usato in registrazione'
+                />
+                <AddressForm setFieldValue={setFieldValue} />
                 <Button
                   //isLoading={isValidating || isSubmitting}
                   type='submit'

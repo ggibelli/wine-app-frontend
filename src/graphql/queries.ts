@@ -5,6 +5,14 @@ export const ME = gql`
     me {
       _id
       firstName
+      lastName
+      address {
+        regione
+        provincia
+        comune
+        via
+        CAP
+      }
       email
       ads {
         _id
@@ -55,6 +63,7 @@ export const WINE_SEARCHED = gql`
       abv @client
       price @client
       liters @client
+      isPost @client
     }
   }
 `;

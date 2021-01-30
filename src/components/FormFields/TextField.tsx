@@ -10,6 +10,7 @@ interface Props {
   min?: string;
   max?: string;
   step?: string;
+  multiline?: boolean;
 }
 export const TextField: React.FC<Props> = (props) => {
   const [field, { error, touched }] = useField({
@@ -20,6 +21,7 @@ export const TextField: React.FC<Props> = (props) => {
     <TextFieldMaterial
       {...field}
       fullWidth
+      multiline={props.multiline}
       type={props.type}
       inputProps={{
         'aria-label': props.name,

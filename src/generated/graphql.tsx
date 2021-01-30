@@ -832,6 +832,7 @@ export type WineSearched = {
   abv?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   liters?: Maybe<Scalars['Int']>;
+  isPost?: Maybe<Scalars['Boolean']>;
 };
 
 export type Notification = {
@@ -879,11 +880,42 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type CreateAdWineMutationVariables = Exact<{
+  input: AdInput;
+}>;
+
+export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
+  createAd?: Maybe<
+    { __typename?: 'AdPayload' } & {
+      response?: Maybe<
+        | ({ __typename?: 'AdWine' } & Pick<
+            AdWine,
+            'wineName' | '_id' | 'content' | 'typeProduct' | 'typeAd'
+          >)
+        | ({ __typename?: 'AdGrape' } & Pick<
+            AdGrape,
+            '_id' | 'content' | 'typeProduct' | 'typeAd'
+          >)
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
-    { __typename?: 'User' } & Pick<User, '_id' | 'firstName' | 'email'> & {
+    { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName' | 'email'
+    > & {
+        address: { __typename?: 'Address' } & Pick<
+          Address,
+          'regione' | 'provincia' | 'comune' | 'via' | 'CAP'
+        >;
         ads?: Maybe<
           Array<
             | ({ __typename?: 'AdWine' } & Pick<
@@ -941,6 +973,7 @@ export type WineSearchedQuery = { __typename?: 'Query' } & {
       | 'abv'
       | 'price'
       | 'liters'
+      | 'isPost'
     >
   >;
 };
@@ -1136,11 +1169,79 @@ export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
   CreateUserMutation,
   CreateUserMutationVariables
 >;
+export const CreateAdWineDocument = gql`
+  mutation CreateAdWine($input: AdInput!) {
+    createAd(input: $input) {
+      response {
+        _id
+        content
+        typeProduct
+        typeAd
+        ... on AdWine {
+          wineName
+        }
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+export type CreateAdWineMutationFn = Apollo.MutationFunction<
+  CreateAdWineMutation,
+  CreateAdWineMutationVariables
+>;
+
+/**
+ * __useCreateAdWineMutation__
+ *
+ * To run a mutation, you first call `useCreateAdWineMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAdWineMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAdWineMutation, { data, loading, error }] = useCreateAdWineMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAdWineMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAdWineMutation,
+    CreateAdWineMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateAdWineMutation,
+    CreateAdWineMutationVariables
+  >(CreateAdWineDocument, baseOptions);
+}
+export type CreateAdWineMutationHookResult = ReturnType<
+  typeof useCreateAdWineMutation
+>;
+export type CreateAdWineMutationResult = Apollo.MutationResult<CreateAdWineMutation>;
+export type CreateAdWineMutationOptions = Apollo.BaseMutationOptions<
+  CreateAdWineMutation,
+  CreateAdWineMutationVariables
+>;
 export const MeDocument = gql`
   query me {
     me {
       _id
       firstName
+      lastName
+      address {
+        regione
+        provincia
+        comune
+        via
+        CAP
+      }
       email
       ads {
         _id
@@ -1316,6 +1417,7 @@ export const WineSearchedDocument = gql`
       abv @client
       price @client
       liters @client
+      isPost @client
     }
   }
 `;

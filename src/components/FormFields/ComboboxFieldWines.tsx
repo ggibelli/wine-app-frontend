@@ -17,8 +17,9 @@ export const Combobox: React.FC<{
   items: Wine[];
   label: string;
   name: string;
+  defaultWine?: string;
   setFieldValue: (name: string, value: string) => void;
-}> = ({ items, label, name, setFieldValue }) => {
+}> = ({ items, label, name, setFieldValue, defaultWine }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, { error, touched }] = useField({
     name: name,
@@ -39,6 +40,9 @@ export const Combobox: React.FC<{
       groupBy={(option: WineCombobox) => option.regione}
       getOptionSelected={(option, value) =>
         option.denominazioneVino === value.denominazioneVino
+      }
+      defaultValue={
+        defaultWine ? { regione: '', denominazioneVino: defaultWine } : null
       }
       getOptionLabel={(option: WineCombobox) => option.denominazioneVino}
       fullWidth

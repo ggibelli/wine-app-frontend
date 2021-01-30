@@ -4,19 +4,12 @@ import * as React from 'react';
 
 import { navigate, RouteComponentProps } from '@reach/router';
 // import { WineFormQuery } from './WineForms/Search/WineFormQuery';
-import {
-  TypeAd,
-  TypeProduct,
-  useAdsWineLazyQuery,
-  useWineSearchedQuery,
-} from '../generated/graphql';
-
-const NoResults = () => (
-  <div>Non abbiamo trovato nulla, vuoi creare un annuncio?</div>
-);
+import { useAdsWineLazyQuery } from '../generated/graphql';
+import { searchedWine } from '../cache';
 
 export const Results: React.FC<RouteComponentProps> = () => {
-  const { data, loading, error } = useWineSearchedQuery();
+  //const { data, loading, error } = useWineSearchedQuery();
+  const searchedWineCache = searchedWine();
   const [queryDone, setQueryDone] = React.useState<boolean>(false);
   const [lazyAdsWine, result] = useAdsWineLazyQuery({
     onError: (error) => console.log(error),
@@ -26,19 +19,35 @@ export const Results: React.FC<RouteComponentProps> = () => {
     },
   });
   React.useEffect(() => {
-    if (!error && !loading && data?.searchedWine?.wineName) {
+    if (searchedWineCache) {
       lazyAdsWine({
         variables: {
-          wineName: data?.searchedWine?.wineName,
-          typeProduct: data?.searchedWine?.typeProduct as TypeProduct,
-          typeAd: data?.searchedWine?.typeAd as TypeAd,
+          wineName: searchedWineCache?.wineName,
+          typeProduct: searchedWineCache?.typeProduct,
+          typeAd: searchedWineCache?.typeAd,
         },
       });
-    } else if (error || !data?.searchedWine?.wineName) {
+    } else {
       void navigate('/');
     }
-  }, [data]);
+  }, []);
+  const onClick = async () => {
+    if (searchedWineCache === undefined) {
+      return;
+    } else {
+      searchedWine({
+        ...searchedWineCache,
+        isPost: true,
+      });
+      await navigate('/buy');
+    }
+  };
 
+  const NoResults = () => (
+    <div onClick={onClick}>
+      Non abbiamo trovato nulla, vuoi creare un annuncio?
+    </div>
+  );
   if (queryDone && result?.data?.ads?.length === 0) {
     return <NoResults />;
   }
