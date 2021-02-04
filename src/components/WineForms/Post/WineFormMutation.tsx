@@ -18,6 +18,7 @@ import { SelectField } from '../../FormFields/SelectField';
 import { SliderField } from '../../FormFields/SliderField';
 import { searchedWine } from '../../../cache';
 import { AddressForm } from '../../AddressForm';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -80,6 +81,7 @@ export const WineFormMutation: React.FC<{
         regione: wine.regione,
       }))
     : null;
+  const classes = useStyles();
   const today = new Date();
   const year = today.getFullYear();
   const searchedWineCache = searchedWine();
@@ -97,7 +99,34 @@ export const WineFormMutation: React.FC<{
     isSameAddress: false,
     address: initialAddress,
   };
-  if (loading) return <div>loading...</div>;
+  if (loading) {
+    return (
+      <div className={classes.paper} data-testid='loading'>
+        <Skeleton variant='rect' width={'40em'} height={70} />
+        <br />
+        <Skeleton variant='rect' width={'40em'} height={30} />
+        <Skeleton variant='rect' width={'40em'} height={30} />
+        <Skeleton
+          className={classes.form}
+          variant='rect'
+          width={'40em'}
+          height={30}
+        />
+        <Skeleton
+          className={classes.form}
+          variant='rect'
+          width={'40em'}
+          height={30}
+        />
+        <Skeleton
+          className={classes.form}
+          variant='rect'
+          width={'40em'}
+          height={30}
+        />
+      </div>
+    );
+  }
   if (error) return <div>Error...{error.message}</div>;
   return (
     <Formik
@@ -144,7 +173,6 @@ export const WineFormMutation: React.FC<{
       onSubmit={onSubmit}
     >
       {({ isValid, dirty, setFieldValue }) => {
-        const classes = useStyles();
         return (
           <Container component='main' maxWidth='xs'>
             <CssBaseline />

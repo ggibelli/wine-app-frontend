@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useField } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
+//import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -18,12 +18,18 @@ export const SelectField: React.FC<Props> = (props) => {
   });
   return (
     <FormControl fullWidth error={error !== undefined && touched}>
-      <InputLabel id='select-label'>{props.label}</InputLabel>
-      <Select labelId='select-label' id='simple-select' {...field}>
+      <InputLabel htmlFor={`select-label-${props.name}`}>
+        {props.label}
+      </InputLabel>
+      <Select
+        native
+        inputProps={{ id: `select-label-${props.name}`, name: field.name }}
+        {...field}
+      >
         {props.options.map((option) => (
-          <MenuItem key={option} value={option}>
+          <option key={option} value={option}>
             {option}
-          </MenuItem>
+          </option>
         ))}
       </Select>
       <FormHelperText>{error}</FormHelperText>

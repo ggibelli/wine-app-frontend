@@ -281,7 +281,7 @@ describe('User form', () => {
 
     const comboboxComuni = getByTestId('combobox-comuni');
     const inputComuni = within(comboboxComuni).getByRole('textbox');
-    comboboxProvince.focus();
+    comboboxComuni.focus();
     fireEvent.change(inputComuni, { target: { value: 'a' } });
     await waitFor(() => {
       //const input = within(combobox).querySelector('input');

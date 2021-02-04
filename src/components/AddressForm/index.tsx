@@ -11,11 +11,11 @@ import { WineFormMutation } from '../WineForms/Post/WineFormMutation';
 export const AddressForm: React.FC<{
   setFieldValue: (
     field: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any,
     shouldValidate?: boolean | undefined
   ) => void;
 }> = ({ setFieldValue }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { values }: { values: WineFormMutation } = useFormikContext();
   if (values.isSameAddress === true) {
     return null;

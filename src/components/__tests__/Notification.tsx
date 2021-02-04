@@ -9,7 +9,7 @@ describe('Notification', () => {
   // automatically unmount and cleanup DOM after the test is finished.
   afterEach(cleanup);
 
-  it.only('renders Notification', async () => {
+  it('renders Notification', async () => {
     const mocks: any[] = [];
     renderApollo(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -20,7 +20,7 @@ describe('Notification', () => {
     expect(notification()).toBeFalsy();
   });
 
-  it.only('renders notification and close it', async () => {
+  it('renders notification and close it', async () => {
     const mocks = [
       {
         request: {

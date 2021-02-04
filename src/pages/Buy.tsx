@@ -8,7 +8,7 @@ import {
   TypeProduct,
   useMeQuery,
   useCreateAdWineMutation,
-  useWineSearchedQuery,
+  useWineSearchedLazyQuery,
   AddressInput,
 } from '../generated/graphql';
 import { searchedWine, notification } from '../cache';
@@ -18,7 +18,10 @@ import { WineFormMutation } from '../components/WineForms/Post/WineFormMutation'
 export const Buy: React.FC<RouteComponentProps> = () => {
   let sameAddress: AddressInput;
   let differentAddress: AddressInput;
-  const { data, error } = useWineSearchedQuery();
+  const [lazyWines, { data, error }] = useWineSearchedLazyQuery();
+  React.useEffect(() => {
+    lazyWines();
+  }, [lazyWines]);
   const meResult = useMeQuery({
     onError: (error) => {
       console.log(error);
@@ -28,7 +31,6 @@ export const Buy: React.FC<RouteComponentProps> = () => {
       });
     },
   });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [createAdWineMutation] = useCreateAdWineMutation({
     onError: (error) =>
       notification({
@@ -68,17 +70,6 @@ export const Buy: React.FC<RouteComponentProps> = () => {
     });
     void navigate('/results');
   };
-  // React.useEffect(() => {
-  //   if (mutationReady) {
-  //     console.log(adInput);
-  // void createAdWineMutation({
-  //   variables: {
-  //     input: adInput,
-  //   },
-  // });
-  // void navigate('/');
-  //   }
-  // }, [mutationReady]);
   const onSubmitMutation = (values: WineFormMutation) => {
     if (values.isSameAddress && meResult.data?.me?.address) {
       sameAddress = {
@@ -91,8 +82,6 @@ export const Buy: React.FC<RouteComponentProps> = () => {
     } else {
       differentAddress = values.address as AddressInput;
     }
-    //let sameAddress: Address
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const adInput: AdInput = {
       wineName: values.wineName,
       typeAd: data?.searchedWine?.typeAd as TypeAd,
@@ -116,8 +105,6 @@ export const Buy: React.FC<RouteComponentProps> = () => {
     client.cache.evict({ fieldName: 'searchedWine' });
     client.cache.gc();
     void navigate('/');
-
-    //console.log(adInput);
   };
 
   if (error || !data?.searchedWine?.isPost) {

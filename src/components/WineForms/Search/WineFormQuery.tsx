@@ -5,12 +5,12 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { TextFieldAdornment } from '../../FormFields/TextFieldAdornment';
 import { TextField } from '../../FormFields/TextField';
 import { Combobox } from '../../FormFields/ComboboxFieldWines';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useWinesQuery } from '../../../generated/graphql';
-//import { searchAndPostParameters } from '../../../cache';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -20,11 +20,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
   form: {
+    borderRadius: 16,
+    color: '#fff',
+    margin: 6,
+    padding: 6,
+    backgroundColor: '#6d1331',
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(4),
   },
   submit: {
+    backgroundColor: '#fff',
+    '&:hover': {
+      backgroundColor: 'rgb(250, 232, 241)',
+    },
+    color: '#6d1331',
     margin: theme.spacing(3, 0, 2),
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
@@ -47,11 +59,10 @@ const initialValues: WineFormQuery = {
   price: 1,
   liters: 100,
 };
-// trovare modo di differenziare se e post o ricerca per il submit, probabilmente aggiungo un campo chiamato ricerca_o_post, grstione on submit nel file Buy/Sell
-// quando la query locale e undefined faccio la ricerca, se ha contenuto faccio post e svuoto la cache
 export const WineFormQuery: React.FC<{
   onSubmit: (values: WineFormQuery) => void;
 }> = ({ onSubmit }) => {
+  const classes = useStyles();
   const { data, loading, error } = useWinesQuery();
   const wineOptions = data?.wines
     ? data?.wines.map((wine) => ({
@@ -61,9 +72,35 @@ export const WineFormQuery: React.FC<{
     : null;
   const today = new Date();
   const year = today.getFullYear();
-  if (loading) return <div>loading...</div>;
+  if (loading) {
+    return (
+      <div className={classes.paper} data-testid='loading'>
+        <Skeleton variant='rect' width={'40em'} height={70} />
+        <br />
+        <Skeleton variant='rect' width={'40em'} height={30} />
+        <Skeleton variant='rect' width={'40em'} height={30} />
+        <Skeleton
+          className={classes.form}
+          variant='rect'
+          width={'40em'}
+          height={30}
+        />
+        <Skeleton
+          className={classes.form}
+          variant='rect'
+          width={'40em'}
+          height={30}
+        />
+        <Skeleton
+          className={classes.form}
+          variant='rect'
+          width={'40em'}
+          height={30}
+        />
+      </div>
+    );
+  }
   if (error) return <div>Error...{error.message}</div>;
-  //const queryRicercaFatta = queryLocale;
   return (
     <Formik
       initialValues={initialValues}
@@ -89,7 +126,6 @@ export const WineFormQuery: React.FC<{
       onSubmit={onSubmit}
     >
       {({ isValid, dirty, setFieldValue }) => {
-        const classes = useStyles();
         return (
           <Container component='main' maxWidth='xs'>
             <CssBaseline />
@@ -105,6 +141,7 @@ export const WineFormQuery: React.FC<{
                 <Typography component='h3' variant='h5'>
                   Dati prodotto
                 </Typography>
+                <br />
                 <Combobox
                   name='wineName'
                   label='Vino'
@@ -152,6 +189,7 @@ export const WineFormQuery: React.FC<{
                 />
 
                 <Button
+                  className={classes.submit}
                   //isLoading={isValidating || isSubmitting}
                   type='submit'
                   disabled={!dirty || !isValid}
