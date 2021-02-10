@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   form: {
     borderRadius: 16,
+
     color: '#fff',
     margin: 6,
     padding: 6,
@@ -130,10 +131,10 @@ export const WineFormQuery: React.FC<{
           <Container component='main' maxWidth='xs'>
             <CssBaseline />
             <div className={classes.paper}>
-              <Typography component='h1' variant='h4'>
+              <Typography component='h1' variant='h4' color='primary'>
                 Che cosa vuoi comprare?
               </Typography>
-              <Typography component='p'>
+              <Typography component='p' color='primary'>
                 Inserisci i dati del prodotto che desideri comprare, noi
                 cercheremo per te il giusto venditore.
               </Typography>

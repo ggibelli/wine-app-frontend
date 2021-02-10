@@ -23,10 +23,41 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'flex-start',
   },
 }));
+
+interface IFilters {
+  [key: string]: (value: any) => boolean;
+}
+
+interface IArray {
+  [key: string]: any;
+}
+
+// function taken from https://gist.github.com/jherax/f11d669ba286f21b7a2dcff69621eb72
+function multiFilter(array: Array<IArray>, filters: IFilters): Array<IArray> {
+  const filterKeys = Object.keys(filters);
+  return array.filter((item) => {
+    // validates all filter criteria
+    return filterKeys.every((key) => {
+      // ignores non-function predicates
+      if (typeof filters[key] !== 'function') return true;
+      return filters[key](item[key]);
+    });
+  });
+}
+
 export const Results: React.FC<RouteComponentProps> = () => {
   const searchedWineCache = searchedWine();
   const [showFilter, setShowFilter] = React.useState<boolean>(false);
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [filterAds, setFilterAds] = React.useState<IFilters>({
+    priceTo: (priceTo: number) =>
+      priceTo <= (searchedWineCache?.price as number),
+    abv: (abv: number) => abv === (searchedWineCache?.abv as number),
+    harvest: (harvest: number) =>
+      harvest === (searchedWineCache?.harvest as number),
+    litersTo: (litersTo: number) =>
+      litersTo >= (searchedWineCache?.liters as number),
+  });
   const [queryDone, setQueryDone] = React.useState<boolean>(false);
   const [lazyAdsWine, result] = useAdsWineLazyQuery({
     onError: (error) => console.log(error),
@@ -35,13 +66,56 @@ export const Results: React.FC<RouteComponentProps> = () => {
       setQueryDone(true);
     },
   });
+  const allAds = queryDone ? result.data?.ads : null;
+
+  const [ads, setAds] = React.useState<Ad[]>([]);
+  //const [showAll, setShowAll] = React.useState<boolean>(false);
+
+  const handleShowAll = () => {
+    setFilterAds({
+      priceTo: () => true,
+      harvest: () => true,
+      abv: () => true,
+      litersTo: () => true,
+    });
+  };
+
+  const handleFilterPrice = () =>
+    setFilterAds({
+      ...filterAds,
+      priceTo: (price) => (searchedWineCache?.price as number) >= price,
+    });
+  const handleFilterHarvest = () =>
+    setFilterAds({
+      ...filterAds,
+      harvest: (harvest) => (searchedWineCache?.harvest as number) === harvest,
+    });
+  const handleFilterAbv = () =>
+    setFilterAds({
+      ...filterAds,
+      abv: (abv) => (searchedWineCache?.abv as number) === abv,
+    });
+  const handleFilterLiters = () =>
+    setFilterAds({
+      ...filterAds,
+      litersTo: (liters) => (searchedWineCache?.liters as number) <= liters,
+    });
+
+  React.useEffect(() => {
+    if (allAds && queryDone) {
+      const ads = multiFilter(allAds as Ad[], filterAds) as Ad[];
+      setAds(ads);
+    }
+  }, [filterAds, queryDone]);
+
   React.useEffect(() => {
     if (searchedWineCache) {
       lazyAdsWine({
         variables: {
           wineName: searchedWineCache?.wineName,
           typeProduct: searchedWineCache?.typeProduct,
-          typeAd: searchedWineCache?.typeAd,
+          typeAd:
+            searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
         },
       });
     } else {
@@ -67,11 +141,10 @@ export const Results: React.FC<RouteComponentProps> = () => {
       Non abbiamo trovato nulla, vuoi creare un annuncio?
     </div>
   );
-  if (queryDone && result?.data?.ads?.length === 0) {
+  if (queryDone && allAds?.length === 0) {
     return <NoResults />;
   }
-  if (queryDone && result?.data?.ads?.length !== 0) {
-    const ads = result?.data?.ads as Ad[];
+  if (queryDone && ads && allAds?.length !== 0) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -135,7 +208,11 @@ export const Results: React.FC<RouteComponentProps> = () => {
             Filtri
           </Button>
           <Collapse in={showFilter}>
-            <div>Prezzo - Gradazione - Distanza - Mostra tutto</div>
+            <span onClick={handleFilterPrice}>Prezzo</span>{' '}
+            <span onClick={handleFilterAbv}>Gradazione </span>
+            <span onClick={handleFilterHarvest}>Vendemmia </span>
+            <span onClick={handleFilterLiters}>Litri</span>
+            <div onClick={handleShowAll}>mostra tutto</div>
           </Collapse>
           <br />
           {ads.map((ad) => (

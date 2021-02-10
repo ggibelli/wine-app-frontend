@@ -66,7 +66,7 @@ export const HeaderBar: React.FC = () => {
     }
   }, [loggedUser.data?.isLoggedIn]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [lazyQuery, _result] = useMeLazyQuery();
+  const [lazyQuery, result] = useMeLazyQuery();
   const [loginMutation] = useLoginMutation({
     onError: (error) =>
       notification({
@@ -96,15 +96,15 @@ export const HeaderBar: React.FC = () => {
     },
   });
 
-  // const drawerData = {
-  //   isLoading: result.loading,
-  //   error: result.error,
-  //   data: {
-  //     numAds: result.data?.me?.ads?.length,
-  //     numNegs: result.data?.me?.negotiations?.length,
-  //     name: result.data?.me?.firstName,
-  //   },
-  // };
+  const drawerData = {
+    isLoading: result.loading,
+    error: result.error,
+    data: {
+      numAds: result.data?.me?.ads?.length,
+      numNegs: result.data?.me?.negotiations?.length,
+      name: result.data?.me?.firstName,
+    },
+  };
 
   const SigninButton = () => {
     if (loggedUser.data?.isLoggedIn) {
@@ -129,7 +129,7 @@ export const HeaderBar: React.FC = () => {
       <AppBar position='static'>
         <Toolbar>
           {loggedUser.data?.isLoggedIn ? MenuButton() : null}
-          <Drawer state={state} toggleDrawer={toggleDrawer} />
+          <Drawer state={state} toggleDrawer={toggleDrawer} data={drawerData} />
           <Typography variant='h6' className={classes.title}>
             LOGO
           </Typography>

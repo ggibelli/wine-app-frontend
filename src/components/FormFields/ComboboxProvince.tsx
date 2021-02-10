@@ -44,7 +44,7 @@ export const ComboboxProvince: React.FC<{
           component={TextField}
           {...params}
           label={label}
-          variant='outlined'
+          // variant='outlined'
           error={error !== undefined}
           helperText={error}
           inputProps={{

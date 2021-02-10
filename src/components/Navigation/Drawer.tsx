@@ -14,6 +14,7 @@ import Badge from '@material-ui/core/Badge';
 import StoreIcon from '@material-ui/icons/Store';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
+import { ApolloError } from '@apollo/client';
 
 const useStyles = makeStyles({
   list: {
@@ -21,10 +22,21 @@ const useStyles = makeStyles({
   },
 });
 
-export const Drawer: React.FC<{ state: boolean; toggleDrawer: () => void }> = ({
-  state,
-  toggleDrawer,
-}) => {
+interface DrawerData {
+  isLoading: boolean;
+  error?: ApolloError;
+  data?: {
+    numAds?: number;
+    numNegs?: number;
+    name?: string;
+  };
+}
+
+export const Drawer: React.FC<{
+  state: boolean;
+  toggleDrawer: () => void;
+  data: DrawerData;
+}> = ({ state, toggleDrawer, data }) => {
   const classes = useStyles();
 
   const list = () => (
@@ -34,11 +46,13 @@ export const Drawer: React.FC<{ state: boolean; toggleDrawer: () => void }> = ({
       onClick={toggleDrawer}
       onKeyDown={toggleDrawer}
     >
-      <Box component='fieldset' mb={3} borderColor='transparent'>
+      <Box component='fieldset' mb={3} pt={3} borderColor='transparent'>
         <Avatar>
           <AccountCircleIcon />
         </Avatar>
-        <Typography component='legend'>Read only</Typography>
+        <Typography color='primary' component='h1'>
+          {data.data?.name}
+        </Typography>
         <Rating name='read-only' value={5} readOnly />
       </Box>
       <Divider />
@@ -51,7 +65,7 @@ export const Drawer: React.FC<{ state: boolean; toggleDrawer: () => void }> = ({
         </ListItem>
         <ListItem button>
           <ListItemIcon>
-            <Badge badgeContent={4} color='primary'>
+            <Badge badgeContent={data.data?.numAds} color='primary'>
               <AssignmentIcon />
             </Badge>
           </ListItemIcon>
@@ -59,7 +73,7 @@ export const Drawer: React.FC<{ state: boolean; toggleDrawer: () => void }> = ({
         </ListItem>
         <ListItem button>
           <ListItemIcon>
-            <Badge badgeContent={4} color='primary'>
+            <Badge badgeContent={data.data?.numNegs} color='primary'>
               <StoreIcon />
             </Badge>
           </ListItemIcon>
