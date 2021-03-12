@@ -13,8 +13,17 @@ export const ComboboxField: React.FC<{
   items: Array<Option>;
   label: string;
   name: string;
+  labelTextColor?: string;
+  underlineColor?: string;
   setFieldValue: (name: string, value: string) => void;
-}> = ({ items, label, name, setFieldValue }) => {
+}> = ({
+  items,
+  label,
+  name,
+  setFieldValue,
+  labelTextColor,
+  underlineColor,
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, { error, touched }] = useField({
     name: name,
@@ -26,6 +35,9 @@ export const ComboboxField: React.FC<{
       options={items}
       getOptionLabel={(item: Option) => item.label}
       fullWidth
+      classes={{
+        inputRoot: underlineColor,
+      }}
       onChange={(e, option) => {
         setFieldValue('address.regione', option?.value as string);
       }}
@@ -40,6 +52,9 @@ export const ComboboxField: React.FC<{
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password',
+          }}
+          InputLabelProps={{
+            style: { color: labelTextColor },
           }}
         />
       )}

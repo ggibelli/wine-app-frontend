@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 interface Props {
   name: string;
   label: string;
+  labelColor?: string;
 }
 
 export const SliderField: React.FC<Props> = (props) => {
@@ -19,6 +20,7 @@ export const SliderField: React.FC<Props> = (props) => {
       <FormControlLabel
         control={<Switch data-testid={props.name} {...field} />}
         label={props.label}
+        style={{ color: props.labelColor }}
       />
       <FormHelperText>{error}</FormHelperText>
     </FormControl>

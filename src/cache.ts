@@ -1,10 +1,41 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
 import { TypeAd, TypeProduct } from './generated/graphql';
-
+// import { offsetLimitPagination } from '@apollo/client/utilities';
+import _ from 'lodash';
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        ads: {
+          // Don't cache separate results based on
+          // any of this field's arguments.
+          keyArgs: ['wineName', 'typeProduct', 'typeAd'],
+          // Concatenate the incoming list items with
+          // the existing list items.
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          merge(existing = [], incoming: any, { args: { skip = 0 } }) {
+            console.log(existing, incoming, skip);
+            console.log(_.unionBy(existing.ads, incoming.ads, '__ref').length);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            return {
+              __typeName: 'AdsResult',
+              ads: _.unionBy(existing.ads, incoming.ads, '__ref'),
+              pageCount: incoming.pageCount,
+            };
+          },
+          // read(existing) {
+          //   console.log(existing);
+          //   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          //   return existing;
+          // },
+        },
+        // ads: offsetLimitPagination(['wineName', 'typeProduct', 'typeAd']),
         isLoggedIn: {
           read() {
             return isLoggedInVar();

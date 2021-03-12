@@ -38,15 +38,15 @@ describe('Wine form mutation', () => {
   // automatically unmount and cleanup DOM after the test is finished.
   afterEach(cleanup);
 
-  it.only('renders Wine form mutation loading state', () => {
+  it('renders Wine form mutation loading state', () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormMutation onSubmit={onSubmit} />);
+    renderApollo(<WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />);
     expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
 
-  it.only('renders Wine form query success state, shows address field by default', async () => {
+  it('renders Wine form query success state, shows address field by default', async () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormMutation onSubmit={onSubmit} />, {
+    renderApollo(<WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />, {
       mocks,
       addTypename: true,
       resolvers: {},
@@ -104,9 +104,9 @@ describe('Wine form mutation', () => {
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
   });
 
-  it.only('renders Wine form query success state, does not show address field if same address', async () => {
+  it('renders Wine form query success state, does not show address field if same address', async () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormMutation onSubmit={onSubmit} />, {
+    renderApollo(<WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />, {
       mocks,
       addTypename: true,
       resolvers: {},
@@ -163,10 +163,10 @@ describe('Wine form mutation', () => {
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
   });
 
-  it.only('should validate form fields and not submit if fields empty', async () => {
+  it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
     const { getAllByText } = renderApollo(
-      <WineFormMutation onSubmit={onSubmit} />,
+      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -235,8 +235,18 @@ describe('Wine form mutation', () => {
 
   it('should validate form fields and not submit if fields are not valid', async () => {
     const onSubmit = jest.fn();
+    searchedWine({
+      wineName: 'Barbera',
+      abv: 13.5,
+      liters: 1000,
+      price: 3.5,
+      typeAd: TypeAd.Buy,
+      typeProduct: TypeProduct.AdWine,
+      harvest: 2012,
+      isPost: true,
+    });
     const { getByTestId, getByText } = renderApollo(
-      <WineFormMutation onSubmit={onSubmit} />,
+      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -286,7 +296,7 @@ describe('Wine form mutation', () => {
     });
   }, 10000);
 
-  it.only('should validate form fields and submit if fields are valid using cache', async () => {
+  it('should validate form fields and submit if fields are valid using cache', async () => {
     const onSubmit = jest.fn();
     searchedWine({
       wineName: 'Barbera',
@@ -299,7 +309,7 @@ describe('Wine form mutation', () => {
       isPost: true,
     });
     const { getByTestId } = renderApollo(
-      <WineFormMutation onSubmit={onSubmit} />,
+      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));

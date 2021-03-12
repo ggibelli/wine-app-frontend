@@ -11,6 +11,10 @@ interface Props {
   max?: string;
   step?: string;
   multiline?: boolean;
+  class?: string;
+  inputTextColor?: string;
+  labelTextColor?: string;
+  underlineColor?: string;
 }
 export const TextField: React.FC<Props> = (props) => {
   const [field, { error, touched }] = useField({
@@ -21,8 +25,19 @@ export const TextField: React.FC<Props> = (props) => {
     <TextFieldMaterial
       {...field}
       fullWidth
+      InputLabelProps={{
+        style: { color: props.labelTextColor },
+      }}
       multiline={props.multiline}
       type={props.type}
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      className={props.class}
+      InputProps={{
+        className: props.inputTextColor,
+        classes: {
+          underline: props.underlineColor,
+        },
+      }}
       inputProps={{
         'aria-label': props.name,
         min: props.min,

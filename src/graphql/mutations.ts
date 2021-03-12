@@ -41,12 +41,28 @@ export const CREATE_ADWINE = gql`
     createAd(input: $input) {
       response {
         _id
-        content
-        typeProduct
-        typeAd
+        postedBy {
+          _id
+          firstName
+          lastName
+        }
+
+        harvest
+        abv
+        priceFrom
+        priceTo
         ... on AdWine {
           wineName
+          litersFrom
+          litersTo
         }
+
+        address {
+          regione
+          provincia
+        }
+        activeNegotiations
+        datePosted
       }
       errors {
         name

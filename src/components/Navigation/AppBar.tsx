@@ -16,6 +16,10 @@ import { Drawer } from './Drawer';
 import { Notification } from '../Notification';
 import { LogoutButton } from './LogoutButton';
 import { LoginModal } from '../LoginModal';
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from '@reach/router';
+import Box from '@material-ui/core/Box';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -130,9 +134,18 @@ export const HeaderBar: React.FC = () => {
         <Toolbar>
           {loggedUser.data?.isLoggedIn ? MenuButton() : null}
           <Drawer state={state} toggleDrawer={toggleDrawer} data={drawerData} />
-          <Typography variant='h6' className={classes.title}>
-            LOGO
-          </Typography>
+          <Link
+            className={classes.title}
+            component={RouterLink}
+            to='/'
+            style={{ textDecoration: 'none' }}
+          >
+            <Box>
+              <Typography color='textSecondary' variant='h4'>
+                LOGO
+              </Typography>
+            </Box>
+          </Link>
           <SigninButton />
         </Toolbar>
       </AppBar>

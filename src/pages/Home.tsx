@@ -7,6 +7,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { RouteComponentProps } from '@reach/router';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
+import { searchedWine } from '../cache';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const Home: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
-
+  searchedWine(undefined);
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />

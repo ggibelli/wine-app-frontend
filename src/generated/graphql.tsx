@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -166,6 +164,12 @@ export type AdGrapeDatePostedArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
+export type AdsResult = {
+  __typename?: 'AdsResult';
+  ads?: Maybe<Array<Maybe<Ad>>>;
+  pageCount?: Maybe<Scalars['Int']>;
+};
+
 export type AdPayload = {
   __typename?: 'AdPayload';
   response?: Maybe<Ad>;
@@ -175,7 +179,7 @@ export type AdPayload = {
 export type Query = {
   __typename?: 'Query';
   ad?: Maybe<Ad>;
-  ads?: Maybe<Array<Maybe<Ad>>>;
+  ads?: Maybe<AdsResult>;
   isLoggedIn: Scalars['Boolean'];
   me?: Maybe<User>;
   message?: Maybe<Message>;
@@ -892,12 +896,45 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
       response?: Maybe<
         | ({ __typename?: 'AdWine' } & Pick<
             AdWine,
-            'wineName' | '_id' | 'content' | 'typeProduct' | 'typeAd'
-          >)
+            | 'wineName'
+            | 'litersFrom'
+            | 'litersTo'
+            | '_id'
+            | 'harvest'
+            | 'abv'
+            | 'priceFrom'
+            | 'priceTo'
+            | 'activeNegotiations'
+            | 'datePosted'
+          > & {
+              postedBy: { __typename?: 'User' } & Pick<
+                User,
+                '_id' | 'firstName' | 'lastName'
+              >;
+              address: { __typename?: 'Address' } & Pick<
+                Address,
+                'regione' | 'provincia'
+              >;
+            })
         | ({ __typename?: 'AdGrape' } & Pick<
             AdGrape,
-            '_id' | 'content' | 'typeProduct' | 'typeAd'
-          >)
+            | '_id'
+            | 'harvest'
+            | 'abv'
+            | 'priceFrom'
+            | 'priceTo'
+            | 'activeNegotiations'
+            | 'datePosted'
+          > & {
+              postedBy: { __typename?: 'User' } & Pick<
+                User,
+                '_id' | 'firstName' | 'lastName'
+              >;
+              address: { __typename?: 'Address' } & Pick<
+                Address,
+                'regione' | 'provincia'
+              >;
+            })
       >;
       errors?: Maybe<
         Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
@@ -991,51 +1028,112 @@ export type AdsWineQueryVariables = Exact<{
 
 export type AdsWineQuery = { __typename?: 'Query' } & {
   ads?: Maybe<
-    Array<
-      Maybe<
-        | ({ __typename?: 'AdWine' } & Pick<
-            AdWine,
-            | 'wineName'
-            | 'litersFrom'
-            | 'litersTo'
-            | '_id'
-            | 'harvest'
-            | 'abv'
-            | 'priceFrom'
-            | 'priceTo'
-            | 'activeNegotiations'
-            | 'datePosted'
-          > & {
-              postedBy: { __typename?: 'User' } & Pick<
-                User,
-                '_id' | 'firstName' | 'lastName'
-              >;
-              address: { __typename?: 'Address' } & Pick<
-                Address,
-                'regione' | 'provincia'
-              >;
-            })
-        | ({ __typename?: 'AdGrape' } & Pick<
-            AdGrape,
-            | '_id'
-            | 'harvest'
-            | 'abv'
-            | 'priceFrom'
-            | 'priceTo'
-            | 'activeNegotiations'
-            | 'datePosted'
-          > & {
-              postedBy: { __typename?: 'User' } & Pick<
-                User,
-                '_id' | 'firstName' | 'lastName'
-              >;
-              address: { __typename?: 'Address' } & Pick<
-                Address,
-                'regione' | 'provincia'
-              >;
-            })
-      >
-    >
+    { __typename?: 'AdsResult' } & Pick<AdsResult, 'pageCount'> & {
+        ads?: Maybe<
+          Array<
+            Maybe<
+              | ({ __typename?: 'AdWine' } & Pick<
+                  AdWine,
+                  | 'wineName'
+                  | 'litersFrom'
+                  | 'litersTo'
+                  | '_id'
+                  | 'harvest'
+                  | 'abv'
+                  | 'priceFrom'
+                  | 'priceTo'
+                  | 'activeNegotiations'
+                  | 'datePosted'
+                > & {
+                    postedBy: { __typename?: 'User' } & Pick<
+                      User,
+                      '_id' | 'firstName' | 'lastName'
+                    >;
+                    address: { __typename?: 'Address' } & Pick<
+                      Address,
+                      'regione' | 'provincia'
+                    >;
+                  })
+              | ({ __typename?: 'AdGrape' } & Pick<
+                  AdGrape,
+                  | '_id'
+                  | 'harvest'
+                  | 'abv'
+                  | 'priceFrom'
+                  | 'priceTo'
+                  | 'activeNegotiations'
+                  | 'datePosted'
+                > & {
+                    postedBy: { __typename?: 'User' } & Pick<
+                      User,
+                      '_id' | 'firstName' | 'lastName'
+                    >;
+                    address: { __typename?: 'Address' } & Pick<
+                      Address,
+                      'regione' | 'provincia'
+                    >;
+                  })
+            >
+          >
+        >;
+      }
+  >;
+};
+
+export type AdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type AdQuery = { __typename?: 'Query' } & {
+  ad?: Maybe<
+    | ({ __typename?: 'AdWine' } & Pick<
+        AdWine,
+        | 'wineName'
+        | 'litersFrom'
+        | 'litersTo'
+        | '_id'
+        | 'harvest'
+        | 'abv'
+        | 'priceFrom'
+        | 'priceTo'
+        | 'activeNegotiations'
+        | 'datePosted'
+        | 'typeAd'
+        | 'content'
+      > & {
+          wine?: Maybe<
+            { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+          >;
+          postedBy: { __typename?: 'User' } & Pick<
+            User,
+            '_id' | 'firstName' | 'lastName'
+          >;
+          address: { __typename?: 'Address' } & Pick<
+            Address,
+            'regione' | 'provincia' | 'comune' | 'via' | 'CAP'
+          >;
+        })
+    | ({ __typename?: 'AdGrape' } & Pick<
+        AdGrape,
+        | '_id'
+        | 'harvest'
+        | 'abv'
+        | 'priceFrom'
+        | 'priceTo'
+        | 'activeNegotiations'
+        | 'datePosted'
+        | 'typeAd'
+        | 'content'
+      > & {
+          postedBy: { __typename?: 'User' } & Pick<
+            User,
+            '_id' | 'firstName' | 'lastName'
+          >;
+          address: { __typename?: 'Address' } & Pick<
+            Address,
+            'regione' | 'provincia' | 'comune' | 'via' | 'CAP'
+          >;
+        })
   >;
 };
 
@@ -1176,12 +1274,26 @@ export const CreateAdWineDocument = gql`
     createAd(input: $input) {
       response {
         _id
-        content
-        typeProduct
-        typeAd
+        postedBy {
+          _id
+          firstName
+          lastName
+        }
+        harvest
+        abv
+        priceFrom
+        priceTo
         ... on AdWine {
           wineName
+          litersFrom
+          litersTo
         }
+        address {
+          regione
+          provincia
+        }
+        activeNegotiations
+        datePosted
       }
       errors {
         name
@@ -1488,27 +1600,30 @@ export const AdsWineDocument = gql`
       orderBy: $orderBy
       limit: $limit
     ) {
-      _id
-      postedBy {
+      ads {
         _id
-        firstName
-        lastName
+        postedBy {
+          _id
+          firstName
+          lastName
+        }
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+        }
+        address {
+          regione
+          provincia
+        }
+        activeNegotiations
+        datePosted
       }
-      harvest
-      abv
-      priceFrom
-      priceTo
-      ... on AdWine {
-        wineName
-        litersFrom
-        litersTo
-      }
-      address {
-        regione
-        provincia
-      }
-      activeNegotiations
-      datePosted
+      pageCount
     }
   }
 `;
@@ -1556,6 +1671,74 @@ export type AdsWineQueryResult = Apollo.QueryResult<
   AdsWineQuery,
   AdsWineQueryVariables
 >;
+export const AdDocument = gql`
+  query Ad($id: ID!) {
+    ad(id: $id) {
+      _id
+      postedBy {
+        _id
+        firstName
+        lastName
+      }
+      harvest
+      abv
+      priceFrom
+      priceTo
+      ... on AdWine {
+        wineName
+        litersFrom
+        litersTo
+        wine {
+          denominazioneZona
+        }
+      }
+      address {
+        regione
+        provincia
+        comune
+        via
+        CAP
+      }
+      activeNegotiations
+      datePosted
+      typeAd
+      content
+    }
+  }
+`;
+
+/**
+ * __useAdQuery__
+ *
+ * To run a query within a React component, call `useAdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useAdQuery(
+  baseOptions: Apollo.QueryHookOptions<AdQuery, AdQueryVariables>
+) {
+  return Apollo.useQuery<AdQuery, AdQueryVariables>(AdDocument, baseOptions);
+}
+export function useAdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<AdQuery, AdQueryVariables>
+) {
+  return Apollo.useLazyQuery<AdQuery, AdQueryVariables>(
+    AdDocument,
+    baseOptions
+  );
+}
+export type AdQueryHookResult = ReturnType<typeof useAdQuery>;
+export type AdLazyQueryHookResult = ReturnType<typeof useAdLazyQuery>;
+export type AdQueryResult = Apollo.QueryResult<AdQuery, AdQueryVariables>;
 export const WinesDocument = gql`
   query Wines {
     wines {

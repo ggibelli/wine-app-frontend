@@ -13,8 +13,10 @@ interface Option {
 export const ComboboxProvince: React.FC<{
   label: string;
   name: string;
+  labelTextColor?: string;
+  underlineColor?: string;
   setFieldValue: (name: string, value: string) => void;
-}> = ({ label, name, setFieldValue }) => {
+}> = ({ label, name, setFieldValue, labelTextColor, underlineColor }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, { error, touched }] = useField({
     name: name,
@@ -34,6 +36,9 @@ export const ComboboxProvince: React.FC<{
       getOptionSelected={(option, value) => option.value === value.value}
       disabled={items.length === 0}
       options={items}
+      classes={{
+        inputRoot: underlineColor,
+      }}
       getOptionLabel={(item: Option) => item.value}
       fullWidth
       onChange={(e, option) => {
@@ -50,6 +55,9 @@ export const ComboboxProvince: React.FC<{
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password',
+          }}
+          InputLabelProps={{
+            style: { color: labelTextColor },
           }}
         />
       )}

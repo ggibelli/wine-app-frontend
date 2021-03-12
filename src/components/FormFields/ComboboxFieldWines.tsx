@@ -28,8 +28,19 @@ export const Combobox: React.FC<{
   label: string;
   name: string;
   defaultWine?: string;
+  labelTextColor?: string;
+  underlineColor?: string;
+
   setFieldValue: (name: string, value: string) => void;
-}> = ({ items, label, name, setFieldValue, defaultWine }) => {
+}> = ({
+  items,
+  label,
+  name,
+  setFieldValue,
+  defaultWine,
+  labelTextColor,
+  underlineColor,
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, { error, touched }] = useField({
     name: name,
@@ -47,7 +58,6 @@ export const Combobox: React.FC<{
 
   return (
     <Autocomplete
-      color='secondary'
       data-testid='combobox-wines'
       options={options.sort((a, b) => -b.regione.localeCompare(a.regione))}
       groupBy={(option: WineCombobox) => option.regione}
@@ -60,6 +70,7 @@ export const Combobox: React.FC<{
       classes={{
         option: classes.option,
         groupLabel: classes.groupLabel,
+        inputRoot: underlineColor,
       }}
       getOptionLabel={(option: WineCombobox) => option.denominazioneVino}
       fullWidth
@@ -68,16 +79,17 @@ export const Combobox: React.FC<{
       }}
       renderInput={(params) => (
         <Field
-          color='secondary'
           component={TextField}
           {...params}
           label={label}
-          // variant='outlined'
           error={touched && error !== undefined}
           helperText={error}
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password',
+          }}
+          InputLabelProps={{
+            style: { color: labelTextColor },
           }}
         />
       )}

@@ -34,6 +34,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  input: {
+    color: '#6d1331',
+  },
+  underline: {
+    '&:before': {
+      borderBottom: '1px solid #6d1331',
+    },
+    '&&&&:hover:before': {
+      borderBottom: '2px solid #6d1331',
+    },
+    '&:after': {
+      borderBottom: '3px solid #6d1331',
+    },
+    disabled: {},
+    focused: {},
+    error: {},
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
@@ -71,9 +88,15 @@ export const LoginForm: React.FC<{
                   type='email'
                   label='Email'
                   placeholder='Email address'
+                  underlineColor={classes.underline}
+                  labelTextColor={'#6d1331'}
+                  inputTextColor={classes.input}
                 />
 
-                <PasswordField name='password' />
+                <PasswordField
+                  name='password'
+                  underlineColor={classes.underline}
+                />
                 <Button
                   //isLoading={isValidating || isSubmitting}
                   type='submit'

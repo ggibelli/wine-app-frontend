@@ -10,6 +10,9 @@ import { Pages } from './pages';
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: ['Montserrat'].join(','),
+  },
   palette: {
     primary: {
       main: '#6d1331',

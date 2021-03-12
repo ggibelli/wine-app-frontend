@@ -9,7 +9,7 @@ import {
   within,
   act,
 } from '../../test-utils';
-import { WinesDocument } from '../../generated/graphql';
+import { TypeAd, WinesDocument } from '../../generated/graphql';
 
 const mocks = [
   {
@@ -39,7 +39,7 @@ describe('Wine form query', () => {
 
   it('renders Wine form query loading state', () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormQuery onSubmit={onSubmit} />);
+    renderApollo(<WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />);
     expect(screen.getByTestId('loading')).toBeInTheDocument();
     // expect(
     //   screen.getByRole('textbox', { name: /gradazione/i })
@@ -55,7 +55,7 @@ describe('Wine form query', () => {
 
   it('renders Wine form query success state', async () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormQuery onSubmit={onSubmit} />, {
+    renderApollo(<WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />, {
       mocks,
       addTypename: true,
       resolvers: {},
@@ -82,7 +82,7 @@ describe('Wine form query', () => {
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
     const { getAllByText } = renderApollo(
-      <WineFormQuery onSubmit={onSubmit} />,
+      <WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -118,7 +118,7 @@ describe('Wine form query', () => {
   it('should validate form fields and not submit if fields are not valid', async () => {
     const onSubmit = jest.fn();
     const { getByTestId, getByText } = renderApollo(
-      <WineFormQuery onSubmit={onSubmit} />,
+      <WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -171,7 +171,7 @@ describe('Wine form query', () => {
   it('should validate form fields and submit if fields are valid', async () => {
     const onSubmit = jest.fn();
     const { getByTestId } = renderApollo(
-      <WineFormQuery onSubmit={onSubmit} />,
+      <WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));

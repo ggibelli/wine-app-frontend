@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from 'react';
 import { useField } from 'formik';
 import TextFieldMaterial from '@material-ui/core/TextField';
@@ -12,6 +13,10 @@ interface Props {
   min?: string;
   max?: string;
   step?: string;
+  class?: string;
+  inputTextColor?: string;
+  labelTextColor?: string;
+  underlineColor?: string;
 }
 export const TextFieldAdornment: React.FC<Props> = (props) => {
   const [field, { error, touched }] = useField({
@@ -29,10 +34,18 @@ export const TextFieldAdornment: React.FC<Props> = (props) => {
         max: props.max,
         step: props.step,
       }}
+      InputLabelProps={{
+        style: { color: props.labelTextColor },
+      }}
+      className={props.class}
       InputProps={{
         endAdornment: (
           <InputAdornment position='end'>{props.adornment}</InputAdornment>
         ),
+        className: props.inputTextColor,
+        classes: {
+          underline: props.underlineColor,
+        },
       }}
       error={error !== undefined && touched}
       data-testid={props.name}

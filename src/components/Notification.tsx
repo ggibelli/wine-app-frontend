@@ -10,7 +10,6 @@ export const Notification: React.FC = () => {
   const onClose = () => {
     notification(undefined);
     setIsVisible(false);
-    client.cache.evict({ fieldName: 'notification' });
     client.cache.gc();
   };
   const { data, loading, error } = useNotificationQuery();

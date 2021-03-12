@@ -9,6 +9,9 @@ import Select from '@material-ui/core/Select';
 interface Props {
   name: string;
   label: string;
+  labelColor: string;
+  textColor: string;
+  underlineColor: string;
   options: Array<string>;
 }
 
@@ -18,11 +21,19 @@ export const SelectField: React.FC<Props> = (props) => {
   });
   return (
     <FormControl fullWidth error={error !== undefined && touched}>
-      <InputLabel htmlFor={`select-label-${props.name}`}>
+      <InputLabel
+        style={{ color: props.labelColor }}
+        htmlFor={`select-label-${props.name}`}
+      >
         {props.label}
       </InputLabel>
       <Select
         native
+        className={props.underlineColor}
+        classes={{
+          root: props.underlineColor,
+          icon: props.textColor,
+        }}
         inputProps={{ id: `select-label-${props.name}`, name: field.name }}
         {...field}
       >

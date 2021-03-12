@@ -85,6 +85,39 @@ export const ADS_WINE = gql`
       orderBy: $orderBy
       limit: $limit
     ) {
+      ads {
+        _id
+        postedBy {
+          _id
+          firstName
+          lastName
+        }
+
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+        }
+
+        address {
+          regione
+          provincia
+        }
+        activeNegotiations
+        datePosted
+      }
+      pageCount
+    }
+  }
+`;
+
+export const AD = gql`
+  query Ad($id: ID!) {
+    ad(id: $id) {
       _id
       postedBy {
         _id
@@ -100,14 +133,22 @@ export const ADS_WINE = gql`
         wineName
         litersFrom
         litersTo
+        wine {
+          denominazioneZona
+        }
       }
 
       address {
         regione
         provincia
+        comune
+        via
+        CAP
       }
       activeNegotiations
       datePosted
+      typeAd
+      content
     }
   }
 `;

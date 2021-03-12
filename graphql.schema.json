@@ -1641,6 +1641,45 @@
       },
       {
         "kind": "OBJECT",
+        "name": "AdsResult",
+        "description": null,
+        "fields": [
+          {
+            "name": "ads",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "INTERFACE",
+                "name": "Ad",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageCount",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "AdPayload",
         "description": null,
         "fields": [
@@ -1794,13 +1833,9 @@
               }
             ],
             "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "INTERFACE",
-                "name": "Ad",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "AdsResult",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
