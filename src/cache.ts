@@ -17,8 +17,15 @@ export const cache: InMemoryCache = new InMemoryCache({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
           merge(existing = [], incoming: any, { args: { skip = 0 } }) {
-            console.log(existing, incoming, skip);
-            console.log(_.unionBy(existing.ads, incoming.ads, '__ref').length);
+            if (skip === 0) {
+              console.log('torno gli incoming solo');
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+              return {
+                __typeName: 'AdsResult',
+                ads: incoming.ads,
+                pageCount: incoming.pageCount,
+              };
+            }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return

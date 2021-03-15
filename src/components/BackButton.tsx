@@ -8,7 +8,7 @@ import { TypeAd } from '../generated/graphql';
 export const BackButton: React.FC = () => {
   const searchedWineCache = searchedWine();
   const { pathname } = useLocation();
-  if (pathname.split('/')[1] === 'annunci') {
+  if (pathname.split('/')[1] === 'annunci' && pathname.split('/')[2]) {
     return (
       <Button
         component={Link}

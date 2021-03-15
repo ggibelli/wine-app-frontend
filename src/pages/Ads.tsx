@@ -5,7 +5,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import { navigate, RouteComponentProps } from '@reach/router';
 import {
   QueryOrderBy,
@@ -13,20 +12,33 @@ import {
   useAdsWineLazyQuery,
 } from '../generated/graphql';
 import { searchedWine } from '../cache';
-import Button from '@material-ui/core/Button';
-import Collapse from '@material-ui/core/Collapse';
 import { Ad, CardWine } from '../components/CardWine';
 import { multiFilter, IFilters } from '../utils/multiFilter';
 import { BackButton } from '../components/BackButton';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
+import { Filter } from '../components/Filter';
+import { SnackbarAds } from '../components/Snackbar';
+
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  })
+);
 export const Ads: React.FC<RouteComponentProps> = () => {
+  const classes = useStyles();
+
   const [limit, setLimit] = React.useState<number>(2);
+  const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
   const [isEndAds, setIsEndAds] = React.useState<boolean>(false);
   const searchedWineCache = searchedWine();
-
-  const [showFilter, setShowFilter] = React.useState<boolean>(false);
+  const [order, setOrder] = React.useState<QueryOrderBy>(
+    QueryOrderBy.CreatedAtDesc
+  );
   const [filterAds, setFilterAds] = React.useState<IFilters>({
     priceTo: (priceTo: number) =>
       priceTo <= (searchedWineCache?.price as number),
@@ -50,44 +62,56 @@ export const Ads: React.FC<RouteComponentProps> = () => {
         response.ads?.pageCount &&
         response.ads?.ads?.length === response.ads.pageCount
       ) {
+        if (!open) setOpen(true);
+
         setIsEndAds(true);
       }
     },
   });
   const [ads, setAds] = React.useState<Ad[]>([]);
   const [adsFiltered, setAdsFiltered] = React.useState<Ad[]>([]);
-  const [order, setOrder] = React.useState('');
-
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setOrder(event.target.value as string);
+    setOrder(event.target.value as QueryOrderBy);
   };
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (result.fetchMore) {
-      if (order === 'recent') {
-        void result.fetchMore({
+      void result
+        .fetchMore({
           variables: {
+            orderBy: order,
             skip: 0,
-            orderBy: QueryOrderBy.CreatedAtAsc,
           },
-        });
-      } else if (order === 'old') {
-        void result.fetchMore({
-          variables: {
-            skip: 0,
-            orderBy: QueryOrderBy.CreatedAtDesc,
-          },
-        });
-      }
+        })
+        .then((result) => setAds(result.data.ads?.ads as Ad[]))
+        .catch((e) => console.log(e));
     }
   }, [order]);
   const handleShowAll = () => {
-    setFilterAds({
-      priceTo: () => true,
-      harvest: () => true,
-      abv: () => true,
-      litersTo: () => true,
-    });
+    if (!isShowAll) {
+      setFilterAds({
+        priceTo: () => true,
+        harvest: () => true,
+        abv: () => true,
+        litersTo: () => true,
+      });
+    } else {
+      setFilterAds({
+        priceTo: (priceTo: number) =>
+          priceTo <= (searchedWineCache?.price as number),
+        abv: (abv: number) =>
+          abv >= (searchedWineCache?.abv as number) - 0.5 ||
+          abv <= (searchedWineCache?.abv as number) + 0.5,
+        harvest: (harvest: number) =>
+          harvest === (searchedWineCache?.harvest as number) ||
+          harvest - 1 === (searchedWineCache?.harvest as number),
+        litersTo: (litersTo: number) =>
+          litersTo >= (searchedWineCache?.liters as number),
+      });
+    }
+
+    setIsShowAll(!isShowAll);
   };
   const bottomBoundaryRef = React.useRef<null | HTMLDivElement>(null);
   const observer = new IntersectionObserver(handleIntersection);
@@ -120,27 +144,6 @@ export const Ads: React.FC<RouteComponentProps> = () => {
     }
   }, [ads, bottomBoundaryRef.current]);
 
-  const handleFilterPrice = () =>
-    setFilterAds({
-      ...filterAds,
-      priceTo: (price) => (searchedWineCache?.price as number) >= price,
-    });
-  const handleFilterHarvest = () =>
-    setFilterAds({
-      ...filterAds,
-      harvest: (harvest) => (searchedWineCache?.harvest as number) === harvest,
-    });
-  const handleFilterAbv = () =>
-    setFilterAds({
-      ...filterAds,
-      abv: (abv) => (searchedWineCache?.abv as number) === abv,
-    });
-  const handleFilterLiters = () =>
-    setFilterAds({
-      ...filterAds,
-      litersTo: (liters) => (searchedWineCache?.liters as number) <= liters,
-    });
-
   React.useEffect(() => {
     if (ads.length > 0) {
       const filtredAds = multiFilter(ads, filterAds) as Ad[];
@@ -154,6 +157,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
         variables: {
           skip: 0,
           limit,
+          orderBy: order,
           wineName: searchedWineCache?.wineName,
           typeProduct: searchedWineCache?.typeProduct,
           typeAd:
@@ -163,7 +167,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
     } else {
       void navigate('/');
     }
-  }, [limit]);
+  }, [limit, order]);
 
   const onClick = async () => {
     if (searchedWineCache === undefined) {
@@ -178,14 +182,21 @@ export const Ads: React.FC<RouteComponentProps> = () => {
     }
   };
 
+  const defaultText =
+    "Questi sono gli annunci che abbiamo trovato per te: sono stati pubblicati da utenti interessati all'acquisto.";
+  const noAdsText =
+    'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli';
+
   const NoResults = () => (
     <div onClick={onClick}>
       Non abbiamo trovato nulla, vuoi creare un annuncio?
     </div>
   );
+
   if (result.data?.ads && result.data?.ads?.ads?.length === 0) {
     return <NoResults />;
   }
+
   if (ads.length && result.data?.ads?.ads?.length !== 0) {
     return (
       <Container component='main' maxWidth='xs'>
@@ -227,60 +238,31 @@ export const Ads: React.FC<RouteComponentProps> = () => {
           I nostri risultati
         </Typography>
         <Typography variant='body2'>
-          {`Questi sono gli annunci che abbiamo trovato per te: sono stati
-            pubblicati da utenti interessati all'acquisto.`}
+          {adsFiltered.length > 0 ? defaultText : noAdsText}
         </Typography>
 
-        <Button
-          onClick={() => setShowFilter(!showFilter)}
-          aria-label='filter'
-          //variant='contained'
-          color='primary'
-          size='large'
-          startIcon={<FilterListIcon />}
-        >
-          Filtri
-        </Button>
-        <Collapse in={showFilter}>
-          <FormControl fullWidth>
-            <InputLabel style={{ color: 'black' }} htmlFor='order'>
-              Ordine risultati
-            </InputLabel>
-            <Select
-              native
-              value={order}
-              onChange={handleChange}
-              inputProps={{
-                name: 'order',
-                id: 'order',
-              }}
-            >
-              <option aria-label='None' value='' />
-              <option value={'recent'}>Dal piu recente</option>
-              <option value={'old'}>Dal meno recente</option>
-              <option value={'expensive'}>Dal piu caro</option>
-              <option value={'cheap'}>Dal meno caro</option>
-            </Select>
-          </FormControl>
-          <span onClick={handleFilterPrice}>Prezzo</span>{' '}
-          <span onClick={handleFilterAbv}>Gradazione </span>
-          <span onClick={handleFilterHarvest}>Vendemmia </span>
-          <span onClick={handleFilterLiters}>Litri</span>
-          <div onClick={handleShowAll}>mostra tutto</div>
-          {/* <div onClick={onClickSort}> ordina per data</div> */}
-        </Collapse>
+        <Filter
+          handleChange={handleChange}
+          handleShowAll={handleShowAll}
+          order={order}
+          isShowAll={isShowAll}
+        />
         <br />
-        {adsFiltered.map((ad) => (
-          <CardWine key={ad._id} ad={ad} />
-        ))}
-        {isEndAds ? null : (
-          <div
-            id='page-bottom-boundary'
-            style={{ border: '1px solid red' }}
-            ref={bottomBoundaryRef}
-          ></div>
-        )}
-        {result.loading ? <CircularProgress /> : null}
+        <div className={classes.root}>
+          {adsFiltered.map((ad) => (
+            <CardWine key={ad._id} ad={ad} />
+          ))}
+          {isEndAds && !result.loading ? null : (
+            <div
+              id='page-bottom-boundary'
+              style={{ border: '1px solid red' }}
+              ref={bottomBoundaryRef}
+            ></div>
+          )}
+
+          {result.loading ? <CircularProgress /> : null}
+        </div>
+        <SnackbarAds open={open} setOpen={setOpen} onClick={onClick} />
       </Container>
     );
   }
