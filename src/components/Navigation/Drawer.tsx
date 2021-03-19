@@ -15,6 +15,8 @@ import StoreIcon from '@material-ui/icons/Store';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import { ApolloError } from '@apollo/client';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { Link as RouterLink } from '@reach/router';
 
 const useStyles = makeStyles({
   list: {
@@ -22,13 +24,14 @@ const useStyles = makeStyles({
   },
 });
 
-interface DrawerData {
+export interface DrawerData {
   isLoading: boolean;
   error?: ApolloError;
   data?: {
-    numAds?: number;
-    numNegs?: number;
-    name?: string;
+    numAds?: number | null;
+    numNegs?: number | null;
+    savedAds?: number | null;
+    name?: string | null;
   };
 }
 
@@ -38,7 +41,7 @@ export const Drawer: React.FC<{
   data: DrawerData;
 }> = ({ state, toggleDrawer, data }) => {
   const classes = useStyles();
-
+  console.log(data.data);
   const list = () => (
     <div
       className={classes.list}
@@ -63,7 +66,16 @@ export const Drawer: React.FC<{
           </ListItemIcon>
           <ListItemText primary='Profilo' />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          // eslint-disable-next-line react/display-name
+          component={React.forwardRef((itemProps, ref) => (
+            //ts ignore because followed the mui docs
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            <RouterLink to={'/creati'} ref={ref} {...itemProps} />
+          ))}
+        >
           <ListItemIcon>
             <Badge badgeContent={data.data?.numAds} color='primary'>
               <AssignmentIcon />
@@ -78,6 +90,14 @@ export const Drawer: React.FC<{
             </Badge>
           </ListItemIcon>
           <ListItemText primary='Trattative in corso' />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <Badge badgeContent={data.data?.savedAds} color='primary'>
+              <FavoriteIcon />
+            </Badge>
+          </ListItemIcon>
+          <ListItemText primary='Annunci salvati' />
         </ListItem>
       </List>
     </div>

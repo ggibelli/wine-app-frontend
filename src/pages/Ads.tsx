@@ -56,7 +56,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
     notifyOnNetworkStatusChange: true,
     onCompleted: (response) => {
       if (response.ads?.ads) {
-        setAds(response.ads.ads as Ad[]);
+        setAds((response.ads.ads as unknown) as Ad[]);
       }
       if (
         response.ads?.pageCount &&
@@ -81,10 +81,10 @@ export const Ads: React.FC<RouteComponentProps> = () => {
         .fetchMore({
           variables: {
             orderBy: order,
-            skip: 0,
+            offset: 0,
           },
         })
-        .then((result) => setAds(result.data.ads?.ads as Ad[]))
+        .then((result) => setAds((result.data.ads?.ads as unknown) as Ad[]))
         .catch((e) => console.log(e));
     }
   }, [order]);
@@ -124,7 +124,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
       if (entry.intersectionRatio > 0 && result.fetchMore) {
         result
           .fetchMore({
-            variables: { limit: 2, skip: ads.length },
+            variables: { limit: 2, offset: ads.length },
           })
 
           .then((fetchMoreResult) => {
@@ -155,7 +155,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
     if (searchedWineCache) {
       void lazyAdsWine({
         variables: {
-          skip: 0,
+          offset: 0,
           limit,
           orderBy: order,
           wineName: searchedWineCache?.wineName,
@@ -214,9 +214,15 @@ export const Ads: React.FC<RouteComponentProps> = () => {
           px={2}
           pt={2}
           width='75%'
-          color='white'
-          borderColor='primary.main'
-          bgcolor='primary.main'
+          color={
+            searchedWineCache?.typeAd === TypeAd.Sell ? 'primary.main' : 'white'
+          }
+          borderColor={
+            searchedWineCache?.typeAd === TypeAd.Sell ? 'white' : 'primary.main'
+          }
+          bgcolor={
+            searchedWineCache?.typeAd === TypeAd.Sell ? 'white' : 'primary.main'
+          }
           borderRadius={16}
         >
           <Typography component='h5' variant='h6'>

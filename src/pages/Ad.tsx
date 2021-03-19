@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useParams } from '@reach/router';
-import { TypeAd, useAdQuery } from '../generated/graphql';
+import { AdWine, TypeAd, useAdQuery } from '../generated/graphql';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -33,6 +33,7 @@ export const Ad: React.FC<RouteComponentProps> = () => {
       id: id,
     },
   });
+
   const classes = useStyles();
   const searchedWineCache = searchedWine();
   console.log(searchedWineCache);
@@ -79,7 +80,7 @@ export const Ad: React.FC<RouteComponentProps> = () => {
         <div className={classes.paper}>
           <Heading />
         </div>
-        <CardWineDetail ad={data.ad} />
+        <CardWineDetail ad={data.ad as AdWine} />
       </Container>
     );
   }

@@ -10,6 +10,7 @@ import { Home } from './Home';
 import { Buy } from './BuySell';
 import { Ads } from './Ads';
 import { Ad } from './Ad';
+import { MyAds } from './MyAds';
 
 export const Pages: React.FC = () => (
   <>
@@ -22,6 +23,7 @@ export const Pages: React.FC = () => (
         <Buy path='/sell' />
         <Ads path='/annunci' />
         <Ad path='/annunci/:id' />
+        <MyAds path='/creati' />
         {/* <Profile path='/profilo' /> */}
 
         <SignUp path='/signup' />

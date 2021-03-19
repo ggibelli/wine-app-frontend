@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const ME = gql`
-  query me {
+  query me($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
     me {
       _id
       firstName
@@ -14,25 +14,82 @@ export const ME = gql`
         CAP
       }
       email
-      ads {
-        _id
-        typeAd
-        ... on AdWine {
-          wineName
-        }
-      }
-      negotiations {
-        _id
-        ad {
+      ads(offset: $offset, orderBy: $orderBy, limit: $limit) {
+        ads {
           _id
+          postedBy {
+            _id
+            firstName
+            lastName
+          }
+
+          harvest
+          abv
+          priceFrom
+          priceTo
           ... on AdWine {
             wineName
+            litersFrom
+            litersTo
+            metodoProduttivo
+            wine {
+              denominazioneZona
+            }
+          }
+          typeAd
+          address {
+            regione
+            provincia
+          }
+          activeNegotiations
+          datePosted
+        }
+        pageCount
+      }
+      savedAds {
+        _id
+        postedBy {
+          _id
+          firstName
+          lastName
+        }
+
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
           }
         }
-        forUserAd {
-          _id
-          email
+        typeAd
+        address {
+          regione
+          provincia
         }
+        activeNegotiations
+        datePosted
+      }
+      negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
+        negotiations {
+          _id
+          ad {
+            _id
+            ... on AdWine {
+              wineName
+            }
+          }
+          forUserAd {
+            _id
+            email
+          }
+        }
+        pageCount
       }
     }
   }
@@ -73,7 +130,7 @@ export const ADS_WINE = gql`
     $typeAd: TypeAd!
     $typeProduct: TypeProduct!
     $wineName: String
-    $skip: Int
+    $offset: Int
     $orderBy: QueryOrderBy
     $limit: Int
   ) {
@@ -81,7 +138,7 @@ export const ADS_WINE = gql`
       typeAd: $typeAd
       typeProduct: $typeProduct
       wineName: $wineName
-      skip: $skip
+      offset: $offset
       orderBy: $orderBy
       limit: $limit
     ) {
@@ -101,8 +158,12 @@ export const ADS_WINE = gql`
           wineName
           litersFrom
           litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
+          }
         }
-
+        typeAd
         address {
           regione
           provincia
@@ -124,7 +185,7 @@ export const AD = gql`
         firstName
         lastName
       }
-
+      typeAd
       harvest
       abv
       priceFrom
@@ -133,6 +194,7 @@ export const AD = gql`
         wineName
         litersFrom
         litersTo
+        metodoProduttivo
         wine {
           denominazioneZona
         }

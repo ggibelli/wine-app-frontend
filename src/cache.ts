@@ -6,18 +6,14 @@ import { TypeAd, TypeProduct } from './generated/graphql';
 import _ from 'lodash';
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
-    Query: {
+    User: {
       fields: {
         ads: {
-          // Don't cache separate results based on
-          // any of this field's arguments.
-          keyArgs: ['wineName', 'typeProduct', 'typeAd'],
-          // Concatenate the incoming list items with
-          // the existing list items.
+          keyArgs: false,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
-          merge(existing = [], incoming: any, { args: { skip = 0 } }) {
-            if (skip === 0) {
+          merge(existing = [], incoming: any, { args: { offset = 0 } }) {
+            if (offset === 0) {
               console.log('torno gli incoming solo');
               // eslint-disable-next-line @typescript-eslint/no-unsafe-return
               return {
@@ -36,13 +32,40 @@ export const cache: InMemoryCache = new InMemoryCache({
               pageCount: incoming.pageCount,
             };
           },
-          // read(existing) {
-          //   console.log(existing);
-          //   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          //   return existing;
-          // },
         },
-        // ads: offsetLimitPagination(['wineName', 'typeProduct', 'typeAd']),
+      },
+    },
+    Query: {
+      fields: {
+        ads: {
+          // Don't cache separate results based on
+          // any of this field's arguments.
+          keyArgs: ['wineName', 'typeProduct', 'typeAd'],
+          // Concatenate the incoming list items with
+          // the existing list items.
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          merge(existing = [], incoming: any, { args: { offset = 0 } }) {
+            if (offset === 0) {
+              console.log('torno gli incoming solo');
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+              return {
+                __typeName: 'AdsResult',
+                ads: incoming.ads,
+                pageCount: incoming.pageCount,
+              };
+            }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            return {
+              __typeName: 'AdsResult',
+              ads: _.unionBy(existing.ads, incoming.ads, '__ref'),
+              pageCount: incoming.pageCount,
+            };
+          },
+        },
         isLoggedIn: {
           read() {
             return isLoggedInVar();

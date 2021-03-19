@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import * as React from 'react';
 import { useApolloClient } from '@apollo/client';
 import { RouteComponentProps, useLocation } from '@reach/router';
@@ -6,11 +7,15 @@ import {
   AdInput,
   TypeAd,
   TypeProduct,
-  useMeQuery,
+  // useMeQuery,
+  useMeLazyQuery,
   useCreateAdWineMutation,
   useWineSearchedLazyQuery,
   AddressInput,
   AdsWineDocument,
+  MeDocument,
+  User,
+  Address,
 } from '../generated/graphql';
 import { searchedWine, notification } from '../cache';
 import { navigate } from '@reach/router';
@@ -19,6 +24,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import _ from 'lodash';
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -31,11 +37,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface IAd {
   _id: string;
-  postedBy: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-  };
+  postedBy: User;
+  typeProduct: TypeProduct;
+  isActive: boolean;
+  content: string;
+  typeAd: TypeAd;
   harvest: number;
   abv: number;
   priceFrom: number;
@@ -43,16 +49,22 @@ interface IAd {
   wineName: string;
   litersFrom: number;
   litersTo: number;
-  address: {
-    regione: string;
-    provincia: string;
-  };
+  address: Address;
   activeNegotiations: number;
-  datePosted: Date;
+  datePosted: string;
 }
 
 interface IAds {
   ads: Array<IAd>;
+  pageCount: number;
+}
+
+interface ICachedDataAds {
+  ads: IAds;
+}
+
+export interface ICachedMe {
+  me: User;
 }
 
 export const Buy: React.FC<RouteComponentProps> = () => {
@@ -71,7 +83,7 @@ export const Buy: React.FC<RouteComponentProps> = () => {
   React.useEffect(() => {
     lazyWines();
   }, [lazyWines]);
-  const meResult = useMeQuery({
+  const [lazyQueryMe, result] = useMeLazyQuery({
     onError: (error) => {
       console.log(error);
       notification({
@@ -80,6 +92,18 @@ export const Buy: React.FC<RouteComponentProps> = () => {
       });
     },
   });
+  React.useEffect(() => {
+    lazyQueryMe();
+  }, []);
+  // const meResult = useMeQuery({
+  //   onError: (error) => {
+  //     console.log(error);
+  //     notification({
+  //       type: 'error',
+  //       message: `${error.message}`,
+  //     });
+  //   },
+  // });
   const [createAdWineMutation] = useCreateAdWineMutation({
     onError: (error) =>
       notification({
@@ -104,17 +128,32 @@ export const Buy: React.FC<RouteComponentProps> = () => {
     },
     update: (cache, response) => {
       console.log(variablesCacheUpdate);
-      const cachedData = cache.readQuery({
+      const cachedDataAds: ICachedDataAds | null = cache.readQuery({
         query: AdsWineDocument,
         variables: variablesCacheUpdate,
-      }) as IAds;
-      console.log(cachedData, response);
+      });
+      const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+        cache.readQuery({
+          query: MeDocument,
+        })
+      );
+
+      cachedDataMeLocal?.me.ads?.ads?.push(
+        response.data?.createAd?.response as IAd
+      );
+      if (cachedDataMeLocal?.me.ads?.pageCount) {
+        cache.writeQuery({
+          query: MeDocument,
+          data: cachedDataMeLocal,
+        });
+      }
+      if (!cachedDataAds) return;
       cache.writeQuery({
         query: AdsWineDocument,
         variables: variablesCacheUpdate,
         data: {
-          ...cachedData,
-          ads: [...cachedData.ads, response.data?.createAd?.response],
+          ...cachedDataAds.ads,
+          ads: [...cachedDataAds.ads.ads, response.data?.createAd?.response],
         },
       });
     },
@@ -138,13 +177,13 @@ export const Buy: React.FC<RouteComponentProps> = () => {
     void navigate('/annunci');
   };
   const onSubmitMutation = (values: WineFormMutation) => {
-    if (values.isSameAddress && meResult.data?.me?.address) {
+    if (values.isSameAddress && result.data?.me?.address) {
       sameAddress = {
-        regione: meResult.data.me.address.regione,
-        provincia: meResult.data.me.address.provincia,
-        comune: meResult.data.me.address.comune,
-        via: meResult.data.me.address.via,
-        CAP: meResult.data.me.address.CAP,
+        regione: result.data.me.address.regione,
+        provincia: result.data.me.address.provincia,
+        comune: result.data.me.address.comune,
+        via: result.data.me.address.via,
+        CAP: result.data.me.address.CAP,
       };
     } else {
       differentAddress = values.address as AddressInput;

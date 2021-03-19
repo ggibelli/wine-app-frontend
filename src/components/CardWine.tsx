@@ -3,15 +3,21 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
+import { DenomZona, TypeAd } from '../generated/graphql';
 
 export interface Ad {
   _id: string;
   wineName: string;
+  wine: {
+    denominazioneZona: DenomZona;
+  };
+
   litersTo: number;
   priceFrom: number;
   harvest: number;
   abv: number;
   datePosted: string;
+  typeAd: TypeAd;
 }
 
 export const CardWine: React.FC<{ ad: Ad }> = ({ ad }) => {
@@ -29,13 +35,14 @@ export const CardWine: React.FC<{ ad: Ad }> = ({ ad }) => {
         px={2}
         pt={2}
         width='100%'
-        color='primary.main'
-        borderColor='white'
-        bgcolor='white'
+        color={ad.typeAd === TypeAd.Sell ? 'primary.main' : 'white'}
+        borderColor={ad.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
+        bgcolor={ad.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
         borderRadius={16}
       >
         <Typography component='h5' variant='h6'>
-          {ad.wineName}
+          {ad.typeAd === TypeAd.Buy ? 'Compro' : 'Vendo'} {ad.wineName}{' '}
+          {ad.wine.denominazioneZona}
         </Typography>
         <Typography align='left' variant='body1'>
           Annata: {ad.harvest}

@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Drawer } from './Drawer';
+import { Drawer, DrawerData } from './Drawer';
 import { Notification } from '../Notification';
 import { LogoutButton } from './LogoutButton';
 import { LoginModal } from '../LoginModal';
@@ -100,12 +100,13 @@ export const HeaderBar: React.FC = () => {
     },
   });
 
-  const drawerData = {
+  const drawerData: DrawerData = {
     isLoading: result.loading,
     error: result.error,
     data: {
-      numAds: result.data?.me?.ads?.length,
-      numNegs: result.data?.me?.negotiations?.length,
+      numAds: result.data?.me?.ads?.pageCount,
+      numNegs: result.data?.me?.negotiations?.pageCount,
+      savedAds: result.data?.me?.savedAds?.length,
       name: result.data?.me?.firstName,
     },
   };

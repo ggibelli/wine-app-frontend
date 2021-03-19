@@ -211,7 +211,7 @@ export type QueryAdsArgs = {
   typeProduct: TypeProduct;
   wineName?: Maybe<Scalars['String']>;
   vineyardName?: Maybe<Scalars['String']>;
-  skip?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
   orderBy?: Maybe<QueryOrderBy>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -261,6 +261,7 @@ export type Mutation = {
   createAd?: Maybe<AdPayload>;
   updateAd?: Maybe<AdPayload>;
   deleteAd?: Maybe<AdPayload>;
+  saveAd?: Maybe<AdPayload>;
   createMessage?: Maybe<MessagePayload>;
   createNegotiation?: Maybe<NegotiationPayload>;
   updateNegotiation?: Maybe<NegotiationPayload>;
@@ -289,6 +290,10 @@ export type MutationUpdateAdArgs = {
 };
 
 export type MutationDeleteAdArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationSaveAdArgs = {
   id: Scalars['ID'];
 };
 
@@ -425,6 +430,12 @@ export type NegotiationDateCreatedArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
+export type NegotiationResult = {
+  __typename?: 'NegotiationResult';
+  negotiations?: Maybe<Array<Maybe<Negotiation>>>;
+  pageCount?: Maybe<Scalars['Int']>;
+};
+
 export type NegotiationPayload = {
   __typename?: 'NegotiationPayload';
   response?: Maybe<Negotiation>;
@@ -443,6 +454,12 @@ export type ReviewInputUpdate = {
   _id: Scalars['ID'];
   rating?: Maybe<Rating>;
   content?: Maybe<Scalars['String']>;
+};
+
+export type ReviewResult = {
+  __typename?: 'ReviewResult';
+  reviews?: Maybe<Array<Maybe<Review>>>;
+  pageCount?: Maybe<Scalars['Int']>;
 };
 
 export type Review = {
@@ -535,14 +552,33 @@ export type User = {
   isPremium?: Maybe<Scalars['Boolean']>;
   isAdmin: Scalars['Boolean'];
   hideContact: Scalars['Boolean'];
-  ads?: Maybe<Array<Ad>>;
+  ads?: Maybe<AdsResult>;
+  savedAds?: Maybe<Array<Ad>>;
   messages?: Maybe<Array<Message>>;
-  negotiations?: Maybe<Array<Negotiation>>;
-  reviews?: Maybe<Array<Review>>;
+  negotiations?: Maybe<NegotiationResult>;
+  reviews?: Maybe<ReviewResult>;
   adsRemaining?: Maybe<Scalars['Int']>;
   dateCreated?: Maybe<Scalars['String']>;
   producedWines?: Maybe<ProducedWines>;
   ownedVineyards?: Maybe<OwnedVineyards>;
+};
+
+export type UserAdsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type UserNegotiationsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type UserReviewsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 export type UserDateCreatedArgs = {
@@ -907,6 +943,9 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
             | 'activeNegotiations'
             | 'datePosted'
           > & {
+              wine?: Maybe<
+                { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+              >;
               postedBy: { __typename?: 'User' } & Pick<
                 User,
                 '_id' | 'firstName' | 'lastName'
@@ -943,7 +982,122 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type MeQueryVariables = Exact<{ [key: string]: never }>;
+export type UpdateAdWineMutationVariables = Exact<{
+  input: AdInputUpdate;
+}>;
+
+export type UpdateAdWineMutation = { __typename?: 'Mutation' } & {
+  updateAd?: Maybe<
+    { __typename?: 'AdPayload' } & {
+      response?: Maybe<
+        | ({ __typename?: 'AdWine' } & Pick<
+            AdWine,
+            | 'wineName'
+            | 'litersFrom'
+            | 'litersTo'
+            | '_id'
+            | 'harvest'
+            | 'abv'
+            | 'priceFrom'
+            | 'priceTo'
+            | 'activeNegotiations'
+            | 'datePosted'
+          > & {
+              postedBy: { __typename?: 'User' } & Pick<
+                User,
+                '_id' | 'firstName' | 'lastName'
+              >;
+              address: { __typename?: 'Address' } & Pick<
+                Address,
+                'regione' | 'provincia'
+              >;
+            })
+        | ({ __typename?: 'AdGrape' } & Pick<
+            AdGrape,
+            | '_id'
+            | 'harvest'
+            | 'abv'
+            | 'priceFrom'
+            | 'priceTo'
+            | 'activeNegotiations'
+            | 'datePosted'
+          > & {
+              postedBy: { __typename?: 'User' } & Pick<
+                User,
+                '_id' | 'firstName' | 'lastName'
+              >;
+              address: { __typename?: 'Address' } & Pick<
+                Address,
+                'regione' | 'provincia'
+              >;
+            })
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type SaveAdMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type SaveAdMutation = { __typename?: 'Mutation' } & {
+  saveAd?: Maybe<
+    { __typename?: 'AdPayload' } & {
+      response?: Maybe<
+        | ({ __typename?: 'AdWine' } & Pick<
+            AdWine,
+            | 'wineName'
+            | 'litersFrom'
+            | 'litersTo'
+            | '_id'
+            | 'harvest'
+            | 'abv'
+            | 'priceFrom'
+            | 'priceTo'
+            | 'datePosted'
+          > & {
+              wine?: Maybe<
+                { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+              >;
+            })
+        | ({ __typename?: 'AdGrape' } & Pick<
+            AdGrape,
+            '_id' | 'harvest' | 'abv' | 'priceFrom' | 'priceTo' | 'datePosted'
+          >)
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type DeleteAdMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type DeleteAdMutation = { __typename?: 'Mutation' } & {
+  deleteAd?: Maybe<
+    { __typename?: 'AdPayload' } & {
+      response?: Maybe<
+        | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+        | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type MeQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+}>;
 
 export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
@@ -956,29 +1110,143 @@ export type MeQuery = { __typename?: 'Query' } & {
           'regione' | 'provincia' | 'comune' | 'via' | 'CAP'
         >;
         ads?: Maybe<
+          { __typename?: 'AdsResult' } & Pick<AdsResult, 'pageCount'> & {
+              ads?: Maybe<
+                Array<
+                  Maybe<
+                    | ({ __typename?: 'AdWine' } & Pick<
+                        AdWine,
+                        | 'wineName'
+                        | 'litersFrom'
+                        | 'litersTo'
+                        | 'metodoProduttivo'
+                        | '_id'
+                        | 'harvest'
+                        | 'abv'
+                        | 'priceFrom'
+                        | 'priceTo'
+                        | 'typeAd'
+                        | 'activeNegotiations'
+                        | 'datePosted'
+                      > & {
+                          wine?: Maybe<
+                            { __typename?: 'Wine' } & Pick<
+                              Wine,
+                              'denominazioneZona'
+                            >
+                          >;
+                          postedBy: { __typename?: 'User' } & Pick<
+                            User,
+                            '_id' | 'firstName' | 'lastName'
+                          >;
+                          address: { __typename?: 'Address' } & Pick<
+                            Address,
+                            'regione' | 'provincia'
+                          >;
+                        })
+                    | ({ __typename?: 'AdGrape' } & Pick<
+                        AdGrape,
+                        | '_id'
+                        | 'harvest'
+                        | 'abv'
+                        | 'priceFrom'
+                        | 'priceTo'
+                        | 'typeAd'
+                        | 'activeNegotiations'
+                        | 'datePosted'
+                      > & {
+                          postedBy: { __typename?: 'User' } & Pick<
+                            User,
+                            '_id' | 'firstName' | 'lastName'
+                          >;
+                          address: { __typename?: 'Address' } & Pick<
+                            Address,
+                            'regione' | 'provincia'
+                          >;
+                        })
+                  >
+                >
+              >;
+            }
+        >;
+        savedAds?: Maybe<
           Array<
             | ({ __typename?: 'AdWine' } & Pick<
                 AdWine,
-                'wineName' | '_id' | 'typeAd'
-              >)
-            | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id' | 'typeAd'>)
+                | 'wineName'
+                | 'litersFrom'
+                | 'litersTo'
+                | 'metodoProduttivo'
+                | '_id'
+                | 'harvest'
+                | 'abv'
+                | 'priceFrom'
+                | 'priceTo'
+                | 'typeAd'
+                | 'activeNegotiations'
+                | 'datePosted'
+              > & {
+                  wine?: Maybe<
+                    { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+                  >;
+                  postedBy: { __typename?: 'User' } & Pick<
+                    User,
+                    '_id' | 'firstName' | 'lastName'
+                  >;
+                  address: { __typename?: 'Address' } & Pick<
+                    Address,
+                    'regione' | 'provincia'
+                  >;
+                })
+            | ({ __typename?: 'AdGrape' } & Pick<
+                AdGrape,
+                | '_id'
+                | 'harvest'
+                | 'abv'
+                | 'priceFrom'
+                | 'priceTo'
+                | 'typeAd'
+                | 'activeNegotiations'
+                | 'datePosted'
+              > & {
+                  postedBy: { __typename?: 'User' } & Pick<
+                    User,
+                    '_id' | 'firstName' | 'lastName'
+                  >;
+                  address: { __typename?: 'Address' } & Pick<
+                    Address,
+                    'regione' | 'provincia'
+                  >;
+                })
           >
         >;
         negotiations?: Maybe<
-          Array<
-            { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'> & {
-                ad:
-                  | ({ __typename?: 'AdWine' } & Pick<
-                      AdWine,
-                      'wineName' | '_id'
-                    >)
-                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
-                forUserAd: { __typename?: 'User' } & Pick<
-                  User,
-                  '_id' | 'email'
-                >;
-              }
-          >
+          { __typename?: 'NegotiationResult' } & Pick<
+            NegotiationResult,
+            'pageCount'
+          > & {
+              negotiations?: Maybe<
+                Array<
+                  Maybe<
+                    { __typename?: 'Negotiation' } & Pick<
+                      Negotiation,
+                      '_id'
+                    > & {
+                        ad:
+                          | ({ __typename?: 'AdWine' } & Pick<
+                              AdWine,
+                              'wineName' | '_id'
+                            >)
+                          | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+                        forUserAd: { __typename?: 'User' } & Pick<
+                          User,
+                          '_id' | 'email'
+                        >;
+                      }
+                  >
+                >
+              >;
+            }
         >;
       }
   >;
@@ -1021,7 +1289,7 @@ export type AdsWineQueryVariables = Exact<{
   typeAd: TypeAd;
   typeProduct: TypeProduct;
   wineName?: Maybe<Scalars['String']>;
-  skip?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
   orderBy?: Maybe<QueryOrderBy>;
   limit?: Maybe<Scalars['Int']>;
 }>;
@@ -1037,14 +1305,19 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'wineName'
                   | 'litersFrom'
                   | 'litersTo'
+                  | 'metodoProduttivo'
                   | '_id'
                   | 'harvest'
                   | 'abv'
                   | 'priceFrom'
                   | 'priceTo'
+                  | 'typeAd'
                   | 'activeNegotiations'
                   | 'datePosted'
                 > & {
+                    wine?: Maybe<
+                      { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+                    >;
                     postedBy: { __typename?: 'User' } & Pick<
                       User,
                       '_id' | 'firstName' | 'lastName'
@@ -1061,6 +1334,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'abv'
                   | 'priceFrom'
                   | 'priceTo'
+                  | 'typeAd'
                   | 'activeNegotiations'
                   | 'datePosted'
                 > & {
@@ -1091,14 +1365,15 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'wineName'
         | 'litersFrom'
         | 'litersTo'
+        | 'metodoProduttivo'
         | '_id'
+        | 'typeAd'
         | 'harvest'
         | 'abv'
         | 'priceFrom'
         | 'priceTo'
         | 'activeNegotiations'
         | 'datePosted'
-        | 'typeAd'
         | 'content'
       > & {
           wine?: Maybe<
@@ -1116,13 +1391,13 @@ export type AdQuery = { __typename?: 'Query' } & {
     | ({ __typename?: 'AdGrape' } & Pick<
         AdGrape,
         | '_id'
+        | 'typeAd'
         | 'harvest'
         | 'abv'
         | 'priceFrom'
         | 'priceTo'
         | 'activeNegotiations'
         | 'datePosted'
-        | 'typeAd'
         | 'content'
       > & {
           postedBy: { __typename?: 'User' } & Pick<
@@ -1287,6 +1562,9 @@ export const CreateAdWineDocument = gql`
           wineName
           litersFrom
           litersTo
+          wine {
+            denominazioneZona
+          }
         }
         address {
           regione
@@ -1343,8 +1621,199 @@ export type CreateAdWineMutationOptions = Apollo.BaseMutationOptions<
   CreateAdWineMutation,
   CreateAdWineMutationVariables
 >;
+export const UpdateAdWineDocument = gql`
+  mutation UpdateAdWine($input: AdInputUpdate!) {
+    updateAd(input: $input) {
+      response {
+        _id
+        postedBy {
+          _id
+          firstName
+          lastName
+        }
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+        }
+        address {
+          regione
+          provincia
+        }
+        activeNegotiations
+        datePosted
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+export type UpdateAdWineMutationFn = Apollo.MutationFunction<
+  UpdateAdWineMutation,
+  UpdateAdWineMutationVariables
+>;
+
+/**
+ * __useUpdateAdWineMutation__
+ *
+ * To run a mutation, you first call `useUpdateAdWineMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAdWineMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAdWineMutation, { data, loading, error }] = useUpdateAdWineMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAdWineMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateAdWineMutation,
+    UpdateAdWineMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    UpdateAdWineMutation,
+    UpdateAdWineMutationVariables
+  >(UpdateAdWineDocument, baseOptions);
+}
+export type UpdateAdWineMutationHookResult = ReturnType<
+  typeof useUpdateAdWineMutation
+>;
+export type UpdateAdWineMutationResult = Apollo.MutationResult<UpdateAdWineMutation>;
+export type UpdateAdWineMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAdWineMutation,
+  UpdateAdWineMutationVariables
+>;
+export const SaveAdDocument = gql`
+  mutation SaveAd($id: ID!) {
+    saveAd(id: $id) {
+      response {
+        _id
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+          wine {
+            denominazioneZona
+          }
+        }
+        datePosted
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+export type SaveAdMutationFn = Apollo.MutationFunction<
+  SaveAdMutation,
+  SaveAdMutationVariables
+>;
+
+/**
+ * __useSaveAdMutation__
+ *
+ * To run a mutation, you first call `useSaveAdMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSaveAdMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [saveAdMutation, { data, loading, error }] = useSaveAdMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSaveAdMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SaveAdMutation,
+    SaveAdMutationVariables
+  >
+) {
+  return Apollo.useMutation<SaveAdMutation, SaveAdMutationVariables>(
+    SaveAdDocument,
+    baseOptions
+  );
+}
+export type SaveAdMutationHookResult = ReturnType<typeof useSaveAdMutation>;
+export type SaveAdMutationResult = Apollo.MutationResult<SaveAdMutation>;
+export type SaveAdMutationOptions = Apollo.BaseMutationOptions<
+  SaveAdMutation,
+  SaveAdMutationVariables
+>;
+export const DeleteAdDocument = gql`
+  mutation DeleteAd($id: ID!) {
+    deleteAd(id: $id) {
+      response {
+        _id
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+export type DeleteAdMutationFn = Apollo.MutationFunction<
+  DeleteAdMutation,
+  DeleteAdMutationVariables
+>;
+
+/**
+ * __useDeleteAdMutation__
+ *
+ * To run a mutation, you first call `useDeleteAdMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAdMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAdMutation, { data, loading, error }] = useDeleteAdMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteAdMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAdMutation,
+    DeleteAdMutationVariables
+  >
+) {
+  return Apollo.useMutation<DeleteAdMutation, DeleteAdMutationVariables>(
+    DeleteAdDocument,
+    baseOptions
+  );
+}
+export type DeleteAdMutationHookResult = ReturnType<typeof useDeleteAdMutation>;
+export type DeleteAdMutationResult = Apollo.MutationResult<DeleteAdMutation>;
+export type DeleteAdMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAdMutation,
+  DeleteAdMutationVariables
+>;
 export const MeDocument = gql`
-  query me {
+  query me($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
     me {
       _id
       firstName
@@ -1357,25 +1826,80 @@ export const MeDocument = gql`
         CAP
       }
       email
-      ads {
-        _id
-        typeAd
-        ... on AdWine {
-          wineName
-        }
-      }
-      negotiations {
-        _id
-        ad {
+      ads(offset: $offset, orderBy: $orderBy, limit: $limit) {
+        ads {
           _id
+          postedBy {
+            _id
+            firstName
+            lastName
+          }
+          harvest
+          abv
+          priceFrom
+          priceTo
           ... on AdWine {
             wineName
+            litersFrom
+            litersTo
+            metodoProduttivo
+            wine {
+              denominazioneZona
+            }
+          }
+          typeAd
+          address {
+            regione
+            provincia
+          }
+          activeNegotiations
+          datePosted
+        }
+        pageCount
+      }
+      savedAds {
+        _id
+        postedBy {
+          _id
+          firstName
+          lastName
+        }
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
           }
         }
-        forUserAd {
-          _id
-          email
+        typeAd
+        address {
+          regione
+          provincia
         }
+        activeNegotiations
+        datePosted
+      }
+      negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
+        negotiations {
+          _id
+          ad {
+            _id
+            ... on AdWine {
+              wineName
+            }
+          }
+          forUserAd {
+            _id
+            email
+          }
+        }
+        pageCount
       }
     }
   }
@@ -1393,6 +1917,9 @@ export const MeDocument = gql`
  * @example
  * const { data, loading, error } = useMeQuery({
  *   variables: {
+ *      offset: // value for 'offset'
+ *      orderBy: // value for 'orderBy'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
@@ -1588,7 +2115,7 @@ export const AdsWineDocument = gql`
     $typeAd: TypeAd!
     $typeProduct: TypeProduct!
     $wineName: String
-    $skip: Int
+    $offset: Int
     $orderBy: QueryOrderBy
     $limit: Int
   ) {
@@ -1596,7 +2123,7 @@ export const AdsWineDocument = gql`
       typeAd: $typeAd
       typeProduct: $typeProduct
       wineName: $wineName
-      skip: $skip
+      offset: $offset
       orderBy: $orderBy
       limit: $limit
     ) {
@@ -1615,7 +2142,12 @@ export const AdsWineDocument = gql`
           wineName
           litersFrom
           litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
+          }
         }
+        typeAd
         address {
           regione
           provincia
@@ -1643,7 +2175,7 @@ export const AdsWineDocument = gql`
  *      typeAd: // value for 'typeAd'
  *      typeProduct: // value for 'typeProduct'
  *      wineName: // value for 'wineName'
- *      skip: // value for 'skip'
+ *      offset: // value for 'offset'
  *      orderBy: // value for 'orderBy'
  *      limit: // value for 'limit'
  *   },
@@ -1680,6 +2212,7 @@ export const AdDocument = gql`
         firstName
         lastName
       }
+      typeAd
       harvest
       abv
       priceFrom
@@ -1688,6 +2221,7 @@ export const AdDocument = gql`
         wineName
         litersFrom
         litersTo
+        metodoProduttivo
         wine {
           denominazioneZona
         }
