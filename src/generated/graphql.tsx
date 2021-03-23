@@ -187,12 +187,12 @@ export type Query = {
   messagesForNegotiation?: Maybe<Array<Message>>;
   messagesToUser?: Maybe<Array<Message>>;
   negotiation?: Maybe<Negotiation>;
-  negotiations?: Maybe<Array<Negotiation>>;
+  negotiations?: Maybe<NegotiationResult>;
   negotiationsForAd?: Maybe<Array<Negotiation>>;
   negotiationsWithUser?: Maybe<Array<Negotiation>>;
   notification?: Maybe<Notification>;
   review?: Maybe<Review>;
-  reviews?: Maybe<Array<Review>>;
+  reviews?: Maybe<ReviewResult>;
   searchedWine?: Maybe<WineSearched>;
   user?: Maybe<User>;
   users?: Maybe<Array<User>>;
@@ -232,6 +232,12 @@ export type QueryNegotiationArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryNegotiationsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
 export type QueryNegotiationsForAdArgs = {
   ad: Scalars['ID'];
 };
@@ -242,6 +248,12 @@ export type QueryNegotiationsWithUserArgs = {
 
 export type QueryReviewArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryReviewsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 export type QueryUserArgs = {
@@ -922,6 +934,40 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type UpdateUserMutationVariables = Exact<{
+  user: UserInputUpdate;
+}>;
+
+export type UpdateUserMutation = { __typename?: 'Mutation' } & {
+  updateUser?: Maybe<
+    { __typename?: 'UserPayload' } & {
+      response?: Maybe<
+        { __typename?: 'User' } & Pick<User, '_id' | 'firstName'>
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type DeleteUserMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type DeleteUserMutation = { __typename?: 'Mutation' } & {
+  deleteUser?: Maybe<
+    { __typename?: 'UserPayload' } & {
+      response?: Maybe<
+        { __typename?: 'User' } & Pick<User, '_id' | 'firstName'>
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
 export type CreateAdWineMutationVariables = Exact<{
   input: AdInput;
 }>;
@@ -935,43 +981,51 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
             | 'wineName'
             | 'litersFrom'
             | 'litersTo'
+            | 'metodoProduttivo'
             | '_id'
+            | 'needsFollowUp'
             | 'harvest'
             | 'abv'
             | 'priceFrom'
             | 'priceTo'
+            | 'typeAd'
             | 'activeNegotiations'
             | 'datePosted'
           > & {
               wine?: Maybe<
-                { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+                { __typename?: 'Wine' } & Pick<
+                  Wine,
+                  'denominazioneZona' | 'regione'
+                >
               >;
               postedBy: { __typename?: 'User' } & Pick<
                 User,
-                '_id' | 'firstName' | 'lastName'
+                '_id' | 'firstName' | 'lastName' | 'hideContact'
               >;
               address: { __typename?: 'Address' } & Pick<
                 Address,
-                'regione' | 'provincia'
+                'regione' | 'provincia' | 'comune'
               >;
             })
         | ({ __typename?: 'AdGrape' } & Pick<
             AdGrape,
             | '_id'
+            | 'needsFollowUp'
             | 'harvest'
             | 'abv'
             | 'priceFrom'
             | 'priceTo'
+            | 'typeAd'
             | 'activeNegotiations'
             | 'datePosted'
           > & {
               postedBy: { __typename?: 'User' } & Pick<
                 User,
-                '_id' | 'firstName' | 'lastName'
+                '_id' | 'firstName' | 'lastName' | 'hideContact'
               >;
               address: { __typename?: 'Address' } & Pick<
                 Address,
-                'regione' | 'provincia'
+                'regione' | 'provincia' | 'comune'
               >;
             })
       >;
@@ -995,40 +1049,51 @@ export type UpdateAdWineMutation = { __typename?: 'Mutation' } & {
             | 'wineName'
             | 'litersFrom'
             | 'litersTo'
+            | 'metodoProduttivo'
             | '_id'
+            | 'needsFollowUp'
             | 'harvest'
             | 'abv'
             | 'priceFrom'
             | 'priceTo'
+            | 'typeAd'
             | 'activeNegotiations'
             | 'datePosted'
           > & {
+              wine?: Maybe<
+                { __typename?: 'Wine' } & Pick<
+                  Wine,
+                  'denominazioneZona' | 'regione'
+                >
+              >;
               postedBy: { __typename?: 'User' } & Pick<
                 User,
-                '_id' | 'firstName' | 'lastName'
+                '_id' | 'firstName' | 'lastName' | 'hideContact'
               >;
               address: { __typename?: 'Address' } & Pick<
                 Address,
-                'regione' | 'provincia'
+                'regione' | 'provincia' | 'comune'
               >;
             })
         | ({ __typename?: 'AdGrape' } & Pick<
             AdGrape,
             | '_id'
+            | 'needsFollowUp'
             | 'harvest'
             | 'abv'
             | 'priceFrom'
             | 'priceTo'
+            | 'typeAd'
             | 'activeNegotiations'
             | 'datePosted'
           > & {
               postedBy: { __typename?: 'User' } & Pick<
                 User,
-                '_id' | 'firstName' | 'lastName'
+                '_id' | 'firstName' | 'lastName' | 'hideContact'
               >;
               address: { __typename?: 'Address' } & Pick<
                 Address,
-                'regione' | 'provincia'
+                'regione' | 'provincia' | 'comune'
               >;
             })
       >;
@@ -1093,6 +1158,215 @@ export type DeleteAdMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type CreateNegotiationMutationVariables = Exact<{
+  negotiation: NegotiationInput;
+}>;
+
+export type CreateNegotiationMutation = { __typename?: 'Mutation' } & {
+  createNegotiation?: Maybe<
+    { __typename?: 'NegotiationPayload' } & {
+      response?: Maybe<
+        { __typename?: 'Negotiation' } & NegotiationDetailsFragment
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type UpdateNegotiationMutationVariables = Exact<{
+  negotiation: NegotiationInputUpdate;
+}>;
+
+export type UpdateNegotiationMutation = { __typename?: 'Mutation' } & {
+  updateNegotiation?: Maybe<
+    { __typename?: 'NegotiationPayload' } & {
+      response?: Maybe<
+        { __typename?: 'Negotiation' } & NegotiationDetailsFragment
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type DeleteNegotiationMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type DeleteNegotiationMutation = { __typename?: 'Mutation' } & {
+  deleteNegotiation?: Maybe<
+    { __typename?: 'NegotiationPayload' } & {
+      response?: Maybe<
+        { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'>
+      >;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type CreateMessageMutationVariables = Exact<{
+  message: MessageInput;
+}>;
+
+export type CreateMessageMutation = { __typename?: 'Mutation' } & {
+  createMessage?: Maybe<
+    { __typename?: 'MessagePayload' } & {
+      response?: Maybe<{ __typename?: 'Message' } & MessageDetailsFragment>;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+export type CreateReviewMutationVariables = Exact<{
+  review: ReviewInput;
+}>;
+
+export type CreateReviewMutation = { __typename?: 'Mutation' } & {
+  createReview?: Maybe<
+    { __typename?: 'ReviewPayload' } & {
+      response?: Maybe<{ __typename?: 'Review' } & ReviewDetailsFragment>;
+      errors?: Maybe<
+        Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
+      >;
+    }
+  >;
+};
+
+type AdDetails_AdWine_Fragment = { __typename?: 'AdWine' } & Pick<
+  AdWine,
+  | 'wineName'
+  | 'litersFrom'
+  | 'litersTo'
+  | 'metodoProduttivo'
+  | '_id'
+  | 'needsFollowUp'
+  | 'harvest'
+  | 'abv'
+  | 'priceFrom'
+  | 'priceTo'
+  | 'typeAd'
+  | 'activeNegotiations'
+  | 'datePosted'
+> & {
+    wine?: Maybe<
+      { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona' | 'regione'>
+    >;
+    postedBy: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName' | 'hideContact'
+    >;
+    address: { __typename?: 'Address' } & Pick<
+      Address,
+      'regione' | 'provincia'
+    >;
+  };
+
+type AdDetails_AdGrape_Fragment = { __typename?: 'AdGrape' } & Pick<
+  AdGrape,
+  | '_id'
+  | 'needsFollowUp'
+  | 'harvest'
+  | 'abv'
+  | 'priceFrom'
+  | 'priceTo'
+  | 'typeAd'
+  | 'activeNegotiations'
+  | 'datePosted'
+> & {
+    postedBy: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName' | 'hideContact'
+    >;
+    address: { __typename?: 'Address' } & Pick<
+      Address,
+      'regione' | 'provincia'
+    >;
+  };
+
+export type AdDetailsFragment =
+  | AdDetails_AdWine_Fragment
+  | AdDetails_AdGrape_Fragment;
+
+export type NegotiationDetailsFragment = { __typename?: 'Negotiation' } & Pick<
+  Negotiation,
+  '_id' | 'type' | 'dateCreated' | 'isConcluded'
+> & {
+    createdBy: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName' | 'hideContact'
+    >;
+    ad:
+      | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'> & {
+            postedBy: { __typename?: 'User' } & Pick<
+              User,
+              '_id' | 'firstName' | 'lastName'
+            >;
+          })
+      | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'> & {
+            postedBy: { __typename?: 'User' } & Pick<
+              User,
+              '_id' | 'firstName' | 'lastName'
+            >;
+          });
+    forUserAd: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName' | 'hideContact'
+    >;
+    messages?: Maybe<Array<{ __typename?: 'Message' } & Pick<Message, '_id'>>>;
+  };
+
+export type MessageDetailsFragment = { __typename?: 'Message' } & Pick<
+  Message,
+  '_id' | 'content' | 'dateSent'
+> & {
+    sentBy: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName'
+    >;
+    sentTo: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName'
+    >;
+    negotiation: { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'> & {
+        ad:
+          | ({ __typename?: 'AdWine' } & Pick<
+              AdWine,
+              'wineName' | 'litersFrom' | 'litersTo'
+            > & {
+                wine?: Maybe<
+                  { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+                >;
+              })
+          | { __typename?: 'AdGrape' };
+      };
+  };
+
+export type ReviewDetailsFragment = { __typename?: 'Review' } & Pick<
+  Review,
+  '_id' | 'rating' | 'dateCreated' | 'content' | 'type'
+> & {
+    createdBy: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName'
+    >;
+    negotiation: { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'> & {
+        ad:
+          | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'>)
+          | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+      };
+    forUser: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName'
+    >;
+  };
+
 export type MeQueryVariables = Exact<{
   offset?: Maybe<Scalars['Int']>;
   orderBy?: Maybe<QueryOrderBy>;
@@ -1121,6 +1395,7 @@ export type MeQuery = { __typename?: 'Query' } & {
                         | 'litersTo'
                         | 'metodoProduttivo'
                         | '_id'
+                        | 'needsFollowUp'
                         | 'harvest'
                         | 'abv'
                         | 'priceFrom'
@@ -1132,21 +1407,22 @@ export type MeQuery = { __typename?: 'Query' } & {
                           wine?: Maybe<
                             { __typename?: 'Wine' } & Pick<
                               Wine,
-                              'denominazioneZona'
+                              'denominazioneZona' | 'regione'
                             >
                           >;
                           postedBy: { __typename?: 'User' } & Pick<
                             User,
-                            '_id' | 'firstName' | 'lastName'
+                            '_id' | 'firstName' | 'lastName' | 'hideContact'
                           >;
                           address: { __typename?: 'Address' } & Pick<
                             Address,
-                            'regione' | 'provincia'
+                            'regione' | 'provincia' | 'comune'
                           >;
                         })
                     | ({ __typename?: 'AdGrape' } & Pick<
                         AdGrape,
                         | '_id'
+                        | 'needsFollowUp'
                         | 'harvest'
                         | 'abv'
                         | 'priceFrom'
@@ -1157,11 +1433,11 @@ export type MeQuery = { __typename?: 'Query' } & {
                       > & {
                           postedBy: { __typename?: 'User' } & Pick<
                             User,
-                            '_id' | 'firstName' | 'lastName'
+                            '_id' | 'firstName' | 'lastName' | 'hideContact'
                           >;
                           address: { __typename?: 'Address' } & Pick<
                             Address,
-                            'regione' | 'provincia'
+                            'regione' | 'provincia' | 'comune'
                           >;
                         })
                   >
@@ -1178,6 +1454,7 @@ export type MeQuery = { __typename?: 'Query' } & {
                 | 'litersTo'
                 | 'metodoProduttivo'
                 | '_id'
+                | 'needsFollowUp'
                 | 'harvest'
                 | 'abv'
                 | 'priceFrom'
@@ -1187,20 +1464,24 @@ export type MeQuery = { __typename?: 'Query' } & {
                 | 'datePosted'
               > & {
                   wine?: Maybe<
-                    { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+                    { __typename?: 'Wine' } & Pick<
+                      Wine,
+                      'denominazioneZona' | 'regione'
+                    >
                   >;
                   postedBy: { __typename?: 'User' } & Pick<
                     User,
-                    '_id' | 'firstName' | 'lastName'
+                    '_id' | 'firstName' | 'lastName' | 'hideContact'
                   >;
                   address: { __typename?: 'Address' } & Pick<
                     Address,
-                    'regione' | 'provincia'
+                    'regione' | 'provincia' | 'comune'
                   >;
                 })
             | ({ __typename?: 'AdGrape' } & Pick<
                 AdGrape,
                 | '_id'
+                | 'needsFollowUp'
                 | 'harvest'
                 | 'abv'
                 | 'priceFrom'
@@ -1211,11 +1492,11 @@ export type MeQuery = { __typename?: 'Query' } & {
               > & {
                   postedBy: { __typename?: 'User' } & Pick<
                     User,
-                    '_id' | 'firstName' | 'lastName'
+                    '_id' | 'firstName' | 'lastName' | 'hideContact'
                   >;
                   address: { __typename?: 'Address' } & Pick<
                     Address,
-                    'regione' | 'provincia'
+                    'regione' | 'provincia' | 'comune'
                   >;
                 })
           >
@@ -1230,7 +1511,7 @@ export type MeQuery = { __typename?: 'Query' } & {
                   Maybe<
                     { __typename?: 'Negotiation' } & Pick<
                       Negotiation,
-                      '_id'
+                      '_id' | 'isConcluded'
                     > & {
                         ad:
                           | ({ __typename?: 'AdWine' } & Pick<
@@ -1307,6 +1588,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'litersTo'
                   | 'metodoProduttivo'
                   | '_id'
+                  | 'needsFollowUp'
                   | 'harvest'
                   | 'abv'
                   | 'priceFrom'
@@ -1316,20 +1598,24 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'datePosted'
                 > & {
                     wine?: Maybe<
-                      { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+                      { __typename?: 'Wine' } & Pick<
+                        Wine,
+                        'denominazioneZona' | 'regione'
+                      >
                     >;
                     postedBy: { __typename?: 'User' } & Pick<
                       User,
-                      '_id' | 'firstName' | 'lastName'
+                      '_id' | 'firstName' | 'lastName' | 'hideContact'
                     >;
                     address: { __typename?: 'Address' } & Pick<
                       Address,
-                      'regione' | 'provincia'
+                      'regione' | 'provincia' | 'comune'
                     >;
                   })
               | ({ __typename?: 'AdGrape' } & Pick<
                   AdGrape,
                   | '_id'
+                  | 'needsFollowUp'
                   | 'harvest'
                   | 'abv'
                   | 'priceFrom'
@@ -1340,11 +1626,11 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                 > & {
                     postedBy: { __typename?: 'User' } & Pick<
                       User,
-                      '_id' | 'firstName' | 'lastName'
+                      '_id' | 'firstName' | 'lastName' | 'hideContact'
                     >;
                     address: { __typename?: 'Address' } & Pick<
                       Address,
-                      'regione' | 'provincia'
+                      'regione' | 'provincia' | 'comune'
                     >;
                   })
             >
@@ -1367,46 +1653,59 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'litersTo'
         | 'metodoProduttivo'
         | '_id'
-        | 'typeAd'
+        | 'needsFollowUp'
         | 'harvest'
         | 'abv'
         | 'priceFrom'
         | 'priceTo'
+        | 'typeAd'
         | 'activeNegotiations'
         | 'datePosted'
-        | 'content'
       > & {
           wine?: Maybe<
-            { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+            { __typename?: 'Wine' } & Pick<
+              Wine,
+              'denominazioneZona' | 'regione'
+            >
           >;
           postedBy: { __typename?: 'User' } & Pick<
             User,
-            '_id' | 'firstName' | 'lastName'
+            | '_id'
+            | 'firstName'
+            | 'lastName'
+            | 'hideContact'
+            | 'email'
+            | 'phoneNumber'
           >;
           address: { __typename?: 'Address' } & Pick<
             Address,
-            'regione' | 'provincia' | 'comune' | 'via' | 'CAP'
+            'regione' | 'provincia' | 'comune'
           >;
         })
     | ({ __typename?: 'AdGrape' } & Pick<
         AdGrape,
         | '_id'
-        | 'typeAd'
+        | 'needsFollowUp'
         | 'harvest'
         | 'abv'
         | 'priceFrom'
         | 'priceTo'
+        | 'typeAd'
         | 'activeNegotiations'
         | 'datePosted'
-        | 'content'
       > & {
           postedBy: { __typename?: 'User' } & Pick<
             User,
-            '_id' | 'firstName' | 'lastName'
+            | '_id'
+            | 'firstName'
+            | 'lastName'
+            | 'hideContact'
+            | 'email'
+            | 'phoneNumber'
           >;
           address: { __typename?: 'Address' } & Pick<
             Address,
-            'regione' | 'provincia' | 'comune' | 'via' | 'CAP'
+            'regione' | 'provincia' | 'comune'
           >;
         })
   >;
@@ -1429,6 +1728,391 @@ export type WinesQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type NegotiationsQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+}>;
+
+export type NegotiationsQuery = { __typename?: 'Query' } & {
+  negotiations?: Maybe<
+    { __typename?: 'NegotiationResult' } & Pick<
+      NegotiationResult,
+      'pageCount'
+    > & {
+        negotiations?: Maybe<
+          Array<
+            Maybe<{ __typename?: 'Negotiation' } & NegotiationDetailsFragment>
+          >
+        >;
+      }
+  >;
+};
+
+export type NegotiationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type NegotiationQuery = { __typename?: 'Query' } & {
+  negotiation?: Maybe<
+    { __typename?: 'Negotiation' } & {
+      ad:
+        | ({ __typename?: 'AdWine' } & {
+            wine?: Maybe<
+              { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+            >;
+            postedBy: { __typename?: 'User' } & Pick<
+              User,
+              'hideContact' | 'phoneNumber' | 'email'
+            >;
+          })
+        | ({ __typename?: 'AdGrape' } & {
+            postedBy: { __typename?: 'User' } & Pick<
+              User,
+              'hideContact' | 'phoneNumber' | 'email'
+            >;
+          });
+    } & NegotiationDetailsFragment
+  >;
+};
+
+export type MessagesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MessagesQuery = { __typename?: 'Query' } & {
+  messages?: Maybe<Array<{ __typename?: 'Message' } & MessageDetailsFragment>>;
+};
+
+export type MessagesNegotiationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type MessagesNegotiationQuery = { __typename?: 'Query' } & {
+  messagesForNegotiation?: Maybe<
+    Array<{ __typename?: 'Message' } & MessageDetailsFragment>
+  >;
+};
+
+export type ReviewsQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+}>;
+
+export type ReviewsQuery = { __typename?: 'Query' } & {
+  reviews?: Maybe<
+    { __typename?: 'ReviewResult' } & {
+      reviews?: Maybe<
+        Array<Maybe<{ __typename?: 'Review' } & ReviewDetailsFragment>>
+      >;
+    }
+  >;
+};
+
+export type ReviewQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type ReviewQuery = { __typename?: 'Query' } & {
+  review?: Maybe<{ __typename?: 'Review' } & ReviewDetailsFragment>;
+};
+
+export type NegotiationsForAdQueryVariables = Exact<{
+  ad: Scalars['ID'];
+}>;
+
+export type NegotiationsForAdQuery = { __typename?: 'Query' } & {
+  negotiationsForAd?: Maybe<
+    Array<
+      { __typename?: 'Negotiation' } & Pick<
+        Negotiation,
+        '_id' | 'isConcluded' | 'dateCreated'
+      > & {
+          createdBy: { __typename?: 'User' } & Pick<
+            User,
+            '_id' | 'firstName' | 'lastName'
+          >;
+        }
+    >
+  >;
+};
+
+export type AdPostedFollowUpSubscriptionVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type AdPostedFollowUpSubscription = { __typename?: 'Subscription' } & {
+  adPostedFollowUp:
+    | ({ __typename?: 'AdWine' } & Pick<
+        AdWine,
+        | 'wineName'
+        | 'litersFrom'
+        | 'litersTo'
+        | 'metodoProduttivo'
+        | '_id'
+        | 'needsFollowUp'
+        | 'harvest'
+        | 'abv'
+        | 'priceFrom'
+        | 'priceTo'
+        | 'typeAd'
+        | 'activeNegotiations'
+        | 'datePosted'
+      > & {
+          wine?: Maybe<
+            { __typename?: 'Wine' } & Pick<
+              Wine,
+              'denominazioneZona' | 'regione'
+            >
+          >;
+          postedBy: { __typename?: 'User' } & Pick<
+            User,
+            '_id' | 'firstName' | 'lastName' | 'hideContact'
+          >;
+          address: { __typename?: 'Address' } & Pick<
+            Address,
+            'regione' | 'provincia'
+          >;
+        })
+    | ({ __typename?: 'AdGrape' } & Pick<
+        AdGrape,
+        | '_id'
+        | 'needsFollowUp'
+        | 'harvest'
+        | 'abv'
+        | 'priceFrom'
+        | 'priceTo'
+        | 'typeAd'
+        | 'activeNegotiations'
+        | 'datePosted'
+      > & {
+          postedBy: { __typename?: 'User' } & Pick<
+            User,
+            '_id' | 'firstName' | 'lastName' | 'hideContact'
+          >;
+          address: { __typename?: 'Address' } & Pick<
+            Address,
+            'regione' | 'provincia'
+          >;
+        });
+};
+
+export type AdRemovedSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type AdRemovedSubscription = { __typename?: 'Subscription' } & {
+  adRemoved:
+    | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+    | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+};
+
+export type MessageSentSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type MessageSentSubscription = { __typename?: 'Subscription' } & {
+  messageSent: { __typename?: 'Message' } & MessageDetailsFragment;
+};
+
+export type NegotiationCreatedSubscriptionVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type NegotiationCreatedSubscription = { __typename?: 'Subscription' } & {
+  negotiationCreated: {
+    __typename?: 'Negotiation';
+  } & NegotiationDetailsFragment;
+};
+
+export type NegotiationClosedSubscriptionVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type NegotiationClosedSubscription = { __typename?: 'Subscription' } & {
+  negotiationClosed:
+    | ({ __typename?: 'AdWine' } & Pick<
+        AdWine,
+        | 'wineName'
+        | 'litersFrom'
+        | 'litersTo'
+        | 'metodoProduttivo'
+        | '_id'
+        | 'needsFollowUp'
+        | 'harvest'
+        | 'abv'
+        | 'priceFrom'
+        | 'priceTo'
+        | 'typeAd'
+        | 'activeNegotiations'
+        | 'datePosted'
+      > & {
+          wine?: Maybe<
+            { __typename?: 'Wine' } & Pick<
+              Wine,
+              'denominazioneZona' | 'regione'
+            >
+          >;
+          postedBy: { __typename?: 'User' } & Pick<
+            User,
+            '_id' | 'firstName' | 'lastName' | 'hideContact'
+          >;
+          address: { __typename?: 'Address' } & Pick<
+            Address,
+            'regione' | 'provincia'
+          >;
+        })
+    | ({ __typename?: 'AdGrape' } & Pick<
+        AdGrape,
+        | '_id'
+        | 'needsFollowUp'
+        | 'harvest'
+        | 'abv'
+        | 'priceFrom'
+        | 'priceTo'
+        | 'typeAd'
+        | 'activeNegotiations'
+        | 'datePosted'
+      > & {
+          postedBy: { __typename?: 'User' } & Pick<
+            User,
+            '_id' | 'firstName' | 'lastName' | 'hideContact'
+          >;
+          address: { __typename?: 'Address' } & Pick<
+            Address,
+            'regione' | 'provincia'
+          >;
+        });
+};
+
+export type ReviewCreatedSubscriptionVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type ReviewCreatedSubscription = { __typename?: 'Subscription' } & {
+  reviewCreated: { __typename?: 'Review' } & ReviewDetailsFragment;
+};
+
+export const AdDetailsFragmentDoc = gql`
+  fragment AdDetails on Ad {
+    _id
+    postedBy {
+      _id
+      firstName
+      lastName
+      hideContact
+    }
+    needsFollowUp
+    harvest
+    abv
+    priceFrom
+    priceTo
+    ... on AdWine {
+      wineName
+      litersFrom
+      litersTo
+      metodoProduttivo
+      wine {
+        denominazioneZona
+        regione
+      }
+    }
+    typeAd
+    address {
+      regione
+      provincia
+    }
+    activeNegotiations
+    datePosted
+  }
+`;
+export const NegotiationDetailsFragmentDoc = gql`
+  fragment NegotiationDetails on Negotiation {
+    _id
+    createdBy {
+      _id
+      firstName
+      lastName
+      hideContact
+    }
+    ad {
+      _id
+      postedBy {
+        _id
+        firstName
+        lastName
+      }
+      ... on AdWine {
+        wineName
+      }
+    }
+    forUserAd {
+      _id
+      firstName
+      lastName
+      hideContact
+    }
+    type
+    messages {
+      _id
+    }
+    dateCreated
+    isConcluded
+  }
+`;
+export const MessageDetailsFragmentDoc = gql`
+  fragment MessageDetails on Message {
+    _id
+    content
+    sentBy {
+      _id
+      firstName
+      lastName
+    }
+    sentTo {
+      _id
+      firstName
+      lastName
+    }
+    negotiation {
+      _id
+      ad {
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+          wine {
+            denominazioneZona
+          }
+        }
+      }
+    }
+    dateSent
+  }
+`;
+export const ReviewDetailsFragmentDoc = gql`
+  fragment ReviewDetails on Review {
+    _id
+    createdBy {
+      _id
+      firstName
+      lastName
+    }
+    negotiation {
+      _id
+      ad {
+        _id
+        ... on AdWine {
+          wineName
+        }
+      }
+    }
+    forUser {
+      _id
+      firstName
+      lastName
+    }
+    rating
+    dateCreated
+    content
+    type
+  }
+`;
 export const LoginDocument = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -1544,6 +2228,116 @@ export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
   CreateUserMutation,
   CreateUserMutationVariables
 >;
+export const UpdateUserDocument = gql`
+  mutation UpdateUser($user: UserInputUpdate!) {
+    updateUser(user: $user) {
+      response {
+        _id
+        firstName
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+export type UpdateUserMutationFn = Apollo.MutationFunction<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateUserMutation,
+    UpdateUserMutationVariables
+  >
+) {
+  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UpdateUserDocument,
+    baseOptions
+  );
+}
+export type UpdateUserMutationHookResult = ReturnType<
+  typeof useUpdateUserMutation
+>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>;
+export const DeleteUserDocument = gql`
+  mutation DeleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      response {
+        _id
+        firstName
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+export type DeleteUserMutationFn = Apollo.MutationFunction<
+  DeleteUserMutation,
+  DeleteUserMutationVariables
+>;
+
+/**
+ * __useDeleteUserMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteUserMutation,
+    DeleteUserMutationVariables
+  >
+) {
+  return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(
+    DeleteUserDocument,
+    baseOptions
+  );
+}
+export type DeleteUserMutationHookResult = ReturnType<
+  typeof useDeleteUserMutation
+>;
+export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<
+  DeleteUserMutation,
+  DeleteUserMutationVariables
+>;
 export const CreateAdWineDocument = gql`
   mutation CreateAdWine($input: AdInput!) {
     createAd(input: $input) {
@@ -1553,7 +2347,9 @@ export const CreateAdWineDocument = gql`
           _id
           firstName
           lastName
+          hideContact
         }
+        needsFollowUp
         harvest
         abv
         priceFrom
@@ -1562,13 +2358,17 @@ export const CreateAdWineDocument = gql`
           wineName
           litersFrom
           litersTo
+          metodoProduttivo
           wine {
             denominazioneZona
+            regione
           }
         }
+        typeAd
         address {
           regione
           provincia
+          comune
         }
         activeNegotiations
         datePosted
@@ -1630,7 +2430,9 @@ export const UpdateAdWineDocument = gql`
           _id
           firstName
           lastName
+          hideContact
         }
+        needsFollowUp
         harvest
         abv
         priceFrom
@@ -1639,10 +2441,17 @@ export const UpdateAdWineDocument = gql`
           wineName
           litersFrom
           litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
+            regione
+          }
         }
+        typeAd
         address {
           regione
           provincia
+          comune
         }
         activeNegotiations
         datePosted
@@ -1812,6 +2621,280 @@ export type DeleteAdMutationOptions = Apollo.BaseMutationOptions<
   DeleteAdMutation,
   DeleteAdMutationVariables
 >;
+export const CreateNegotiationDocument = gql`
+  mutation CreateNegotiation($negotiation: NegotiationInput!) {
+    createNegotiation(negotiation: $negotiation) {
+      response {
+        ...NegotiationDetails
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+  ${NegotiationDetailsFragmentDoc}
+`;
+export type CreateNegotiationMutationFn = Apollo.MutationFunction<
+  CreateNegotiationMutation,
+  CreateNegotiationMutationVariables
+>;
+
+/**
+ * __useCreateNegotiationMutation__
+ *
+ * To run a mutation, you first call `useCreateNegotiationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNegotiationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNegotiationMutation, { data, loading, error }] = useCreateNegotiationMutation({
+ *   variables: {
+ *      negotiation: // value for 'negotiation'
+ *   },
+ * });
+ */
+export function useCreateNegotiationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateNegotiationMutation,
+    CreateNegotiationMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateNegotiationMutation,
+    CreateNegotiationMutationVariables
+  >(CreateNegotiationDocument, baseOptions);
+}
+export type CreateNegotiationMutationHookResult = ReturnType<
+  typeof useCreateNegotiationMutation
+>;
+export type CreateNegotiationMutationResult = Apollo.MutationResult<CreateNegotiationMutation>;
+export type CreateNegotiationMutationOptions = Apollo.BaseMutationOptions<
+  CreateNegotiationMutation,
+  CreateNegotiationMutationVariables
+>;
+export const UpdateNegotiationDocument = gql`
+  mutation UpdateNegotiation($negotiation: NegotiationInputUpdate!) {
+    updateNegotiation(negotiation: $negotiation) {
+      response {
+        ...NegotiationDetails
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+  ${NegotiationDetailsFragmentDoc}
+`;
+export type UpdateNegotiationMutationFn = Apollo.MutationFunction<
+  UpdateNegotiationMutation,
+  UpdateNegotiationMutationVariables
+>;
+
+/**
+ * __useUpdateNegotiationMutation__
+ *
+ * To run a mutation, you first call `useUpdateNegotiationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNegotiationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNegotiationMutation, { data, loading, error }] = useUpdateNegotiationMutation({
+ *   variables: {
+ *      negotiation: // value for 'negotiation'
+ *   },
+ * });
+ */
+export function useUpdateNegotiationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateNegotiationMutation,
+    UpdateNegotiationMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    UpdateNegotiationMutation,
+    UpdateNegotiationMutationVariables
+  >(UpdateNegotiationDocument, baseOptions);
+}
+export type UpdateNegotiationMutationHookResult = ReturnType<
+  typeof useUpdateNegotiationMutation
+>;
+export type UpdateNegotiationMutationResult = Apollo.MutationResult<UpdateNegotiationMutation>;
+export type UpdateNegotiationMutationOptions = Apollo.BaseMutationOptions<
+  UpdateNegotiationMutation,
+  UpdateNegotiationMutationVariables
+>;
+export const DeleteNegotiationDocument = gql`
+  mutation DeleteNegotiation($id: ID!) {
+    deleteNegotiation(id: $id) {
+      response {
+        _id
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+export type DeleteNegotiationMutationFn = Apollo.MutationFunction<
+  DeleteNegotiationMutation,
+  DeleteNegotiationMutationVariables
+>;
+
+/**
+ * __useDeleteNegotiationMutation__
+ *
+ * To run a mutation, you first call `useDeleteNegotiationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteNegotiationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteNegotiationMutation, { data, loading, error }] = useDeleteNegotiationMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteNegotiationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteNegotiationMutation,
+    DeleteNegotiationMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    DeleteNegotiationMutation,
+    DeleteNegotiationMutationVariables
+  >(DeleteNegotiationDocument, baseOptions);
+}
+export type DeleteNegotiationMutationHookResult = ReturnType<
+  typeof useDeleteNegotiationMutation
+>;
+export type DeleteNegotiationMutationResult = Apollo.MutationResult<DeleteNegotiationMutation>;
+export type DeleteNegotiationMutationOptions = Apollo.BaseMutationOptions<
+  DeleteNegotiationMutation,
+  DeleteNegotiationMutationVariables
+>;
+export const CreateMessageDocument = gql`
+  mutation CreateMessage($message: MessageInput!) {
+    createMessage(message: $message) {
+      response {
+        ...MessageDetails
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+  ${MessageDetailsFragmentDoc}
+`;
+export type CreateMessageMutationFn = Apollo.MutationFunction<
+  CreateMessageMutation,
+  CreateMessageMutationVariables
+>;
+
+/**
+ * __useCreateMessageMutation__
+ *
+ * To run a mutation, you first call `useCreateMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMessageMutation, { data, loading, error }] = useCreateMessageMutation({
+ *   variables: {
+ *      message: // value for 'message'
+ *   },
+ * });
+ */
+export function useCreateMessageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateMessageMutation,
+    CreateMessageMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateMessageMutation,
+    CreateMessageMutationVariables
+  >(CreateMessageDocument, baseOptions);
+}
+export type CreateMessageMutationHookResult = ReturnType<
+  typeof useCreateMessageMutation
+>;
+export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
+export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
+  CreateMessageMutation,
+  CreateMessageMutationVariables
+>;
+export const CreateReviewDocument = gql`
+  mutation CreateReview($review: ReviewInput!) {
+    createReview(review: $review) {
+      response {
+        ...ReviewDetails
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+  ${ReviewDetailsFragmentDoc}
+`;
+export type CreateReviewMutationFn = Apollo.MutationFunction<
+  CreateReviewMutation,
+  CreateReviewMutationVariables
+>;
+
+/**
+ * __useCreateReviewMutation__
+ *
+ * To run a mutation, you first call `useCreateReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createReviewMutation, { data, loading, error }] = useCreateReviewMutation({
+ *   variables: {
+ *      review: // value for 'review'
+ *   },
+ * });
+ */
+export function useCreateReviewMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateReviewMutation,
+    CreateReviewMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    CreateReviewMutation,
+    CreateReviewMutationVariables
+  >(CreateReviewDocument, baseOptions);
+}
+export type CreateReviewMutationHookResult = ReturnType<
+  typeof useCreateReviewMutation
+>;
+export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutation>;
+export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<
+  CreateReviewMutation,
+  CreateReviewMutationVariables
+>;
 export const MeDocument = gql`
   query me($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
     me {
@@ -1833,7 +2916,9 @@ export const MeDocument = gql`
             _id
             firstName
             lastName
+            hideContact
           }
+          needsFollowUp
           harvest
           abv
           priceFrom
@@ -1845,12 +2930,14 @@ export const MeDocument = gql`
             metodoProduttivo
             wine {
               denominazioneZona
+              regione
             }
           }
           typeAd
           address {
             regione
             provincia
+            comune
           }
           activeNegotiations
           datePosted
@@ -1863,7 +2950,9 @@ export const MeDocument = gql`
           _id
           firstName
           lastName
+          hideContact
         }
+        needsFollowUp
         harvest
         abv
         priceFrom
@@ -1875,12 +2964,14 @@ export const MeDocument = gql`
           metodoProduttivo
           wine {
             denominazioneZona
+            regione
           }
         }
         typeAd
         address {
           regione
           provincia
+          comune
         }
         activeNegotiations
         datePosted
@@ -1898,6 +2989,7 @@ export const MeDocument = gql`
             _id
             email
           }
+          isConcluded
         }
         pageCount
       }
@@ -2133,7 +3225,9 @@ export const AdsWineDocument = gql`
           _id
           firstName
           lastName
+          hideContact
         }
+        needsFollowUp
         harvest
         abv
         priceFrom
@@ -2145,12 +3239,14 @@ export const AdsWineDocument = gql`
           metodoProduttivo
           wine {
             denominazioneZona
+            regione
           }
         }
         typeAd
         address {
           regione
           provincia
+          comune
         }
         activeNegotiations
         datePosted
@@ -2211,8 +3307,11 @@ export const AdDocument = gql`
         _id
         firstName
         lastName
+        hideContact
+        email
+        phoneNumber
       }
-      typeAd
+      needsFollowUp
       harvest
       abv
       priceFrom
@@ -2224,19 +3323,17 @@ export const AdDocument = gql`
         metodoProduttivo
         wine {
           denominazioneZona
+          regione
         }
       }
+      typeAd
       address {
         regione
         provincia
         comune
-        via
-        CAP
       }
       activeNegotiations
       datePosted
-      typeAd
-      content
     }
   }
 `;
@@ -2322,3 +3419,688 @@ export type WinesQueryResult = Apollo.QueryResult<
   WinesQuery,
   WinesQueryVariables
 >;
+export const NegotiationsDocument = gql`
+  query Negotiations($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
+    negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
+      negotiations {
+        ...NegotiationDetails
+      }
+      pageCount
+    }
+  }
+  ${NegotiationDetailsFragmentDoc}
+`;
+
+/**
+ * __useNegotiationsQuery__
+ *
+ * To run a query within a React component, call `useNegotiationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNegotiationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNegotiationsQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      orderBy: // value for 'orderBy'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useNegotiationsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    NegotiationsQuery,
+    NegotiationsQueryVariables
+  >
+) {
+  return Apollo.useQuery<NegotiationsQuery, NegotiationsQueryVariables>(
+    NegotiationsDocument,
+    baseOptions
+  );
+}
+export function useNegotiationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NegotiationsQuery,
+    NegotiationsQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<NegotiationsQuery, NegotiationsQueryVariables>(
+    NegotiationsDocument,
+    baseOptions
+  );
+}
+export type NegotiationsQueryHookResult = ReturnType<
+  typeof useNegotiationsQuery
+>;
+export type NegotiationsLazyQueryHookResult = ReturnType<
+  typeof useNegotiationsLazyQuery
+>;
+export type NegotiationsQueryResult = Apollo.QueryResult<
+  NegotiationsQuery,
+  NegotiationsQueryVariables
+>;
+export const NegotiationDocument = gql`
+  query Negotiation($id: ID!) {
+    negotiation(id: $id) {
+      ...NegotiationDetails
+      ad {
+        ... on AdWine {
+          wine {
+            denominazioneZona
+          }
+        }
+        postedBy {
+          hideContact
+          phoneNumber
+          email
+        }
+      }
+    }
+  }
+  ${NegotiationDetailsFragmentDoc}
+`;
+
+/**
+ * __useNegotiationQuery__
+ *
+ * To run a query within a React component, call `useNegotiationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNegotiationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNegotiationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useNegotiationQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    NegotiationQuery,
+    NegotiationQueryVariables
+  >
+) {
+  return Apollo.useQuery<NegotiationQuery, NegotiationQueryVariables>(
+    NegotiationDocument,
+    baseOptions
+  );
+}
+export function useNegotiationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NegotiationQuery,
+    NegotiationQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<NegotiationQuery, NegotiationQueryVariables>(
+    NegotiationDocument,
+    baseOptions
+  );
+}
+export type NegotiationQueryHookResult = ReturnType<typeof useNegotiationQuery>;
+export type NegotiationLazyQueryHookResult = ReturnType<
+  typeof useNegotiationLazyQuery
+>;
+export type NegotiationQueryResult = Apollo.QueryResult<
+  NegotiationQuery,
+  NegotiationQueryVariables
+>;
+export const MessagesDocument = gql`
+  query Messages {
+    messages {
+      ...MessageDetails
+    }
+  }
+  ${MessageDetailsFragmentDoc}
+`;
+
+/**
+ * __useMessagesQuery__
+ *
+ * To run a query within a React component, call `useMessagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMessagesQuery(
+  baseOptions?: Apollo.QueryHookOptions<MessagesQuery, MessagesQueryVariables>
+) {
+  return Apollo.useQuery<MessagesQuery, MessagesQueryVariables>(
+    MessagesDocument,
+    baseOptions
+  );
+}
+export function useMessagesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MessagesQuery,
+    MessagesQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<MessagesQuery, MessagesQueryVariables>(
+    MessagesDocument,
+    baseOptions
+  );
+}
+export type MessagesQueryHookResult = ReturnType<typeof useMessagesQuery>;
+export type MessagesLazyQueryHookResult = ReturnType<
+  typeof useMessagesLazyQuery
+>;
+export type MessagesQueryResult = Apollo.QueryResult<
+  MessagesQuery,
+  MessagesQueryVariables
+>;
+export const MessagesNegotiationDocument = gql`
+  query MessagesNegotiation($id: ID!) {
+    messagesForNegotiation(negotiation: $id) {
+      ...MessageDetails
+    }
+  }
+  ${MessageDetailsFragmentDoc}
+`;
+
+/**
+ * __useMessagesNegotiationQuery__
+ *
+ * To run a query within a React component, call `useMessagesNegotiationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMessagesNegotiationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessagesNegotiationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useMessagesNegotiationQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MessagesNegotiationQuery,
+    MessagesNegotiationQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    MessagesNegotiationQuery,
+    MessagesNegotiationQueryVariables
+  >(MessagesNegotiationDocument, baseOptions);
+}
+export function useMessagesNegotiationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MessagesNegotiationQuery,
+    MessagesNegotiationQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    MessagesNegotiationQuery,
+    MessagesNegotiationQueryVariables
+  >(MessagesNegotiationDocument, baseOptions);
+}
+export type MessagesNegotiationQueryHookResult = ReturnType<
+  typeof useMessagesNegotiationQuery
+>;
+export type MessagesNegotiationLazyQueryHookResult = ReturnType<
+  typeof useMessagesNegotiationLazyQuery
+>;
+export type MessagesNegotiationQueryResult = Apollo.QueryResult<
+  MessagesNegotiationQuery,
+  MessagesNegotiationQueryVariables
+>;
+export const ReviewsDocument = gql`
+  query Reviews($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
+    reviews(offset: $offset, orderBy: $orderBy, limit: $limit) {
+      reviews {
+        ...ReviewDetails
+      }
+    }
+  }
+  ${ReviewDetailsFragmentDoc}
+`;
+
+/**
+ * __useReviewsQuery__
+ *
+ * To run a query within a React component, call `useReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReviewsQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      orderBy: // value for 'orderBy'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useReviewsQuery(
+  baseOptions?: Apollo.QueryHookOptions<ReviewsQuery, ReviewsQueryVariables>
+) {
+  return Apollo.useQuery<ReviewsQuery, ReviewsQueryVariables>(
+    ReviewsDocument,
+    baseOptions
+  );
+}
+export function useReviewsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ReviewsQuery, ReviewsQueryVariables>
+) {
+  return Apollo.useLazyQuery<ReviewsQuery, ReviewsQueryVariables>(
+    ReviewsDocument,
+    baseOptions
+  );
+}
+export type ReviewsQueryHookResult = ReturnType<typeof useReviewsQuery>;
+export type ReviewsLazyQueryHookResult = ReturnType<typeof useReviewsLazyQuery>;
+export type ReviewsQueryResult = Apollo.QueryResult<
+  ReviewsQuery,
+  ReviewsQueryVariables
+>;
+export const ReviewDocument = gql`
+  query Review($id: ID!) {
+    review(id: $id) {
+      ...ReviewDetails
+    }
+  }
+  ${ReviewDetailsFragmentDoc}
+`;
+
+/**
+ * __useReviewQuery__
+ *
+ * To run a query within a React component, call `useReviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReviewQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useReviewQuery(
+  baseOptions: Apollo.QueryHookOptions<ReviewQuery, ReviewQueryVariables>
+) {
+  return Apollo.useQuery<ReviewQuery, ReviewQueryVariables>(
+    ReviewDocument,
+    baseOptions
+  );
+}
+export function useReviewLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ReviewQuery, ReviewQueryVariables>
+) {
+  return Apollo.useLazyQuery<ReviewQuery, ReviewQueryVariables>(
+    ReviewDocument,
+    baseOptions
+  );
+}
+export type ReviewQueryHookResult = ReturnType<typeof useReviewQuery>;
+export type ReviewLazyQueryHookResult = ReturnType<typeof useReviewLazyQuery>;
+export type ReviewQueryResult = Apollo.QueryResult<
+  ReviewQuery,
+  ReviewQueryVariables
+>;
+export const NegotiationsForAdDocument = gql`
+  query NegotiationsForAd($ad: ID!) {
+    negotiationsForAd(ad: $ad) {
+      _id
+      isConcluded
+      createdBy {
+        _id
+        firstName
+        lastName
+      }
+      dateCreated
+    }
+  }
+`;
+
+/**
+ * __useNegotiationsForAdQuery__
+ *
+ * To run a query within a React component, call `useNegotiationsForAdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNegotiationsForAdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNegotiationsForAdQuery({
+ *   variables: {
+ *      ad: // value for 'ad'
+ *   },
+ * });
+ */
+export function useNegotiationsForAdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    NegotiationsForAdQuery,
+    NegotiationsForAdQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    NegotiationsForAdQuery,
+    NegotiationsForAdQueryVariables
+  >(NegotiationsForAdDocument, baseOptions);
+}
+export function useNegotiationsForAdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NegotiationsForAdQuery,
+    NegotiationsForAdQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    NegotiationsForAdQuery,
+    NegotiationsForAdQueryVariables
+  >(NegotiationsForAdDocument, baseOptions);
+}
+export type NegotiationsForAdQueryHookResult = ReturnType<
+  typeof useNegotiationsForAdQuery
+>;
+export type NegotiationsForAdLazyQueryHookResult = ReturnType<
+  typeof useNegotiationsForAdLazyQuery
+>;
+export type NegotiationsForAdQueryResult = Apollo.QueryResult<
+  NegotiationsForAdQuery,
+  NegotiationsForAdQueryVariables
+>;
+export const AdPostedFollowUpDocument = gql`
+  subscription AdPostedFollowUp {
+    adPostedFollowUp {
+      _id
+      postedBy {
+        _id
+        firstName
+        lastName
+        hideContact
+      }
+      needsFollowUp
+      harvest
+      abv
+      priceFrom
+      priceTo
+      ... on AdWine {
+        wineName
+        litersFrom
+        litersTo
+        metodoProduttivo
+        wine {
+          denominazioneZona
+          regione
+        }
+      }
+      typeAd
+      address {
+        regione
+        provincia
+      }
+      activeNegotiations
+      datePosted
+    }
+  }
+`;
+
+/**
+ * __useAdPostedFollowUpSubscription__
+ *
+ * To run a query within a React component, call `useAdPostedFollowUpSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAdPostedFollowUpSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdPostedFollowUpSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdPostedFollowUpSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    AdPostedFollowUpSubscription,
+    AdPostedFollowUpSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    AdPostedFollowUpSubscription,
+    AdPostedFollowUpSubscriptionVariables
+  >(AdPostedFollowUpDocument, baseOptions);
+}
+export type AdPostedFollowUpSubscriptionHookResult = ReturnType<
+  typeof useAdPostedFollowUpSubscription
+>;
+export type AdPostedFollowUpSubscriptionResult = Apollo.SubscriptionResult<AdPostedFollowUpSubscription>;
+export const AdRemovedDocument = gql`
+  subscription AdRemoved {
+    adRemoved {
+      _id
+    }
+  }
+`;
+
+/**
+ * __useAdRemovedSubscription__
+ *
+ * To run a query within a React component, call `useAdRemovedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAdRemovedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdRemovedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdRemovedSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    AdRemovedSubscription,
+    AdRemovedSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    AdRemovedSubscription,
+    AdRemovedSubscriptionVariables
+  >(AdRemovedDocument, baseOptions);
+}
+export type AdRemovedSubscriptionHookResult = ReturnType<
+  typeof useAdRemovedSubscription
+>;
+export type AdRemovedSubscriptionResult = Apollo.SubscriptionResult<AdRemovedSubscription>;
+export const MessageSentDocument = gql`
+  subscription MessageSent {
+    messageSent {
+      ...MessageDetails
+    }
+  }
+  ${MessageDetailsFragmentDoc}
+`;
+
+/**
+ * __useMessageSentSubscription__
+ *
+ * To run a query within a React component, call `useMessageSentSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useMessageSentSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessageSentSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMessageSentSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    MessageSentSubscription,
+    MessageSentSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    MessageSentSubscription,
+    MessageSentSubscriptionVariables
+  >(MessageSentDocument, baseOptions);
+}
+export type MessageSentSubscriptionHookResult = ReturnType<
+  typeof useMessageSentSubscription
+>;
+export type MessageSentSubscriptionResult = Apollo.SubscriptionResult<MessageSentSubscription>;
+export const NegotiationCreatedDocument = gql`
+  subscription NegotiationCreated {
+    negotiationCreated {
+      ...NegotiationDetails
+    }
+  }
+  ${NegotiationDetailsFragmentDoc}
+`;
+
+/**
+ * __useNegotiationCreatedSubscription__
+ *
+ * To run a query within a React component, call `useNegotiationCreatedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNegotiationCreatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNegotiationCreatedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNegotiationCreatedSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    NegotiationCreatedSubscription,
+    NegotiationCreatedSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    NegotiationCreatedSubscription,
+    NegotiationCreatedSubscriptionVariables
+  >(NegotiationCreatedDocument, baseOptions);
+}
+export type NegotiationCreatedSubscriptionHookResult = ReturnType<
+  typeof useNegotiationCreatedSubscription
+>;
+export type NegotiationCreatedSubscriptionResult = Apollo.SubscriptionResult<NegotiationCreatedSubscription>;
+export const NegotiationClosedDocument = gql`
+  subscription NegotiationClosed {
+    negotiationClosed {
+      _id
+      postedBy {
+        _id
+        firstName
+        lastName
+        hideContact
+      }
+      needsFollowUp
+      harvest
+      abv
+      priceFrom
+      priceTo
+      ... on AdWine {
+        wineName
+        litersFrom
+        litersTo
+        metodoProduttivo
+        wine {
+          denominazioneZona
+          regione
+        }
+      }
+      typeAd
+      address {
+        regione
+        provincia
+      }
+      activeNegotiations
+      datePosted
+    }
+  }
+`;
+
+/**
+ * __useNegotiationClosedSubscription__
+ *
+ * To run a query within a React component, call `useNegotiationClosedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNegotiationClosedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNegotiationClosedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNegotiationClosedSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    NegotiationClosedSubscription,
+    NegotiationClosedSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    NegotiationClosedSubscription,
+    NegotiationClosedSubscriptionVariables
+  >(NegotiationClosedDocument, baseOptions);
+}
+export type NegotiationClosedSubscriptionHookResult = ReturnType<
+  typeof useNegotiationClosedSubscription
+>;
+export type NegotiationClosedSubscriptionResult = Apollo.SubscriptionResult<NegotiationClosedSubscription>;
+export const ReviewCreatedDocument = gql`
+  subscription ReviewCreated {
+    reviewCreated {
+      ...ReviewDetails
+    }
+  }
+  ${ReviewDetailsFragmentDoc}
+`;
+
+/**
+ * __useReviewCreatedSubscription__
+ *
+ * To run a query within a React component, call `useReviewCreatedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useReviewCreatedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReviewCreatedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReviewCreatedSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    ReviewCreatedSubscription,
+    ReviewCreatedSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    ReviewCreatedSubscription,
+    ReviewCreatedSubscriptionVariables
+  >(ReviewCreatedDocument, baseOptions);
+}
+export type ReviewCreatedSubscriptionHookResult = ReturnType<
+  typeof useReviewCreatedSubscription
+>;
+export type ReviewCreatedSubscriptionResult = Apollo.SubscriptionResult<ReviewCreatedSubscription>;

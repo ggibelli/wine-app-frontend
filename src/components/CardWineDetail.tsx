@@ -2,105 +2,52 @@
 import * as React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import {
-  AdWine,
-  MeDocument,
-  // DenomZona,
-  // MetodoProduttivo,
-  TypeAd,
-  useSaveAdMutation,
-  useMeLazyQuery,
-} from '../generated/graphql';
+import { AdWine, TypeAd, User } from '../generated/graphql';
 import { Button, Grid } from '@material-ui/core';
-// import { useMeQuery } from '../generated/graphql';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import _ from 'lodash';
-import { ICachedMe } from '../pages/BuySell';
-// export interface Ad {
-//   _id: string;
-//   postedBy: {
-//     _id: string;
-//     firstName: string;
-//     lastName: string;
-//   };
-//   wine?: {
-//     denominazioneZona?: DenomZona;
-//   } | null;
-//   address: {
-//     regione: string;
-//     provincia: string;
-//     comune: string;
-//     via: string;
-//     CAP: string;
-//   };
-//   metodoProduttivo?: MetodoProduttivo | null;
-//   wineName?: string;
-//   litersFrom?: number | null;
-//   litersTo?: number | null;
-//   priceFrom: number;
-//   priceTo: number;
-//   harvest: number;
-//   abv: number;
-//   activeNegotiations?: number | null;
-//   datePosted?: string | null;
-//   typeAd: TypeAd;
-// }
+import { FavoriteButton } from './FavoriteButton';
+import { NegotiationModal } from './NegotiationModal';
+// // import Collapse from '@material-ui/core/Collapse';
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+// import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+// import IconButton from '@material-ui/core/IconButton';
 
-export const CardWineDetail: React.FC<{ ad: AdWine }> = ({ ad }) => {
-  // const { data, loading, error } = useMeQuery();
-  const [lazyMe, { data, loading, error }] = useMeLazyQuery();
-  const [saveAd] = useSaveAdMutation({
-    onCompleted: (data) => console.log(data),
-    onError: (error) => console.log(error),
-    update: (cache, response) => {
-      const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
-        cache.readQuery({
-          query: MeDocument,
-        })
-      );
-      if (cachedDataMeLocal?.me.savedAds && isFav) {
-        const indexAd = cachedDataMeLocal?.me.savedAds.findIndex(
-          (adSaved) => adSaved._id === ad._id
-        );
-        cachedDataMeLocal?.me.savedAds.splice(indexAd, 1);
-      } else if (cachedDataMeLocal?.me.savedAds) {
-        cachedDataMeLocal?.me.savedAds.push(
-          response.data?.saveAd?.response as AdWine
-        );
-      }
-      cache.writeQuery({ query: MeDocument, data: cachedDataMeLocal });
-    },
-  });
-  const [isFav, setIsFav] = React.useState<boolean>(false);
-  React.useEffect(() => {
-    lazyMe();
-  }, []);
-  React.useEffect(() => {
-    if (
-      data?.me?.savedAds?.findIndex((adSaved) => adSaved._id === ad._id) === -1
-    ) {
-      setIsFav(false);
-    } else {
-      setIsFav(true);
-    }
-  }, [data?.me?.savedAds]);
-  const handleClick = (id: string) => {
-    void saveAd({ variables: { id } });
+export const CardWineDetail: React.FC<{
+  ad: AdWine;
+  me: User;
+  createNegotiation: (arg0: AdWine) => void;
+}> = ({ ad, me, createNegotiation }) => {
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
   };
   const ContactOrEdit = () => {
-    if (!loading && !error) {
-      if (data?.me?._id === ad.postedBy._id) {
-        return <Button>Modifica l annuncio</Button>;
-      }
-      return (
-        <Button>
+    if (me._id === ad.postedBy._id) {
+      return <Button>Modifica l annuncio</Button>;
+    } else if (
+      me.negotiations?.negotiations?.find(
+        (negotiation) => negotiation?.ad._id === ad._id
+      )
+    ) {
+      return <div>negoziazione gia aperta</div>;
+    }
+    return (
+      <>
+        <Button onClick={handleClickOpen}>
           Contatta il {ad.typeAd === TypeAd.Buy ? 'compratore' : 'venditore'}
         </Button>
-      );
-    }
-    return null;
+        <NegotiationModal
+          handleClose={handleClose}
+          open={openModal}
+          ad={ad}
+          createNegotiation={createNegotiation}
+        />
+      </>
+    );
   };
 
   return (
@@ -117,11 +64,8 @@ export const CardWineDetail: React.FC<{ ad: AdWine }> = ({ ad }) => {
       borderColor={ad.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
       bgcolor={ad.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
       borderRadius={16}
-      onClick={() => console.log(ad._id)}
     >
-      <IconButton aria-label='save' onClick={() => handleClick(ad._id)}>
-        {!isFav ? <FavoriteBorderIcon /> : <FavoriteIcon />}
-      </IconButton>
+      <FavoriteButton ad={ad} me={me} />
       <Typography component='h5' variant='h5'>
         L&apos;utente {ad.postedBy.firstName}{' '}
         {ad.typeAd === TypeAd.Buy ? 'compra' : 'vende'}:
@@ -149,13 +93,15 @@ export const CardWineDetail: React.FC<{ ad: AdWine }> = ({ ad }) => {
         <br />
         Comune: {ad.address.comune}
       </Typography>
+      <br />
+      <ContactOrEdit />
       <Grid container justify='space-between'>
         <Typography align='left' variant='caption'></Typography>
+
         <Typography align='right' variant='caption'>
           Negoziazioni attive: {ad.activeNegotiations}
         </Typography>
       </Grid>
-      <ContactOrEdit />
     </Box>
   );
 };

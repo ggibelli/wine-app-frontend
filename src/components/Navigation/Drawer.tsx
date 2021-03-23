@@ -17,10 +17,18 @@ import Rating from '@material-ui/lab/Rating';
 import { ApolloError } from '@apollo/client';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link as RouterLink } from '@reach/router';
+import { LogoutButton } from './LogoutButton';
 
 const useStyles = makeStyles({
   list: {
     width: 250,
+  },
+  bottomPush: {
+    width: 250,
+    position: 'fixed',
+    bottom: 0,
+    textAlign: 'center',
+    paddingBottom: 10,
   },
 });
 
@@ -41,7 +49,6 @@ export const Drawer: React.FC<{
   data: DrawerData;
 }> = ({ state, toggleDrawer, data }) => {
   const classes = useStyles();
-  console.log(data.data);
   const list = () => (
     <div
       className={classes.list}
@@ -83,7 +90,16 @@ export const Drawer: React.FC<{
           </ListItemIcon>
           <ListItemText primary='Annunci pubblicati' />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          // eslint-disable-next-line react/display-name
+          component={React.forwardRef((itemProps, ref) => (
+            //ts ignore because followed the mui docs
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            <RouterLink to={'/trattative'} ref={ref} {...itemProps} />
+          ))}
+        >
           <ListItemIcon>
             <Badge badgeContent={data.data?.numNegs} color='primary'>
               <StoreIcon />
@@ -99,6 +115,10 @@ export const Drawer: React.FC<{
           </ListItemIcon>
           <ListItemText primary='Annunci salvati' />
         </ListItem>
+        <Divider />
+        <div className={classes.bottomPush}>
+          <LogoutButton />
+        </div>
       </List>
     </div>
   );

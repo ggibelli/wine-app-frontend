@@ -14,7 +14,6 @@ export const cache: InMemoryCache = new InMemoryCache({
           //@ts-ignore
           merge(existing = [], incoming: any, { args: { offset = 0 } }) {
             if (offset === 0) {
-              console.log('torno gli incoming solo');
               // eslint-disable-next-line @typescript-eslint/no-unsafe-return
               return {
                 __typeName: 'AdsResult',
@@ -47,7 +46,6 @@ export const cache: InMemoryCache = new InMemoryCache({
           //@ts-ignore
           merge(existing = [], incoming: any, { args: { offset = 0 } }) {
             if (offset === 0) {
-              console.log('torno gli incoming solo');
               // eslint-disable-next-line @typescript-eslint/no-unsafe-return
               return {
                 __typeName: 'AdsResult',
@@ -62,6 +60,34 @@ export const cache: InMemoryCache = new InMemoryCache({
             return {
               __typeName: 'AdsResult',
               ads: _.unionBy(existing.ads, incoming.ads, '__ref'),
+              pageCount: incoming.pageCount,
+            };
+          },
+        },
+        negotiations: {
+          keyArgs: false,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          merge(existing = [], incoming: any, { args: { offset = 0 } }) {
+            if (offset === 0) {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+              return {
+                __typeName: 'NegotiationResult',
+                negotiations: incoming.negotiations,
+                pageCount: incoming.pageCount,
+              };
+            }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            return {
+              __typeName: 'NegotiationResult',
+              negotiations: _.unionBy(
+                existing.negotiations,
+                incoming.negotiations,
+                '__ref'
+              ),
               pageCount: incoming.pageCount,
             };
           },

@@ -1,14 +1,38 @@
 import * as React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useParams } from '@reach/router';
-import { AdWine, TypeAd, useAdQuery } from '../generated/graphql';
+import {
+  AdWine,
+  TypeAd,
+  useAdQuery,
+  // useMeLazyQuery,
+  useCreateNegotiationMutation,
+  NegotiationInput,
+  Negotiation,
+  useNegotiationsForAdLazyQuery,
+  User,
+  MeQuery,
+  NegotiationInputUpdate,
+} from '../generated/graphql';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { notification, searchedWine } from '../cache';
+import { notification } from '../cache';
 import { CardWineDetail } from '../components/CardWineDetail';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
 import { BackButton } from '../components/BackButton';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import IconButton from '@material-ui/core/IconButton';
+// import _ from 'lodash';
+import { updateCacheNegotiations } from '../utils/updateCache';
+import { OpenNegotiations } from '../components/OpenNegotiations';
+
+export interface ICachedNegotiations {
+  negotiations: Array<Negotiation>;
+  pageCount: number;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +49,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Ad: React.FC<RouteComponentProps> = () => {
+export const Ad: React.FC<
+  RouteComponentProps & {
+    meData: MeQuery | undefined;
+    handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
+  }
+> = ({ meData, handleCloseNeg }) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const { data, loading, error } = useAdQuery({
@@ -33,11 +62,45 @@ export const Ad: React.FC<RouteComponentProps> = () => {
       id: id,
     },
   });
+  const [createNegotiation] = useCreateNegotiationMutation({
+    onCompleted: () => console.log('neg creata'),
+    onError: (error) => console.log(error),
+    // refetchQueries: [{ query: AdDocument, variables: { id } }],
+    update: (cache, response) => {
+      updateCacheNegotiations(
+        cache,
+        response.data?.createNegotiation?.response as Negotiation
+      );
+    },
+  });
+  const [lazyNegotiations, lazyNegResult] = useNegotiationsForAdLazyQuery();
+  const [open, setOpen] = React.useState<boolean>(false);
+  const handleShowNegotiations = () => {
+    if (!open) {
+      lazyNegotiations({ variables: { ad: id } });
+    }
+    setOpen(!open);
+  };
+  // React.useEffect(() => {
+  //   if (open) {
 
+  //   }
+  // })
+  // const [lazyMe, lazyMeResult] = useMeLazyQuery();
+  // React.useEffect(() => {
+  //   lazyMe();
+  // }, []);
+  const openNegotiation = (ad: AdWine) => {
+    const newNegotiation: NegotiationInput = {
+      forUserAd: ad.postedBy._id,
+      ad: ad._id,
+      type: ad.typeAd,
+    };
+    console.log(newNegotiation);
+
+    void createNegotiation({ variables: { negotiation: newNegotiation } });
+  };
   const classes = useStyles();
-  const searchedWineCache = searchedWine();
-  console.log(searchedWineCache);
-  console.log(data, loading, error);
   if (error && !loading) {
     notification({
       type: 'error',
@@ -45,7 +108,7 @@ export const Ad: React.FC<RouteComponentProps> = () => {
     });
     return <div>Errore</div>;
   }
-  if (data?.ad) {
+  if (data?.ad && meData?.me) {
     const Heading = () => {
       if (data.ad?.typeAd === TypeAd.Buy) {
         return (
@@ -80,7 +143,20 @@ export const Ad: React.FC<RouteComponentProps> = () => {
         <div className={classes.paper}>
           <Heading />
         </div>
-        <CardWineDetail ad={data.ad as AdWine} />
+        <CardWineDetail
+          ad={data.ad as AdWine}
+          me={meData?.me as User}
+          createNegotiation={openNegotiation}
+        />
+        <IconButton onClick={handleShowNegotiations}>
+          {!open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+        </IconButton>
+        <Collapse in={open}>
+          <OpenNegotiations
+            data={lazyNegResult}
+            closeNegotiation={handleCloseNeg}
+          />
+        </Collapse>
       </Container>
     );
   }

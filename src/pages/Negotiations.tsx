@@ -5,8 +5,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { RouteComponentProps } from '@reach/router';
-import { useMeLazyQuery } from '../generated/graphql';
-import { Ad, CardWine } from '../components/CardWine';
+import {
+  NegotiationInputUpdate,
+  useNegotiationsLazyQuery,
+} from '../generated/graphql';
+import {
+  CardNegotiation,
+  NegotiationWine,
+} from '../components/CardNegotiation';
 import { BackButton } from '../components/BackButton';
 
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -20,30 +26,39 @@ const useStyles = makeStyles(() =>
     },
   })
 );
-export const MyAds: React.FC<RouteComponentProps> = () => {
+export const Negotiations: React.FC<
+  RouteComponentProps & {
+    handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
+  }
+> = ({ handleCloseNeg }) => {
   const classes = useStyles();
 
   const [limit, setLimit] = React.useState<number>(10);
-  const [isEndAds, setIsEndAds] = React.useState<boolean>(false);
+  const [isEndNegotiations, setIsEndNegotiations] = React.useState<boolean>(
+    false
+  );
 
-  const [lazyAdsWine, result] = useMeLazyQuery({
+  const [lazyNegotiations, result] = useNegotiationsLazyQuery({
     onError: (error) => console.log(error),
     notifyOnNetworkStatusChange: true,
     onCompleted: (response) => {
-      if (response.me?.ads?.ads) {
-        setAds((response.me?.ads.ads as unknown) as Ad[]);
+      if (response.negotiations?.negotiations) {
+        setNegotiations(
+          (response.negotiations?.negotiations as unknown) as NegotiationWine[]
+        );
       }
       if (
-        response.me?.ads?.pageCount &&
-        response.me?.ads?.ads?.length === response.me?.ads.pageCount
+        response.negotiations?.pageCount &&
+        response.negotiations?.negotiations?.length ===
+          response.negotiations?.pageCount
       ) {
         if (!open) setOpen(true);
 
-        setIsEndAds(true);
+        setIsEndNegotiations(true);
       }
     },
   });
-  const [ads, setAds] = React.useState<Ad[]>([]);
+  const [negotiations, setNegotiations] = React.useState<NegotiationWine[]>([]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -72,12 +87,14 @@ export const MyAds: React.FC<RouteComponentProps> = () => {
       if (entry.intersectionRatio > 0 && result.fetchMore) {
         result
           .fetchMore({
-            variables: { limit: 10, offset: ads.length },
+            variables: { limit: 10, offset: negotiations.length },
           })
 
           .then((fetchMoreResult) => {
-            if (fetchMoreResult.data.me?.ads?.ads?.length) {
-              setLimit(fetchMoreResult.data.me?.ads?.ads?.length + limit);
+            if (fetchMoreResult.data.negotiations?.negotiations?.length) {
+              setLimit(
+                fetchMoreResult.data.negotiations?.negotiations?.length + limit
+              );
             }
           })
           .catch((e) => console.log(e));
@@ -90,10 +107,10 @@ export const MyAds: React.FC<RouteComponentProps> = () => {
     if (bottomBoundaryRef.current) {
       observer.observe(bottomBoundaryRef.current);
     }
-  }, [ads, bottomBoundaryRef.current]);
+  }, [negotiations, bottomBoundaryRef.current]);
 
   React.useEffect(() => {
-    void lazyAdsWine({
+    void lazyNegotiations({
       variables: {
         offset: 0,
         limit,
@@ -101,7 +118,10 @@ export const MyAds: React.FC<RouteComponentProps> = () => {
       },
     });
   }, [limit]);
-  if (ads.length && result.data?.me?.ads?.ads?.length !== 0) {
+  if (
+    negotiations.length &&
+    result.data?.negotiations?.negotiations?.length !== 0
+  ) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -114,10 +134,14 @@ export const MyAds: React.FC<RouteComponentProps> = () => {
 
         <br />
         <div className={classes.root}>
-          {ads.map((ad) => (
-            <CardWine key={ad._id} ad={ad} />
+          {negotiations.map((negotiation) => (
+            <CardNegotiation
+              key={negotiation._id}
+              negotiation={negotiation}
+              handleCloseNeg={handleCloseNeg}
+            />
           ))}
-          {isEndAds && !result.loading ? null : (
+          {isEndNegotiations && !result.loading ? null : (
             <div
               id='page-bottom-boundary'
               style={{ border: '1px solid red' }}

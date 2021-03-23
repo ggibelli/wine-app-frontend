@@ -8,14 +8,15 @@ import {
   TypeAd,
   TypeProduct,
   // useMeQuery,
-  useMeLazyQuery,
+  // useMeLazyQuery,
   useCreateAdWineMutation,
   useWineSearchedLazyQuery,
   AddressInput,
   AdsWineDocument,
   MeDocument,
   User,
-  Address,
+  AdWine,
+  MeQuery,
 } from '../generated/graphql';
 import { searchedWine, notification } from '../cache';
 import { navigate } from '@reach/router';
@@ -35,27 +36,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface IAd {
-  _id: string;
-  postedBy: User;
-  typeProduct: TypeProduct;
-  isActive: boolean;
-  content: string;
-  typeAd: TypeAd;
-  harvest: number;
-  abv: number;
-  priceFrom: number;
-  priceTo: number;
-  wineName: string;
-  litersFrom: number;
-  litersTo: number;
-  address: Address;
-  activeNegotiations: number;
-  datePosted: string;
-}
-
 interface IAds {
-  ads: Array<IAd>;
+  ads: Array<AdWine>;
   pageCount: number;
 }
 
@@ -67,7 +49,9 @@ export interface ICachedMe {
   me: User;
 }
 
-export const Buy: React.FC<RouteComponentProps> = () => {
+export const Buy: React.FC<
+  RouteComponentProps & { meData: MeQuery | undefined }
+> = ({ meData }) => {
   const classes = useStyles();
   const searchedWineCache = searchedWine();
   const variablesCacheUpdate = {
@@ -83,18 +67,18 @@ export const Buy: React.FC<RouteComponentProps> = () => {
   React.useEffect(() => {
     lazyWines();
   }, [lazyWines]);
-  const [lazyQueryMe, result] = useMeLazyQuery({
-    onError: (error) => {
-      console.log(error);
-      notification({
-        type: 'error',
-        message: `${error.message}`,
-      });
-    },
-  });
-  React.useEffect(() => {
-    lazyQueryMe();
-  }, []);
+  // const [lazyQueryMe, result] = useMeLazyQuery({
+  //   onError: (error) => {
+  //     console.log(error);
+  //     notification({
+  //       type: 'error',
+  //       message: `${error.message}`,
+  //     });
+  //   },
+  // });
+  // React.useEffect(() => {
+  //   lazyQueryMe();
+  // }, []);
   // const meResult = useMeQuery({
   //   onError: (error) => {
   //     console.log(error);
@@ -127,11 +111,12 @@ export const Buy: React.FC<RouteComponentProps> = () => {
       }
     },
     update: (cache, response) => {
-      console.log(variablesCacheUpdate);
-      const cachedDataAds: ICachedDataAds | null = cache.readQuery({
-        query: AdsWineDocument,
-        variables: variablesCacheUpdate,
-      });
+      const cachedDataAdsLocal: ICachedDataAds | null = _.cloneDeep(
+        cache.readQuery({
+          query: AdsWineDocument,
+          variables: variablesCacheUpdate,
+        })
+      );
       const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
         cache.readQuery({
           query: MeDocument,
@@ -139,22 +124,27 @@ export const Buy: React.FC<RouteComponentProps> = () => {
       );
 
       cachedDataMeLocal?.me.ads?.ads?.push(
-        response.data?.createAd?.response as IAd
+        response.data?.createAd?.response as AdWine
       );
-      if (cachedDataMeLocal?.me.ads?.pageCount) {
-        cache.writeQuery({
-          query: MeDocument,
-          data: cachedDataMeLocal,
-        });
+      if (cachedDataMeLocal?.me?.ads) {
+        cachedDataMeLocal.me.ads.pageCount =
+          (cachedDataMeLocal?.me.ads?.pageCount as number) + 1;
       }
-      if (!cachedDataAds) return;
+
+      cache.writeQuery({
+        query: MeDocument,
+        data: cachedDataMeLocal,
+      });
+
+      if (!cachedDataAdsLocal) return;
+      cachedDataAdsLocal.ads.ads.push(
+        response.data?.createAd?.response as AdWine
+      );
+      cachedDataAdsLocal.ads.pageCount += 1;
       cache.writeQuery({
         query: AdsWineDocument,
         variables: variablesCacheUpdate,
-        data: {
-          ...cachedDataAds.ads,
-          ads: [...cachedDataAds.ads.ads, response.data?.createAd?.response],
-        },
+        data: cachedDataAdsLocal,
       });
     },
   });
@@ -177,13 +167,13 @@ export const Buy: React.FC<RouteComponentProps> = () => {
     void navigate('/annunci');
   };
   const onSubmitMutation = (values: WineFormMutation) => {
-    if (values.isSameAddress && result.data?.me?.address) {
+    if (values.isSameAddress && meData?.me?.address) {
       sameAddress = {
-        regione: result.data.me.address.regione,
-        provincia: result.data.me.address.provincia,
-        comune: result.data.me.address.comune,
-        via: result.data.me.address.via,
-        CAP: result.data.me.address.CAP,
+        regione: meData.me.address.regione,
+        provincia: meData.me.address.provincia,
+        comune: meData.me.address.comune,
+        via: meData.me.address.via,
+        CAP: meData.me.address.CAP,
       };
     } else {
       differentAddress = values.address as AddressInput;

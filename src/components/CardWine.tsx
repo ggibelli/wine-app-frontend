@@ -42,7 +42,7 @@ export const CardWine: React.FC<{ ad: Ad }> = ({ ad }) => {
       >
         <Typography component='h5' variant='h6'>
           {ad.typeAd === TypeAd.Buy ? 'Compro' : 'Vendo'} {ad.wineName}{' '}
-          {ad.wine.denominazioneZona}
+          {/* {ad.wine.denominazioneZona} */}
         </Typography>
         <Typography align='left' variant='body1'>
           Annata: {ad.harvest}

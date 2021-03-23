@@ -63,6 +63,9 @@ const wsLink = new WebSocketLink({
   uri: `ws://localhost:4000/graphql`,
   options: {
     reconnect: true,
+    connectionParams: {
+      authToken: localStorage.getItem('wineapp-user-token'),
+    },
   },
 });
 
@@ -86,11 +89,11 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

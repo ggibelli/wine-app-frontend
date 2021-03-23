@@ -1,4 +1,10 @@
 import { gql } from '@apollo/client';
+import {
+  AD_DETAILS,
+  MESSAGE_DETAILS,
+  NEGOTIATION_DETAILS,
+  REVIEW_DETAILS,
+} from './queries';
 
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
@@ -36,6 +42,36 @@ export const SIGNUP = gql`
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation UpdateUser($user: UserInputUpdate!) {
+    updateUser(user: $user) {
+      response {
+        _id
+        firstName
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+
+export const DELETE_USER = gql`
+  mutation DeleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      response {
+        _id
+        firstName
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+
 export const CREATE_ADWINE = gql`
   mutation CreateAdWine($input: AdInput!) {
     createAd(input: $input) {
@@ -45,8 +81,9 @@ export const CREATE_ADWINE = gql`
           _id
           firstName
           lastName
+          hideContact
         }
-
+        needsFollowUp
         harvest
         abv
         priceFrom
@@ -55,14 +92,17 @@ export const CREATE_ADWINE = gql`
           wineName
           litersFrom
           litersTo
+          metodoProduttivo
           wine {
             denominazioneZona
+            regione
           }
         }
-
+        typeAd
         address {
           regione
           provincia
+          comune
         }
         activeNegotiations
         datePosted
@@ -73,6 +113,7 @@ export const CREATE_ADWINE = gql`
       }
     }
   }
+  ${AD_DETAILS}
 `;
 
 export const UPDATE_ADWINE = gql`
@@ -84,8 +125,9 @@ export const UPDATE_ADWINE = gql`
           _id
           firstName
           lastName
+          hideContact
         }
-
+        needsFollowUp
         harvest
         abv
         priceFrom
@@ -94,11 +136,17 @@ export const UPDATE_ADWINE = gql`
           wineName
           litersFrom
           litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
+            regione
+          }
         }
-
+        typeAd
         address {
           regione
           provincia
+          comune
         }
         activeNegotiations
         datePosted
@@ -109,6 +157,7 @@ export const UPDATE_ADWINE = gql`
       }
     }
   }
+  ${AD_DETAILS}
 `;
 
 export const SAVE_AD = gql`
@@ -150,4 +199,78 @@ export const DELETE_AD = gql`
       }
     }
   }
+`;
+
+export const CREATE_NEGOTIATION = gql`
+  mutation CreateNegotiation($negotiation: NegotiationInput!) {
+    createNegotiation(negotiation: $negotiation) {
+      response {
+        ...NegotiationDetails
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+  ${NEGOTIATION_DETAILS}
+`;
+
+export const UPDATE_NEGOTIATION = gql`
+  mutation UpdateNegotiation($negotiation: NegotiationInputUpdate!) {
+    updateNegotiation(negotiation: $negotiation) {
+      response {
+        ...NegotiationDetails
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+  ${NEGOTIATION_DETAILS}
+`;
+
+export const DELETE_NEGOTIATION = gql`
+  mutation DeleteNegotiation($id: ID!) {
+    deleteNegotiation(id: $id) {
+      response {
+        _id
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+`;
+
+export const CREATE_MESSAGE = gql`
+  mutation CreateMessage($message: MessageInput!) {
+    createMessage(message: $message) {
+      response {
+        ...MessageDetails
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+  ${MESSAGE_DETAILS}
+`;
+
+export const CREATE_REVIEW = gql`
+  mutation CreateReview($review: ReviewInput!) {
+    createReview(review: $review) {
+      response {
+        ...ReviewDetails
+      }
+      errors {
+        name
+        text
+      }
+    }
+  }
+  ${REVIEW_DETAILS}
 `;

@@ -39,6 +39,7 @@ export const SignUp: React.FC<RouteComponentProps> = () => {
     const userInputValues = _.cloneDeep(values);
     delete userInputValues.reEmail;
     delete userInputValues.rePassword;
+    userInputValues.address.CAP = userInputValues.address.CAP.toString();
     await createUserMutation({
       variables: {
         userInput: userInputValues as UserInput,
