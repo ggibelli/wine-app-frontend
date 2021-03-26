@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { RouteComponentProps } from '@reach/router';
 import {
   NegotiationInputUpdate,
-  useNegotiationsLazyQuery,
+  useNegotiationsOpenLazyQuery,
 } from '../generated/graphql';
 import {
   CardNegotiation,
@@ -38,7 +38,7 @@ export const Negotiations: React.FC<
     false
   );
 
-  const [lazyNegotiations, result] = useNegotiationsLazyQuery({
+  const [lazyNegotiations, result] = useNegotiationsOpenLazyQuery({
     onError: (error) => console.log(error),
     notifyOnNetworkStatusChange: true,
     onCompleted: (response) => {
@@ -129,7 +129,7 @@ export const Negotiations: React.FC<
 
         <br />
         <Typography color='primary' component='h3' variant='h5'>
-          Gli annunci che hai creato
+          Le tue trattative attive
         </Typography>
 
         <br />
@@ -153,6 +153,9 @@ export const Negotiations: React.FC<
         </div>
       </Container>
     );
+  }
+  if (result.data?.negotiations?.negotiations?.length === 0) {
+    return <div>Non ci sono negoziazioni attive</div>;
   }
   return <Skeleton />;
 };

@@ -11,7 +11,7 @@ import {
   TypeAd,
   useAdsWineLazyQuery,
 } from '../generated/graphql';
-import { searchedWine } from '../cache';
+import { notification, searchedWine } from '../cache';
 import { Ad, CardWine } from '../components/CardWine';
 import { multiFilter, IFilters } from '../utils/multiFilter';
 import { BackButton } from '../components/BackButton';
@@ -52,7 +52,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
       litersTo >= (searchedWineCache?.liters as number),
   });
   const [lazyAdsWine, result] = useAdsWineLazyQuery({
-    onError: (error) => console.log(error),
+    onError: (error) => notification({ type: 'error', message: error.message }),
     notifyOnNetworkStatusChange: true,
     onCompleted: (response) => {
       if (response.ads?.ads) {

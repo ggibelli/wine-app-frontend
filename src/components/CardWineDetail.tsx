@@ -17,7 +17,6 @@ export const CardWineDetail: React.FC<{
   createNegotiation: (arg0: AdWine) => void;
 }> = ({ ad, me, createNegotiation }) => {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
-
   const handleClickOpen = () => {
     setOpenModal(true);
   };

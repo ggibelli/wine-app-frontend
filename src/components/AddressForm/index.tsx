@@ -4,7 +4,6 @@ import * as React from 'react';
 import { ComboboxComuni } from '../FormFields/ComboboxComuni';
 import { ComboboxField } from '../FormFields/ComboboxField';
 import { ComboboxProvince } from '../FormFields/ComboboxProvince';
-import { TextField } from '../FormFields/TextField';
 import { optionsRegioni } from '../UserForm/data';
 import { WineFormMutation } from '../WineForms/Post/WineFormMutation';
 
@@ -42,23 +41,6 @@ export const AddressForm: React.FC<{
           setFieldValue={setFieldValue}
           name='address.comune'
           label='Comune'
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          name='address.via'
-          type='text'
-          label='Via'
-          placeholder='Via'
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          name='address.CAP'
-          type='number'
-          max='99999'
-          label='CAP'
-          placeholder='CAP'
         />
       </Grid>
     </>

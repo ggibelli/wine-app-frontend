@@ -111,19 +111,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface AddressInputForm {
-  via: string;
   comune: string;
   provincia: string;
   regione: string;
-  CAP: string;
 }
 
 const initialAddress: AddressInputForm = {
-  via: '',
   comune: '',
   provincia: '',
   regione: '',
-  CAP: '12345',
 };
 
 export interface WineFormMutation {
@@ -232,15 +228,6 @@ export const WineFormMutation: React.FC<{
         needsFollowUp: Yup.bool().required('Required'),
         isSameAddress: Yup.bool().required('Required'),
         address: Yup.object().shape({
-          via: Yup.string(),
-          CAP: Yup.number().test(
-            'len',
-            'Must be exactly 5 characters',
-            (value) => {
-              if (!value) return false;
-              return value.toString().length === 5;
-            }
-          ),
           comune: Yup.string(),
           provincia: Yup.string(),
           regione: Yup.string(),

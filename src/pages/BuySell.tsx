@@ -172,8 +172,6 @@ export const Buy: React.FC<
         regione: meData.me.address.regione,
         provincia: meData.me.address.provincia,
         comune: meData.me.address.comune,
-        via: meData.me.address.via,
-        CAP: meData.me.address.CAP,
       };
     } else {
       differentAddress = values.address as AddressInput;

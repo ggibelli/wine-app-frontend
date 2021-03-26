@@ -20,16 +20,16 @@ export type Scalars = {
 
 export type Address = {
   __typename?: 'Address';
-  via: Scalars['String'];
-  CAP: Scalars['String'];
+  via?: Maybe<Scalars['String']>;
+  CAP?: Maybe<Scalars['String']>;
   comune: Scalars['String'];
   provincia: Province;
   regione: Regioni;
 };
 
 export type AddressInput = {
-  via: Scalars['String'];
-  CAP: Scalars['String'];
+  via?: Maybe<Scalars['String']>;
+  CAP?: Maybe<Scalars['String']>;
   comune: Scalars['String'];
   provincia: Province;
   regione: Regioni;
@@ -236,6 +236,7 @@ export type QueryNegotiationsArgs = {
   offset?: Maybe<Scalars['Int']>;
   orderBy?: Maybe<QueryOrderBy>;
   limit?: Maybe<Scalars['Int']>;
+  isConcluded?: Maybe<Scalars['Boolean']>;
 };
 
 export type QueryNegotiationsForAdArgs = {
@@ -402,6 +403,7 @@ export type Message = {
   sentTo: User;
   negotiation: Negotiation;
   dateSent?: Maybe<Scalars['String']>;
+  isViewed: Scalars['Boolean'];
 };
 
 export type MessageDateSentArgs = {
@@ -434,11 +436,16 @@ export type Negotiation = {
   messages?: Maybe<Array<Message>>;
   isConcluded: Scalars['Boolean'];
   dateCreated?: Maybe<Scalars['String']>;
+  dateConcluded?: Maybe<Scalars['String']>;
   review?: Maybe<Array<Maybe<Review>>>;
   type: TypeAd;
 };
 
 export type NegotiationDateCreatedArgs = {
+  format?: Maybe<Scalars['String']>;
+};
+
+export type NegotiationDateConcludedArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
@@ -1296,7 +1303,7 @@ export type AdDetailsFragment =
 
 export type NegotiationDetailsFragment = { __typename?: 'Negotiation' } & Pick<
   Negotiation,
-  '_id' | 'type' | 'dateCreated' | 'isConcluded'
+  '_id' | 'type' | 'dateCreated' | 'dateConcluded' | 'isConcluded'
 > & {
     createdBy: { __typename?: 'User' } & Pick<
       User,
@@ -1324,7 +1331,7 @@ export type NegotiationDetailsFragment = { __typename?: 'Negotiation' } & Pick<
 
 export type MessageDetailsFragment = { __typename?: 'Message' } & Pick<
   Message,
-  '_id' | 'content' | 'dateSent'
+  '_id' | 'content' | 'dateSent' | 'isViewed'
 > & {
     sentBy: { __typename?: 'User' } & Pick<
       User,
@@ -1728,13 +1735,35 @@ export type WinesQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type NegotiationsQueryVariables = Exact<{
+export type NegotiationsOpenQueryVariables = Exact<{
   offset?: Maybe<Scalars['Int']>;
   orderBy?: Maybe<QueryOrderBy>;
   limit?: Maybe<Scalars['Int']>;
 }>;
 
-export type NegotiationsQuery = { __typename?: 'Query' } & {
+export type NegotiationsOpenQuery = { __typename?: 'Query' } & {
+  negotiations?: Maybe<
+    { __typename?: 'NegotiationResult' } & Pick<
+      NegotiationResult,
+      'pageCount'
+    > & {
+        negotiations?: Maybe<
+          Array<
+            Maybe<{ __typename?: 'Negotiation' } & NegotiationDetailsFragment>
+          >
+        >;
+      }
+  >;
+};
+
+export type NegotiationsClosedQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+  isConcluded?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type NegotiationsClosedQuery = { __typename?: 'Query' } & {
   negotiations?: Maybe<
     { __typename?: 'NegotiationResult' } & Pick<
       NegotiationResult,
@@ -2052,6 +2081,7 @@ export const NegotiationDetailsFragmentDoc = gql`
       _id
     }
     dateCreated
+    dateConcluded
     isConcluded
   }
 `;
@@ -2083,6 +2113,7 @@ export const MessageDetailsFragmentDoc = gql`
       }
     }
     dateSent
+    isViewed
   }
 `;
 export const ReviewDetailsFragmentDoc = gql`
@@ -3419,8 +3450,8 @@ export type WinesQueryResult = Apollo.QueryResult<
   WinesQuery,
   WinesQueryVariables
 >;
-export const NegotiationsDocument = gql`
-  query Negotiations($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
+export const NegotiationsOpenDocument = gql`
+  query NegotiationsOpen($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
     negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
       negotiations {
         ...NegotiationDetails
@@ -3432,16 +3463,16 @@ export const NegotiationsDocument = gql`
 `;
 
 /**
- * __useNegotiationsQuery__
+ * __useNegotiationsOpenQuery__
  *
- * To run a query within a React component, call `useNegotiationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useNegotiationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useNegotiationsOpenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNegotiationsOpenQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useNegotiationsQuery({
+ * const { data, loading, error } = useNegotiationsOpenQuery({
  *   variables: {
  *      offset: // value for 'offset'
  *      orderBy: // value for 'orderBy'
@@ -3449,37 +3480,110 @@ export const NegotiationsDocument = gql`
  *   },
  * });
  */
-export function useNegotiationsQuery(
+export function useNegotiationsOpenQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    NegotiationsQuery,
-    NegotiationsQueryVariables
+    NegotiationsOpenQuery,
+    NegotiationsOpenQueryVariables
   >
 ) {
-  return Apollo.useQuery<NegotiationsQuery, NegotiationsQueryVariables>(
-    NegotiationsDocument,
+  return Apollo.useQuery<NegotiationsOpenQuery, NegotiationsOpenQueryVariables>(
+    NegotiationsOpenDocument,
     baseOptions
   );
 }
-export function useNegotiationsLazyQuery(
+export function useNegotiationsOpenLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    NegotiationsQuery,
-    NegotiationsQueryVariables
+    NegotiationsOpenQuery,
+    NegotiationsOpenQueryVariables
   >
 ) {
-  return Apollo.useLazyQuery<NegotiationsQuery, NegotiationsQueryVariables>(
-    NegotiationsDocument,
-    baseOptions
-  );
+  return Apollo.useLazyQuery<
+    NegotiationsOpenQuery,
+    NegotiationsOpenQueryVariables
+  >(NegotiationsOpenDocument, baseOptions);
 }
-export type NegotiationsQueryHookResult = ReturnType<
-  typeof useNegotiationsQuery
+export type NegotiationsOpenQueryHookResult = ReturnType<
+  typeof useNegotiationsOpenQuery
 >;
-export type NegotiationsLazyQueryHookResult = ReturnType<
-  typeof useNegotiationsLazyQuery
+export type NegotiationsOpenLazyQueryHookResult = ReturnType<
+  typeof useNegotiationsOpenLazyQuery
 >;
-export type NegotiationsQueryResult = Apollo.QueryResult<
-  NegotiationsQuery,
-  NegotiationsQueryVariables
+export type NegotiationsOpenQueryResult = Apollo.QueryResult<
+  NegotiationsOpenQuery,
+  NegotiationsOpenQueryVariables
+>;
+export const NegotiationsClosedDocument = gql`
+  query NegotiationsClosed(
+    $offset: Int
+    $orderBy: QueryOrderBy
+    $limit: Int
+    $isConcluded: Boolean
+  ) {
+    negotiations(
+      offset: $offset
+      orderBy: $orderBy
+      limit: $limit
+      isConcluded: true
+    ) {
+      negotiations {
+        ...NegotiationDetails
+      }
+      pageCount
+    }
+  }
+  ${NegotiationDetailsFragmentDoc}
+`;
+
+/**
+ * __useNegotiationsClosedQuery__
+ *
+ * To run a query within a React component, call `useNegotiationsClosedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNegotiationsClosedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNegotiationsClosedQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      orderBy: // value for 'orderBy'
+ *      limit: // value for 'limit'
+ *      isConcluded: // value for 'isConcluded'
+ *   },
+ * });
+ */
+export function useNegotiationsClosedQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    NegotiationsClosedQuery,
+    NegotiationsClosedQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    NegotiationsClosedQuery,
+    NegotiationsClosedQueryVariables
+  >(NegotiationsClosedDocument, baseOptions);
+}
+export function useNegotiationsClosedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NegotiationsClosedQuery,
+    NegotiationsClosedQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    NegotiationsClosedQuery,
+    NegotiationsClosedQueryVariables
+  >(NegotiationsClosedDocument, baseOptions);
+}
+export type NegotiationsClosedQueryHookResult = ReturnType<
+  typeof useNegotiationsClosedQuery
+>;
+export type NegotiationsClosedLazyQueryHookResult = ReturnType<
+  typeof useNegotiationsClosedLazyQuery
+>;
+export type NegotiationsClosedQueryResult = Apollo.QueryResult<
+  NegotiationsClosedQuery,
+  NegotiationsClosedQueryVariables
 >;
 export const NegotiationDocument = gql`
   query Negotiation($id: ID!) {

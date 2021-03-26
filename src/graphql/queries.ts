@@ -65,6 +65,7 @@ export const NEGOTIATION_DETAILS = gql`
       _id
     }
     dateCreated
+    dateConcluded
     isConcluded
   }
 `;
@@ -73,6 +74,7 @@ export const MESSAGE_DETAILS = gql`
   fragment MessageDetails on Message {
     _id
     content
+    isViewed
     sentBy {
       _id
       firstName
@@ -369,9 +371,31 @@ export const WINES = gql`
   }
 `;
 
-export const NEGOTIATIONS = gql`
-  query Negotiations($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
+export const NEGOTIATIONS_OPEN = gql`
+  query NegotiationsOpen($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
     negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
+      negotiations {
+        ...NegotiationDetails
+      }
+      pageCount
+    }
+  }
+  ${NEGOTIATION_DETAILS}
+`;
+
+export const NEGOTIATIONS_CLOSED = gql`
+  query NegotiationsClosed(
+    $offset: Int
+    $orderBy: QueryOrderBy
+    $limit: Int
+    $isConcluded: Boolean
+  ) {
+    negotiations(
+      offset: $offset
+      orderBy: $orderBy
+      limit: $limit
+      isConcluded: true
+    ) {
       negotiations {
         ...NegotiationDetails
       }

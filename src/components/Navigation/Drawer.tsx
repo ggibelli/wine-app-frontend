@@ -8,8 +8,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Badge from '@material-ui/core/Badge';
 import StoreIcon from '@material-ui/icons/Store';
 import Typography from '@material-ui/core/Typography';
@@ -37,7 +37,9 @@ export interface DrawerData {
   error?: ApolloError;
   data?: {
     numAds?: number | null;
-    numNegs?: number | null;
+    numOpenNegs?: number | null;
+    numClosedNegs?: number | null;
+
     savedAds?: number | null;
     name?: string | null;
   };
@@ -101,7 +103,7 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <Badge badgeContent={data.data?.numNegs} color='primary'>
+            <Badge badgeContent={data.data?.numOpenNegs} color='primary'>
               <StoreIcon />
             </Badge>
           </ListItemIcon>

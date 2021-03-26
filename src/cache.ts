@@ -116,6 +116,14 @@ export const isLoggedInVar = makeVar<boolean>(
   !!localStorage.getItem('wineapp-user-token')
 );
 
+interface MyInfo {
+  _id: string;
+  firstName: string;
+  lastName: string;
+}
+
+export const myInfo = makeVar<MyInfo | null>(null);
+
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
 
 interface DrawerProfile {

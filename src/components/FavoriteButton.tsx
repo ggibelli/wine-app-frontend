@@ -19,7 +19,7 @@ export const FavoriteButton: React.FC<{ ad: AdWine; me: User }> = ({
   // const [lazyMe, { data }] = useMeLazyQuery();
 
   const [saveAd] = useSaveAdMutation({
-    onCompleted: (data) => console.log(data),
+    // onCompleted: (data) => console.log(data),
     onError: (error) => console.log(error),
     update: (cache, response) => {
       const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(

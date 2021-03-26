@@ -1,17 +1,29 @@
 import { LazyQueryResult, useApolloClient } from '@apollo/client';
+import _ from 'lodash';
 // import _ from 'lodash';
 import * as React from 'react';
 import { notification } from '../../cache';
 import {
   useNegotiationCreatedSubscription,
   useNegotiationClosedSubscription,
+  useAdPostedFollowUpSubscription,
   Negotiation,
   MeQuery,
   Exact,
   Maybe,
   QueryOrderBy,
+  MessagesQuery,
+  useMessageSentSubscription,
+  MessagesNegotiationDocument,
+  Message,
+  MessagesDocument,
 } from '../../generated/graphql';
-import { updateCacheNegotiations } from '../../utils/updateCache';
+import {
+  ICachedMessages,
+  ICachedMessagesNegs,
+  updateCacheMessagesAdmin,
+  updateCacheNegotiations,
+} from '../../utils/updateCache';
 import { HeaderBar } from './AppBar';
 
 export const Header: React.FC<{
@@ -23,6 +35,12 @@ export const Header: React.FC<{
       limit?: Maybe<number> | undefined;
     }>
   >;
+  messages: LazyQueryResult<
+    MessagesQuery,
+    Exact<{
+      [key: string]: never;
+    }>
+  >;
   onSubmitLogin: ({
     email,
     password,
@@ -30,20 +48,15 @@ export const Header: React.FC<{
     email: string;
     password: string;
   }) => Promise<void>;
-}> = ({ meQueryResult, onSubmitLogin }) => {
-  // const [subData, setSubData] = React.useState<string | undefined>(undefined);
+}> = ({ meQueryResult, onSubmitLogin, messages }) => {
   const client = useApolloClient();
-  // console.log(subData);
   useNegotiationCreatedSubscription({
     onSubscriptionData: ({ subscriptionData }) => {
-      // const dio = subscriptionData.data?.negotiationCreated._id;
-      // console.log(subData === subscriptionData.data?.negotiationCreated._id);
-      // if (subData === subscriptionData.data?.negotiationCreated._id) return;
-      // setSubData(dio);
       notification({
         type: 'success',
         message: 'qualcuno ha aperto una trattativa con te',
       });
+      updateCacheMessagesAdmin(client);
       updateCacheNegotiations(
         client,
         subscriptionData.data?.negotiationCreated as Negotiation
@@ -52,7 +65,7 @@ export const Header: React.FC<{
   });
   useNegotiationClosedSubscription({
     onSubscriptionData: ({ subscriptionData }) => {
-      console.log(subscriptionData);
+      updateCacheMessagesAdmin(client);
       const wineName =
         subscriptionData.data?.negotiationClosed.__typename === 'AdWine' &&
         subscriptionData.data?.negotiationClosed.wineName;
@@ -63,7 +76,52 @@ export const Header: React.FC<{
       });
     },
   });
+  useAdPostedFollowUpSubscription({
+    onSubscriptionData: () => {
+      updateCacheMessagesAdmin(client);
+      notification({
+        type: 'info',
+        message: 'Qualcuno ha pubblicato un annuncio che ti interessa',
+      });
+    },
+  });
+  useMessageSentSubscription({
+    onSubscriptionData: ({ subscriptionData }) => {
+      const cachedMessagesLocal: ICachedMessages | null = _.cloneDeep(
+        client.readQuery({
+          query: MessagesDocument,
+        })
+      );
+      cachedMessagesLocal?.messages.push(
+        subscriptionData.data?.messageSent as Message
+      );
+      client.writeQuery({
+        query: MessagesDocument,
+        variables: { id: subscriptionData.data?.messageSent.negotiation._id },
+        data: cachedMessagesLocal,
+      });
+      const cachedMessagesNegotiationsLocal: ICachedMessagesNegs | null = _.cloneDeep(
+        client.readQuery({
+          query: MessagesNegotiationDocument,
+          variables: { id: subscriptionData.data?.messageSent.negotiation._id },
+        })
+      );
+      console.log(cachedMessagesNegotiationsLocal);
+      cachedMessagesNegotiationsLocal?.messagesForNegotiation.push(
+        subscriptionData.data?.messageSent as Message
+      );
+      client.writeQuery({
+        query: MessagesNegotiationDocument,
+        variables: { id: subscriptionData.data?.messageSent.negotiation._id },
+        data: cachedMessagesNegotiationsLocal,
+      });
+    },
+  });
   return (
-    <HeaderBar meQueryResult={meQueryResult} onSubmitLogin={onSubmitLogin} />
+    <HeaderBar
+      meQueryResult={meQueryResult}
+      onSubmitLogin={onSubmitLogin}
+      messages={messages}
+    />
   );
 };

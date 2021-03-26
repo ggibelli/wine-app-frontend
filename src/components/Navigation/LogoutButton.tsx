@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isLoggedInVar } from '../../cache';
+import { isLoggedInVar, myInfo } from '../../cache';
 import { useApolloClient } from '@apollo/client';
 // import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -18,6 +18,7 @@ export const LogoutButton: React.FC = () => {
     // Let other parts of the application that are relying on logged in
     // state know we're now logged out.
     isLoggedInVar(false);
+    myInfo(null);
   };
   return (
     <div onClick={handleCLick}>

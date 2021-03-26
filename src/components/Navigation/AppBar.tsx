@@ -8,6 +8,7 @@ import {
   Maybe,
   QueryOrderBy,
   useIsUserLoggedInQuery,
+  MessagesQuery,
   // useNegotiationCreatedSubscription,
   // Negotiation,
 } from '../../generated/graphql';
@@ -24,9 +25,10 @@ import { Notification } from '../Notification';
 import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined'; // import { LogoutButton } from './LogoutButton';
 import { LoginModal } from '../LoginModal';
 import Link from '@material-ui/core/Link';
-import { Link as RouterLink } from '@reach/router';
+import { Link as RouterLink, navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { LazyQueryResult } from '@apollo/client';
+import { Badge } from '@material-ui/core';
 // import { updateCacheNegotiations } from '../../utils/updateCache';
 // import { useApolloClient } from '@apollo/client';
 
@@ -53,6 +55,12 @@ export const HeaderBar: React.FC<{
       limit?: Maybe<number> | undefined;
     }>
   >;
+  messages: LazyQueryResult<
+    MessagesQuery,
+    Exact<{
+      [key: string]: never;
+    }>
+  >;
   onSubmitLogin: ({
     email,
     password,
@@ -60,14 +68,20 @@ export const HeaderBar: React.FC<{
     email: string;
     password: string;
   }) => Promise<void>;
-}> = ({ meQueryResult, onSubmitLogin }) => {
+}> = ({ meQueryResult, onSubmitLogin, messages }) => {
   const classes = useStyles();
   const [state, setState] = React.useState(false);
   const toggleDrawer = () => {
     setState(!state);
   };
   const [openModal, setOpenModal] = React.useState(false);
-
+  const badgeNumber = messages.data?.messages
+    ? messages.data?.messages?.filter(
+        (message) =>
+          !message.isViewed &&
+          message.sentTo._id === meQueryResult.data?.me?._id
+      ).length
+    : 0;
   const handleClickOpen = () => {
     setOpenModal(true);
   };
@@ -89,48 +103,16 @@ export const HeaderBar: React.FC<{
     handleClose();
   };
   const loggedUser = useIsUserLoggedInQuery();
-  // React.useEffect(() => {
-  //   if (loggedUser.data?.isLoggedIn) {
-  //     lazyQuery();
-  //   }
-  // }, [loggedUser.data?.isLoggedIn]);
-  // // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const [lazyQuery, result] = useMeLazyQuery();
-  // const [loginMutation] = useLoginMutation({
-  //   onError: (error) =>
-  //     notification({
-  //       type: 'error',
-  //       message: error.message,
-  //     }),
-  //   onCompleted: ({ login }) => {
-  //     if (login?.errors?.length === 0) {
-  //       localStorage.setItem(
-  //         'wineapp-user-token',
-  //         login?.response?.token as string
-  //       );
-  //       isLoggedInVar(true);
-  //       notification({
-  //         type: 'success',
-  //         message: 'welcome back',
-  //       });
-  //       lazyQuery();
-  //     }
-  //     if (login?.errors?.length) {
-  //       notification({
-  //         type: 'error',
-  //         message: 'errore',
-  //       });
-  //     }
-  //     handleClose();
-  //   },
-  // });
   const drawerData: DrawerData = {
     isLoading: meQueryResult.loading,
     error: meQueryResult.error,
     data: {
       numAds: meQueryResult.data?.me?.ads?.pageCount,
-      numNegs: meQueryResult.data?.me?.negotiations?.negotiations?.filter(
+      numOpenNegs: meQueryResult.data?.me?.negotiations?.negotiations?.filter(
         (neg) => neg && !neg.isConcluded
+      ).length,
+      numClosedNegs: meQueryResult.data?.me?.negotiations?.negotiations?.filter(
+        (neg) => neg && neg.isConcluded
       ).length,
       savedAds: meQueryResult.data?.me?.savedAds?.length,
       name: meQueryResult.data?.me?.firstName,
@@ -140,8 +122,16 @@ export const HeaderBar: React.FC<{
   const SigninButton = () => {
     if (loggedUser.data?.isLoggedIn) {
       return (
-        <IconButton>
-          <ChatOutlinedIcon fontSize='large' style={{ color: '#fff' }} />
+        <IconButton onClick={() => navigate('/messaggi')}>
+          <Badge badgeContent={badgeNumber} color='secondary'>
+            <ChatOutlinedIcon
+              fontSize='large'
+              style={{ color: '#fff' }}
+              // component={RouterLink}
+
+              // to='/messaggi'
+            />
+          </Badge>
         </IconButton>
       );
     }

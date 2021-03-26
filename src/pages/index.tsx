@@ -17,17 +17,48 @@ import {
   useLoginMutation,
   useMeLazyQuery,
   useUpdateNegotiationMutation,
+  useMessagesLazyQuery,
 } from '../generated/graphql';
-import { notification, isLoggedInVar } from '../cache';
+import { notification, isLoggedInVar, myInfo } from '../cache';
+import { Messages } from './Messages';
+import { Message } from './Message';
 
 export const Pages: React.FC = () => {
   const loggedUser = useIsUserLoggedInQuery();
+  const [messageLazyQuery, messageResult] = useMessagesLazyQuery({
+    // fetchPolicy: 'cache-and-network',
+    // pollInterval: 1000,
+    onError: (error) => {
+      notification({
+        type: 'error',
+        message: error.message,
+      });
+    },
+  });
+  const [lazyQuery, result] = useMeLazyQuery({
+    onCompleted: (data) => {
+      if (data.me) {
+        myInfo({
+          _id: data.me?._id,
+          firstName: data.me?.firstName,
+          lastName: data.me?.lastName,
+        });
+      }
+    },
+    onError: (error) => {
+      notification({
+        type: 'error',
+        message: error.message,
+      });
+    },
+  });
   React.useEffect(() => {
     if (loggedUser.data?.isLoggedIn) {
       lazyQuery();
+      messageLazyQuery();
     }
   }, [loggedUser.data?.isLoggedIn]);
-  const [lazyQuery, result] = useMeLazyQuery();
+
   const [loginMutation] = useLoginMutation({
     onError: (error) =>
       notification({
@@ -56,8 +87,12 @@ export const Pages: React.FC = () => {
     },
   });
   const [closeNegotiation] = useUpdateNegotiationMutation({
-    onCompleted: (data) => console.log(data),
-    onError: (error) => console.log(error),
+    onCompleted: () =>
+      notification({
+        type: 'success',
+        message: 'Trattativa chiusa con successo',
+      }),
+    onError: (error) => notification({ type: 'error', message: error.message }),
   });
   const onSubmitLogin = async ({
     email,
@@ -82,19 +117,29 @@ export const Pages: React.FC = () => {
   return (
     <>
       <CssBaseline />
-      <Header meQueryResult={result} onSubmitLogin={onSubmitLogin} />
+      <Header
+        meQueryResult={result}
+        onSubmitLogin={onSubmitLogin}
+        messages={messageResult}
+      />
       <main>
         <Router primary={false} component={React.Fragment}>
           <Home path='/' />
-          <Buy path='/buy' meData={result.data} />
-          <Buy path='/sell' meData={result.data} />
+          {['/buy', '/sell'].map((path) => (
+            <Buy key={path} path={path} meData={result.data} />
+          ))}
+
+          {/* <Buy path='/sell' meData={result.data} /> */}
           <Ads path='/annunci' />
           <Ad
             path='/annunci/:id'
             meData={result.data}
             handleCloseNeg={handleCloseNegotiation}
           />
+          <Messages path='/messaggi' messagesResult={messageResult} />
+          <Message path='/messaggi/:id' />
           <MyAds path='/creati' />
+
           <Negotiations
             path='/trattative'
             handleCloseNeg={handleCloseNegotiation}

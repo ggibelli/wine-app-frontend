@@ -34,23 +34,22 @@ export const OpenNegotiations: React.FC<{
   }
   return (
     <List aria-label='negotiations'>
-      {data.data?.negotiationsForAd
-        .filter((negotiation) => !negotiation.isConcluded)
-        .map((negotiation) => (
-          <div key={negotiation._id}>
-            <ListItem>
-              <div>
-                <Typography color='primary' component='h3' variant='h5'>
-                  {negotiation.createdBy.firstName}
-                </Typography>
-                <br />
-                <Typography color='secondary' variant='body1'>
-                  {negotiation.dateCreated}
-                </Typography>
+      {data.data?.negotiationsForAd.map((negotiation) => (
+        <div key={negotiation._id}>
+          <ListItem>
+            <div>
+              <Typography color='primary' component='h3' variant='h5'>
+                {negotiation.createdBy.firstName}
+              </Typography>
+              <br />
+              <Typography color='secondary' variant='body1'>
+                {negotiation.dateCreated}
+              </Typography>
 
-                <br />
-                <Button>Vai alla chat</Button>
-                <br />
+              <br />
+              <Button>Vai alla chat</Button>
+              <br />
+              {!negotiation.isConcluded ? (
                 <Button
                   onClick={() =>
                     closeNegotiation({
@@ -61,11 +60,12 @@ export const OpenNegotiations: React.FC<{
                 >
                   Dichiara chiusa la trattativa
                 </Button>
-              </div>
-            </ListItem>
-            <Divider />
-          </div>
-        ))}
+              ) : null}
+            </div>
+          </ListItem>
+          <Divider />
+        </div>
+      ))}
     </List>
   );
 };

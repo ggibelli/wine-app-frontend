@@ -55,16 +55,44 @@ export const Ad: React.FC<
     handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
   }
 > = ({ meData, handleCloseNeg }) => {
+  const [ad, setAd] = React.useState<AdWine | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const { data, loading, error } = useAdQuery({
     variables: {
       id: id,
     },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    onCompleted: (data) => (data?.ad ? setAd(data?.ad as AdWine) : null),
   });
+
+  React.useEffect(() => {
+    if (data?.ad) {
+      setAd(data?.ad as AdWine);
+    }
+  }, [data?.ad?.activeNegotiations]);
+
   const [createNegotiation] = useCreateNegotiationMutation({
-    onCompleted: () => console.log('neg creata'),
-    onError: (error) => console.log(error),
+    onCompleted: (createdNegotiation) => {
+      notification({
+        message: 'trattativa creata con successo',
+        type: 'success',
+      });
+      if (createdNegotiation.createNegotiation?.errors?.length) {
+        const errorMessages = createdNegotiation.createNegotiation?.errors.map(
+          (error) => error?.text
+        );
+        notification({
+          type: 'error',
+          message: `${errorMessages.toString()}`,
+        });
+      }
+    },
+    onError: (error) =>
+      notification({
+        type: 'error',
+        message: `errore durante creazione trattativa: ${error.message}`,
+      }),
     // refetchQueries: [{ query: AdDocument, variables: { id } }],
     update: (cache, response) => {
       updateCacheNegotiations(
@@ -96,7 +124,6 @@ export const Ad: React.FC<
       ad: ad._id,
       type: ad.typeAd,
     };
-    console.log(newNegotiation);
 
     void createNegotiation({ variables: { negotiation: newNegotiation } });
   };
@@ -108,9 +135,9 @@ export const Ad: React.FC<
     });
     return <div>Errore</div>;
   }
-  if (data?.ad && meData?.me) {
+  if (ad && meData?.me) {
     const Heading = () => {
-      if (data.ad?.typeAd === TypeAd.Buy) {
+      if (ad.typeAd === TypeAd.Buy) {
         return (
           <>
             <Typography color='primary' component='h3' variant='h5'>
@@ -144,19 +171,23 @@ export const Ad: React.FC<
           <Heading />
         </div>
         <CardWineDetail
-          ad={data.ad as AdWine}
+          ad={ad}
           me={meData?.me as User}
           createNegotiation={openNegotiation}
         />
-        <IconButton onClick={handleShowNegotiations}>
-          {!open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-        </IconButton>
-        <Collapse in={open}>
-          <OpenNegotiations
-            data={lazyNegResult}
-            closeNegotiation={handleCloseNeg}
-          />
-        </Collapse>
+        {meData.me._id === ad.postedBy._id && ad.negotiations?.length ? (
+          <>
+            <IconButton onClick={handleShowNegotiations}>
+              {!open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+            </IconButton>
+            <Collapse in={open}>
+              <OpenNegotiations
+                data={lazyNegResult}
+                closeNegotiation={handleCloseNeg}
+              />
+            </Collapse>
+          </>
+        ) : null}
       </Container>
     );
   }
