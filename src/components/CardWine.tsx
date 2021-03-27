@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Box from '@material-ui/core/Box';
+import { StyledBox } from './StyledBox';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
 import { DenomZona, TypeAd } from '../generated/graphql';
-
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 export interface Ad {
   _id: string;
   wineName: string;
@@ -21,25 +22,17 @@ export interface Ad {
 }
 
 export const CardWine: React.FC<{ ad: Ad }> = ({ ad }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const width = matches ? 400 : 250;
+
   return (
     <Link
       component={RouterLink}
       to={`/annunci/${ad._id}`}
       style={{ textDecoration: 'none' }}
     >
-      <Box
-        boxShadow={3}
-        p={2}
-        m={2}
-        mt={2}
-        px={2}
-        pt={2}
-        width='100%'
-        color={ad.typeAd === TypeAd.Sell ? 'primary.main' : 'white'}
-        borderColor={ad.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
-        bgcolor={ad.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
-        borderRadius={16}
-      >
+      <StyledBox width={width} typeAd={ad.typeAd}>
         <Typography component='h5' variant='h6'>
           {ad.typeAd === TypeAd.Buy ? 'Compro' : 'Vendo'} {ad.wineName}{' '}
           {/* {ad.wine.denominazioneZona} */}
@@ -57,7 +50,7 @@ export const CardWine: React.FC<{ ad: Ad }> = ({ ad }) => {
         <Typography align='right' variant='caption'>
           Annuncio pubblicato il {ad.datePosted}
         </Typography>
-      </Box>
+      </StyledBox>
     </Link>
   );
 };

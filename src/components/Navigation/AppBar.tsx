@@ -1,18 +1,12 @@
 import * as React from 'react';
 import {
-  // useLoginMutation,
-  // useMeLazyQuery,
-  // useIsUserLoggedInQuery,
   MeQuery,
   Exact,
   Maybe,
   QueryOrderBy,
   useIsUserLoggedInQuery,
   MessagesQuery,
-  // useNegotiationCreatedSubscription,
-  // Negotiation,
 } from '../../generated/graphql';
-// import { isLoggedInVar, notification } from '../../cache';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,15 +16,13 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Drawer, DrawerData } from './Drawer';
 import { Notification } from '../Notification';
-import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined'; // import { LogoutButton } from './LogoutButton';
+import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 import { LoginModal } from '../LoginModal';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink, navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { LazyQueryResult } from '@apollo/client';
 import { Badge } from '@material-ui/core';
-// import { updateCacheNegotiations } from '../../utils/updateCache';
-// import { useApolloClient } from '@apollo/client';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -124,13 +116,7 @@ export const HeaderBar: React.FC<{
       return (
         <IconButton onClick={() => navigate('/messaggi')}>
           <Badge badgeContent={badgeNumber} color='secondary'>
-            <ChatOutlinedIcon
-              fontSize='large'
-              style={{ color: '#fff' }}
-              // component={RouterLink}
-
-              // to='/messaggi'
-            />
+            <ChatOutlinedIcon fontSize='large' style={{ color: '#fff' }} />
           </Badge>
         </IconButton>
       );

@@ -26,7 +26,7 @@ import { Message } from './Message';
 export const Pages: React.FC = () => {
   const loggedUser = useIsUserLoggedInQuery();
   const [messageLazyQuery, messageResult] = useMessagesLazyQuery({
-    // fetchPolicy: 'cache-and-network',
+    // fetchPolicy: 'network-only',
     // pollInterval: 1000,
     onError: (error) => {
       notification({
@@ -53,6 +53,7 @@ export const Pages: React.FC = () => {
     },
   });
   React.useEffect(() => {
+    console.log('cazz');
     if (loggedUser.data?.isLoggedIn) {
       lazyQuery();
       messageLazyQuery();
@@ -128,8 +129,6 @@ export const Pages: React.FC = () => {
           {['/buy', '/sell'].map((path) => (
             <Buy key={path} path={path} meData={result.data} />
           ))}
-
-          {/* <Buy path='/sell' meData={result.data} /> */}
           <Ads path='/annunci' />
           <Ad
             path='/annunci/:id'
@@ -137,7 +136,10 @@ export const Pages: React.FC = () => {
             handleCloseNeg={handleCloseNegotiation}
           />
           <Messages path='/messaggi' messagesResult={messageResult} />
-          <Message path='/messaggi/:id' />
+          <Message
+            path='/messaggi/:id'
+            handleCloseNeg={handleCloseNegotiation}
+          />
           <MyAds path='/creati' />
 
           <Negotiations

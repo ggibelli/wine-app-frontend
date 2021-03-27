@@ -3,23 +3,19 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import _ from 'lodash';
-import { ICachedMe } from '../pages/BuySell';
 import {
   useSaveAdMutation,
   MeDocument,
   AdWine,
-  // useMeLazyQuery,
   User,
 } from '../generated/graphql';
+import { ICachedMe } from '../utils/updateCache';
 
 export const FavoriteButton: React.FC<{ ad: AdWine; me: User }> = ({
   ad,
   me,
 }) => {
-  // const [lazyMe, { data }] = useMeLazyQuery();
-
   const [saveAd] = useSaveAdMutation({
-    // onCompleted: (data) => console.log(data),
     onError: (error) => console.log(error),
     update: (cache, response) => {
       const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
@@ -41,9 +37,6 @@ export const FavoriteButton: React.FC<{ ad: AdWine; me: User }> = ({
     },
   });
   const [isFav, setIsFav] = React.useState<boolean>(false);
-  // React.useEffect(() => {
-  //   lazyMe();
-  // }, []);
   React.useEffect(() => {
     if (me.savedAds?.findIndex((adSaved) => adSaved._id === ad._id) === -1) {
       setIsFav(false);

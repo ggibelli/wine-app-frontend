@@ -36,6 +36,7 @@ export const AD_POSTED_FOLLOWUP = gql`
         regione
         provincia
       }
+      numberViews
       activeNegotiations
       datePosted
     }

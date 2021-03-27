@@ -7,12 +7,10 @@ import {
 } from '../generated/graphql';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-
+import { Link } from '@reach/router';
 export const OpenNegotiations: React.FC<{
   data: LazyQueryResult<
     NegotiationsForAdQuery,
@@ -47,7 +45,9 @@ export const OpenNegotiations: React.FC<{
               </Typography>
 
               <br />
-              <Button>Vai alla chat</Button>
+              <Button component={Link} to={`/messaggi/${negotiation._id}`}>
+                Vai alla chat
+              </Button>
               <br />
               {!negotiation.isConcluded ? (
                 <Button

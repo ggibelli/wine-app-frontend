@@ -104,6 +104,7 @@ export const CREATE_ADWINE = gql`
           provincia
           comune
         }
+        numberViews
         activeNegotiations
         datePosted
       }
@@ -148,6 +149,7 @@ export const UPDATE_ADWINE = gql`
           provincia
           comune
         }
+        numberViews
         activeNegotiations
         datePosted
       }

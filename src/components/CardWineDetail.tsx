@@ -1,15 +1,11 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import * as React from 'react';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { AdWine, TypeAd, User } from '../generated/graphql';
 import { Button, Grid } from '@material-ui/core';
 import { FavoriteButton } from './FavoriteButton';
 import { NegotiationModal } from './NegotiationModal';
-// // import Collapse from '@material-ui/core/Collapse';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-// import IconButton from '@material-ui/core/IconButton';
+import { StyledBox } from './StyledBox';
 
 export const CardWineDetail: React.FC<{
   ad: AdWine;
@@ -34,6 +30,9 @@ export const CardWineDetail: React.FC<{
     ) {
       return <div>negoziazione gia aperta</div>;
     }
+    if (!ad.isActive) {
+      return <Typography>Annuncio non piu attivo </Typography>;
+    }
     return (
       <>
         <Button onClick={handleClickOpen}>
@@ -50,20 +49,7 @@ export const CardWineDetail: React.FC<{
   };
 
   return (
-    <Box
-      boxShadow={3}
-      p={2}
-      m={2}
-      mt={2}
-      px={2}
-      pt={2}
-      width='100%'
-      height='100%'
-      color={ad.typeAd === TypeAd.Sell ? 'primary.main' : 'white'}
-      borderColor={ad.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
-      bgcolor={ad.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
-      borderRadius={16}
-    >
+    <StyledBox width={1} typeAd={ad.typeAd}>
       <FavoriteButton ad={ad} me={me} />
       <Typography component='h5' variant='h5'>
         L&apos;utente {ad.postedBy.firstName}{' '}
@@ -95,12 +81,14 @@ export const CardWineDetail: React.FC<{
       <br />
       <ContactOrEdit />
       <Grid container justify='space-between'>
-        <Typography align='left' variant='caption'></Typography>
+        <Typography align='left' variant='caption'>
+          Annuncio visualizzato volte
+        </Typography>
 
         <Typography align='right' variant='caption'>
           Negoziazioni attive: {ad.activeNegotiations}
         </Typography>
       </Grid>
-    </Box>
+    </StyledBox>
   );
 };

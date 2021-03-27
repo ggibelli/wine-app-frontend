@@ -16,7 +16,6 @@ export const MessageChat: React.FC<{ message: Message }> = ({ message }) => {
       flexDirection={isMyMessage ? 'row-reverse' : 'row'}
       p={1}
       m={1}
-      bgcolor='background.paper'
     >
       <Box
         p={1}

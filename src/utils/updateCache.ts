@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/ban-types */
-import { ApolloCache, ApolloClient } from '@apollo/client';
+import { ApolloCache, ApolloClient, FetchResult } from '@apollo/client';
 import _ from 'lodash';
-import { myInfo } from '../cache';
+import { myInfo, searchedWine } from '../cache';
 import {
   Ad,
   AdDocument,
+  AdsWineDocument,
+  AdWine,
+  CreateAdWineMutation,
   CreateNegotiationMutation,
   // Ad,
   // AdDocument,
@@ -16,7 +19,19 @@ import {
   NegotiationsOpenDocument,
   User,
 } from '../generated/graphql';
-import { ICachedMe } from '../pages/BuySell';
+
+interface IAds {
+  ads: Array<AdWine>;
+  pageCount: number;
+}
+
+interface ICachedDataAds {
+  ads: IAds;
+}
+
+export interface ICachedMe {
+  me: User;
+}
 
 export interface ICachedDataNegotiations {
   negotiations: {
@@ -106,5 +121,54 @@ export const updateCacheMessagesAdmin = (client: ApolloClient<{}>) => {
   client.writeQuery({
     query: MessagesDocument,
     data: cachedDataMessagesLocal,
+  });
+};
+
+export const updateCacheAd = (
+  cache: ApolloCache<CreateAdWineMutation>,
+  response: FetchResult<
+    CreateAdWineMutation,
+    Record<string, any>,
+    Record<string, any>
+  >
+) => {
+  const searchedWineCache = searchedWine();
+  const variablesCacheUpdate = {
+    wineName: searchedWineCache?.wineName,
+    typeProduct: searchedWineCache?.typeProduct,
+    typeAd: searchedWineCache?.typeAd,
+  };
+  const cachedDataAdsLocal: ICachedDataAds | null = _.cloneDeep(
+    cache.readQuery({
+      query: AdsWineDocument,
+      variables: variablesCacheUpdate,
+    })
+  );
+  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+    cache.readQuery({
+      query: MeDocument,
+    })
+  );
+
+  cachedDataMeLocal?.me.ads?.ads?.push(
+    response.data?.createAd?.response as AdWine
+  );
+  if (cachedDataMeLocal?.me?.ads) {
+    cachedDataMeLocal.me.ads.pageCount =
+      (cachedDataMeLocal?.me.ads?.pageCount as number) + 1;
+  }
+  console.log(cachedDataMeLocal);
+  cache.writeQuery({
+    query: MeDocument,
+    data: cachedDataMeLocal,
+  });
+
+  if (!cachedDataAdsLocal) return;
+  cachedDataAdsLocal.ads.ads.push(response.data?.createAd?.response as AdWine);
+  cachedDataAdsLocal.ads.pageCount += 1;
+  cache.writeQuery({
+    query: AdsWineDocument,
+    variables: variablesCacheUpdate,
+    data: cachedDataAdsLocal,
   });
 };

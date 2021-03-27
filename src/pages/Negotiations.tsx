@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { RouteComponentProps } from '@reach/router';
 import {
   NegotiationInputUpdate,
+  QueryOrderBy,
   useNegotiationsOpenLazyQuery,
 } from '../generated/graphql';
 import {
@@ -16,6 +17,8 @@ import {
 import { BackButton } from '../components/BackButton';
 
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { Order } from '../components/FilterList/Order';
+import { InfiniteScrollFetch } from '../components/InfiniteScrollFetch';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -61,63 +64,19 @@ export const Negotiations: React.FC<
   const [negotiations, setNegotiations] = React.useState<NegotiationWine[]>([]);
 
   const [open, setOpen] = React.useState(false);
-
-  // React.useEffect(() => {
-  //   if (result.fetchMore) {
-  //     void result
-  //       .fetchMore({
-  //         variables: {
-  //           orderBy: order,
-  //           offset: 0,
-  //         },
-  //       })
-  //       .then((result) => setAds((result.data.me?.ads?.ads as unknown) as Ad[]))
-  //       .catch((e) => console.log(e));
-  //   }
-  // }, [order]);
-
-  const bottomBoundaryRef = React.useRef<null | HTMLDivElement>(null);
-  const observer = new IntersectionObserver(handleIntersection);
-
-  function handleIntersection(
-    entries: IntersectionObserverEntry[],
-    observer: IntersectionObserver
-  ) {
-    entries.forEach((entry) => {
-      if (entry.intersectionRatio > 0 && result.fetchMore) {
-        result
-          .fetchMore({
-            variables: { limit: 10, offset: negotiations.length },
-          })
-
-          .then((fetchMoreResult) => {
-            if (fetchMoreResult.data.negotiations?.negotiations?.length) {
-              setLimit(
-                fetchMoreResult.data.negotiations?.negotiations?.length + limit
-              );
-            }
-          })
-          .catch((e) => console.log(e));
-        observer.unobserve(entry.target);
-      }
-    });
-  }
-
-  React.useEffect(() => {
-    if (bottomBoundaryRef.current) {
-      observer.observe(bottomBoundaryRef.current);
-    }
-  }, [negotiations, bottomBoundaryRef.current]);
+  const [order, setOrder] = React.useState<QueryOrderBy>(
+    QueryOrderBy.CreatedAtDesc
+  );
 
   React.useEffect(() => {
     void lazyNegotiations({
       variables: {
         offset: 0,
         limit,
-        // orderBy: order,
+        orderBy: order,
       },
     });
-  }, [limit]);
+  }, [limit, order]);
   if (
     negotiations.length &&
     result.data?.negotiations?.negotiations?.length !== 0
@@ -131,8 +90,13 @@ export const Negotiations: React.FC<
         <Typography color='primary' component='h3' variant='h5'>
           Le tue trattative attive
         </Typography>
-
         <br />
+        <Order
+          setList={setNegotiations}
+          setOrder={setOrder}
+          queryResult={result}
+          order={order}
+        />
         <div className={classes.root}>
           {negotiations.map((negotiation) => (
             <CardNegotiation
@@ -142,11 +106,12 @@ export const Negotiations: React.FC<
             />
           ))}
           {isEndNegotiations && !result.loading ? null : (
-            <div
-              id='page-bottom-boundary'
-              style={{ border: '1px solid red' }}
-              ref={bottomBoundaryRef}
-            ></div>
+            <InfiniteScrollFetch
+              queryResult={result}
+              list={negotiations}
+              limit={limit}
+              setLimit={setLimit}
+            />
           )}
 
           {result.loading ? <CircularProgress /> : null}

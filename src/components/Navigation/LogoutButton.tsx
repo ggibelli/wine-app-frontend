@@ -30,22 +30,5 @@ export const LogoutButton: React.FC = () => {
         <ListItemText primary='Esci' />
       </ListItem>
     </div>
-    // <Button
-    //   variant='contained'
-    //   data-testid='logout-button'
-    //   onClick={() => {
-    //     client.cache.gc();
-
-    //     // Remove user details from localStorage.
-    //     localStorage.removeItem('wineapp-user-token');
-    //     //localStorage.removeItem('userId');
-
-    //     // Let other parts of the application that are relying on logged in
-    //     // state know we're now logged out.
-    //     isLoggedInVar(false);
-    //   }}
-    // >
-    //   Logout{' '}
-    // </Button>
   );
 };

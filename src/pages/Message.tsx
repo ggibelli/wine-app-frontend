@@ -1,21 +1,21 @@
 import * as React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-// import CircularProgress from '@material-ui/core/CircularProgress';
 import { RouteComponentProps } from '@reach/router';
 import {
   useMessagesNegotiationQuery,
   useCreateMessageMutation,
   MessageInput,
-  MessagesNegotiationDocument,
-  Message as IMessage,
+  NegotiationInputUpdate,
 } from '../generated/graphql';
 import { useParams } from '@reach/router';
 import { notification } from '../cache';
 import { Chat } from '../components/Chat';
-import { ICachedMessagesNegs } from '../utils/updateCache';
-import _ from 'lodash';
-export const Message: React.FC<RouteComponentProps> = () => {
+export const Message: React.FC<
+  RouteComponentProps & {
+    handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
+  }
+> = ({ handleCloseNeg }) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
 
@@ -32,39 +32,18 @@ export const Message: React.FC<RouteComponentProps> = () => {
         });
       }
     },
-    update: (cache, response) => {
-      const cachedMessagesLocal: ICachedMessagesNegs | null = _.cloneDeep(
-        cache.readQuery({
-          query: MessagesNegotiationDocument,
-          variables: { id },
-        })
-      );
-      console.log(cachedMessagesLocal);
-      cachedMessagesLocal?.messagesForNegotiation.push(
-        response.data?.createMessage as IMessage
-      );
-      cache.writeQuery({
-        query: MessagesNegotiationDocument,
-        variables: { id },
-        data: cachedMessagesLocal,
-      });
-    },
   });
   const { data, loading, error } = useMessagesNegotiationQuery({
     variables: { id },
-    fetchPolicy: 'network-only',
   });
   const message = data?.messagesForNegotiation?.length
     ? data?.messagesForNegotiation[0]
     : null;
   if (!message) return <div>niente mess ancora</div>;
 
-  // const recipient = data?.messagesForNegotiation.filter((message) => message.)
-
   const handleCreate = async (message: MessageInput) => {
     await createMessage({ variables: { message } });
   };
-  console.log(data);
   if (!loading && error) {
     return <div>error</div>;
   }
@@ -77,9 +56,11 @@ export const Message: React.FC<RouteComponentProps> = () => {
   return (
     <Container>
       <CssBaseline />
-      <>
-        <Chat messages={data} createMessage={handleCreate} />
-      </>
+      <Chat
+        messages={data}
+        createMessage={handleCreate}
+        handleCloseNeg={handleCloseNeg}
+      />
     </Container>
   );
 };

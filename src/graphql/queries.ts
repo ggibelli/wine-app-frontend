@@ -176,6 +176,7 @@ export const ME = gql`
             comune
           }
           activeNegotiations
+          numberViews
           datePosted
         }
         pageCount
@@ -210,6 +211,7 @@ export const ME = gql`
           comune
         }
         activeNegotiations
+        numberViews
         datePosted
       }
       negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
@@ -311,6 +313,7 @@ export const ADS_WINE = gql`
           comune
         }
         activeNegotiations
+        numberViews
         datePosted
       }
       pageCount
@@ -353,6 +356,7 @@ export const AD = gql`
         comune
       }
       activeNegotiations
+      numberViews
       datePosted
     }
   }

@@ -1,15 +1,11 @@
 import * as React from 'react';
-// import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
-
-// import CircularProgress from '@material-ui/core/CircularProgress';
 import { RouteComponentProps } from '@reach/router';
 import { LazyQueryResult } from '@apollo/client';
 import { MessagesQuery, Exact, Message } from '../generated/graphql';
-// import { myInfo } from '../cache';
 import _ from 'lodash';
 import { MessageListEl } from '../components/MessageListEl';
 
@@ -23,10 +19,6 @@ export const Messages: React.FC<
     >;
   }
 > = ({ messagesResult }) => {
-  // const me = myInfo();
-  // const messagesToMe = messagesResult.data?.messages?.filter(
-  //   (message) => message.sentTo._id === me?._id
-  // );
   const messages =
     messagesResult.data?.messages && messagesResult.data?.messages;
   const messagesForNegotiationObj = _.groupBy(

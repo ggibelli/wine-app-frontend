@@ -5,7 +5,6 @@ import {
   AdWine,
   TypeAd,
   useAdQuery,
-  // useMeLazyQuery,
   useCreateNegotiationMutation,
   NegotiationInput,
   Negotiation,
@@ -25,7 +24,6 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import IconButton from '@material-ui/core/IconButton';
-// import _ from 'lodash';
 import { updateCacheNegotiations } from '../utils/updateCache';
 import { OpenNegotiations } from '../components/OpenNegotiations';
 
@@ -62,7 +60,6 @@ export const Ad: React.FC<
     variables: {
       id: id,
     },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     onCompleted: (data) => (data?.ad ? setAd(data?.ad as AdWine) : null),
   });
 
@@ -93,7 +90,6 @@ export const Ad: React.FC<
         type: 'error',
         message: `errore durante creazione trattativa: ${error.message}`,
       }),
-    // refetchQueries: [{ query: AdDocument, variables: { id } }],
     update: (cache, response) => {
       updateCacheNegotiations(
         cache,
@@ -109,22 +105,13 @@ export const Ad: React.FC<
     }
     setOpen(!open);
   };
-  // React.useEffect(() => {
-  //   if (open) {
 
-  //   }
-  // })
-  // const [lazyMe, lazyMeResult] = useMeLazyQuery();
-  // React.useEffect(() => {
-  //   lazyMe();
-  // }, []);
   const openNegotiation = (ad: AdWine) => {
     const newNegotiation: NegotiationInput = {
       forUserAd: ad.postedBy._id,
       ad: ad._id,
       type: ad.typeAd,
     };
-
     void createNegotiation({ variables: { negotiation: newNegotiation } });
   };
   const classes = useStyles();
@@ -175,7 +162,7 @@ export const Ad: React.FC<
           me={meData?.me as User}
           createNegotiation={openNegotiation}
         />
-        {meData.me._id === ad.postedBy._id && ad.negotiations?.length ? (
+        {meData.me._id === ad.postedBy._id && ad.activeNegotiations ? (
           <>
             <IconButton onClick={handleShowNegotiations}>
               {!open ? <ExpandMoreIcon /> : <ExpandLessIcon />}

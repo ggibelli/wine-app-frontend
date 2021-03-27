@@ -61,8 +61,7 @@ export const MessageListEl: React.FC<{
           primary={
             recipient === 'Amministratore'
               ? 'Amministratore'
-              : // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                `Cantina ${recipient} - ${ad}`
+              : `Cantina ${recipient} - ${ad}`
           }
         />
       </ListItem>

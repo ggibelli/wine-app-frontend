@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,12 +12,14 @@ import {
 } from '../generated/graphql';
 import { notification, searchedWine } from '../cache';
 import { Ad, CardWine } from '../components/CardWine';
-import { multiFilter, IFilters } from '../utils/multiFilter';
 import { BackButton } from '../components/BackButton';
-import { Filter } from '../components/Filter';
+import { Filter } from '../components/FilterList';
 import { SnackbarAds } from '../components/Snackbar';
-
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
+import { StyledBox } from '../components/StyledBox';
+import { useMediaQuery } from '@material-ui/core';
+import { Order } from '../components/FilterList/Order';
+import { InfiniteScrollFetch } from '../components/InfiniteScrollFetch';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -31,26 +32,18 @@ const useStyles = makeStyles(() =>
 );
 export const Ads: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
-
-  const [limit, setLimit] = React.useState<number>(2);
-  const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
-  const [isEndAds, setIsEndAds] = React.useState<boolean>(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const width = matches ? 400 : 250;
   const searchedWineCache = searchedWine();
+  const [limit, setLimit] = React.useState<number>(2);
+  const [isEndAds, setIsEndAds] = React.useState<boolean>(false);
+  const [ads, setAds] = React.useState<Ad[]>([]);
+  const [adsFiltered, setAdsFiltered] = React.useState<Ad[]>([]);
+  const [open, setOpen] = React.useState(false);
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
-  const [filterAds, setFilterAds] = React.useState<IFilters>({
-    priceTo: (priceTo: number) =>
-      priceTo <= (searchedWineCache?.price as number),
-    abv: (abv: number) =>
-      abv >= (searchedWineCache?.abv as number) - 0.5 ||
-      abv <= (searchedWineCache?.abv as number) + 0.5,
-    harvest: (harvest: number) =>
-      harvest === (searchedWineCache?.harvest as number) ||
-      harvest - 1 === (searchedWineCache?.harvest as number),
-    litersTo: (litersTo: number) =>
-      litersTo >= (searchedWineCache?.liters as number),
-  });
   const [lazyAdsWine, result] = useAdsWineLazyQuery({
     onError: (error) => notification({ type: 'error', message: error.message }),
     notifyOnNetworkStatusChange: true,
@@ -68,88 +61,6 @@ export const Ads: React.FC<RouteComponentProps> = () => {
       }
     },
   });
-  const [ads, setAds] = React.useState<Ad[]>([]);
-  const [adsFiltered, setAdsFiltered] = React.useState<Ad[]>([]);
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setOrder(event.target.value as QueryOrderBy);
-  };
-  const [open, setOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    if (result.fetchMore) {
-      void result
-        .fetchMore({
-          variables: {
-            orderBy: order,
-            offset: 0,
-          },
-        })
-        .then((result) => setAds((result.data.ads?.ads as unknown) as Ad[]))
-        .catch((e) => console.log(e));
-    }
-  }, [order]);
-  const handleShowAll = () => {
-    if (!isShowAll) {
-      setFilterAds({
-        priceTo: () => true,
-        harvest: () => true,
-        abv: () => true,
-        litersTo: () => true,
-      });
-    } else {
-      setFilterAds({
-        priceTo: (priceTo: number) =>
-          priceTo <= (searchedWineCache?.price as number),
-        abv: (abv: number) =>
-          abv >= (searchedWineCache?.abv as number) - 0.5 ||
-          abv <= (searchedWineCache?.abv as number) + 0.5,
-        harvest: (harvest: number) =>
-          harvest === (searchedWineCache?.harvest as number) ||
-          harvest - 1 === (searchedWineCache?.harvest as number),
-        litersTo: (litersTo: number) =>
-          litersTo >= (searchedWineCache?.liters as number),
-      });
-    }
-
-    setIsShowAll(!isShowAll);
-  };
-  const bottomBoundaryRef = React.useRef<null | HTMLDivElement>(null);
-  const observer = new IntersectionObserver(handleIntersection);
-
-  function handleIntersection(
-    entries: IntersectionObserverEntry[],
-    observer: IntersectionObserver
-  ) {
-    entries.forEach((entry) => {
-      if (entry.intersectionRatio > 0 && result.fetchMore) {
-        result
-          .fetchMore({
-            variables: { limit: 2, offset: ads.length },
-          })
-
-          .then((fetchMoreResult) => {
-            if (fetchMoreResult.data.ads?.ads?.length) {
-              setLimit(fetchMoreResult.data.ads?.ads?.length + limit);
-            }
-          })
-          .catch((e) => console.log(e));
-        observer.unobserve(entry.target);
-      }
-    });
-  }
-
-  React.useEffect(() => {
-    if (bottomBoundaryRef.current) {
-      observer.observe(bottomBoundaryRef.current);
-    }
-  }, [ads, bottomBoundaryRef.current]);
-
-  React.useEffect(() => {
-    if (ads.length > 0) {
-      const filtredAds = multiFilter(ads, filterAds) as Ad[];
-      setAdsFiltered(filtredAds);
-    }
-  }, [filterAds, ads]);
 
   React.useEffect(() => {
     if (searchedWineCache) {
@@ -192,7 +103,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
       Non abbiamo trovato nulla, vuoi creare un annuncio?
     </div>
   );
-
+  console.log(adsFiltered);
   if (result.data?.ads && result.data?.ads?.ads?.length === 0) {
     return <NoResults />;
   }
@@ -206,25 +117,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
         <Typography color='primary' component='h3' variant='h5'>
           La tua ricerca
         </Typography>
-        <Box
-          boxShadow={3}
-          p={2}
-          m={2}
-          mt={2}
-          px={2}
-          pt={2}
-          width='75%'
-          color={
-            searchedWineCache?.typeAd === TypeAd.Sell ? 'primary.main' : 'white'
-          }
-          borderColor={
-            searchedWineCache?.typeAd === TypeAd.Sell ? 'white' : 'primary.main'
-          }
-          bgcolor={
-            searchedWineCache?.typeAd === TypeAd.Sell ? 'white' : 'primary.main'
-          }
-          borderRadius={16}
-        >
+        <StyledBox typeAd={searchedWineCache?.typeAd as TypeAd} width={width}>
           <Typography component='h5' variant='h6'>
             {searchedWineCache?.typeAd === TypeAd.Buy ? `Compro ` : `Vendo`}{' '}
             {searchedWineCache?.wineName}
@@ -238,7 +131,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
             <br />
             {`Prezzo: ${searchedWineCache?.price as number} euro al litro`}
           </Typography>
-        </Box>
+        </StyledBox>
         <br />
         <Typography color='primary' component='h3' variant='h5'>
           I nostri risultati
@@ -246,12 +139,12 @@ export const Ads: React.FC<RouteComponentProps> = () => {
         <Typography variant='body2'>
           {adsFiltered.length > 0 ? defaultText : noAdsText}
         </Typography>
-
-        <Filter
-          handleChange={handleChange}
-          handleShowAll={handleShowAll}
+        <Filter setList={setAds} list={ads} setFilteredList={setAdsFiltered} />
+        <Order
+          setList={setAds}
+          setOrder={setOrder}
+          queryResult={result}
           order={order}
-          isShowAll={isShowAll}
         />
         <br />
         <div className={classes.root}>
@@ -259,13 +152,13 @@ export const Ads: React.FC<RouteComponentProps> = () => {
             <CardWine key={ad._id} ad={ad} />
           ))}
           {isEndAds && !result.loading ? null : (
-            <div
-              id='page-bottom-boundary'
-              style={{ border: '1px solid red' }}
-              ref={bottomBoundaryRef}
-            ></div>
+            <InfiniteScrollFetch
+              queryResult={result}
+              list={ads}
+              limit={limit}
+              setLimit={setLimit}
+            />
           )}
-
           {result.loading ? <CircularProgress /> : null}
         </div>
         <SnackbarAds open={open} setOpen={setOpen} onClick={onClick} />
