@@ -12810,6 +12810,11 @@ tryer@^1.0.1:
   resolved "https://registry.yarnpkg.com/tryer/-/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
   integrity sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA==
 
+ts-deep-extract-types@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ts-deep-extract-types/-/ts-deep-extract-types-1.0.1.tgz#60e59563849c2cb42b81d6c640c7c77e16b9d9c1"
+  integrity sha512-/ouif62vAoltKeN9tSxMkMfiFwrXttL5UHkGDDvshH3ml06t9HhTsrtVJneGJhojBlKbWs8qzHYhL7oGWuluUg==
+
 ts-invariant@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.6.0.tgz#44066ecfeb7a806ff1c3b0b283408a337a885412"

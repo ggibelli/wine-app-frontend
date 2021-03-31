@@ -3,9 +3,12 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import * as React from 'react';
 import { myInfo } from '../../cache';
-import { Message } from '../../generated/graphql';
+import { MessageDetailsFragment } from '../../generated/graphql';
 
-export const MessageChat: React.FC<{ message: Message }> = ({ message }) => {
+export const MessageChat: React.FC<{
+  message: MessageDetailsFragment | null;
+}> = ({ message }) => {
+  if (!message) return null;
   const me = myInfo();
   const isMyMessage = message.sentBy._id === me?._id;
   const borderTopLeft = isMyMessage ? 12 : 0;

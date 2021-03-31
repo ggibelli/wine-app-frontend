@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/ban-types */
-import { ApolloCache, ApolloClient, FetchResult } from '@apollo/client';
+import { ApolloCache, ApolloClient, MutationResult } from '@apollo/client';
 import _ from 'lodash';
+import { DeepExtractType } from 'ts-deep-extract-types';
 import { myInfo, searchedWine } from '../cache';
 import {
   Ad,
@@ -9,12 +10,12 @@ import {
   AdsWineDocument,
   AdWine,
   CreateAdWineMutation,
+  CreateMessageMutation,
   CreateNegotiationMutation,
-  // Ad,
-  // AdDocument,
   MeDocument,
   Message,
   MessagesDocument,
+  MessagesNegotiationDocument,
   Negotiation,
   NegotiationsOpenDocument,
   User,
@@ -45,18 +46,28 @@ export interface ICachedMessages {
 }
 
 export interface ICachedMessagesNegs {
-  messagesForNegotiation: Message[];
+  messagesForNegotiation: {
+    messages: Message[];
+    pageCount: number;
+  };
 }
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const updateCacheNegotiations = (
   client: ApolloClient<{}> | ApolloCache<CreateNegotiationMutation>,
-  negotiation: Negotiation
+  negotiation: MutationResult<
+    DeepExtractType<
+      CreateNegotiationMutation,
+      ['createNegotiation']
+    >['response']
+  >['data']
 ) => {
+  console.log('updatecache');
   const adLocal: { ad: Ad } | null = _.cloneDeep(
     //@ts-expect-error error
     client.readQuery({
       query: AdDocument,
-      variables: { id: negotiation.ad._id },
+      variables: { id: negotiation?._id },
     })
   );
   if (adLocal) {
@@ -65,7 +76,7 @@ export const updateCacheNegotiations = (
     //@ts-expect-error error
     client.writeQuery({
       query: AdDocument,
-      variables: { id: negotiation.ad._id },
+      variables: { id: negotiation?.ad?._id },
       data: adLocal,
     });
   }
@@ -73,43 +84,53 @@ export const updateCacheNegotiations = (
     //@ts-expect-error error
     client.readQuery({
       query: MeDocument,
+      variables: {},
     })
   );
   const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = _.cloneDeep(
     //@ts-expect-error error
     client.readQuery({
       query: NegotiationsOpenDocument,
+      variables: {},
     })
   );
 
-  cachedDataMeLocal?.me.negotiations?.negotiations?.push(negotiation);
-  if (cachedDataMeLocal?.me.negotiations) {
-    cachedDataMeLocal.me.negotiations.pageCount =
-      (cachedDataMeLocal.me.negotiations.pageCount as number) + 1;
-  }
+  cachedDataMeLocal?.me.negotiations?.push(negotiation as Negotiation);
+
   //@ts-expect-error error
   client.writeQuery({
     query: MeDocument,
+    variables: {},
     data: cachedDataMeLocal,
   });
+  console.log(cachedDataMeLocal);
 
   if (!cachedDataNegotiationsLocal) return;
-  cachedDataNegotiationsLocal.negotiations.negotiations.push(negotiation);
+  cachedDataNegotiationsLocal.negotiations.negotiations.push(
+    negotiation as Negotiation
+  );
   cachedDataNegotiationsLocal.negotiations.pageCount += 1;
   //@ts-expect-error error
   client.writeQuery({
     query: NegotiationsOpenDocument,
+    variables: {},
     data: cachedDataNegotiationsLocal,
   });
 };
 
-export const updateCacheMessagesAdmin = (client: ApolloClient<{}>) => {
-  const me = myInfo();
+export const updateCacheMessagesAdmin = (
+  client: ApolloClient<{}>,
+  negotiation: MutationResult<
+    DeepExtractType<CreateAdWineMutation, ['createAd']>['response']
+  >['data']
+) => {
+  // const me = myInfo();
   const cachedDataMessagesLocal: ICachedMessages | null = _.cloneDeep(
     client.readQuery({
       query: MessagesDocument,
     })
   );
+  const me = myInfo();
   cachedDataMessagesLocal?.messages.push({
     isViewed: false,
     content: 'placeholder',
@@ -117,20 +138,56 @@ export const updateCacheMessagesAdmin = (client: ApolloClient<{}>) => {
     _id: 'placeholder',
     sentTo: { _id: me?._id } as User,
     sentBy: { firstName: 'Amministratore' } as User,
+    dateSent: new Date(),
   });
   client.writeQuery({
     query: MessagesDocument,
     data: cachedDataMessagesLocal,
   });
+
+  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+    client.readQuery({
+      query: MeDocument,
+      variables: {},
+    })
+  );
+  const indexNegToClose = cachedDataMeLocal?.me.negotiations?.findIndex(
+    (neg) => neg.ad._id === negotiation?._id
+  );
+  if (
+    indexNegToClose &&
+    indexNegToClose >= 0 &&
+    cachedDataMeLocal?.me.negotiations
+  ) {
+    cachedDataMeLocal.me.negotiations[indexNegToClose].isConcluded = true;
+  }
+  client.writeQuery({
+    query: MeDocument,
+    data: cachedDataMeLocal,
+    variables: {},
+  });
+  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = _.cloneDeep(
+    client.readQuery({
+      query: NegotiationsOpenDocument,
+      variables: {},
+    })
+  );
+  if (!cachedDataNegotiationsLocal) return;
+  cachedDataNegotiationsLocal?.negotiations.negotiations.filter(
+    (neg) => neg.ad._id !== negotiation?._id
+  );
+  client.writeQuery({
+    query: NegotiationsOpenDocument,
+    data: cachedDataNegotiationsLocal,
+    variables: {},
+  });
 };
 
 export const updateCacheAd = (
   cache: ApolloCache<CreateAdWineMutation>,
-  response: FetchResult<
-    CreateAdWineMutation,
-    Record<string, any>,
-    Record<string, any>
-  >
+  ad: MutationResult<
+    DeepExtractType<CreateAdWineMutation, ['createAd']>['response']
+  >['data']
 ) => {
   const searchedWineCache = searchedWine();
   const variablesCacheUpdate = {
@@ -150,25 +207,56 @@ export const updateCacheAd = (
     })
   );
 
-  cachedDataMeLocal?.me.ads?.ads?.push(
-    response.data?.createAd?.response as AdWine
-  );
-  if (cachedDataMeLocal?.me?.ads) {
-    cachedDataMeLocal.me.ads.pageCount =
-      (cachedDataMeLocal?.me.ads?.pageCount as number) + 1;
-  }
-  console.log(cachedDataMeLocal);
+  cachedDataMeLocal?.me.ads?.push(ad as AdWine);
+
   cache.writeQuery({
     query: MeDocument,
     data: cachedDataMeLocal,
   });
 
   if (!cachedDataAdsLocal) return;
-  cachedDataAdsLocal.ads.ads.push(response.data?.createAd?.response as AdWine);
+  cachedDataAdsLocal.ads.ads.push(ad as AdWine);
   cachedDataAdsLocal.ads.pageCount += 1;
   cache.writeQuery({
     query: AdsWineDocument,
     variables: variablesCacheUpdate,
     data: cachedDataAdsLocal,
+  });
+};
+
+export const updateCacheMessages = (
+  client: ApolloClient<object> | ApolloCache<any>,
+  message: MutationResult<
+    DeepExtractType<CreateMessageMutation, ['createMessage']>['response']
+  >['data']
+) => {
+  const cachedMessagesLocal: ICachedMessages | null = _.cloneDeep(
+    //@ts-expect-errorasdasd
+    client.readQuery({
+      query: MessagesDocument,
+    })
+  );
+  cachedMessagesLocal?.messages.push(message as Message);
+  //@ts-expect-errorllll
+  client.writeQuery({
+    query: MessagesDocument,
+    variables: { id: message?.negotiation._id },
+    data: cachedMessagesLocal,
+  });
+  const cachedMessagesNegotiationsLocal: ICachedMessagesNegs | null = _.cloneDeep(
+    //@ts-expect-errorasdasddsd
+    client.readQuery({
+      query: MessagesNegotiationDocument,
+      variables: { id: message?.negotiation._id },
+    })
+  );
+  cachedMessagesNegotiationsLocal?.messagesForNegotiation.messages.unshift(
+    message as Message
+  );
+  //@ts-expect-errorasdasd
+  client.writeQuery({
+    query: MessagesNegotiationDocument,
+    variables: { id: message?.negotiation._id },
+    data: cachedMessagesNegotiationsLocal,
   });
 };

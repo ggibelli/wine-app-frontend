@@ -3,82 +3,76 @@ import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { navigate, RouteComponentProps } from '@reach/router';
 import {
+  AdsWineQuery,
   QueryOrderBy,
   TypeAd,
+  TypeProduct,
   useAdsWineLazyQuery,
 } from '../generated/graphql';
+import { DeepExtractType } from 'ts-deep-extract-types';
 import { notification, searchedWine } from '../cache';
-import { Ad, CardWine } from '../components/CardWine';
+import { CardWine } from '../components/CardWine';
 import { BackButton } from '../components/BackButton';
-import { Filter } from '../components/FilterList';
+import { Filter } from '../components/FilterAds';
 import { SnackbarAds } from '../components/Snackbar';
-import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import { StyledBox } from '../components/StyledBox';
 import { useMediaQuery } from '@material-ui/core';
-import { Order } from '../components/FilterList/Order';
-import { InfiniteScrollFetch } from '../components/InfiniteScrollFetch';
+import { Order } from '../components/FilterAds/Order';
+import { InfiniteScroll } from '../components/InfiniteScrollFetch';
+import { AdsWineResult } from '../types';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-  })
-);
 export const Ads: React.FC<RouteComponentProps> = () => {
-  const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
   const searchedWineCache = searchedWine();
-  const [limit, setLimit] = React.useState<number>(2);
-  const [isEndAds, setIsEndAds] = React.useState<boolean>(false);
-  const [ads, setAds] = React.useState<Ad[]>([]);
-  const [adsFiltered, setAdsFiltered] = React.useState<Ad[]>([]);
-  const [open, setOpen] = React.useState(false);
+  const [ads, setAds] = React.useState<
+    DeepExtractType<AdsWineQuery, ['ads']>['ads']
+  >([]);
+  const [adsFiltered, setAdsFiltered] = React.useState<
+    DeepExtractType<AdsWineQuery, ['ads']>['ads']
+  >([]);
+  const [open, setOpen] = React.useState(true);
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
-  const [lazyAdsWine, result] = useAdsWineLazyQuery({
-    onError: (error) => notification({ type: 'error', message: error.message }),
-    notifyOnNetworkStatusChange: true,
-    onCompleted: (response) => {
-      if (response.ads?.ads) {
-        setAds((response.ads.ads as unknown) as Ad[]);
-      }
-      if (
-        response.ads?.pageCount &&
-        response.ads?.ads?.length === response.ads.pageCount
-      ) {
-        if (!open) setOpen(true);
-
-        setIsEndAds(true);
-      }
+  const [query, result] = useAdsWineLazyQuery({
+    variables: {
+      offset: 0,
+      limit: 4,
+      orderBy: order,
+      wineName: searchedWineCache?.wineName,
+      typeProduct: searchedWineCache?.typeProduct as TypeProduct,
+      typeAd:
+        searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
     },
+    onError: (error) => notification({ type: 'error', message: error.message }),
   });
-
   React.useEffect(() => {
-    if (searchedWineCache) {
-      void lazyAdsWine({
-        variables: {
-          offset: 0,
-          limit,
-          orderBy: order,
-          wineName: searchedWineCache?.wineName,
-          typeProduct: searchedWineCache?.typeProduct,
-          typeAd:
-            searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
-        },
-      });
+    if (searchedWineCache?.wineName) {
+      query();
     } else {
       void navigate('/');
     }
-  }, [limit, order]);
+  }, [searchedWineCache]);
+  React.useEffect(() => {
+    if (result.data?.ads) {
+      setAds(result.data.ads.ads);
+    }
+  }, [result.data]);
+
+  React.useEffect(() => {
+    if (result.fetchMore && ads && ads.length) {
+      result
+        .fetchMore({
+          variables: { orderBy: order, limit: ads.length },
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [order]);
 
   const onClick = async () => {
     if (searchedWineCache === undefined) {
@@ -103,17 +97,25 @@ export const Ads: React.FC<RouteComponentProps> = () => {
       Non abbiamo trovato nulla, vuoi creare un annuncio?
     </div>
   );
-  console.log(adsFiltered);
   if (result.data?.ads && result.data?.ads?.ads?.length === 0) {
     return <NoResults />;
   }
-
-  if (ads.length && result.data?.ads?.ads?.length !== 0) {
+  const handleFetchMore = async () => {
+    if (result.fetchMore) {
+      try {
+        await result.fetchMore({
+          variables: { offset: result.data?.ads?.ads?.length, orderBy: order },
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+  if (ads && ads.length && result.data?.ads?.ads?.length !== 0) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <BackButton />
-
         <Typography color='primary' component='h3' variant='h5'>
           La tua ricerca
         </Typography>
@@ -137,30 +139,22 @@ export const Ads: React.FC<RouteComponentProps> = () => {
           I nostri risultati
         </Typography>
         <Typography variant='body2'>
-          {adsFiltered.length > 0 ? defaultText : noAdsText}
+          {adsFiltered && adsFiltered.length > 0 ? defaultText : noAdsText}
         </Typography>
         <Filter setList={setAds} list={ads} setFilteredList={setAdsFiltered} />
-        <Order
-          setList={setAds}
-          setOrder={setOrder}
-          queryResult={result}
-          order={order}
-        />
+        <Order setOrder={setOrder} order={order} />
         <br />
-        <div className={classes.root}>
-          {adsFiltered.map((ad) => (
-            <CardWine key={ad._id} ad={ad} />
-          ))}
-          {isEndAds && !result.loading ? null : (
-            <InfiniteScrollFetch
-              queryResult={result}
-              list={ads}
-              limit={limit}
-              setLimit={setLimit}
-            />
-          )}
-          {result.loading ? <CircularProgress /> : null}
-        </div>
+        <InfiniteScroll
+          fetchMore={handleFetchMore}
+          isVisible={ads.length !== result.data?.ads?.pageCount}
+          isLoading={result.loading}
+        >
+          {' '}
+          {adsFiltered &&
+            adsFiltered.map((ad) => (
+              <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
+            ))}
+        </InfiniteScroll>
         <SnackbarAds open={open} setOpen={setOpen} onClick={onClick} />
       </Container>
     );

@@ -2,8 +2,6 @@ import * as React from 'react';
 import {
   MeQuery,
   Exact,
-  Maybe,
-  QueryOrderBy,
   useIsUserLoggedInQuery,
   MessagesQuery,
 } from '../../generated/graphql';
@@ -42,17 +40,10 @@ export const HeaderBar: React.FC<{
   meQueryResult: LazyQueryResult<
     MeQuery,
     Exact<{
-      offset?: Maybe<number> | undefined;
-      orderBy?: Maybe<QueryOrderBy> | undefined;
-      limit?: Maybe<number> | undefined;
-    }>
-  >;
-  messages: LazyQueryResult<
-    MessagesQuery,
-    Exact<{
       [key: string]: never;
     }>
   >;
+  messages: MessagesQuery['messages'];
   onSubmitLogin: ({
     email,
     password,
@@ -67,8 +58,8 @@ export const HeaderBar: React.FC<{
     setState(!state);
   };
   const [openModal, setOpenModal] = React.useState(false);
-  const badgeNumber = messages.data?.messages
-    ? messages.data?.messages?.filter(
+  const badgeNumber = messages?.length
+    ? messages.filter(
         (message) =>
           !message.isViewed &&
           message.sentTo._id === meQueryResult.data?.me?._id
@@ -99,11 +90,11 @@ export const HeaderBar: React.FC<{
     isLoading: meQueryResult.loading,
     error: meQueryResult.error,
     data: {
-      numAds: meQueryResult.data?.me?.ads?.pageCount,
-      numOpenNegs: meQueryResult.data?.me?.negotiations?.negotiations?.filter(
+      numAds: meQueryResult.data?.me?.ads?.length,
+      numOpenNegs: meQueryResult.data?.me?.negotiations?.filter(
         (neg) => neg && !neg.isConcluded
       ).length,
-      numClosedNegs: meQueryResult.data?.me?.negotiations?.negotiations?.filter(
+      numClosedNegs: meQueryResult.data?.me?.negotiations?.filter(
         (neg) => neg && neg.isConcluded
       ).length,
       savedAds: meQueryResult.data?.me?.savedAds?.length,

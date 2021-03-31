@@ -5,6 +5,8 @@ import { useCreateUserMutation, UserInput } from '../generated/graphql';
 import { isLoggedInVar, notification } from '../cache';
 import { navigate } from '@reach/router';
 import _ from 'lodash';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 export const SignUp: React.FC<RouteComponentProps> = () => {
   const [createUserMutation] = useCreateUserMutation({
@@ -46,5 +48,10 @@ export const SignUp: React.FC<RouteComponentProps> = () => {
       },
     });
   };
-  return <UserForm onSubmit={onSubmit} />;
+  return (
+    <Container component='main' maxWidth='xs'>
+      <UserForm onSubmit={onSubmit} />;
+      <CssBaseline />
+    </Container>
+  );
 };

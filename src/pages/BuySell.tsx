@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export const Buy: React.FC<
-  RouteComponentProps & { meData: MeQuery | undefined }
+  RouteComponentProps & { meData: MeQuery['me'] | undefined }
 > = ({ meData }) => {
   const classes = useStyles();
   const location = useLocation();
@@ -64,7 +64,7 @@ export const Buy: React.FC<
       }
     },
     update: (cache, response) => {
-      updateCacheAd(cache, response);
+      updateCacheAd(cache, response.data?.createAd?.response);
     },
   });
 
@@ -83,11 +83,11 @@ export const Buy: React.FC<
     void navigate('/annunci');
   };
   const onSubmitMutation = (values: WineFormMutation) => {
-    if (values.isSameAddress && meData?.me?.address) {
+    if (values.isSameAddress && meData?.address) {
       sameAddress = {
-        regione: meData.me.address.regione,
-        provincia: meData.me.address.provincia,
-        comune: meData.me.address.comune,
+        regione: meData.address.regione,
+        provincia: meData.address.provincia,
+        comune: meData.address.comune,
       };
     } else {
       differentAddress = values.address as AddressInput;

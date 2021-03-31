@@ -1,62 +1,72 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
-import { LazyQueryResult } from '@apollo/client';
 import { useLocation } from '@reach/router';
 import * as React from 'react';
-import { Exact } from '../generated/graphql';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useIntersect } from '../utils/useIntersectionHook';
+import { makeStyles, createStyles } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface InfiniteScrollProps {
-  queryResult: LazyQueryResult<any, Exact<any>>;
-  list: Array<any>;
-  setLimit: React.Dispatch<React.SetStateAction<number>>;
-  limit: number;
+  children: React.ReactNode;
+  fetchMore: () => Promise<void>;
+  isVisible: boolean;
+  isLoading: boolean;
+  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const InfiniteScrollFetch: React.FC<InfiniteScrollProps> = (props) => {
-  const bottomBoundaryRef = React.useRef<null | HTMLDivElement>(null);
-  const observer = new IntersectionObserver(handleIntersection);
-  const location = useLocation();
-  // const ads = location.pathname === '/buy' || location === 'sell';
-  const negotiations = location.pathname === '/trattative';
-  const myAds = location.pathname === '/creati';
-  function handleIntersection(
-    entries: IntersectionObserverEntry[],
-    observer: IntersectionObserver
-  ) {
-    entries.forEach((entry) => {
-      if (entry.intersectionRatio > 0 && props.queryResult.fetchMore) {
-        props.queryResult
-          .fetchMore({
-            variables: { limit: 2, offset: props.list.length },
-          })
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  })
+);
 
-          .then(({ data }) => {
-            if (negotiations) {
-              props.setLimit(
-                data.negotiations.negotiations.length + props.limit
-              );
-            } else if (myAds) {
-              props.setLimit(data.me.ads.ads.length + props.limit);
-            } else {
-              props.setLimit(data.ads.ads.length + props.limit);
-            }
-          })
-          .catch((e) => console.log(e));
-        observer.unobserve(entry.target);
-      }
-    });
+export const InfiniteScroll: React.FC<InfiniteScrollProps> = (props) => {
+  const classes = useStyles();
+  const { pathname } = useLocation();
+  const message = pathname.split('/')[1] === 'messaggi';
+  const [ref, entry] = useIntersect({ threshold: 0 });
+  const [isOk, setIsOk] = React.useState<boolean>(true);
+  console.log(props.isVisible);
+  React.useEffect(() => {
+    if (entry && entry?.intersectionRatio >= 0.5 && isOk) {
+      void props.fetchMore();
+      props.setIsLoading && props.setIsLoading(true);
+      setIsOk(false);
+    } else if (entry?.intersectionRatio === 0 && !isOk) {
+      setIsOk(true);
+      props.setIsLoading && props.setIsLoading(false);
+    }
+  }, [entry]);
+  if (message) {
+    return (
+      <>
+        {props.isVisible ? (
+          <div id='page-bottom-boundary' ref={ref}>
+            {' '}
+            <ExpandMoreIcon />
+          </div>
+        ) : null}
+        {props.children}
+      </>
+    );
   }
 
-  React.useEffect(() => {
-    if (bottomBoundaryRef.current) {
-      observer.observe(bottomBoundaryRef.current);
-    }
-  }, [props.list, bottomBoundaryRef.current]);
   return (
-    <div
-      id='page-bottom-boundary'
-      style={{ border: '1px solid red' }}
-      ref={bottomBoundaryRef}
-    ></div>
+    <div className={classes.root}>
+      {props.children}
+      {props.isVisible ? (
+        props.isLoading ? (
+          <CircularProgress />
+        ) : (
+          <div id='page-bottom-boundary' ref={ref}>
+            {' '}
+            <ExpandMoreIcon />
+          </div>
+        )
+      ) : null}
+    </div>
   );
 };

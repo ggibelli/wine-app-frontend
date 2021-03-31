@@ -3,8 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
 import {
-  AdWine,
-  Negotiation,
+  NegotiationDetailsFragment,
   NegotiationInputUpdate,
 } from '../generated/graphql';
 import { TypeAd } from '../generated/graphql';
@@ -12,12 +11,8 @@ import Button from '@material-ui/core/Button';
 import { useTheme, useMediaQuery } from '@material-ui/core';
 import { StyledBox } from './StyledBox';
 
-export interface NegotiationWine extends Negotiation {
-  ad: AdWine;
-}
-
 export const CardNegotiation: React.FC<{
-  negotiation: NegotiationWine;
+  negotiation: NegotiationDetailsFragment;
   handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
 }> = ({ negotiation, handleCloseNeg }) => {
   const theme = useTheme();
@@ -41,7 +36,8 @@ export const CardNegotiation: React.FC<{
           color={negotiation.type === TypeAd.Sell ? 'primary' : 'textSecondary'}
         >
           {negotiation.type === TypeAd.Buy ? 'Compro' : 'Vendo'}{' '}
-          {negotiation.ad.wineName} {/* {ad.wine.denominazioneZona} */}
+          {negotiation.ad.__typename === 'AdWine' && negotiation.ad.wineName}{' '}
+          {/* {ad.wine.denominazioneZona} */}
         </Typography>
         <Typography
           align='left'
@@ -68,7 +64,7 @@ export const CardNegotiation: React.FC<{
       )}
 
       <Button component={RouterLink} to={`/messaggi/${negotiation._id}`}>
-        {negotiation.messages?.length ? 'Continua' : 'Apri'} la chat
+        Apri la chat
       </Button>
     </StyledBox>
   );

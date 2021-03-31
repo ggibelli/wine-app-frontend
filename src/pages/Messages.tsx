@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import { RouteComponentProps } from '@reach/router';
 import { LazyQueryResult } from '@apollo/client';
-import { MessagesQuery, Exact, Message } from '../generated/graphql';
+import { MessagesQuery, Exact } from '../generated/graphql';
 import _ from 'lodash';
 import { MessageListEl } from '../components/MessageListEl';
 
@@ -31,16 +31,17 @@ export const Messages: React.FC<
   if (messagesResult.loading) {
     return <Skeleton />;
   }
+
   if (messagesResult.error) return <div>error</div>;
   if (!messagesForNegotiation) return <div>nno ci sono messaggi</div>;
   if (!messages) return null;
   return (
-    <Container>
+    <Container component='main' maxWidth='sm'>
       <CssBaseline />
       <List>
         {messagesForNegotiation.map((el) => (
           <div key={el[0]}>
-            <MessageListEl messages={el[1] as Message[]} id={el[0]} />
+            <MessageListEl messages={el[1]} id={el[0]} />
           </div>
         ))}
       </List>

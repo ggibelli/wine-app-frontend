@@ -89,9 +89,7 @@ export const Negotiation: React.FC<
           Dichiara chiusa la trattativa
         </Button>
       )}
-      <Button>
-        {data?.negotiation?.messages?.length ? 'Continua' : 'Apri'} la chat
-      </Button>
+      <Button>Apri la chat</Button>
     </Container>
   );
 };

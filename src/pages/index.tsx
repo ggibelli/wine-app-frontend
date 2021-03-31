@@ -26,7 +26,7 @@ import { Message } from './Message';
 export const Pages: React.FC = () => {
   const loggedUser = useIsUserLoggedInQuery();
   const [messageLazyQuery, messageResult] = useMessagesLazyQuery({
-    // fetchPolicy: 'network-only',
+    fetchPolicy: 'network-only',
     // pollInterval: 1000,
     onError: (error) => {
       notification({
@@ -53,7 +53,6 @@ export const Pages: React.FC = () => {
     },
   });
   React.useEffect(() => {
-    console.log('cazz');
     if (loggedUser.data?.isLoggedIn) {
       lazyQuery();
       messageLazyQuery();
@@ -77,7 +76,6 @@ export const Pages: React.FC = () => {
           type: 'success',
           message: 'welcome back',
         });
-        lazyQuery();
       }
       if (login?.errors?.length) {
         notification({
@@ -121,18 +119,18 @@ export const Pages: React.FC = () => {
       <Header
         meQueryResult={result}
         onSubmitLogin={onSubmitLogin}
-        messages={messageResult}
+        messages={messageResult.data?.messages}
       />
       <main>
         <Router primary={false} component={React.Fragment}>
           <Home path='/' />
           {['/buy', '/sell'].map((path) => (
-            <Buy key={path} path={path} meData={result.data} />
+            <Buy key={path} path={path} meData={result.data?.me} />
           ))}
           <Ads path='/annunci' />
           <Ad
             path='/annunci/:id'
-            meData={result.data}
+            meData={result.data?.me}
             handleCloseNeg={handleCloseNegotiation}
           />
           <Messages path='/messaggi' messagesResult={messageResult} />
@@ -145,6 +143,7 @@ export const Pages: React.FC = () => {
           <Negotiations
             path='/trattative'
             handleCloseNeg={handleCloseNegotiation}
+            meData={result.data?.me}
           />
           <Negotiation
             path='/trattative/:id'

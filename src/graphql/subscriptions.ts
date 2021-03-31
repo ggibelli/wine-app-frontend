@@ -12,11 +12,8 @@ export const AD_POSTED_FOLLOWUP = gql`
       _id
       postedBy {
         _id
-        firstName
-        lastName
-        hideContact
       }
-      needsFollowUp
+
       harvest
       abv
       priceFrom
@@ -35,9 +32,10 @@ export const AD_POSTED_FOLLOWUP = gql`
       address {
         regione
         provincia
+        comune
       }
-      numberViews
       activeNegotiations
+      numberViews
       datePosted
     }
   }
@@ -77,11 +75,8 @@ export const NEGOTIATION_CLOSED = gql`
       _id
       postedBy {
         _id
-        firstName
-        lastName
-        hideContact
       }
-      needsFollowUp
+
       harvest
       abv
       priceFrom
@@ -100,8 +95,10 @@ export const NEGOTIATION_CLOSED = gql`
       address {
         regione
         provincia
+        comune
       }
       activeNegotiations
+      numberViews
       datePosted
     }
   }

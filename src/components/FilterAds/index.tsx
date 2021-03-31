@@ -9,7 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { deepPurple } from '@material-ui/core/colors';
 import { searchedWine } from '../../cache';
 import { IFilters, multiFilter } from '../../utils/multiFilter';
-import { Ad } from '../CardWine';
 
 const PurpleCheckbox = withStyles({
   root: {
@@ -22,10 +21,12 @@ const PurpleCheckbox = withStyles({
 })((props: CheckboxProps) => <Checkbox color='default' {...props} />);
 
 interface FilterProps {
-  setList: React.Dispatch<React.SetStateAction<Array<any>>>;
+  setList: React.Dispatch<React.SetStateAction<Array<any> | undefined | null>>;
   list: Array<any>;
   filteredList?: Array<any>;
-  setFilteredList: React.Dispatch<React.SetStateAction<Array<any>>>;
+  setFilteredList: React.Dispatch<
+    React.SetStateAction<Array<any> | undefined | null>
+  >;
 }
 
 export const Filter: React.FC<FilterProps> = (props) => {
@@ -46,7 +47,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
   });
   React.useEffect(() => {
     if (props.list.length > 0) {
-      const filtredAds = multiFilter(props.list, filterAds) as Ad[];
+      const filtredAds = multiFilter(props.list, filterAds);
       props.setFilteredList(filtredAds);
     }
   }, [filterAds, props.list]);

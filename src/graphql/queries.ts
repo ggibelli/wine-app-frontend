@@ -39,9 +39,6 @@ export const NEGOTIATION_DETAILS = gql`
     _id
     createdBy {
       _id
-      firstName
-      lastName
-      hideContact
     }
     ad {
       _id
@@ -57,13 +54,9 @@ export const NEGOTIATION_DETAILS = gql`
     forUserAd {
       _id
       firstName
-      lastName
-      hideContact
     }
     type
-    messages {
-      _id
-    }
+
     dateCreated
     dateConcluded
     isConcluded
@@ -88,13 +81,9 @@ export const MESSAGE_DETAILS = gql`
     negotiation {
       _id
       ad {
+        _id
         ... on AdWine {
           wineName
-          litersFrom
-          litersTo
-          wine {
-            denominazioneZona
-          }
         }
       }
     }
@@ -132,7 +121,7 @@ export const REVIEW_DETAILS = gql`
 `;
 
 export const ME = gql`
-  query me($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
+  query me {
     me {
       _id
       firstName
@@ -141,99 +130,32 @@ export const ME = gql`
         regione
         provincia
         comune
-        via
-        CAP
       }
-      email
-      ads(offset: $offset, orderBy: $orderBy, limit: $limit) {
-        ads {
-          _id
-          postedBy {
-            _id
-            firstName
-            lastName
-            hideContact
-          }
-          needsFollowUp
-          harvest
-          abv
-          priceFrom
-          priceTo
-          ... on AdWine {
-            wineName
-            litersFrom
-            litersTo
-            metodoProduttivo
-            wine {
-              denominazioneZona
-              regione
-            }
-          }
-          typeAd
-          address {
-            regione
-            provincia
-            comune
-          }
-          activeNegotiations
-          numberViews
-          datePosted
-        }
-        pageCount
-      }
-      savedAds {
+      ads {
         _id
         postedBy {
           _id
-          firstName
-          lastName
-          hideContact
         }
-        needsFollowUp
-        harvest
-        abv
-        priceFrom
-        priceTo
-        ... on AdWine {
-          wineName
-          litersFrom
-          litersTo
-          metodoProduttivo
-          wine {
-            denominazioneZona
-            regione
-          }
-        }
-        typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
-        activeNegotiations
-        numberViews
-        datePosted
+        isActive
       }
-      negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
-        negotiations {
+      savedAds {
+        _id
+      }
+      negotiations {
+        _id
+
+        isConcluded
+        ad {
           _id
-          ad {
-            _id
-            ... on AdWine {
-              wineName
-            }
-          }
-          forUserAd {
-            _id
-            email
-          }
-          isConcluded
         }
-        pageCount
+      }
+      reviews {
+        _id
+
+        rating
       }
     }
   }
-  ${AD_DETAILS}
 `;
 
 export const IS_LOGGED_IN = gql`
@@ -287,11 +209,8 @@ export const ADS_WINE = gql`
         _id
         postedBy {
           _id
-          firstName
-          lastName
-          hideContact
         }
-        needsFollowUp
+
         harvest
         abv
         priceFrom
@@ -358,6 +277,7 @@ export const AD = gql`
       activeNegotiations
       numberViews
       datePosted
+      isActive
     }
   }
   ${AD_DETAILS}
@@ -440,9 +360,12 @@ export const ALL_MESSAGES = gql`
 `;
 
 export const MESSAGES_NEGOTIATION = gql`
-  query MessagesNegotiation($id: ID!) {
-    messagesForNegotiation(negotiation: $id) {
-      ...MessageDetails
+  query MessagesNegotiation($id: ID!, $offset: Int, $limit: Int) {
+    messagesForNegotiation(negotiation: $id, offset: $offset, limit: $limit) {
+      messages {
+        ...MessageDetails
+      }
+      pageCount
     }
   }
   ${MESSAGE_DETAILS}
@@ -479,6 +402,52 @@ export const NEGOTIATION_FOR_AD = gql`
         lastName
       }
       dateCreated
+    }
+  }
+`;
+
+export const ADS_FOR_USER = gql`
+  query AdsForUser(
+    $offset: Int
+    $orderBy: QueryOrderBy
+    $limit: Int
+    $user: ID!
+  ) {
+    adsForUser(offset: $offset, orderBy: $orderBy, limit: $limit, user: $user) {
+      ads {
+        _id
+        postedBy {
+          _id
+          firstName
+          lastName
+          hideContact
+        }
+        needsFollowUp
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
+            regione
+          }
+        }
+        typeAd
+        address {
+          regione
+          provincia
+          comune
+        }
+        activeNegotiations
+        numberViews
+        datePosted
+      }
+      pageCount
     }
   }
 `;

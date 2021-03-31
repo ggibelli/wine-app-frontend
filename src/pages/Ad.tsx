@@ -2,16 +2,15 @@ import * as React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useParams } from '@reach/router';
 import {
-  AdWine,
   TypeAd,
   useAdQuery,
   useCreateNegotiationMutation,
   NegotiationInput,
-  Negotiation,
   useNegotiationsForAdLazyQuery,
-  User,
   MeQuery,
   NegotiationInputUpdate,
+  AdQuery,
+  NegotiationsForAdQuery,
 } from '../generated/graphql';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -28,7 +27,7 @@ import { updateCacheNegotiations } from '../utils/updateCache';
 import { OpenNegotiations } from '../components/OpenNegotiations';
 
 export interface ICachedNegotiations {
-  negotiations: Array<Negotiation>;
+  negotiations: Array<NegotiationsForAdQuery['negotiationsForAd']>;
   pageCount: number;
 }
 
@@ -49,23 +48,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Ad: React.FC<
   RouteComponentProps & {
-    meData: MeQuery | undefined;
+    meData: MeQuery['me'] | undefined;
     handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
   }
 > = ({ meData, handleCloseNeg }) => {
-  const [ad, setAd] = React.useState<AdWine | undefined>(undefined);
+  const [ad, setAd] = React.useState<AdQuery['ad'] | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const { data, loading, error } = useAdQuery({
     variables: {
       id: id,
     },
-    onCompleted: (data) => (data?.ad ? setAd(data?.ad as AdWine) : null),
+    onCompleted: (data) => (data?.ad ? setAd(data?.ad) : null),
   });
 
   React.useEffect(() => {
     if (data?.ad) {
-      setAd(data?.ad as AdWine);
+      setAd(data?.ad);
     }
   }, [data?.ad?.activeNegotiations]);
 
@@ -93,7 +92,7 @@ export const Ad: React.FC<
     update: (cache, response) => {
       updateCacheNegotiations(
         cache,
-        response.data?.createNegotiation?.response as Negotiation
+        response.data?.createNegotiation?.response
       );
     },
   });
@@ -106,12 +105,12 @@ export const Ad: React.FC<
     setOpen(!open);
   };
 
-  const openNegotiation = (ad: AdWine) => {
+  const openNegotiation = () => {
     const newNegotiation: NegotiationInput = {
-      forUserAd: ad.postedBy._id,
-      ad: ad._id,
-      type: ad.typeAd,
-    };
+      forUserAd: ad?.postedBy._id,
+      ad: ad?._id,
+      type: ad?.typeAd,
+    } as NegotiationInput;
     void createNegotiation({ variables: { negotiation: newNegotiation } });
   };
   const classes = useStyles();
@@ -122,47 +121,28 @@ export const Ad: React.FC<
     });
     return <div>Errore</div>;
   }
-  if (ad && meData?.me) {
-    const Heading = () => {
-      if (ad.typeAd === TypeAd.Buy) {
-        return (
-          <>
-            <Typography color='primary' component='h3' variant='h5'>
-              Contatta l&apos;acquirente
-            </Typography>
-            <Typography color='secondary' variant='body1'>
-              Questo è uno degli annunci che abbiamo selezionato per te:
-              verifica anche tu i parametri e decidi se procedere.
-            </Typography>
-          </>
-        );
-      } else {
-        return (
-          <>
-            <Typography color='primary' component='h3' variant='h5'>
-              Contatta il venditore
-            </Typography>
-            <Typography color='secondary' variant='body1'>
-              Questo è uno degli annunci che abbiamo selezionato per te:
-              verifica anche tu i parametri e decidi se procedere.
-            </Typography>
-          </>
-        );
-      }
-    };
+  const buyerOrSeller =
+    ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
+  if (ad?._id && meData) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <BackButton />
         <div className={classes.paper}>
-          <Heading />
+          <Typography color='primary' component='h3' variant='h5'>
+            Contatta {buyerOrSeller}
+          </Typography>
+          <Typography color='secondary' variant='body1'>
+            Questo è uno degli annunci che abbiamo selezionato per te: verifica
+            anche tu i parametri e decidi se procedere.
+          </Typography>
         </div>
         <CardWineDetail
           ad={ad}
-          me={meData?.me as User}
+          me={meData}
           createNegotiation={openNegotiation}
         />
-        {meData.me._id === ad.postedBy._id && ad.activeNegotiations ? (
+        {meData?._id === ad.postedBy._id && ad.activeNegotiations ? (
           <>
             <IconButton onClick={handleShowNegotiations}>
               {!open ? <ExpandMoreIcon /> : <ExpandLessIcon />}

@@ -8,11 +8,11 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Badge from '@material-ui/core/Badge';
 import { Link as RouterLink } from '@reach/router';
 import { myInfo } from '../cache';
-import { Message } from '../generated/graphql';
+import { MessagesQuery } from '../generated/graphql';
 
 export const MessageListEl: React.FC<{
   id: string;
-  messages: Array<Message>;
+  messages: MessagesQuery['messages'];
 }> = ({ messages, id }) => {
   const me = myInfo();
   if (!messages) return null;

@@ -79,11 +79,8 @@ export const CREATE_ADWINE = gql`
         _id
         postedBy {
           _id
-          firstName
-          lastName
-          hideContact
         }
-        needsFollowUp
+
         harvest
         abv
         priceFrom
@@ -104,8 +101,8 @@ export const CREATE_ADWINE = gql`
           provincia
           comune
         }
-        numberViews
         activeNegotiations
+        numberViews
         datePosted
       }
       errors {
@@ -122,36 +119,6 @@ export const UPDATE_ADWINE = gql`
     updateAd(input: $input) {
       response {
         _id
-        postedBy {
-          _id
-          firstName
-          lastName
-          hideContact
-        }
-        needsFollowUp
-        harvest
-        abv
-        priceFrom
-        priceTo
-        ... on AdWine {
-          wineName
-          litersFrom
-          litersTo
-          metodoProduttivo
-          wine {
-            denominazioneZona
-            regione
-          }
-        }
-        typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
-        numberViews
-        activeNegotiations
-        datePosted
       }
       errors {
         name

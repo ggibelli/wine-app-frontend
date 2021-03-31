@@ -180,11 +180,12 @@ export type Query = {
   __typename?: 'Query';
   ad?: Maybe<Ad>;
   ads?: Maybe<AdsResult>;
+  adsForUser?: Maybe<AdsResult>;
   isLoggedIn: Scalars['Boolean'];
   me?: Maybe<User>;
   message?: Maybe<Message>;
   messages?: Maybe<Array<Message>>;
-  messagesForNegotiation?: Maybe<Array<Message>>;
+  messagesForNegotiation?: Maybe<MessageResult>;
   messagesToUser?: Maybe<Array<Message>>;
   negotiation?: Maybe<Negotiation>;
   negotiations?: Maybe<NegotiationResult>;
@@ -216,12 +217,21 @@ export type QueryAdsArgs = {
   limit?: Maybe<Scalars['Int']>;
 };
 
+export type QueryAdsForUserArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+  user: Scalars['ID'];
+};
+
 export type QueryMessageArgs = {
   id: Scalars['ID'];
 };
 
 export type QueryMessagesForNegotiationArgs = {
   negotiation: Scalars['ID'];
+  offset?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 export type QueryMessagesToUserArgs = {
@@ -402,18 +412,20 @@ export type Message = {
   sentBy: User;
   sentTo: User;
   negotiation: Negotiation;
-  dateSent?: Maybe<Scalars['String']>;
+  dateSent: Scalars['Date'];
   isViewed: Scalars['Boolean'];
-};
-
-export type MessageDateSentArgs = {
-  format?: Maybe<Scalars['String']>;
 };
 
 export type MessagePayload = {
   __typename?: 'MessagePayload';
   response?: Maybe<Message>;
   errors?: Maybe<Array<Maybe<Errors>>>;
+};
+
+export type MessageResult = {
+  __typename?: 'MessageResult';
+  messages?: Maybe<Array<Maybe<Message>>>;
+  pageCount?: Maybe<Scalars['Int']>;
 };
 
 export type NegotiationInput = {
@@ -571,33 +583,15 @@ export type User = {
   isPremium?: Maybe<Scalars['Boolean']>;
   isAdmin: Scalars['Boolean'];
   hideContact: Scalars['Boolean'];
-  ads?: Maybe<AdsResult>;
+  ads?: Maybe<Array<Ad>>;
   savedAds?: Maybe<Array<Ad>>;
   messages?: Maybe<Array<Message>>;
-  negotiations?: Maybe<NegotiationResult>;
-  reviews?: Maybe<ReviewResult>;
+  negotiations?: Maybe<Array<Negotiation>>;
+  reviews?: Maybe<Array<Review>>;
   adsRemaining?: Maybe<Scalars['Int']>;
   dateCreated?: Maybe<Scalars['String']>;
   producedWines?: Maybe<ProducedWines>;
   ownedVineyards?: Maybe<OwnedVineyards>;
-};
-
-export type UserAdsArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<QueryOrderBy>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-export type UserNegotiationsArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<QueryOrderBy>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-export type UserReviewsArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<QueryOrderBy>;
-  limit?: Maybe<Scalars['Int']>;
 };
 
 export type UserDateCreatedArgs = {
@@ -990,13 +984,13 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
             | 'litersTo'
             | 'metodoProduttivo'
             | '_id'
-            | 'needsFollowUp'
             | 'harvest'
             | 'abv'
             | 'priceFrom'
             | 'priceTo'
             | 'typeAd'
             | 'activeNegotiations'
+            | 'numberViews'
             | 'datePosted'
           > & {
               wine?: Maybe<
@@ -1005,10 +999,7 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
                   'denominazioneZona' | 'regione'
                 >
               >;
-              postedBy: { __typename?: 'User' } & Pick<
-                User,
-                '_id' | 'firstName' | 'lastName' | 'hideContact'
-              >;
+              postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
               address: { __typename?: 'Address' } & Pick<
                 Address,
                 'regione' | 'provincia' | 'comune'
@@ -1017,19 +1008,16 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
         | ({ __typename?: 'AdGrape' } & Pick<
             AdGrape,
             | '_id'
-            | 'needsFollowUp'
             | 'harvest'
             | 'abv'
             | 'priceFrom'
             | 'priceTo'
             | 'typeAd'
             | 'activeNegotiations'
+            | 'numberViews'
             | 'datePosted'
           > & {
-              postedBy: { __typename?: 'User' } & Pick<
-                User,
-                '_id' | 'firstName' | 'lastName' | 'hideContact'
-              >;
+              postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
               address: { __typename?: 'Address' } & Pick<
                 Address,
                 'regione' | 'provincia' | 'comune'
@@ -1051,58 +1039,8 @@ export type UpdateAdWineMutation = { __typename?: 'Mutation' } & {
   updateAd?: Maybe<
     { __typename?: 'AdPayload' } & {
       response?: Maybe<
-        | ({ __typename?: 'AdWine' } & Pick<
-            AdWine,
-            | 'wineName'
-            | 'litersFrom'
-            | 'litersTo'
-            | 'metodoProduttivo'
-            | '_id'
-            | 'needsFollowUp'
-            | 'harvest'
-            | 'abv'
-            | 'priceFrom'
-            | 'priceTo'
-            | 'typeAd'
-            | 'activeNegotiations'
-            | 'datePosted'
-          > & {
-              wine?: Maybe<
-                { __typename?: 'Wine' } & Pick<
-                  Wine,
-                  'denominazioneZona' | 'regione'
-                >
-              >;
-              postedBy: { __typename?: 'User' } & Pick<
-                User,
-                '_id' | 'firstName' | 'lastName' | 'hideContact'
-              >;
-              address: { __typename?: 'Address' } & Pick<
-                Address,
-                'regione' | 'provincia' | 'comune'
-              >;
-            })
-        | ({ __typename?: 'AdGrape' } & Pick<
-            AdGrape,
-            | '_id'
-            | 'needsFollowUp'
-            | 'harvest'
-            | 'abv'
-            | 'priceFrom'
-            | 'priceTo'
-            | 'typeAd'
-            | 'activeNegotiations'
-            | 'datePosted'
-          > & {
-              postedBy: { __typename?: 'User' } & Pick<
-                User,
-                '_id' | 'firstName' | 'lastName' | 'hideContact'
-              >;
-              address: { __typename?: 'Address' } & Pick<
-                Address,
-                'regione' | 'provincia' | 'comune'
-              >;
-            })
+        | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+        | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
       >;
       errors?: Maybe<
         Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
@@ -1305,10 +1243,7 @@ export type NegotiationDetailsFragment = { __typename?: 'Negotiation' } & Pick<
   Negotiation,
   '_id' | 'type' | 'dateCreated' | 'dateConcluded' | 'isConcluded'
 > & {
-    createdBy: { __typename?: 'User' } & Pick<
-      User,
-      '_id' | 'firstName' | 'lastName' | 'hideContact'
-    >;
+    createdBy: { __typename?: 'User' } & Pick<User, '_id'>;
     ad:
       | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'> & {
             postedBy: { __typename?: 'User' } & Pick<
@@ -1322,16 +1257,12 @@ export type NegotiationDetailsFragment = { __typename?: 'Negotiation' } & Pick<
               '_id' | 'firstName' | 'lastName'
             >;
           });
-    forUserAd: { __typename?: 'User' } & Pick<
-      User,
-      '_id' | 'firstName' | 'lastName' | 'hideContact'
-    >;
-    messages?: Maybe<Array<{ __typename?: 'Message' } & Pick<Message, '_id'>>>;
+    forUserAd: { __typename?: 'User' } & Pick<User, '_id' | 'firstName'>;
   };
 
 export type MessageDetailsFragment = { __typename?: 'Message' } & Pick<
   Message,
-  '_id' | 'content' | 'dateSent' | 'isViewed'
+  '_id' | 'content' | 'isViewed' | 'dateSent'
 > & {
     sentBy: { __typename?: 'User' } & Pick<
       User,
@@ -1343,15 +1274,8 @@ export type MessageDetailsFragment = { __typename?: 'Message' } & Pick<
     >;
     negotiation: { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'> & {
         ad:
-          | ({ __typename?: 'AdWine' } & Pick<
-              AdWine,
-              'wineName' | 'litersFrom' | 'litersTo'
-            > & {
-                wine?: Maybe<
-                  { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
-                >;
-              })
-          | { __typename?: 'AdGrape' };
+          | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'>)
+          | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
       };
   };
 
@@ -1374,167 +1298,46 @@ export type ReviewDetailsFragment = { __typename?: 'Review' } & Pick<
     >;
   };
 
-export type MeQueryVariables = Exact<{
-  offset?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<QueryOrderBy>;
-  limit?: Maybe<Scalars['Int']>;
-}>;
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
-    { __typename?: 'User' } & Pick<
-      User,
-      '_id' | 'firstName' | 'lastName' | 'email'
-    > & {
+    { __typename?: 'User' } & Pick<User, '_id' | 'firstName' | 'lastName'> & {
         address: { __typename?: 'Address' } & Pick<
           Address,
-          'regione' | 'provincia' | 'comune' | 'via' | 'CAP'
+          'regione' | 'provincia' | 'comune'
         >;
         ads?: Maybe<
-          { __typename?: 'AdsResult' } & Pick<AdsResult, 'pageCount'> & {
-              ads?: Maybe<
-                Array<
-                  Maybe<
-                    | ({ __typename?: 'AdWine' } & Pick<
-                        AdWine,
-                        | 'wineName'
-                        | 'litersFrom'
-                        | 'litersTo'
-                        | 'metodoProduttivo'
-                        | '_id'
-                        | 'needsFollowUp'
-                        | 'harvest'
-                        | 'abv'
-                        | 'priceFrom'
-                        | 'priceTo'
-                        | 'typeAd'
-                        | 'activeNegotiations'
-                        | 'datePosted'
-                      > & {
-                          wine?: Maybe<
-                            { __typename?: 'Wine' } & Pick<
-                              Wine,
-                              'denominazioneZona' | 'regione'
-                            >
-                          >;
-                          postedBy: { __typename?: 'User' } & Pick<
-                            User,
-                            '_id' | 'firstName' | 'lastName' | 'hideContact'
-                          >;
-                          address: { __typename?: 'Address' } & Pick<
-                            Address,
-                            'regione' | 'provincia' | 'comune'
-                          >;
-                        })
-                    | ({ __typename?: 'AdGrape' } & Pick<
-                        AdGrape,
-                        | '_id'
-                        | 'needsFollowUp'
-                        | 'harvest'
-                        | 'abv'
-                        | 'priceFrom'
-                        | 'priceTo'
-                        | 'typeAd'
-                        | 'activeNegotiations'
-                        | 'datePosted'
-                      > & {
-                          postedBy: { __typename?: 'User' } & Pick<
-                            User,
-                            '_id' | 'firstName' | 'lastName' | 'hideContact'
-                          >;
-                          address: { __typename?: 'Address' } & Pick<
-                            Address,
-                            'regione' | 'provincia' | 'comune'
-                          >;
-                        })
-                  >
-                >
-              >;
-            }
-        >;
-        savedAds?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<
-                AdWine,
-                | 'wineName'
-                | 'litersFrom'
-                | 'litersTo'
-                | 'metodoProduttivo'
-                | '_id'
-                | 'needsFollowUp'
-                | 'harvest'
-                | 'abv'
-                | 'priceFrom'
-                | 'priceTo'
-                | 'typeAd'
-                | 'activeNegotiations'
-                | 'datePosted'
-              > & {
-                  wine?: Maybe<
-                    { __typename?: 'Wine' } & Pick<
-                      Wine,
-                      'denominazioneZona' | 'regione'
-                    >
-                  >;
-                  postedBy: { __typename?: 'User' } & Pick<
-                    User,
-                    '_id' | 'firstName' | 'lastName' | 'hideContact'
-                  >;
-                  address: { __typename?: 'Address' } & Pick<
-                    Address,
-                    'regione' | 'provincia' | 'comune'
-                  >;
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id' | 'isActive'> & {
+                  postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
                 })
             | ({ __typename?: 'AdGrape' } & Pick<
                 AdGrape,
-                | '_id'
-                | 'needsFollowUp'
-                | 'harvest'
-                | 'abv'
-                | 'priceFrom'
-                | 'priceTo'
-                | 'typeAd'
-                | 'activeNegotiations'
-                | 'datePosted'
-              > & {
-                  postedBy: { __typename?: 'User' } & Pick<
-                    User,
-                    '_id' | 'firstName' | 'lastName' | 'hideContact'
-                  >;
-                  address: { __typename?: 'Address' } & Pick<
-                    Address,
-                    'regione' | 'provincia' | 'comune'
-                  >;
-                })
+                '_id' | 'isActive'
+              > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
+          >
+        >;
+        savedAds?: Maybe<
+          Array<
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+            | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
           >
         >;
         negotiations?: Maybe<
-          { __typename?: 'NegotiationResult' } & Pick<
-            NegotiationResult,
-            'pageCount'
-          > & {
-              negotiations?: Maybe<
-                Array<
-                  Maybe<
-                    { __typename?: 'Negotiation' } & Pick<
-                      Negotiation,
-                      '_id' | 'isConcluded'
-                    > & {
-                        ad:
-                          | ({ __typename?: 'AdWine' } & Pick<
-                              AdWine,
-                              'wineName' | '_id'
-                            >)
-                          | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
-                        forUserAd: { __typename?: 'User' } & Pick<
-                          User,
-                          '_id' | 'email'
-                        >;
-                      }
-                  >
-                >
-              >;
-            }
+          Array<
+            { __typename?: 'Negotiation' } & Pick<
+              Negotiation,
+              '_id' | 'isConcluded'
+            > & {
+                ad:
+                  | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+              }
+          >
+        >;
+        reviews?: Maybe<
+          Array<{ __typename?: 'Review' } & Pick<Review, '_id' | 'rating'>>
         >;
       }
   >;
@@ -1595,13 +1398,13 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'litersTo'
                   | 'metodoProduttivo'
                   | '_id'
-                  | 'needsFollowUp'
                   | 'harvest'
                   | 'abv'
                   | 'priceFrom'
                   | 'priceTo'
                   | 'typeAd'
                   | 'activeNegotiations'
+                  | 'numberViews'
                   | 'datePosted'
                 > & {
                     wine?: Maybe<
@@ -1610,10 +1413,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                         'denominazioneZona' | 'regione'
                       >
                     >;
-                    postedBy: { __typename?: 'User' } & Pick<
-                      User,
-                      '_id' | 'firstName' | 'lastName' | 'hideContact'
-                    >;
+                    postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
                     address: { __typename?: 'Address' } & Pick<
                       Address,
                       'regione' | 'provincia' | 'comune'
@@ -1622,19 +1422,16 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
               | ({ __typename?: 'AdGrape' } & Pick<
                   AdGrape,
                   | '_id'
-                  | 'needsFollowUp'
                   | 'harvest'
                   | 'abv'
                   | 'priceFrom'
                   | 'priceTo'
                   | 'typeAd'
                   | 'activeNegotiations'
+                  | 'numberViews'
                   | 'datePosted'
                 > & {
-                    postedBy: { __typename?: 'User' } & Pick<
-                      User,
-                      '_id' | 'firstName' | 'lastName' | 'hideContact'
-                    >;
+                    postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
                     address: { __typename?: 'Address' } & Pick<
                       Address,
                       'regione' | 'provincia' | 'comune'
@@ -1667,7 +1464,9 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'priceTo'
         | 'typeAd'
         | 'activeNegotiations'
+        | 'numberViews'
         | 'datePosted'
+        | 'isActive'
       > & {
           wine?: Maybe<
             { __typename?: 'Wine' } & Pick<
@@ -1699,7 +1498,9 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'priceTo'
         | 'typeAd'
         | 'activeNegotiations'
+        | 'numberViews'
         | 'datePosted'
+        | 'isActive'
       > & {
           postedBy: { __typename?: 'User' } & Pick<
             User,
@@ -1813,11 +1614,17 @@ export type MessagesQuery = { __typename?: 'Query' } & {
 
 export type MessagesNegotiationQueryVariables = Exact<{
   id: Scalars['ID'];
+  offset?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
 }>;
 
 export type MessagesNegotiationQuery = { __typename?: 'Query' } & {
   messagesForNegotiation?: Maybe<
-    Array<{ __typename?: 'Message' } & MessageDetailsFragment>
+    { __typename?: 'MessageResult' } & Pick<MessageResult, 'pageCount'> & {
+        messages?: Maybe<
+          Array<Maybe<{ __typename?: 'Message' } & MessageDetailsFragment>>
+        >;
+      }
   >;
 };
 
@@ -1865,6 +1672,80 @@ export type NegotiationsForAdQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type AdsForUserQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+  user: Scalars['ID'];
+}>;
+
+export type AdsForUserQuery = { __typename?: 'Query' } & {
+  adsForUser?: Maybe<
+    { __typename?: 'AdsResult' } & Pick<AdsResult, 'pageCount'> & {
+        ads?: Maybe<
+          Array<
+            Maybe<
+              | ({ __typename?: 'AdWine' } & Pick<
+                  AdWine,
+                  | 'wineName'
+                  | 'litersFrom'
+                  | 'litersTo'
+                  | 'metodoProduttivo'
+                  | '_id'
+                  | 'needsFollowUp'
+                  | 'harvest'
+                  | 'abv'
+                  | 'priceFrom'
+                  | 'priceTo'
+                  | 'typeAd'
+                  | 'activeNegotiations'
+                  | 'numberViews'
+                  | 'datePosted'
+                > & {
+                    wine?: Maybe<
+                      { __typename?: 'Wine' } & Pick<
+                        Wine,
+                        'denominazioneZona' | 'regione'
+                      >
+                    >;
+                    postedBy: { __typename?: 'User' } & Pick<
+                      User,
+                      '_id' | 'firstName' | 'lastName' | 'hideContact'
+                    >;
+                    address: { __typename?: 'Address' } & Pick<
+                      Address,
+                      'regione' | 'provincia' | 'comune'
+                    >;
+                  })
+              | ({ __typename?: 'AdGrape' } & Pick<
+                  AdGrape,
+                  | '_id'
+                  | 'needsFollowUp'
+                  | 'harvest'
+                  | 'abv'
+                  | 'priceFrom'
+                  | 'priceTo'
+                  | 'typeAd'
+                  | 'activeNegotiations'
+                  | 'numberViews'
+                  | 'datePosted'
+                > & {
+                    postedBy: { __typename?: 'User' } & Pick<
+                      User,
+                      '_id' | 'firstName' | 'lastName' | 'hideContact'
+                    >;
+                    address: { __typename?: 'Address' } & Pick<
+                      Address,
+                      'regione' | 'provincia' | 'comune'
+                    >;
+                  })
+            >
+          >
+        >;
+      }
+  >;
+};
+
 export type AdPostedFollowUpSubscriptionVariables = Exact<{
   [key: string]: never;
 }>;
@@ -1878,13 +1759,13 @@ export type AdPostedFollowUpSubscription = { __typename?: 'Subscription' } & {
         | 'litersTo'
         | 'metodoProduttivo'
         | '_id'
-        | 'needsFollowUp'
         | 'harvest'
         | 'abv'
         | 'priceFrom'
         | 'priceTo'
         | 'typeAd'
         | 'activeNegotiations'
+        | 'numberViews'
         | 'datePosted'
       > & {
           wine?: Maybe<
@@ -1893,34 +1774,28 @@ export type AdPostedFollowUpSubscription = { __typename?: 'Subscription' } & {
               'denominazioneZona' | 'regione'
             >
           >;
-          postedBy: { __typename?: 'User' } & Pick<
-            User,
-            '_id' | 'firstName' | 'lastName' | 'hideContact'
-          >;
+          postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
           address: { __typename?: 'Address' } & Pick<
             Address,
-            'regione' | 'provincia'
+            'regione' | 'provincia' | 'comune'
           >;
         })
     | ({ __typename?: 'AdGrape' } & Pick<
         AdGrape,
         | '_id'
-        | 'needsFollowUp'
         | 'harvest'
         | 'abv'
         | 'priceFrom'
         | 'priceTo'
         | 'typeAd'
         | 'activeNegotiations'
+        | 'numberViews'
         | 'datePosted'
       > & {
-          postedBy: { __typename?: 'User' } & Pick<
-            User,
-            '_id' | 'firstName' | 'lastName' | 'hideContact'
-          >;
+          postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
           address: { __typename?: 'Address' } & Pick<
             Address,
-            'regione' | 'provincia'
+            'regione' | 'provincia' | 'comune'
           >;
         });
 };
@@ -1962,13 +1837,13 @@ export type NegotiationClosedSubscription = { __typename?: 'Subscription' } & {
         | 'litersTo'
         | 'metodoProduttivo'
         | '_id'
-        | 'needsFollowUp'
         | 'harvest'
         | 'abv'
         | 'priceFrom'
         | 'priceTo'
         | 'typeAd'
         | 'activeNegotiations'
+        | 'numberViews'
         | 'datePosted'
       > & {
           wine?: Maybe<
@@ -1977,34 +1852,28 @@ export type NegotiationClosedSubscription = { __typename?: 'Subscription' } & {
               'denominazioneZona' | 'regione'
             >
           >;
-          postedBy: { __typename?: 'User' } & Pick<
-            User,
-            '_id' | 'firstName' | 'lastName' | 'hideContact'
-          >;
+          postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
           address: { __typename?: 'Address' } & Pick<
             Address,
-            'regione' | 'provincia'
+            'regione' | 'provincia' | 'comune'
           >;
         })
     | ({ __typename?: 'AdGrape' } & Pick<
         AdGrape,
         | '_id'
-        | 'needsFollowUp'
         | 'harvest'
         | 'abv'
         | 'priceFrom'
         | 'priceTo'
         | 'typeAd'
         | 'activeNegotiations'
+        | 'numberViews'
         | 'datePosted'
       > & {
-          postedBy: { __typename?: 'User' } & Pick<
-            User,
-            '_id' | 'firstName' | 'lastName' | 'hideContact'
-          >;
+          postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
           address: { __typename?: 'Address' } & Pick<
             Address,
-            'regione' | 'provincia'
+            'regione' | 'provincia' | 'comune'
           >;
         });
 };
@@ -2055,9 +1924,6 @@ export const NegotiationDetailsFragmentDoc = gql`
     _id
     createdBy {
       _id
-      firstName
-      lastName
-      hideContact
     }
     ad {
       _id
@@ -2073,13 +1939,8 @@ export const NegotiationDetailsFragmentDoc = gql`
     forUserAd {
       _id
       firstName
-      lastName
-      hideContact
     }
     type
-    messages {
-      _id
-    }
     dateCreated
     dateConcluded
     isConcluded
@@ -2089,6 +1950,7 @@ export const MessageDetailsFragmentDoc = gql`
   fragment MessageDetails on Message {
     _id
     content
+    isViewed
     sentBy {
       _id
       firstName
@@ -2102,18 +1964,13 @@ export const MessageDetailsFragmentDoc = gql`
     negotiation {
       _id
       ad {
+        _id
         ... on AdWine {
           wineName
-          litersFrom
-          litersTo
-          wine {
-            denominazioneZona
-          }
         }
       }
     }
     dateSent
-    isViewed
   }
 `;
 export const ReviewDetailsFragmentDoc = gql`
@@ -2376,11 +2233,7 @@ export const CreateAdWineDocument = gql`
         _id
         postedBy {
           _id
-          firstName
-          lastName
-          hideContact
         }
-        needsFollowUp
         harvest
         abv
         priceFrom
@@ -2402,6 +2255,7 @@ export const CreateAdWineDocument = gql`
           comune
         }
         activeNegotiations
+        numberViews
         datePosted
       }
       errors {
@@ -2457,35 +2311,6 @@ export const UpdateAdWineDocument = gql`
     updateAd(input: $input) {
       response {
         _id
-        postedBy {
-          _id
-          firstName
-          lastName
-          hideContact
-        }
-        needsFollowUp
-        harvest
-        abv
-        priceFrom
-        priceTo
-        ... on AdWine {
-          wineName
-          litersFrom
-          litersTo
-          metodoProduttivo
-          wine {
-            denominazioneZona
-            regione
-          }
-        }
-        typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
-        activeNegotiations
-        datePosted
       }
       errors {
         name
@@ -2927,7 +2752,7 @@ export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<
   CreateReviewMutationVariables
 >;
 export const MeDocument = gql`
-  query me($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
+  query me {
     me {
       _id
       firstName
@@ -2936,93 +2761,27 @@ export const MeDocument = gql`
         regione
         provincia
         comune
-        via
-        CAP
       }
-      email
-      ads(offset: $offset, orderBy: $orderBy, limit: $limit) {
-        ads {
-          _id
-          postedBy {
-            _id
-            firstName
-            lastName
-            hideContact
-          }
-          needsFollowUp
-          harvest
-          abv
-          priceFrom
-          priceTo
-          ... on AdWine {
-            wineName
-            litersFrom
-            litersTo
-            metodoProduttivo
-            wine {
-              denominazioneZona
-              regione
-            }
-          }
-          typeAd
-          address {
-            regione
-            provincia
-            comune
-          }
-          activeNegotiations
-          datePosted
-        }
-        pageCount
-      }
-      savedAds {
+      ads {
         _id
         postedBy {
           _id
-          firstName
-          lastName
-          hideContact
         }
-        needsFollowUp
-        harvest
-        abv
-        priceFrom
-        priceTo
-        ... on AdWine {
-          wineName
-          litersFrom
-          litersTo
-          metodoProduttivo
-          wine {
-            denominazioneZona
-            regione
-          }
-        }
-        typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
-        activeNegotiations
-        datePosted
+        isActive
       }
-      negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
-        negotiations {
+      savedAds {
+        _id
+      }
+      negotiations {
+        _id
+        isConcluded
+        ad {
           _id
-          ad {
-            _id
-            ... on AdWine {
-              wineName
-            }
-          }
-          forUserAd {
-            _id
-            email
-          }
-          isConcluded
         }
-        pageCount
+      }
+      reviews {
+        _id
+        rating
       }
     }
   }
@@ -3040,9 +2799,6 @@ export const MeDocument = gql`
  * @example
  * const { data, loading, error } = useMeQuery({
  *   variables: {
- *      offset: // value for 'offset'
- *      orderBy: // value for 'orderBy'
- *      limit: // value for 'limit'
  *   },
  * });
  */
@@ -3254,11 +3010,7 @@ export const AdsWineDocument = gql`
         _id
         postedBy {
           _id
-          firstName
-          lastName
-          hideContact
         }
-        needsFollowUp
         harvest
         abv
         priceFrom
@@ -3280,6 +3032,7 @@ export const AdsWineDocument = gql`
           comune
         }
         activeNegotiations
+        numberViews
         datePosted
       }
       pageCount
@@ -3364,7 +3117,9 @@ export const AdDocument = gql`
         comune
       }
       activeNegotiations
+      numberViews
       datePosted
+      isActive
     }
   }
 `;
@@ -3704,9 +3459,12 @@ export type MessagesQueryResult = Apollo.QueryResult<
   MessagesQueryVariables
 >;
 export const MessagesNegotiationDocument = gql`
-  query MessagesNegotiation($id: ID!) {
-    messagesForNegotiation(negotiation: $id) {
-      ...MessageDetails
+  query MessagesNegotiation($id: ID!, $offset: Int, $limit: Int) {
+    messagesForNegotiation(negotiation: $id, offset: $offset, limit: $limit) {
+      messages {
+        ...MessageDetails
+      }
+      pageCount
     }
   }
   ${MessageDetailsFragmentDoc}
@@ -3725,6 +3483,8 @@ export const MessagesNegotiationDocument = gql`
  * const { data, loading, error } = useMessagesNegotiationQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
@@ -3921,17 +3681,108 @@ export type NegotiationsForAdQueryResult = Apollo.QueryResult<
   NegotiationsForAdQuery,
   NegotiationsForAdQueryVariables
 >;
+export const AdsForUserDocument = gql`
+  query AdsForUser(
+    $offset: Int
+    $orderBy: QueryOrderBy
+    $limit: Int
+    $user: ID!
+  ) {
+    adsForUser(offset: $offset, orderBy: $orderBy, limit: $limit, user: $user) {
+      ads {
+        _id
+        postedBy {
+          _id
+          firstName
+          lastName
+          hideContact
+        }
+        needsFollowUp
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
+            regione
+          }
+        }
+        typeAd
+        address {
+          regione
+          provincia
+          comune
+        }
+        activeNegotiations
+        numberViews
+        datePosted
+      }
+      pageCount
+    }
+  }
+`;
+
+/**
+ * __useAdsForUserQuery__
+ *
+ * To run a query within a React component, call `useAdsForUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdsForUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdsForUserQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      orderBy: // value for 'orderBy'
+ *      limit: // value for 'limit'
+ *      user: // value for 'user'
+ *   },
+ * });
+ */
+export function useAdsForUserQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AdsForUserQuery,
+    AdsForUserQueryVariables
+  >
+) {
+  return Apollo.useQuery<AdsForUserQuery, AdsForUserQueryVariables>(
+    AdsForUserDocument,
+    baseOptions
+  );
+}
+export function useAdsForUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AdsForUserQuery,
+    AdsForUserQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<AdsForUserQuery, AdsForUserQueryVariables>(
+    AdsForUserDocument,
+    baseOptions
+  );
+}
+export type AdsForUserQueryHookResult = ReturnType<typeof useAdsForUserQuery>;
+export type AdsForUserLazyQueryHookResult = ReturnType<
+  typeof useAdsForUserLazyQuery
+>;
+export type AdsForUserQueryResult = Apollo.QueryResult<
+  AdsForUserQuery,
+  AdsForUserQueryVariables
+>;
 export const AdPostedFollowUpDocument = gql`
   subscription AdPostedFollowUp {
     adPostedFollowUp {
       _id
       postedBy {
         _id
-        firstName
-        lastName
-        hideContact
       }
-      needsFollowUp
       harvest
       abv
       priceFrom
@@ -3950,8 +3801,10 @@ export const AdPostedFollowUpDocument = gql`
       address {
         regione
         provincia
+        comune
       }
       activeNegotiations
+      numberViews
       datePosted
     }
   }
@@ -4109,11 +3962,7 @@ export const NegotiationClosedDocument = gql`
       _id
       postedBy {
         _id
-        firstName
-        lastName
-        hideContact
       }
-      needsFollowUp
       harvest
       abv
       priceFrom
@@ -4132,8 +3981,10 @@ export const NegotiationClosedDocument = gql`
       address {
         regione
         provincia
+        comune
       }
       activeNegotiations
+      numberViews
       datePosted
     }
   }

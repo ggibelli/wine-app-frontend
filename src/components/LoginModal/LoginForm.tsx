@@ -73,7 +73,7 @@ export const LoginForm: React.FC<{
       {({ isValid, dirty }) => {
         const classes = useStyles();
         return (
-          <Container component='main' maxWidth='xs'>
+          <Container component='main'>
             <CssBaseline />
             <div className={classes.paper}>
               <Avatar className={classes.avatar}>

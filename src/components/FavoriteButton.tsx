@@ -7,14 +7,15 @@ import {
   useSaveAdMutation,
   MeDocument,
   AdWine,
-  User,
+  AdQuery,
+  MeQuery,
 } from '../generated/graphql';
 import { ICachedMe } from '../utils/updateCache';
 
-export const FavoriteButton: React.FC<{ ad: AdWine; me: User }> = ({
-  ad,
-  me,
-}) => {
+export const FavoriteButton: React.FC<{
+  ad: AdQuery['ad'];
+  me: MeQuery['me'];
+}> = ({ ad, me }) => {
   const [saveAd] = useSaveAdMutation({
     onError: (error) => console.log(error),
     update: (cache, response) => {
@@ -25,7 +26,7 @@ export const FavoriteButton: React.FC<{ ad: AdWine; me: User }> = ({
       );
       if (cachedDataMeLocal?.me.savedAds && isFav) {
         const indexAd = cachedDataMeLocal?.me.savedAds.findIndex(
-          (adSaved) => adSaved._id === ad._id
+          (adSaved) => adSaved._id === ad?._id
         );
         cachedDataMeLocal?.me.savedAds.splice(indexAd, 1);
       } else if (cachedDataMeLocal?.me.savedAds) {
@@ -38,7 +39,7 @@ export const FavoriteButton: React.FC<{ ad: AdWine; me: User }> = ({
   });
   const [isFav, setIsFav] = React.useState<boolean>(false);
   React.useEffect(() => {
-    if (me.savedAds?.findIndex((adSaved) => adSaved._id === ad._id) === -1) {
+    if (me?.savedAds?.findIndex((adSaved) => adSaved._id === ad?._id) === -1) {
       setIsFav(false);
     } else {
       setIsFav(true);
@@ -47,9 +48,12 @@ export const FavoriteButton: React.FC<{ ad: AdWine; me: User }> = ({
   const handleClick = (id: string) => {
     void saveAd({ variables: { id } });
   };
-  if (ad.postedBy._id !== me._id) {
+  if (ad?.postedBy._id !== me?._id) {
     return (
-      <IconButton aria-label='save' onClick={() => handleClick(ad._id)}>
+      <IconButton
+        aria-label='save'
+        onClick={() => handleClick(ad?._id as string)}
+      >
         {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </IconButton>
     );

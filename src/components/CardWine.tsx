@@ -3,29 +3,16 @@ import { StyledBox } from './StyledBox';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
-import { DenomZona, TypeAd } from '../generated/graphql';
+import { TypeAd } from '../generated/graphql';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-export interface Ad {
-  _id: string;
-  wineName: string;
-  wine: {
-    denominazioneZona: DenomZona;
-  };
+import { AdsWineResult } from '../types';
 
-  litersTo: number;
-  priceFrom: number;
-  harvest: number;
-  abv: number;
-  datePosted: string;
-  typeAd: TypeAd;
-}
-
-export const CardWine: React.FC<{ ad: Ad }> = ({ ad }) => {
+export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
-
+  if (!ad) return null;
   return (
     <Link
       component={RouterLink}
