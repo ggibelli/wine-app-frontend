@@ -39,6 +39,7 @@ export const NEGOTIATION_DETAILS = gql`
     _id
     createdBy {
       _id
+      firstName
     }
     ad {
       _id
@@ -56,6 +57,12 @@ export const NEGOTIATION_DETAILS = gql`
       firstName
     }
     type
+    review {
+      _id
+      createdBy {
+        _id
+      }
+    }
 
     dateCreated
     dateConcluded
@@ -120,8 +127,45 @@ export const REVIEW_DETAILS = gql`
   }
 `;
 
+export const FAVORITE = gql`
+  query Favorite {
+    me {
+      savedAds {
+        _id
+        postedBy {
+          _id
+        }
+
+        harvest
+        abv
+        priceFrom
+        priceTo
+        ... on AdWine {
+          wineName
+          litersFrom
+          litersTo
+          metodoProduttivo
+          wine {
+            denominazioneZona
+            regione
+          }
+        }
+        typeAd
+        address {
+          regione
+          provincia
+          comune
+        }
+        activeNegotiations
+        numberViews
+        datePosted
+      }
+    }
+  }
+`;
+
 export const ME = gql`
-  query me {
+  query Me {
     me {
       _id
       firstName
@@ -141,9 +185,15 @@ export const ME = gql`
       savedAds {
         _id
       }
+      messages {
+        _id
+        isViewed
+        sentBy {
+          _id
+        }
+      }
       negotiations {
         _id
-
         isConcluded
         ad {
           _id
@@ -169,6 +219,50 @@ export const NOTIFICATION = gql`
     notification @client {
       type @client
       message @client
+    }
+  }
+`;
+
+export const MY_INFO = gql`
+  query MyInfo {
+    myInfo @client {
+      _id
+      firstName
+      lastName
+      address {
+        regione
+        provincia
+        comune
+      }
+      ads {
+        _id
+        postedBy {
+          _id
+        }
+        isActive
+      }
+      savedAds {
+        _id
+      }
+      messages {
+        _id
+        isViewed
+        sentBy {
+          _id
+        }
+      }
+      negotiations {
+        _id
+        isConcluded
+        ad {
+          _id
+        }
+      }
+      reviews {
+        _id
+
+        rating
+      }
     }
   }
 `;
@@ -295,20 +389,8 @@ export const WINES = gql`
   }
 `;
 
-export const NEGOTIATIONS_OPEN = gql`
-  query NegotiationsOpen($offset: Int, $orderBy: QueryOrderBy, $limit: Int) {
-    negotiations(offset: $offset, orderBy: $orderBy, limit: $limit) {
-      negotiations {
-        ...NegotiationDetails
-      }
-      pageCount
-    }
-  }
-  ${NEGOTIATION_DETAILS}
-`;
-
-export const NEGOTIATIONS_CLOSED = gql`
-  query NegotiationsClosed(
+export const NEGOTIATIONS = gql`
+  query Negotiations(
     $offset: Int
     $orderBy: QueryOrderBy
     $limit: Int
@@ -318,7 +400,7 @@ export const NEGOTIATIONS_CLOSED = gql`
       offset: $offset
       orderBy: $orderBy
       limit: $limit
-      isConcluded: true
+      isConcluded: $isConcluded
     ) {
       negotiations {
         ...NegotiationDetails
@@ -402,6 +484,7 @@ export const NEGOTIATION_FOR_AD = gql`
         lastName
       }
       dateCreated
+      dateConcluded
     }
   }
 `;

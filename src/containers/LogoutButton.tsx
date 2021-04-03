@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isLoggedInVar, myInfo } from '../../cache';
+import { isLoggedInVar, myInfo } from '../cache';
 import { useApolloClient } from '@apollo/client';
 // import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';

@@ -10,7 +10,7 @@ import { deepPurple } from '@material-ui/core/colors';
 import { searchedWine } from '../../cache';
 import { IFilters, multiFilter } from '../../utils/multiFilter';
 
-const PurpleCheckbox = withStyles({
+export const PurpleCheckbox = withStyles({
   root: {
     color: deepPurple[400],
     '&$checked': {
@@ -87,8 +87,6 @@ export const Filter: React.FC<FilterProps> = (props) => {
         Filtri
       </Button>
       <Collapse in={showFilter}>
-        <Divider />
-
         <Divider />
         <FormControlLabel
           control={

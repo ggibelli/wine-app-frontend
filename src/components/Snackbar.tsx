@@ -15,24 +15,23 @@ const useStyles = makeStyles(() =>
   })
 );
 interface SnackbarProps {
-  setOpen: (arg0: boolean) => void;
-  open: boolean;
   onClick: () => void;
 }
 
 export const SnackbarAds: React.FC<SnackbarProps> = (props) => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
 
   const handleClose = (
     event: React.SyntheticEvent | React.MouseEvent,
     reason?: string
   ) => {
     if (reason === 'clickaway') {
-      props.setOpen(false);
+      setOpen(false);
       return;
     }
 
-    props.setOpen(false);
+    setOpen(false);
   };
   return (
     <>
@@ -42,7 +41,7 @@ export const SnackbarAds: React.FC<SnackbarProps> = (props) => {
           horizontal: 'right',
         }}
         color='primary'
-        open={props.open}
+        open={open}
         autoHideDuration={6000}
         onClose={handleClose}
         onClick={props.onClick}

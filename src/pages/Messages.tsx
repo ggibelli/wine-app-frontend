@@ -3,22 +3,23 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
-import { RouteComponentProps } from '@reach/router';
-import { LazyQueryResult } from '@apollo/client';
-import { MessagesQuery, Exact } from '../generated/graphql';
+import { useMessagesQuery } from '../generated/graphql';
 import _ from 'lodash';
 import { MessageListEl } from '../components/MessageListEl';
+import { notification } from '../cache';
+import { RouteComponentProps } from '@reach/router';
+import { BackButton } from '../components/BackButton';
 
-export const Messages: React.FC<
-  RouteComponentProps & {
-    messagesResult: LazyQueryResult<
-      MessagesQuery,
-      Exact<{
-        [key: string]: never;
-      }>
-    >;
-  }
-> = ({ messagesResult }) => {
+export const Messages: React.FC<RouteComponentProps> = () => {
+  const messagesResult = useMessagesQuery({
+    fetchPolicy: 'network-only',
+    onError: (error) => {
+      notification({
+        type: 'error',
+        message: error.message,
+      });
+    },
+  });
   const messages =
     messagesResult.data?.messages && messagesResult.data?.messages;
   const messagesForNegotiationObj = _.groupBy(
@@ -38,6 +39,7 @@ export const Messages: React.FC<
   return (
     <Container component='main' maxWidth='sm'>
       <CssBaseline />
+      <BackButton />
       <List>
         {messagesForNegotiation.map((el) => (
           <div key={el[0]}>

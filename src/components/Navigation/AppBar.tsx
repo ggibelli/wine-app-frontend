@@ -3,7 +3,6 @@ import {
   MeQuery,
   Exact,
   useIsUserLoggedInQuery,
-  MessagesQuery,
 } from '../../generated/graphql';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -43,7 +42,6 @@ export const HeaderBar: React.FC<{
       [key: string]: never;
     }>
   >;
-  messages: MessagesQuery['messages'];
   onSubmitLogin: ({
     email,
     password,
@@ -51,18 +49,18 @@ export const HeaderBar: React.FC<{
     email: string;
     password: string;
   }) => Promise<void>;
-}> = ({ meQueryResult, onSubmitLogin, messages }) => {
+}> = ({ meQueryResult, onSubmitLogin }) => {
   const classes = useStyles();
   const [state, setState] = React.useState(false);
   const toggleDrawer = () => {
     setState(!state);
   };
   const [openModal, setOpenModal] = React.useState(false);
-  const badgeNumber = messages?.length
-    ? messages.filter(
+  const badgeNumber = meQueryResult.data?.me?.messages?.length
+    ? meQueryResult.data?.me?.messages?.filter(
         (message) =>
           !message.isViewed &&
-          message.sentTo._id === meQueryResult.data?.me?._id
+          message.sentBy._id !== meQueryResult.data?.me?._id
       ).length
     : 0;
   const handleClickOpen = () => {

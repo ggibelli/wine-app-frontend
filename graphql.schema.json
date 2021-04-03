@@ -2039,6 +2039,18 @@
             "deprecationReason": null
           },
           {
+            "name": "myInfo",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "negotiation",
             "description": null,
             "args": [
@@ -3269,15 +3281,22 @@
           {
             "name": "dateSent",
             "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Date",
-                "ofType": null
+            "args": [
+              {
+                "name": "format",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
               }
+            ],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3778,8 +3797,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "Rating",
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               }
             },
@@ -3842,8 +3861,8 @@
             "name": "rating",
             "description": null,
             "type": {
-              "kind": "ENUM",
-              "name": "Rating",
+              "kind": "SCALAR",
+              "name": "Float",
               "ofType": null
             },
             "defaultValue": null
@@ -3979,8 +3998,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "Rating",
+                "kind": "SCALAR",
+                "name": "Float",
                 "ofType": null
               }
             },
@@ -6446,47 +6465,6 @@
       },
       {
         "kind": "ENUM",
-        "name": "Rating",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "POOR",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "AVERAGE",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "OK",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "GOOD",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PERFECT",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
         "name": "Colore",
         "description": null,
         "fields": null,
@@ -7739,7 +7717,7 @@
               "name": "String",
               "ofType": null
             },
-            "defaultValue": "\"dd MMM, yy\""
+            "defaultValue": "\"dd MMM yy, H:m\""
           }
         ]
       },

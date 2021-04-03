@@ -1,7 +1,6 @@
 import { Form, Formik } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import { TextFieldAdornment } from '../../FormFields/TextFieldAdornment';
 import { TextField } from '../../FormFields/TextField';
 import { Combobox } from '../../FormFields/ComboboxFieldWines';
@@ -9,94 +8,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { TypeAd, useWinesQuery } from '../../../generated/graphql';
-
-const useStyles = makeStyles((theme: Theme) => ({
-  paper: {
-    marginTop: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    borderRadius: 16,
-    color: '#fff',
-    margin: 6,
-    padding: 6,
-    backgroundColor: '#6d1331',
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(4),
-  },
-  submit: {
-    backgroundColor: '#fff',
-    '&:hover': {
-      backgroundColor: 'rgb(250, 232, 241)',
-    },
-    color: '#6d1331',
-    margin: theme.spacing(3, 0, 2),
-    display: 'flex',
-    alignItems: 'center',
-  },
-  formSell: {
-    borderRadius: 16,
-    borderColor: '#6d1331',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    color: '#6d1331',
-    margin: 6,
-    padding: 6,
-    backgroundColor: '#fff',
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(4),
-  },
-  submitSell: {
-    backgroundColor: '#6d1331',
-    '&:hover': {
-      backgroundColor: '#6d1335',
-      color: 'white',
-    },
-    color: 'white',
-    margin: theme.spacing(3, 0, 2),
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  input: {
-    color: 'white',
-  },
-  inputSell: {
-    color: '#6d1331',
-  },
-  underline: {
-    color: 'white',
-    '&:before': {
-      borderBottom: '1px solid white',
-    },
-    '&&&&:hover:before': {
-      borderBottom: '2px solid white',
-    },
-    '&:after': {
-      borderBottom: '3px solid white',
-    },
-    disabled: {},
-    focused: {},
-    error: {},
-  },
-  underlineSell: {
-    color: '#6d1331',
-    '&:before': {
-      borderBottom: '1px solid #6d1331',
-    },
-    '&&&&:hover:before': {
-      borderBottom: '2px solid #6d1331',
-    },
-    '&:after': {
-      borderBottom: '3px solid #6d1331',
-    },
-    disabled: {},
-    focused: {},
-    error: {},
-  },
-}));
+import { useStylesForms } from '../../../utils/styleHook';
 
 export interface WineFormQuery {
   wineName: string;
@@ -121,7 +33,7 @@ export const WineFormQuery: React.FC<{
   onSubmit: (values: WineFormQuery) => void;
   adType: TypeAd;
 }> = ({ onSubmit, adType }) => {
-  const classes = useStyles();
+  const classes = useStylesForms();
   const { data, loading, error } = useWinesQuery();
   const wineOptions = data?.wines
     ? data?.wines.map((wine) => ({

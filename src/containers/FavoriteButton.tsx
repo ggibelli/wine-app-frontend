@@ -16,6 +16,7 @@ export const FavoriteButton: React.FC<{
   ad: AdQuery['ad'];
   me: MeQuery['me'];
 }> = ({ ad, me }) => {
+  console.log(me);
   const [saveAd] = useSaveAdMutation({
     onError: (error) => console.log(error),
     update: (cache, response) => {
@@ -38,15 +39,9 @@ export const FavoriteButton: React.FC<{
     },
   });
   const [isFav, setIsFav] = React.useState<boolean>(false);
-  React.useEffect(() => {
-    if (me?.savedAds?.findIndex((adSaved) => adSaved._id === ad?._id) === -1) {
-      setIsFav(false);
-    } else {
-      setIsFav(true);
-    }
-  }, [me?.savedAds]);
   const handleClick = (id: string) => {
     void saveAd({ variables: { id } });
+    setIsFav(!isFav);
   };
   if (ad?.postedBy._id !== me?._id) {
     return (

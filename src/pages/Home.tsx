@@ -3,35 +3,11 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import { RouteComponentProps } from '@reach/router';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
 import { searchedWine } from '../cache';
-
-const useStyles = makeStyles((theme: Theme) => ({
-  paper: {
-    marginTop: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  buy: {
-    '&:hover': {
-      backgroundColor: 'rgb(100, 10, 40)',
-    },
-  },
-  sell: {
-    '&:hover': {
-      backgroundColor: 'rgb(250, 250, 241)',
-    },
-  },
-  cruise: {
-    '&:hover': {
-      backgroundColor: 'rgb(250, 232, 250)',
-    },
-  },
-}));
+import { useStyles } from '../utils/styleHook';
 
 export const Home: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
@@ -46,7 +22,7 @@ export const Home: React.FC<RouteComponentProps> = () => {
       </div>
       <Link component={RouterLink} to='/buy' style={{ textDecoration: 'none' }}>
         <Box
-          className={classes.buy}
+          className={classes.buyHome}
           boxShadow={3}
           p={2}
           m={2}
@@ -72,7 +48,7 @@ export const Home: React.FC<RouteComponentProps> = () => {
         style={{ textDecoration: 'none' }}
       >
         <Box
-          className={classes.sell}
+          className={classes.sellHome}
           boxShadow={3}
           p={2}
           m={2}
@@ -95,7 +71,7 @@ export const Home: React.FC<RouteComponentProps> = () => {
       </Link>
       <Link component={RouterLink} to='/' style={{ textDecoration: 'none' }}>
         <Box
-          className={classes.cruise}
+          className={classes.cruiseHome}
           boxShadow={3}
           p={2}
           m={2}

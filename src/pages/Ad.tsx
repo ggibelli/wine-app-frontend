@@ -7,51 +7,19 @@ import {
   useCreateNegotiationMutation,
   NegotiationInput,
   useNegotiationsForAdLazyQuery,
-  MeQuery,
-  NegotiationInputUpdate,
   AdQuery,
-  NegotiationsForAdQuery,
 } from '../generated/graphql';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { notification } from '../cache';
+import { myInfo, notification } from '../cache';
 import { CardWineDetail } from '../components/CardWineDetail';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
 import { BackButton } from '../components/BackButton';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import IconButton from '@material-ui/core/IconButton';
 import { updateCacheNegotiations } from '../utils/updateCache';
 import { OpenNegotiations } from '../components/OpenNegotiations';
+import { useStyles } from '../utils/styleHook';
 
-export interface ICachedNegotiations {
-  negotiations: Array<NegotiationsForAdQuery['negotiationsForAd']>;
-  pageCount: number;
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: '#fff',
-    },
-    paper: {
-      marginTop: theme.spacing(4),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-    },
-  })
-);
-
-export const Ad: React.FC<
-  RouteComponentProps & {
-    meData: MeQuery['me'] | undefined;
-    handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
-  }
-> = ({ meData, handleCloseNeg }) => {
+export const Ad: React.FC<RouteComponentProps> = () => {
   const [ad, setAd] = React.useState<AdQuery['ad'] | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
@@ -61,19 +29,14 @@ export const Ad: React.FC<
     },
     onCompleted: (data) => (data?.ad ? setAd(data?.ad) : null),
   });
-
   React.useEffect(() => {
     if (data?.ad) {
       setAd(data?.ad);
     }
   }, [data?.ad?.activeNegotiations]);
-
+  const me = myInfo();
   const [createNegotiation] = useCreateNegotiationMutation({
     onCompleted: (createdNegotiation) => {
-      notification({
-        message: 'trattativa creata con successo',
-        type: 'success',
-      });
       if (createdNegotiation.createNegotiation?.errors?.length) {
         const errorMessages = createdNegotiation.createNegotiation?.errors.map(
           (error) => error?.text
@@ -81,6 +44,11 @@ export const Ad: React.FC<
         notification({
           type: 'error',
           message: `${errorMessages.toString()}`,
+        });
+      } else {
+        notification({
+          message: 'trattativa creata con successo',
+          type: 'success',
         });
       }
     },
@@ -97,14 +65,9 @@ export const Ad: React.FC<
     },
   });
   const [lazyNegotiations, lazyNegResult] = useNegotiationsForAdLazyQuery();
-  const [open, setOpen] = React.useState<boolean>(false);
   const handleShowNegotiations = () => {
-    if (!open) {
-      lazyNegotiations({ variables: { ad: id } });
-    }
-    setOpen(!open);
+    lazyNegotiations({ variables: { ad: id } });
   };
-
   const openNegotiation = () => {
     const newNegotiation: NegotiationInput = {
       forUserAd: ad?.postedBy._id,
@@ -123,7 +86,7 @@ export const Ad: React.FC<
   }
   const buyerOrSeller =
     ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
-  if (ad?._id && meData) {
+  if (ad?._id) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -137,23 +100,12 @@ export const Ad: React.FC<
             anche tu i parametri e decidi se procedere.
           </Typography>
         </div>
-        <CardWineDetail
-          ad={ad}
-          me={meData}
-          createNegotiation={openNegotiation}
-        />
-        {meData?._id === ad.postedBy._id && ad.activeNegotiations ? (
-          <>
-            <IconButton onClick={handleShowNegotiations}>
-              {!open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-            </IconButton>
-            <Collapse in={open}>
-              <OpenNegotiations
-                data={lazyNegResult}
-                closeNegotiation={handleCloseNeg}
-              />
-            </Collapse>
-          </>
+        <CardWineDetail ad={ad} createNegotiation={openNegotiation} />
+        {me?._id === ad.postedBy._id ? (
+          <OpenNegotiations
+            data={lazyNegResult}
+            showNegotiations={handleShowNegotiations}
+          />
         ) : null}
       </Container>
     );

@@ -1,41 +1,16 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import * as React from 'react';
-import { RouteComponentProps, useParams } from '@reach/router';
-import {
-  NegotiationInputUpdate,
-  useNegotiationQuery,
-} from '../generated/graphql';
+import { Link, RouteComponentProps, useParams } from '@reach/router';
+import { useNegotiationQuery } from '../generated/graphql';
 import { notification } from '../cache';
-import {
-  Container,
-  createStyles,
-  CssBaseline,
-  makeStyles,
-  Theme,
-} from '@material-ui/core';
+import { Container, CssBaseline } from '@material-ui/core';
 import { BackButton } from '../components/BackButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { CloseNegotiationButton } from '../containers/CloseNegotiationButton';
+import { useStyles } from '../utils/styleHook';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: '#fff',
-    },
-    paper: {
-      marginTop: theme.spacing(4),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-    },
-  })
-);
-
-export const Negotiation: React.FC<
-  RouteComponentProps & {
-    handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
-  }
-> = ({ handleCloseNeg }) => {
+export const Negotiation: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const classes = useStyles();
@@ -84,12 +59,15 @@ export const Negotiation: React.FC<
         {adWine?.wine?.denominazioneZona}
       </Typography>
       {data?.negotiation?.isConcluded ? null : (
-        <Button onClick={() => handleCloseNeg({ _id: id, isConcluded: true })}>
-          {' '}
-          Dichiara chiusa la trattativa
-        </Button>
+        <CloseNegotiationButton id={id} />
       )}
-      <Button>Apri la chat</Button>
+      <Button
+        className={classes.sellButton}
+        component={Link}
+        to={`/messaggi/${data?.negotiation?._id}`}
+      >
+        Vai alla chat
+      </Button>
     </Container>
   );
 };

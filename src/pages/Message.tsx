@@ -7,23 +7,16 @@ import {
   useMessagesNegotiationQuery,
   useCreateMessageMutation,
   MessageInput,
-  NegotiationInputUpdate,
-  // User,
-  // Negotiation,
 } from '../generated/graphql';
 import { useParams } from '@reach/router';
-import { notification } from '../cache';
+import { myInfo, notification } from '../cache';
 import { Chat } from '../components/Chat';
 import { DeepExtractType } from 'ts-deep-extract-types';
-import { updateCacheMessages } from '../utils/updateCache';
-
-export const Message: React.FC<
-  RouteComponentProps & {
-    handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
-  }
-> = ({ handleCloseNeg }) => {
+import { format } from 'date-fns';
+export const Message: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
+  const me = myInfo();
   const { data, loading, error, fetchMore } = useMessagesNegotiationQuery({
     fetchPolicy: 'network-only',
     variables: { id, offset: 0, limit: 20 },
@@ -34,7 +27,6 @@ export const Message: React.FC<
       ['messagesForNegotiation']
     >['messages']
   >([]);
-  // const me = myInfo();
   const message = data?.messagesForNegotiation?.messages?.length
     ? data?.messagesForNegotiation.messages[0]
     : null;
@@ -51,9 +43,9 @@ export const Message: React.FC<
         });
       }
     },
-    update: (cache, data) => {
-      updateCacheMessages(cache, data.data?.createMessage?.response);
-    },
+    // update: (cache, data) => {
+    //   updateCacheMessages(cache, data.data?.createMessage?.response);
+    // },
   });
 
   React.useEffect(() => {
@@ -79,25 +71,20 @@ export const Message: React.FC<
   const handleCreate = async (message: MessageInput) => {
     await createMessage({
       variables: { message },
-      // optimisticResponse: {
-      //   __typename: 'Mutation',
-      //   createMessage: {
-      //     __typename: 'MessagePayload',
-      //     response: {
-      //       __typename: 'Message',
-      //       sentBy: (me?._id as unknown) as User,
-      //       sentTo: (message.sentTo as unknown) as User,
-      //       negotiation: (message.negotiation as unknown) as Negotiation,
-      //       content: message.content,
-      //       dateSent: new Date(),
-      //       isViewed: false,
-      //       _id: '123',
-      //     },
-      //   },
-      // },
     });
+    const newMessage = {
+      ...message,
+      dateSent: format(new Date(), 'dd MMM yy, H:m'),
+      sentBy: { _id: me?._id },
+      _id: Date.now().toString(),
+    };
+    if (sortedMessage?.length) {
+      setSortedMessage([...sortedMessage, newMessage] as DeepExtractType<
+        MessagesNegotiationQuery,
+        ['messagesForNegotiation']
+      >['messages']);
+    }
   };
-
   const propsMessage = {
     isLoading: loading,
     messages: sortedMessage,
@@ -105,7 +92,6 @@ export const Message: React.FC<
       data?.messagesForNegotiation?.messages?.length !==
       data?.messagesForNegotiation?.pageCount,
     handleCreate,
-    handleCloseNeg,
     handleFetchMore,
   };
   if (!loading && error) {
@@ -120,7 +106,6 @@ export const Message: React.FC<
   return (
     <Container component='main' maxWidth='sm'>
       <CssBaseline />
-
       <Chat propsMessage={propsMessage} />
     </Container>
   );

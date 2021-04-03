@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import * as React from 'react';
-import { RouteComponentProps, useLocation } from '@reach/router';
+import { RouteComponentProps, useLocation, navigate } from '@reach/router';
 import { WineFormQuery } from '../components/WineForms/Search/WineFormQuery';
 import {
   AdInput,
@@ -9,29 +8,18 @@ import {
   useCreateAdWineMutation,
   useWineSearchedLazyQuery,
   AddressInput,
-  MeQuery,
 } from '../generated/graphql';
-import { searchedWine, notification } from '../cache';
-import { navigate } from '@reach/router';
+import { searchedWine, notification, myInfo } from '../cache';
 import { WineFormMutation } from '../components/WineForms/Post/WineFormMutation';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { updateCacheAd } from '../utils/updateCache';
+import { BackButton } from '../components/BackButton';
+import { useStyles } from '../utils/styleHook';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  paper: {
-    marginTop: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-}));
-
-export const Buy: React.FC<
-  RouteComponentProps & { meData: MeQuery['me'] | undefined }
-> = ({ meData }) => {
+export const Buy: React.FC<RouteComponentProps> = () => {
+  const me = myInfo();
   const classes = useStyles();
   const location = useLocation();
   const adType = location.pathname === '/buy' ? TypeAd.Buy : TypeAd.Sell;
@@ -83,11 +71,11 @@ export const Buy: React.FC<
     void navigate('/annunci');
   };
   const onSubmitMutation = (values: WineFormMutation) => {
-    if (values.isSameAddress && meData?.address) {
+    if (values.isSameAddress && me?.address) {
       sameAddress = {
-        regione: meData.address.regione,
-        provincia: meData.address.provincia,
-        comune: meData.address.comune,
+        regione: me.address.regione,
+        provincia: me.address.provincia,
+        comune: me.address.comune,
       };
     } else {
       differentAddress = values.address as AddressInput;
@@ -120,6 +108,7 @@ export const Buy: React.FC<
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
+      <BackButton />
       <div className={classes.paper}>
         <Typography component='h1' variant='h4' color='primary'>
           Che cosa vuoi {buyOrSellText}?

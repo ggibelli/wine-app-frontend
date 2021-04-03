@@ -2,7 +2,6 @@ import TextField from '@material-ui/core/TextField';
 import * as React from 'react';
 import {
   MessageInput,
-  NegotiationInputUpdate,
   MessagesNegotiationQuery,
 } from '../../generated/graphql';
 import { MessageChat } from './MessageChat';
@@ -10,9 +9,10 @@ import SendIcon from '@material-ui/icons/Send';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { IconButton } from '@material-ui/core';
 import { myInfo } from '../../cache';
-import Button from '@material-ui/core/Button';
 import { InfiniteScroll } from '../InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
+import { CloseNegotiationButton } from '../../containers/CloseNegotiationButton';
+import Button from '@material-ui/core/Button';
 
 interface PropMessages {
   propsMessage: {
@@ -23,7 +23,6 @@ interface PropMessages {
     >['messages'];
     isVisible: boolean;
     handleCreate: (message: MessageInput) => Promise<void>;
-    handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
     handleFetchMore: () => Promise<void>;
   };
 }
@@ -37,9 +36,9 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
   setTimeout(() => setIsFirstRender(false), 1000);
   React.useEffect(() => {
     if (divRef.current) {
-      // if (isLoading) return;
+      if (isLoading) return;
       divRef.current.scroll({
-        top: document.body.offsetHeight + window.innerHeight,
+        top: document.body.offsetHeight + 1000000,
         left: 0,
         behavior: 'smooth',
       });
@@ -96,18 +95,9 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
         }}
       >
         {message.negotiation._id ? (
-          <div>Trattativa chiusa</div>
+          <Button color='primary'>Lascia una recensione </Button>
         ) : (
-          <Button
-            onClick={() =>
-              propsMessage.handleCloseNeg({
-                _id: message.negotiation._id,
-                isConcluded: true,
-              })
-            }
-          >
-            Dichiara chiusa la trattativa
-          </Button>
+          <CloseNegotiationButton id={message.negotiation._id} />
         )}
         <TextField
           fullWidth

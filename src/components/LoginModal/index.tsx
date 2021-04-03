@@ -14,21 +14,19 @@ export const LoginModal: React.FC<{
   open: boolean;
 }> = ({ handleClose, open, onSubmit }) => {
   return (
-    <div>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogContent>
-          <LoginForm onSubmit={onSubmit} onClose={handleClose} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color='primary'>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby='form-dialog-title'
+    >
+      <DialogContent>
+        <LoginForm onSubmit={onSubmit} onClose={handleClose} />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color='primary'>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };

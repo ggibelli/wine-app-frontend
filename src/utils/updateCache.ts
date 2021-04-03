@@ -5,8 +5,6 @@ import _ from 'lodash';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { myInfo, searchedWine } from '../cache';
 import {
-  Ad,
-  AdDocument,
   AdsWineDocument,
   AdWine,
   CreateAdWineMutation,
@@ -17,7 +15,7 @@ import {
   MessagesDocument,
   MessagesNegotiationDocument,
   Negotiation,
-  NegotiationsOpenDocument,
+  NegotiationsDocument,
   User,
 } from '../generated/graphql';
 
@@ -61,25 +59,7 @@ export const updateCacheNegotiations = (
       ['createNegotiation']
     >['response']
   >['data']
-) => {
-  console.log('updatecache');
-  const adLocal: { ad: Ad } | null = _.cloneDeep(
-    //@ts-expect-error error
-    client.readQuery({
-      query: AdDocument,
-      variables: { id: negotiation?._id },
-    })
-  );
-  if (adLocal) {
-    adLocal.ad.activeNegotiations =
-      (adLocal.ad.activeNegotiations as number) + 1;
-    //@ts-expect-error error
-    client.writeQuery({
-      query: AdDocument,
-      variables: { id: negotiation?.ad?._id },
-      data: adLocal,
-    });
-  }
+): void => {
   const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
     //@ts-expect-error error
     client.readQuery({
@@ -90,7 +70,7 @@ export const updateCacheNegotiations = (
   const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = _.cloneDeep(
     //@ts-expect-error error
     client.readQuery({
-      query: NegotiationsOpenDocument,
+      query: NegotiationsDocument,
       variables: {},
     })
   );
@@ -103,7 +83,6 @@ export const updateCacheNegotiations = (
     variables: {},
     data: cachedDataMeLocal,
   });
-  console.log(cachedDataMeLocal);
 
   if (!cachedDataNegotiationsLocal) return;
   cachedDataNegotiationsLocal.negotiations.negotiations.push(
@@ -112,7 +91,7 @@ export const updateCacheNegotiations = (
   cachedDataNegotiationsLocal.negotiations.pageCount += 1;
   //@ts-expect-error error
   client.writeQuery({
-    query: NegotiationsOpenDocument,
+    query: NegotiationsDocument,
     variables: {},
     data: cachedDataNegotiationsLocal,
   });
@@ -123,8 +102,7 @@ export const updateCacheMessagesAdmin = (
   negotiation: MutationResult<
     DeepExtractType<CreateAdWineMutation, ['createAd']>['response']
   >['data']
-) => {
-  // const me = myInfo();
+): void => {
   const cachedDataMessagesLocal: ICachedMessages | null = _.cloneDeep(
     client.readQuery({
       query: MessagesDocument,
@@ -138,7 +116,7 @@ export const updateCacheMessagesAdmin = (
     _id: 'placeholder',
     sentTo: { _id: me?._id } as User,
     sentBy: { firstName: 'Amministratore' } as User,
-    dateSent: new Date(),
+    dateSent: new Date().toISOString(),
   });
   client.writeQuery({
     query: MessagesDocument,
@@ -148,7 +126,6 @@ export const updateCacheMessagesAdmin = (
   const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
     client.readQuery({
       query: MeDocument,
-      variables: {},
     })
   );
   const indexNegToClose = cachedDataMeLocal?.me.negotiations?.findIndex(
@@ -164,12 +141,10 @@ export const updateCacheMessagesAdmin = (
   client.writeQuery({
     query: MeDocument,
     data: cachedDataMeLocal,
-    variables: {},
   });
   const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = _.cloneDeep(
     client.readQuery({
-      query: NegotiationsOpenDocument,
-      variables: {},
+      query: NegotiationsDocument,
     })
   );
   if (!cachedDataNegotiationsLocal) return;
@@ -177,9 +152,8 @@ export const updateCacheMessagesAdmin = (
     (neg) => neg.ad._id !== negotiation?._id
   );
   client.writeQuery({
-    query: NegotiationsOpenDocument,
+    query: NegotiationsDocument,
     data: cachedDataNegotiationsLocal,
-    variables: {},
   });
 };
 
@@ -188,7 +162,7 @@ export const updateCacheAd = (
   ad: MutationResult<
     DeepExtractType<CreateAdWineMutation, ['createAd']>['response']
   >['data']
-) => {
+): void => {
   const searchedWineCache = searchedWine();
   const variablesCacheUpdate = {
     wineName: searchedWineCache?.wineName,
@@ -225,26 +199,33 @@ export const updateCacheAd = (
 };
 
 export const updateCacheMessages = (
-  client: ApolloClient<object> | ApolloCache<any>,
+  client: ApolloClient<object>,
   message: MutationResult<
     DeepExtractType<CreateMessageMutation, ['createMessage']>['response']
   >['data']
-) => {
+): void => {
+  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+    client.readQuery({
+      query: MeDocument,
+    })
+  );
+  cachedDataMeLocal?.me.messages?.push(message as Message);
+  client.writeQuery({
+    query: MeDocument,
+    data: cachedDataMeLocal,
+  });
   const cachedMessagesLocal: ICachedMessages | null = _.cloneDeep(
-    //@ts-expect-errorasdasd
     client.readQuery({
       query: MessagesDocument,
     })
   );
   cachedMessagesLocal?.messages.push(message as Message);
-  //@ts-expect-errorllll
   client.writeQuery({
     query: MessagesDocument,
     variables: { id: message?.negotiation._id },
     data: cachedMessagesLocal,
   });
   const cachedMessagesNegotiationsLocal: ICachedMessagesNegs | null = _.cloneDeep(
-    //@ts-expect-errorasdasddsd
     client.readQuery({
       query: MessagesNegotiationDocument,
       variables: { id: message?.negotiation._id },
@@ -253,7 +234,6 @@ export const updateCacheMessages = (
   cachedMessagesNegotiationsLocal?.messagesForNegotiation.messages.unshift(
     message as Message
   );
-  //@ts-expect-errorasdasd
   client.writeQuery({
     query: MessagesNegotiationDocument,
     variables: { id: message?.negotiation._id },

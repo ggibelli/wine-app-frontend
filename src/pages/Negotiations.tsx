@@ -5,56 +5,91 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { RouteComponentProps } from '@reach/router';
 import {
-  MeQuery,
   NegotiationDetailsFragment,
-  NegotiationInputUpdate,
-  NegotiationsOpenQuery,
+  NegotiationsQuery,
   QueryOrderBy,
-  useNegotiationsOpenLazyQuery,
+  useNegotiationsLazyQuery,
 } from '../generated/graphql';
 import { CardNegotiation } from '../components/CardNegotiation';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../components/InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
-
-export const Negotiations: React.FC<
-  RouteComponentProps & {
-    meData: MeQuery['me'] | undefined;
-    handleCloseNeg: (negotiation: NegotiationInputUpdate) => Promise<void>;
-  }
-> = ({ handleCloseNeg, meData }) => {
-  const [lazyNegotiations, result] = useNegotiationsOpenLazyQuery({
+import { notification } from '../cache';
+import { PurpleCheckbox } from '../components/FilterAds';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Divider from '@material-ui/core/Divider';
+export const Negotiations: React.FC<RouteComponentProps> = () => {
+  // const me = myInfo();
+  const [lazyNegotiations, result] = useNegotiationsLazyQuery({
     onError: (error) => console.log(error),
   });
   const [negotiations, setNegotiations] = React.useState<
-    DeepExtractType<NegotiationsOpenQuery, ['negotiations']>['negotiations']
+    DeepExtractType<NegotiationsQuery, ['negotiations']>['negotiations']
   >([]);
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
+  const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
+
+  const handleShowAll = () => {
+    if (isShowAll && result.refetch) {
+      void result.refetch({
+        offset: 0,
+        limit: 4,
+        orderBy: order,
+        isConcluded: false,
+      });
+      setIsShowAll(false);
+    }
+    if (result.fetchMore && !isShowAll) {
+      try {
+        void result.fetchMore({
+          variables: { limit: negotiations?.length, isConcluded: true },
+        });
+        setIsShowAll(true);
+      } catch (e) {
+        notification({
+          type: 'error',
+          message: 'Errore durante il caricamento delle trattative',
+        });
+      }
+    }
+  };
+
   React.useEffect(() => {
     void lazyNegotiations({
       variables: {
         offset: 0,
         limit: 4,
         orderBy: order,
+        isConcluded: false,
       },
     });
   }, []);
   const isVisible =
-    negotiations?.length !==
-    meData?.negotiations?.filter((n) => !n?.isConcluded).length;
+    negotiations?.length !== result.data?.negotiations?.pageCount;
   React.useEffect(() => {
+    console.log(isShowAll);
+
     if (result.data?.negotiations) {
-      setNegotiations(result.data.negotiations?.negotiations);
+      const negotiationsData = result.data?.negotiations.negotiations;
+      if (!isShowAll) {
+        setNegotiations(negotiationsData?.filter((n) => !n?.isConcluded));
+      } else {
+        setNegotiations(negotiationsData);
+      }
     }
   }, [result.data]);
   React.useEffect(() => {
     if (result.fetchMore) {
       result
         .fetchMore({
-          variables: { orderBy: order, limit: negotiations?.length },
+          variables: {
+            orderBy: order,
+            limit: negotiations?.length,
+            isConcluded: isShowAll,
+          },
         })
         .catch((e) => console.log(e));
     }
@@ -63,13 +98,14 @@ export const Negotiations: React.FC<
     negotiations?.length &&
     result.data?.negotiations?.negotiations?.length !== 0
   ) {
-    const handleFetchMore = async () => {
+    const handleFetchMore = () => {
       if (result.fetchMore) {
         try {
-          await result.fetchMore({
+          void result.fetchMore({
             variables: {
               offset: result.data?.negotiations?.negotiations?.length,
               orderBy: order,
+              isConcluded: isShowAll,
             },
           });
         } catch (e) {
@@ -89,6 +125,17 @@ export const Negotiations: React.FC<
         </Typography>
         <br />
         <Order setOrder={setOrder} order={order} />
+        <Divider />
+        <FormControlLabel
+          control={
+            <PurpleCheckbox
+              checked={isShowAll}
+              onChange={handleShowAll}
+              name='showAll'
+            />
+          }
+          label='Mostra anche le trattative chiuse'
+        />
         <InfiniteScroll
           fetchMore={handleFetchMore}
           isVisible={isVisible}
@@ -98,7 +145,6 @@ export const Negotiations: React.FC<
             <CardNegotiation
               key={negotiation?._id}
               negotiation={negotiation as NegotiationDetailsFragment}
-              handleCloseNeg={handleCloseNeg}
             />
           ))}
         </InfiniteScroll>

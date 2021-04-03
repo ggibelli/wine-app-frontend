@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface InfiniteScrollProps {
   children: React.ReactNode;
-  fetchMore: () => Promise<void>;
+  fetchMore: () => void;
   isVisible: boolean;
   isLoading: boolean;
   setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,9 +27,8 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = (props) => {
   const classes = useStyles();
   const { pathname } = useLocation();
   const message = pathname.split('/')[1] === 'messaggi';
-  const [ref, entry] = useIntersect({ threshold: 0 });
+  const [ref, entry] = useIntersect({ threshold: 1 });
   const [isOk, setIsOk] = React.useState<boolean>(true);
-  console.log(props.isVisible);
   React.useEffect(() => {
     if (entry && entry?.intersectionRatio >= 0.5 && isOk) {
       void props.fetchMore();
@@ -44,7 +43,7 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = (props) => {
     return (
       <>
         {props.isVisible ? (
-          <div id='page-bottom-boundary' ref={ref}>
+          <div className={classes.root} id='page-bottom-boundary' ref={ref}>
             {' '}
             <ExpandMoreIcon />
           </div>
@@ -61,7 +60,7 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = (props) => {
         props.isLoading ? (
           <CircularProgress />
         ) : (
-          <div id='page-bottom-boundary' ref={ref}>
+          <div id='page-bottom-boundary' ref={ref} style={{ height: 30 }}>
             {' '}
             <ExpandMoreIcon />
           </div>

@@ -44,6 +44,7 @@ export const typeDefs = gql`
     isLoggedIn: Boolean!
     notification: Notification
     searchedWine: WineSearched
+    myInfo: User
   }
 `;
 

@@ -1,14 +1,14 @@
-import { LazyQueryResult, useApolloClient } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import * as React from 'react';
-import { notification } from '../../cache';
+import { isLoggedInVar, myInfo, notification } from '../../cache';
 import {
   useNegotiationCreatedSubscription,
   useNegotiationClosedSubscription,
   useAdPostedFollowUpSubscription,
-  MeQuery,
-  Exact,
-  MessagesQuery,
   useMessageSentSubscription,
+  useIsUserLoggedInQuery,
+  useLoginMutation,
+  useMeLazyQuery,
 } from '../../generated/graphql';
 import {
   updateCacheMessages,
@@ -17,24 +17,70 @@ import {
 } from '../../utils/updateCache';
 import { HeaderBar } from './AppBar';
 
-export const Header: React.FC<{
-  meQueryResult: LazyQueryResult<
-    MeQuery,
-    Exact<{
-      [key: string]: never;
-    }>
-  >;
-  messages: MessagesQuery['messages'];
+export const Header: React.FC = () => {
+  const loggedUser = useIsUserLoggedInQuery();
+  const client = useApolloClient();
+  const [lazyQuery, result] = useMeLazyQuery({
+    onCompleted: (data) => {
+      if (data.me) {
+        myInfo({
+          ...data.me,
+        });
+      }
+    },
+    onError: (error) => {
+      notification({
+        type: 'error',
+        message: error.message,
+      });
+    },
+  });
+  React.useEffect(() => {
+    if (loggedUser.data?.isLoggedIn) {
+      lazyQuery();
+    }
+  }, [loggedUser.data?.isLoggedIn]);
 
-  onSubmitLogin: ({
+  const [loginMutation] = useLoginMutation({
+    onError: (error) =>
+      notification({
+        type: 'error',
+        message: error.message,
+      }),
+    onCompleted: ({ login }) => {
+      if (login?.errors?.length === 0) {
+        localStorage.setItem(
+          'wineapp-user-token',
+          login?.response?.token as string
+        );
+        isLoggedInVar(true);
+        notification({
+          type: 'success',
+          message: 'welcome back',
+        });
+      }
+      if (login?.errors?.length) {
+        notification({
+          type: 'error',
+          message: 'errore',
+        });
+      }
+    },
+  });
+  const onSubmitLogin = async ({
     email,
     password,
   }: {
     email: string;
     password: string;
-  }) => Promise<void>;
-}> = ({ meQueryResult, onSubmitLogin, messages }) => {
-  const client = useApolloClient();
+  }) => {
+    await loginMutation({
+      variables: {
+        email: email,
+        password: password,
+      },
+    });
+  };
   useNegotiationCreatedSubscription({
     onSubscriptionData: ({ subscriptionData }) => {
       notification({
@@ -77,11 +123,5 @@ export const Header: React.FC<{
       updateCacheMessages(client, subscriptionData.data?.messageSent);
     },
   });
-  return (
-    <HeaderBar
-      meQueryResult={meQueryResult}
-      onSubmitLogin={onSubmitLogin}
-      messages={messages}
-    />
-  );
+  return <HeaderBar meQueryResult={result} onSubmitLogin={onSubmitLogin} />;
 };

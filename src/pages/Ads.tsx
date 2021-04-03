@@ -35,7 +35,6 @@ export const Ads: React.FC<RouteComponentProps> = () => {
   const [adsFiltered, setAdsFiltered] = React.useState<
     DeepExtractType<AdsWineQuery, ['ads']>['ads']
   >([]);
-  const [open, setOpen] = React.useState(true);
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
@@ -97,7 +96,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
       Non abbiamo trovato nulla, vuoi creare un annuncio?
     </div>
   );
-  if (result.data?.ads && result.data?.ads?.ads?.length === 0) {
+  if (result.data?.ads && result.data?.ads?.pageCount === 0) {
     return <NoResults />;
   }
   const handleFetchMore = async () => {
@@ -155,7 +154,7 @@ export const Ads: React.FC<RouteComponentProps> = () => {
               <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
             ))}
         </InfiniteScroll>
-        <SnackbarAds open={open} setOpen={setOpen} onClick={onClick} />
+        <SnackbarAds onClick={onClick} />
       </Container>
     );
   }

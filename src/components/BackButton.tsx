@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import * as React from 'react';
 import { searchedWine } from '../cache';
-import { Link, useLocation } from '@reach/router';
+import { Link, useLocation, navigate } from '@reach/router';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { TypeAd } from '../generated/graphql';
 
@@ -21,7 +21,7 @@ export const BackButton: React.FC = () => {
         Annunci
       </Button>
     );
-  } else if (searchedWineCache?.typeAd === TypeAd.Buy) {
+  } else if (searchedWineCache?.typeAd === TypeAd.Buy && pathname !== '/buy') {
     return (
       <Button
         component={Link}
@@ -34,7 +34,10 @@ export const BackButton: React.FC = () => {
         Compra
       </Button>
     );
-  } else if (searchedWineCache?.typeAd === TypeAd.Sell) {
+  } else if (
+    searchedWineCache?.typeAd === TypeAd.Sell &&
+    pathname !== '/sell'
+  ) {
     return (
       <Button
         component={Link}
@@ -47,5 +50,15 @@ export const BackButton: React.FC = () => {
         Vendi
       </Button>
     );
-  } else return null;
+  } else
+    return (
+      <Button
+        color='primary'
+        size='large'
+        startIcon={<ArrowBackIosIcon />}
+        onClick={() => navigate(-1)}
+      >
+        Torna indietro
+      </Button>
+    );
 };

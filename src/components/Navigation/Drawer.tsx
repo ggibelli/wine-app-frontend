@@ -17,7 +17,7 @@ import Rating from '@material-ui/lab/Rating';
 import { ApolloError } from '@apollo/client';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link as RouterLink } from '@reach/router';
-import { LogoutButton } from './LogoutButton';
+import { LogoutButton } from '../../containers/LogoutButton';
 
 const useStyles = makeStyles({
   list: {
@@ -109,7 +109,16 @@ export const Drawer: React.FC<{
           </ListItemIcon>
           <ListItemText primary='Trattative in corso' />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          // eslint-disable-next-line react/display-name
+          component={React.forwardRef((itemProps, ref) => (
+            //ts ignore because followed the mui docs
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            <RouterLink to={'/salvati'} ref={ref} {...itemProps} />
+          ))}
+        >
           <ListItemIcon>
             <Badge badgeContent={data.data?.savedAds} color='primary'>
               <FavoriteIcon />

@@ -12,19 +12,28 @@ export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
+  const isBuy = ad?.typeAd === TypeAd.Buy ? true : false;
   if (!ad) return null;
   return (
-    <Link
-      component={RouterLink}
-      to={`/annunci/${ad._id}`}
-      style={{ textDecoration: 'none' }}
-    >
-      <StyledBox width={width} typeAd={ad.typeAd}>
-        <Typography component='h5' variant='h6'>
-          {ad.typeAd === TypeAd.Buy ? 'Compro' : 'Vendo'} {ad.wineName}{' '}
+    <StyledBox width={width} typeAd={ad.typeAd}>
+      <Link
+        component={RouterLink}
+        to={`/annunci/${ad._id}`}
+        style={{ textDecoration: 'none' }}
+      >
+        <Typography
+          component='h5'
+          variant='h6'
+          color={isBuy ? 'textSecondary' : 'primary'}
+        >
+          {isBuy ? 'Compro' : 'Vendo'} {ad.wineName}{' '}
           {/* {ad.wine.denominazioneZona} */}
         </Typography>
-        <Typography align='left' variant='body1'>
+        <Typography
+          align='left'
+          variant='body1'
+          color={isBuy ? 'textSecondary' : 'primary'}
+        >
           Annata: {ad.harvest}
           <br />
           Gradazione: {ad.abv} % Vol
@@ -34,10 +43,14 @@ export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
           Prezzo: {ad.priceFrom} euro al litro
         </Typography>
         <br />
-        <Typography align='right' variant='caption'>
+        <Typography
+          align='right'
+          variant='caption'
+          color={isBuy ? 'textSecondary' : 'primary'}
+        >
           Annuncio pubblicato il {ad.datePosted}
         </Typography>
-      </StyledBox>
-    </Link>
+      </Link>
+    </StyledBox>
   );
 };

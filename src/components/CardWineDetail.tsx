@@ -1,32 +1,39 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { AdQuery, MeQuery, TypeAd } from '../generated/graphql';
+import { AdQuery, TypeAd } from '../generated/graphql';
 import { Button, Grid } from '@material-ui/core';
-import { FavoriteButton } from './FavoriteButton';
+import { FavoriteButton } from '../containers/FavoriteButton';
 import { NegotiationModal } from './NegotiationModal';
 import { StyledBox } from './StyledBox';
+import { myInfo } from '../cache';
+import { useStyles } from '../utils/styleHook';
 
 export const CardWineDetail: React.FC<{
   ad: AdQuery['ad'];
-  me: MeQuery['me'];
   createNegotiation: () => void;
-}> = ({ ad, me, createNegotiation }) => {
+}> = ({ ad, createNegotiation }) => {
+  const classes = useStyles();
+  const isBuy = ad?.typeAd === TypeAd.Buy ? true : false;
   const [openModal, setOpenModal] = React.useState<boolean>(false);
   const handleClickOpen = () => {
     setOpenModal(true);
   };
-
   const handleClose = () => {
     setOpenModal(false);
   };
+  const me = myInfo();
+
   const ContactOrEdit = () => {
     if (me?._id === ad?.postedBy._id) {
-      return <Button>Modifica l annuncio</Button>;
+      return (
+        <Button className={isBuy ? classes.buyButton : classes.sellButton}>
+          Modifica l annuncio
+        </Button>
+      );
     } else if (
       me?.negotiations?.find((negotiation) => negotiation?.ad._id === ad?._id)
     ) {
-      //
       return <div>negoziazione gia aperta</div>;
     }
     if (!ad?.isActive) {
@@ -34,7 +41,10 @@ export const CardWineDetail: React.FC<{
     }
     return (
       <>
-        <Button onClick={handleClickOpen}>
+        <Button
+          className={isBuy ? classes.buyButton : classes.sellButton}
+          onClick={handleClickOpen}
+        >
           Contatta il {ad?.typeAd === TypeAd.Buy ? 'compratore' : 'venditore'}
         </Button>
         <NegotiationModal
@@ -50,8 +60,7 @@ export const CardWineDetail: React.FC<{
     <StyledBox width={1} typeAd={ad?.typeAd as TypeAd}>
       <FavoriteButton ad={ad} me={me} />
       <Typography component='h5' variant='h5'>
-        L&apos;utente {ad?.postedBy.firstName}{' '}
-        {ad?.typeAd === TypeAd.Buy ? 'compra' : 'vende'}:
+        L&apos;utente {ad?.postedBy.firstName} {isBuy ? 'compra' : 'vende'}:
       </Typography>
       <Typography align='left' variant='h6'>
         {adWine?.wineName} {adWine?.wine?.denominazioneZona}
@@ -80,7 +89,7 @@ export const CardWineDetail: React.FC<{
       <ContactOrEdit />
       <Grid container justify='space-between'>
         <Typography align='left' variant='caption'>
-          Annuncio visualizzato {ad?.numberViews}volte
+          Annuncio visualizzato {ad?.numberViews} volte
         </Typography>
 
         <Typography align='right' variant='caption'>

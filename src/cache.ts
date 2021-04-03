@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { TypeAd, TypeProduct } from './generated/graphql';
+import { MeQuery, TypeAd, TypeProduct } from './generated/graphql';
 // import { offsetLimitPagination } from '@apollo/client/utilities';
 
 export const cache: InMemoryCache = new InMemoryCache({
@@ -94,6 +94,7 @@ export const cache: InMemoryCache = new InMemoryCache({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
           merge(existing, incoming, { args }) {
+            console.log(existing, incoming);
             const merged = existing ? existing.negotiations.slice(0) : [];
             if (args) {
               // Assume an offset of 0 if args.offset omitted.
@@ -132,6 +133,11 @@ export const cache: InMemoryCache = new InMemoryCache({
             return searchedWine();
           },
         },
+        myInfo: {
+          read() {
+            return myInfo();
+          },
+        },
       },
     },
   },
@@ -141,21 +147,9 @@ export const isLoggedInVar = makeVar<boolean>(
   !!localStorage.getItem('wineapp-user-token')
 );
 
-interface MyInfo {
-  _id: string;
-  firstName: string;
-  lastName: string;
-}
-
-export const myInfo = makeVar<MyInfo | null>(null);
+export const myInfo = makeVar<MeQuery['me'] | null>(null);
 
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
-
-interface DrawerProfile {
-  name: string;
-  negotiations: number;
-  ads: number;
-}
 
 interface WineSearched {
   typeAd: TypeAd;
@@ -176,5 +170,3 @@ interface Notification {
 }
 
 export const notification = makeVar<Notification | undefined>(undefined);
-
-export const drawerProfile = makeVar<DrawerProfile | undefined>(undefined);

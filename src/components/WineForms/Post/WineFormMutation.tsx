@@ -1,7 +1,6 @@
 import { Form, Formik } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import { TextFieldAdornment } from '../../FormFields/TextFieldAdornment';
 import { TextField } from '../../FormFields/TextField';
 import { Combobox } from '../../FormFields/ComboboxFieldWines';
@@ -18,97 +17,7 @@ import { SliderField } from '../../FormFields/SliderField';
 import { searchedWine } from '../../../cache';
 import { AddressForm } from '../../AddressForm';
 import Skeleton from '@material-ui/lab/Skeleton';
-// import { ComboboxField } from '../../FormFields/ComboboxField';
-// import { optionsRegioni } from '../../UserForm/data';
-// import { ComboboxComuni } from '../../FormFields/ComboboxComuni';
-// import { ComboboxProvince } from '../../FormFields/ComboboxProvince';
-
-const useStyles = makeStyles((theme: Theme) => ({
-  paper: {
-    marginTop: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    borderRadius: 16,
-    color: '#fff',
-    margin: 6,
-    padding: 6,
-    backgroundColor: '#6d1331',
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(4),
-  },
-  submit: {
-    backgroundColor: '#fff',
-    '&:hover': {
-      backgroundColor: 'rgb(250, 232, 241)',
-    },
-    color: '#6d1331',
-    margin: theme.spacing(3, 0, 2),
-    display: 'flex',
-    alignItems: 'center',
-  },
-  formSell: {
-    borderRadius: 16,
-    borderColor: '#6d1331',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    color: '#6d1331',
-    margin: 6,
-    padding: 6,
-    backgroundColor: '#fff',
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(4),
-  },
-  submitSell: {
-    backgroundColor: '#6d1331',
-    '&:hover': {
-      backgroundColor: 'rgb(250, 232, 241)',
-    },
-    color: '#fff',
-    margin: theme.spacing(3, 0, 2),
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  input: {
-    color: 'white',
-  },
-  inputSell: {
-    color: '#6d1331',
-  },
-  underline: {
-    color: 'white',
-    '&:before': {
-      borderBottom: '1px solid white',
-    },
-    '&&&&:hover:before': {
-      borderBottom: '2px solid white',
-    },
-    '&:after': {
-      borderBottom: '3px solid white',
-    },
-    disabled: {},
-    focused: {},
-    error: {},
-  },
-  underlineSell: {
-    color: '#6d1331',
-    '&:before': {
-      borderBottom: '1px solid #6d1331',
-    },
-    '&&&&:hover:before': {
-      borderBottom: '2px solid #6d1331',
-    },
-    '&:after': {
-      borderBottom: '3px solid #6d1331',
-    },
-    disabled: {},
-    focused: {},
-    error: {},
-  },
-}));
+import { useStylesForms } from '../../../utils/styleHook';
 
 interface AddressInputForm {
   comune: string;
@@ -152,7 +61,7 @@ export const WineFormMutation: React.FC<{
         regione: wine.regione,
       }))
     : null;
-  const classes = useStyles();
+  const classes = useStylesForms();
   const today = new Date();
   const year = today.getFullYear();
   const searchedWineCache = searchedWine();
@@ -405,71 +314,7 @@ export const WineFormMutation: React.FC<{
               labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
             />
             <AddressForm setFieldValue={setFieldValue} />
-            {/* <ComboboxField
-              setFieldValue={setFieldValue}
-              name='address.regione'
-              label='Regione'
-              items={optionsRegioni}
-              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-            />
-            <ComboboxProvince
-              setFieldValue={setFieldValue}
-              name='address.provincia'
-              label='Provincia'
-              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-            />
-            <ComboboxComuni
-              setFieldValue={setFieldValue}
-              name='address.comune'
-              label='Comune'
-              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-            />
-            <TextField
-              name='address.via'
-              type='text'
-              label='Via'
-              placeholder='Via'
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              inputTextColor={
-                adType === TypeAd.Buy ? classes.input : classes.inputSell
-              }
-            />
-            <TextField
-              name='address.CAP'
-              type='number'
-              max='99999'
-              label='CAP'
-              placeholder='CAP'
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              inputTextColor={
-                adType === TypeAd.Buy ? classes.input : classes.inputSell
-              }
-            /> */}
+
             <Button
               //isLoading={isValidating || isSubmitting}
               className={
