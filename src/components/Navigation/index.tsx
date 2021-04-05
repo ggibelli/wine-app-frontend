@@ -9,6 +9,7 @@ import {
   useIsUserLoggedInQuery,
   useLoginMutation,
   useMeLazyQuery,
+  Address,
 } from '../../generated/graphql';
 import {
   updateCacheMessages,
@@ -21,13 +22,13 @@ export const Header: React.FC = () => {
   const loggedUser = useIsUserLoggedInQuery();
   const client = useApolloClient();
   const [lazyQuery, result] = useMeLazyQuery({
-    onCompleted: (data) => {
-      if (data.me) {
-        myInfo({
-          ...data.me,
-        });
-      }
-    },
+    // onCompleted: (data) => {
+    //   if (data.me) {
+    //     myInfo({
+    //       ...data.me,
+    //     });
+    //   }
+    // },
     onError: (error) => {
       notification({
         type: 'error',
@@ -53,10 +54,19 @@ export const Header: React.FC = () => {
           'wineapp-user-token',
           login?.response?.token as string
         );
+        localStorage.setItem(
+          'wineapp-user-id',
+          login?.response?.user._id as string
+        );
         isLoggedInVar(true);
         notification({
           type: 'success',
           message: 'welcome back',
+        });
+        myInfo({
+          _id: login.response?.user._id as string,
+          firstName: login.response?.user.firstName as string,
+          address: login.response?.user.address as Address,
         });
       }
       if (login?.errors?.length) {

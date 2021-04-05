@@ -11,7 +11,7 @@ import {
 } from '../generated/graphql';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { myInfo, notification } from '../cache';
+import { notification } from '../cache';
 import { CardWineDetail } from '../components/CardWineDetail';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
 import { BackButton } from '../components/BackButton';
@@ -29,12 +29,12 @@ export const Ad: React.FC<RouteComponentProps> = () => {
     },
     onCompleted: (data) => (data?.ad ? setAd(data?.ad) : null),
   });
+
   React.useEffect(() => {
     if (data?.ad) {
       setAd(data?.ad);
     }
   }, [data?.ad?.activeNegotiations]);
-  const me = myInfo();
   const [createNegotiation] = useCreateNegotiationMutation({
     onCompleted: (createdNegotiation) => {
       if (createdNegotiation.createNegotiation?.errors?.length) {
@@ -84,6 +84,7 @@ export const Ad: React.FC<RouteComponentProps> = () => {
     });
     return <div>Errore</div>;
   }
+
   const buyerOrSeller =
     ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
   if (ad?._id) {
@@ -100,8 +101,12 @@ export const Ad: React.FC<RouteComponentProps> = () => {
             anche tu i parametri e decidi se procedere.
           </Typography>
         </div>
-        <CardWineDetail ad={ad} createNegotiation={openNegotiation} />
-        {me?._id === ad.postedBy._id ? (
+        <CardWineDetail
+          ad={ad}
+          createNegotiation={openNegotiation}
+          me={data?.me}
+        />
+        {data?.me?._id === ad.postedBy._id ? (
           <OpenNegotiations
             data={lazyNegResult}
             showNegotiations={handleShowNegotiations}

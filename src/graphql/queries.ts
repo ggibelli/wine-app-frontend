@@ -93,6 +93,8 @@ export const MESSAGE_DETAILS = gql`
           wineName
         }
       }
+      type
+      isConcluded
     }
     dateSent
   }
@@ -164,6 +166,20 @@ export const FAVORITE = gql`
   }
 `;
 
+export const LIGHT_ME = gql`
+  query LightMe {
+    me {
+      _id
+      firstName
+      address {
+        regione
+        provincia
+        comune
+      }
+    }
+  }
+`;
+
 export const ME = gql`
   query Me {
     me {
@@ -201,7 +217,9 @@ export const ME = gql`
       }
       reviews {
         _id
-
+        forUser {
+          _id
+        }
         rating
       }
     }
@@ -372,6 +390,15 @@ export const AD = gql`
       numberViews
       datePosted
       isActive
+    }
+    me {
+      _id
+      negotiations {
+        _id
+        ad {
+          _id
+        }
+      }
     }
   }
   ${AD_DETAILS}

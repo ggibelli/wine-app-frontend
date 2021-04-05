@@ -19,8 +19,8 @@ import { notification } from '../cache';
 import { PurpleCheckbox } from '../components/FilterAds';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
+
 export const Negotiations: React.FC<RouteComponentProps> = () => {
-  // const me = myInfo();
   const [lazyNegotiations, result] = useNegotiationsLazyQuery({
     onError: (error) => console.log(error),
   });
@@ -70,9 +70,7 @@ export const Negotiations: React.FC<RouteComponentProps> = () => {
   const isVisible =
     negotiations?.length !== result.data?.negotiations?.pageCount;
   React.useEffect(() => {
-    console.log(isShowAll);
-
-    if (result.data?.negotiations) {
+    if (result.data?.negotiations?.negotiations?.length) {
       const negotiationsData = result.data?.negotiations.negotiations;
       if (!isShowAll) {
         setNegotiations(negotiationsData?.filter((n) => !n?.isConcluded));

@@ -6,13 +6,13 @@ import { Button, Grid } from '@material-ui/core';
 import { FavoriteButton } from '../containers/FavoriteButton';
 import { NegotiationModal } from './NegotiationModal';
 import { StyledBox } from './StyledBox';
-import { myInfo } from '../cache';
 import { useStyles } from '../utils/styleHook';
 
 export const CardWineDetail: React.FC<{
   ad: AdQuery['ad'];
+  me: AdQuery['me'];
   createNegotiation: () => void;
-}> = ({ ad, createNegotiation }) => {
+}> = ({ ad, createNegotiation, me }) => {
   const classes = useStyles();
   const isBuy = ad?.typeAd === TypeAd.Buy ? true : false;
   const [openModal, setOpenModal] = React.useState<boolean>(false);
@@ -22,7 +22,6 @@ export const CardWineDetail: React.FC<{
   const handleClose = () => {
     setOpenModal(false);
   };
-  const me = myInfo();
 
   const ContactOrEdit = () => {
     if (me?._id === ad?.postedBy._id) {
@@ -58,7 +57,8 @@ export const CardWineDetail: React.FC<{
   const adWine = ad?.__typename === 'AdWine' ? ad : null;
   return (
     <StyledBox width={1} typeAd={ad?.typeAd as TypeAd}>
-      <FavoriteButton ad={ad} me={me} />
+      {ad?.postedBy._id !== me?._id ? <FavoriteButton ad={ad} /> : null}
+
       <Typography component='h5' variant='h5'>
         L&apos;utente {ad?.postedBy.firstName} {isBuy ? 'compra' : 'vende'}:
       </Typography>

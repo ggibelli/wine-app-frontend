@@ -1,5 +1,6 @@
 import { grey } from '@material-ui/core/colors';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -139,3 +140,30 @@ export const useStylesForms = makeStyles((theme: Theme) => ({
     error: {},
   },
 }));
+
+export const useStyleRating = makeStyles(() => ({
+  root: {
+    width: 250,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  list: {
+    width: 250,
+  },
+  bottomPush: {
+    width: 250,
+    position: 'fixed',
+    bottom: 0,
+    textAlign: 'center',
+    paddingBottom: 10,
+  },
+}));
+
+export const StyledRating = withStyles({
+  iconFilled: {
+    color: '#6d1331',
+  },
+  iconHover: {
+    color: '#6d1331',
+  },
+})(Rating);

@@ -12,7 +12,7 @@ import { myInfo } from '../../cache';
 import { InfiniteScroll } from '../InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { CloseNegotiationButton } from '../../containers/CloseNegotiationButton';
-import Button from '@material-ui/core/Button';
+import { CreateReview } from '../../containers/CreateReview';
 
 interface PropMessages {
   propsMessage: {
@@ -94,8 +94,13 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
           paddingTop: 0,
         }}
       >
-        {message.negotiation._id ? (
-          <Button color='primary'>Lascia una recensione </Button>
+        {message.negotiation.isConcluded ? (
+          <CreateReview
+            isBuy={true}
+            idNegotiation={message.negotiation._id}
+            idUser={recipient}
+            type={message.negotiation.type}
+          />
         ) : (
           <CloseNegotiationButton id={message.negotiation._id} />
         )}

@@ -30,8 +30,6 @@ export const CardNegotiation: React.FC<{
     negotiation.review?.findIndex(
       (review) => review?.createdBy._id === me?._id
     ) !== -1;
-  console.log(negotiation);
-  console.log(negotiation.review?.map((rev) => console.log(rev)));
   return (
     <StyledBox width={width} typeAd={negotiation.type}>
       <Link

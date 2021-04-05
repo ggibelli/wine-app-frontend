@@ -2,8 +2,12 @@ import Button from '@material-ui/core/Button';
 import * as React from 'react';
 import { notification } from '../cache';
 import { useCreateReviewMutation, TypeAd } from '../generated/graphql';
-import { useStyles as useStylesHook } from '../utils/styleHook';
-import Rating from '@material-ui/lab/Rating';
+import {
+  StyledRating,
+  useStyles as useStylesHook,
+  useStylesForms,
+  useStyleRating,
+} from '../utils/styleHook';
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -38,7 +42,8 @@ export const CreateReview: React.FC<{
     setReview(event.target.value);
   };
   const classes = useStylesHook();
-
+  const classesTextField = useStylesForms();
+  const classesStars = useStyleRating();
   const [createReview, { loading }] = useCreateReviewMutation({
     onCompleted: (createdReview) => {
       if (createdReview.createReview?.errors?.length) {
@@ -90,7 +95,7 @@ export const CreateReview: React.FC<{
       >
         Lascia una recensione
       </Button>
-      <div className={classes.paper}>
+      <div style={{ visibility: 'hidden' }}>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -101,25 +106,37 @@ export const CreateReview: React.FC<{
           </DialogTitle>
 
           <DialogContent>
-            <Rating
-              name='hover-feedback'
-              value={value}
-              precision={0.5}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-              onChangeActive={(event, newHover) => {
-                setHover(newHover);
-              }}
-            />
-            {value !== null && (
-              <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
-            )}
+            <div className={classesStars.root}>
+              <StyledRating
+                name='hover-feedback'
+                value={value}
+                precision={0.5}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                onChangeActive={(event, newHover) => {
+                  setHover(newHover);
+                }}
+              />
+              {value !== null && (
+                <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
+              )}
+            </div>
             <TextField
               color='primary'
               multiline
+              rows={4}
               value={review}
               onChange={handleChange}
+              InputLabelProps={{
+                style: { color: '#6d1331' },
+              }}
+              InputProps={{
+                className: classesTextField.inputSell,
+                classes: {
+                  underline: classesTextField.underlineSell,
+                },
+              }}
               id='outlined-multiline-flexible'
               label='Recensione'
               placeholder='Ottima persona con cui....'

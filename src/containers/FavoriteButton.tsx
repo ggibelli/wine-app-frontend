@@ -8,15 +8,12 @@ import {
   MeDocument,
   AdWine,
   AdQuery,
-  MeQuery,
 } from '../generated/graphql';
 import { ICachedMe } from '../utils/updateCache';
 
 export const FavoriteButton: React.FC<{
   ad: AdQuery['ad'];
-  me: MeQuery['me'];
-}> = ({ ad, me }) => {
-  console.log(me);
+}> = ({ ad }) => {
   const [saveAd] = useSaveAdMutation({
     onError: (error) => console.log(error),
     update: (cache, response) => {
@@ -43,15 +40,12 @@ export const FavoriteButton: React.FC<{
     void saveAd({ variables: { id } });
     setIsFav(!isFav);
   };
-  if (ad?.postedBy._id !== me?._id) {
-    return (
-      <IconButton
-        aria-label='save'
-        onClick={() => handleClick(ad?._id as string)}
-      >
-        {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-      </IconButton>
-    );
-  }
-  return null;
+  return (
+    <IconButton
+      aria-label='save'
+      onClick={() => handleClick(ad?._id as string)}
+    >
+      {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+    </IconButton>
+  );
 };

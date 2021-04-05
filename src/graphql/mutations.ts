@@ -14,6 +14,11 @@ export const LOGIN = gql`
         user {
           _id
           firstName
+          address {
+            regione
+            provincia
+            comune
+          }
         }
       }
       errors {

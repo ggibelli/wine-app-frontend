@@ -13,6 +13,8 @@ export const LogoutButton: React.FC = () => {
 
     // Remove user details from localStorage.
     localStorage.removeItem('wineapp-user-token');
+    localStorage.removeItem('wineapp-user-id');
+
     //localStorage.removeItem('userId');
 
     // Let other parts of the application that are relying on logged in

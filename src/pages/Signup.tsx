@@ -21,6 +21,10 @@ export const SignUp: React.FC<RouteComponentProps> = () => {
           'wineapp-user-token',
           createUser?.response?.token as string
         );
+        localStorage.setItem(
+          'wineapp-user-id',
+          createUser?.response?.user._id as string
+        );
         isLoggedInVar(true);
         notification({
           type: 'success',

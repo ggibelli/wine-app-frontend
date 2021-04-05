@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -13,24 +12,11 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Badge from '@material-ui/core/Badge';
 import StoreIcon from '@material-ui/icons/Store';
 import Typography from '@material-ui/core/Typography';
-import Rating from '@material-ui/lab/Rating';
 import { ApolloError } from '@apollo/client';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link as RouterLink } from '@reach/router';
 import { LogoutButton } from '../../containers/LogoutButton';
-
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  bottomPush: {
-    width: 250,
-    position: 'fixed',
-    bottom: 0,
-    textAlign: 'center',
-    paddingBottom: 10,
-  },
-});
+import { useStyleRating, StyledRating } from '../../utils/styleHook';
 
 export interface DrawerData {
   isLoading: boolean;
@@ -39,9 +25,9 @@ export interface DrawerData {
     numAds?: number | null;
     numOpenNegs?: number | null;
     numClosedNegs?: number | null;
-
     savedAds?: number | null;
     name?: string | null;
+    rating?: number | null;
   };
 }
 
@@ -50,7 +36,7 @@ export const Drawer: React.FC<{
   toggleDrawer: () => void;
   data: DrawerData;
 }> = ({ state, toggleDrawer, data }) => {
-  const classes = useStyles();
+  const classes = useStyleRating();
   const list = () => (
     <div
       className={classes.list}
@@ -65,7 +51,10 @@ export const Drawer: React.FC<{
         <Typography color='primary' component='h1'>
           {data.data?.name}
         </Typography>
-        <Rating name='read-only' value={5} readOnly />
+        <div className={classes.root}>
+          <StyledRating name='read-only' value={data?.data?.rating} readOnly />
+          <Box>{data?.data?.rating ? `(${data?.data?.rating})` : null}</Box>
+        </div>
       </Box>
       <Divider />
       <List>
@@ -79,9 +68,7 @@ export const Drawer: React.FC<{
           button
           // eslint-disable-next-line react/display-name
           component={React.forwardRef((itemProps, ref) => (
-            //ts ignore because followed the mui docs
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
+            //@ts-expect-error followed MUI docs
             <RouterLink to={'/creati'} ref={ref} {...itemProps} />
           ))}
         >
@@ -96,9 +83,7 @@ export const Drawer: React.FC<{
           button
           // eslint-disable-next-line react/display-name
           component={React.forwardRef((itemProps, ref) => (
-            //ts ignore because followed the mui docs
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
+            //@ts-expect-error followed MUI docs
             <RouterLink to={'/trattative'} ref={ref} {...itemProps} />
           ))}
         >
@@ -113,9 +98,7 @@ export const Drawer: React.FC<{
           button
           // eslint-disable-next-line react/display-name
           component={React.forwardRef((itemProps, ref) => (
-            //ts ignore because followed the mui docs
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
+            //@ts-expect-error followed MUI docs
             <RouterLink to={'/salvati'} ref={ref} {...itemProps} />
           ))}
         >

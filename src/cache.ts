@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { MeQuery, TypeAd, TypeProduct } from './generated/graphql';
+import { Address, TypeAd, TypeProduct } from './generated/graphql';
 // import { offsetLimitPagination } from '@apollo/client/utilities';
-
+import _ from 'lodash';
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
     Query: {
@@ -93,27 +93,34 @@ export const cache: InMemoryCache = new InMemoryCache({
           keyArgs: false,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
-          merge(existing, incoming, { args }) {
-            console.log(existing, incoming);
-            const merged = existing ? existing.negotiations.slice(0) : [];
-            if (args) {
-              // Assume an offset of 0 if args.offset omitted.
-              const { offset = 0 } = args;
-              for (let i = 0; i < incoming.negotiations.length; ++i) {
-                merged[(offset as number) + i] = incoming.negotiations[i];
-              }
-            } else {
-              // It's unusual (probably a mistake) for a paginated field not
-              // to receive any arguments, so you might prefer to throw an
-              // exception here, instead of recovering by appending incoming
-              // onto the existing array.
-              // eslint-disable-next-line prefer-spread
-              merged.push.apply(merged, incoming.negotiations);
-            }
+          merge(existing = [], incoming, { args }) {
+            console.log(args);
+            // const merged = existing ? existing.negotiations.slice(0) : [];
+            // if (args && !args.isConcluded) {
+            //   // Assume an offset of 0 if args.offset omitted.
+            //   const { offset = 0 } = args;
+            //   for (let i = 0; i < incoming.negotiations.length; ++i) {
+            //     merged[(offset as number) + i] = incoming.negotiations[i];
+            //   }
+            // } else {
+            //   // It's unusual (probably a mistake) for a paginated field not
+            //   // to receive any arguments, so you might prefer to throw an
+            //   // exception here, instead of recovering by appending incoming
+            //   // onto the existing array.
+            //   // eslint-disable-next-line prefer-spread
+            //   console.log(merged, incoming.negotiations);
+            //   const negs = _.unionBy(merged, incoming.negotiations, '__ref');
+            //   console.log(negs  );
+            //   // merged.push(...negs);
+            // }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return {
               __typeName: 'NegotiationResult',
-              negotiations: merged,
+              negotiations: _.unionBy(
+                existing.negotiations,
+                incoming.negotiations,
+                '__ref'
+              ),
               pageCount: incoming.pageCount,
             };
           },
@@ -147,7 +154,13 @@ export const isLoggedInVar = makeVar<boolean>(
   !!localStorage.getItem('wineapp-user-token')
 );
 
-export const myInfo = makeVar<MeQuery['me'] | null>(null);
+type AddressMyInfo = Omit<Address, 'via'>;
+
+export const myInfo = makeVar<{
+  _id: string;
+  firstName?: string;
+  address?: AddressMyInfo;
+} | null>(null);
 
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
 

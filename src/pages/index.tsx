@@ -13,16 +13,16 @@ import { Negotiations } from './Negotiations';
 import { Negotiation } from './Negotiation';
 import { Messages } from './Messages';
 import { Message } from './Message';
-import { useMyInfoQuery } from '../generated/graphql';
-import Skeleton from '@material-ui/lab/Skeleton';
-import { isLoggedInVar } from '../cache';
+
 import { SavedAds } from './SavedAds';
+import { myInfo } from '../cache';
 
 export const Pages: React.FC = () => {
-  const { data, loading } = useMyInfoQuery();
-  const isLogged = isLoggedInVar();
-  const Routes = () => {
-    if ((!loading && data?.myInfo?._id) || !isLogged) {
+  const id = localStorage.getItem('wineapp-user-id');
+  const isLogged = id ? true : false;
+  const RouterLogged = () => {
+    if (isLogged) {
+      myInfo({ _id: id as string });
       return (
         <Router primary={false} component={React.Fragment}>
           <Home path='/' />
@@ -43,27 +43,17 @@ export const Pages: React.FC = () => {
           <SignUp path='/signup' />
         </Router>
       );
+    } else {
+      return <div>loggati</div>;
     }
-    return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Skeleton variant='text' width={'100vh'} height={30} />
-        <Skeleton variant='circle' width={50} height={50} />
-        <Skeleton variant='rect' width={'70vh'} height={'70vh'} />
-      </div>
-    );
   };
+
   return (
     <>
       <CssBaseline />
       <Header />
       <main>
-        <Routes />
+        <RouterLogged />
       </main>
     </>
   );

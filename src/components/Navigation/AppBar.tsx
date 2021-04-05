@@ -84,6 +84,18 @@ export const HeaderBar: React.FC<{
     handleClose();
   };
   const loggedUser = useIsUserLoggedInQuery();
+  const myReviews = meQueryResult.data?.me?.reviews?.length
+    ? meQueryResult.data?.me?.reviews?.filter(
+        (r) => r.forUser._id === meQueryResult.data?.me?._id
+      )
+    : null;
+  const reducedReview = myReviews?.length
+    ? //@ts-expect-error I didn't understand the error????
+      (myReviews.reduce((acc, val) => val.rating + acc.rating) as number)
+    : null;
+  const rating = reducedReview
+    ? reducedReview / (myReviews?.length as number)
+    : null;
   const drawerData: DrawerData = {
     isLoading: meQueryResult.loading,
     error: meQueryResult.error,
@@ -97,6 +109,10 @@ export const HeaderBar: React.FC<{
       ).length,
       savedAds: meQueryResult.data?.me?.savedAds?.length,
       name: meQueryResult.data?.me?.firstName,
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      rating,
     },
   };
 

@@ -903,7 +903,12 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
     { __typename?: 'AuthUserPayload' } & {
       response?: Maybe<
         { __typename?: 'AuthUser' } & Pick<AuthUser, 'token'> & {
-            user: { __typename?: 'User' } & Pick<User, '_id' | 'firstName'>;
+            user: { __typename?: 'User' } & Pick<User, '_id' | 'firstName'> & {
+                address: { __typename?: 'Address' } & Pick<
+                  Address,
+                  'regione' | 'provincia' | 'comune'
+                >;
+              };
           }
       >;
       errors?: Maybe<
@@ -1278,7 +1283,10 @@ export type MessageDetailsFragment = { __typename?: 'Message' } & Pick<
       User,
       '_id' | 'firstName' | 'lastName'
     >;
-    negotiation: { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'> & {
+    negotiation: { __typename?: 'Negotiation' } & Pick<
+      Negotiation,
+      '_id' | 'type' | 'isConcluded'
+    > & {
         ad:
           | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'>)
           | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
@@ -1363,6 +1371,19 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type LightMeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type LightMeQuery = { __typename?: 'Query' } & {
+  me?: Maybe<
+    { __typename?: 'User' } & Pick<User, '_id' | 'firstName'> & {
+        address: { __typename?: 'Address' } & Pick<
+          Address,
+          'regione' | 'provincia' | 'comune'
+        >;
+      }
+  >;
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = { __typename?: 'Query' } & {
@@ -1409,7 +1430,11 @@ export type MeQuery = { __typename?: 'Query' } & {
           >
         >;
         reviews?: Maybe<
-          Array<{ __typename?: 'Review' } & Pick<Review, '_id' | 'rating'>>
+          Array<
+            { __typename?: 'Review' } & Pick<Review, '_id' | 'rating'> & {
+                forUser: { __typename?: 'User' } & Pick<User, '_id'>;
+              }
+          >
         >;
       }
   >;
@@ -1640,6 +1665,19 @@ export type AdQuery = { __typename?: 'Query' } & {
             'regione' | 'provincia' | 'comune'
           >;
         })
+  >;
+  me?: Maybe<
+    { __typename?: 'User' } & Pick<User, '_id'> & {
+        negotiations?: Maybe<
+          Array<
+            { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'> & {
+                ad:
+                  | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+              }
+          >
+        >;
+      }
   >;
 };
 
@@ -2079,6 +2117,8 @@ export const MessageDetailsFragmentDoc = gql`
           wineName
         }
       }
+      type
+      isConcluded
     }
     dateSent
   }
@@ -2119,6 +2159,11 @@ export const LoginDocument = gql`
         user {
           _id
           firstName
+          address {
+            regione
+            provincia
+            comune
+          }
         }
       }
       errors {
@@ -2939,6 +2984,57 @@ export type FavoriteQueryResult = Apollo.QueryResult<
   FavoriteQuery,
   FavoriteQueryVariables
 >;
+export const LightMeDocument = gql`
+  query LightMe {
+    me {
+      _id
+      firstName
+      address {
+        regione
+        provincia
+        comune
+      }
+    }
+  }
+`;
+
+/**
+ * __useLightMeQuery__
+ *
+ * To run a query within a React component, call `useLightMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLightMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLightMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLightMeQuery(
+  baseOptions?: Apollo.QueryHookOptions<LightMeQuery, LightMeQueryVariables>
+) {
+  return Apollo.useQuery<LightMeQuery, LightMeQueryVariables>(
+    LightMeDocument,
+    baseOptions
+  );
+}
+export function useLightMeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<LightMeQuery, LightMeQueryVariables>
+) {
+  return Apollo.useLazyQuery<LightMeQuery, LightMeQueryVariables>(
+    LightMeDocument,
+    baseOptions
+  );
+}
+export type LightMeQueryHookResult = ReturnType<typeof useLightMeQuery>;
+export type LightMeLazyQueryHookResult = ReturnType<typeof useLightMeLazyQuery>;
+export type LightMeQueryResult = Apollo.QueryResult<
+  LightMeQuery,
+  LightMeQueryVariables
+>;
 export const MeDocument = gql`
   query Me {
     me {
@@ -2976,6 +3072,9 @@ export const MeDocument = gql`
       }
       reviews {
         _id
+        forUser {
+          _id
+        }
         rating
       }
     }
@@ -3395,6 +3494,15 @@ export const AdDocument = gql`
       numberViews
       datePosted
       isActive
+    }
+    me {
+      _id
+      negotiations {
+        _id
+        ad {
+          _id
+        }
+      }
     }
   }
 `;
