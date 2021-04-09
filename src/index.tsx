@@ -58,7 +58,9 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const httpLink = new HttpLink({ uri: 'http://localhost:4000/graphql' });
+const httpLink = new HttpLink({
+  uri: 'http://localhost:4000/graphql',
+});
 
 const wsLink = new WebSocketLink({
   uri: `ws://localhost:4000/graphql`,

@@ -1,6 +1,9 @@
 {
   "name": "wine-app-frontend",
   "version": "0.1.0",
+  "engines": {
+    "yarn": "1.x"
+  },
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.6",

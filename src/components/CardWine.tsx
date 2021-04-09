@@ -13,13 +13,15 @@ export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
   const isBuy = ad?.typeAd === TypeAd.Buy ? true : false;
+  const pointerEvent = ad?.isActive ? 'auto' : 'none';
   if (!ad) return null;
   return (
-    <StyledBox width={width} typeAd={ad.typeAd}>
+    <StyledBox width={width} typeAd={ad.typeAd} notActive={!ad.isActive}>
       <Link
+        style={{ pointerEvents: pointerEvent, display: 'block' }}
         component={RouterLink}
         to={`/annunci/${ad._id}`}
-        style={{ textDecoration: 'none' }}
+        underline='none'
       >
         <Typography
           component='h5'

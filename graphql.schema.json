@@ -1859,6 +1859,16 @@
                 "defaultValue": null
               },
               {
+                "name": "isActive",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
                 "name": "user",
                 "description": null,
                 "type": {

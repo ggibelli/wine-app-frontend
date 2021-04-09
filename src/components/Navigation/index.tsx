@@ -7,6 +7,7 @@ import {
   useAdPostedFollowUpSubscription,
   useMessageSentSubscription,
   useIsUserLoggedInQuery,
+  useReviewCreatedSubscription,
   useLoginMutation,
   useMeLazyQuery,
   Address,
@@ -15,6 +16,7 @@ import {
   updateCacheMessages,
   updateCacheMessagesAdmin,
   updateCacheNegotiations,
+  updateCacheReview,
 } from '../../utils/updateCache';
 import { HeaderBar } from './AppBar';
 
@@ -22,13 +24,13 @@ export const Header: React.FC = () => {
   const loggedUser = useIsUserLoggedInQuery();
   const client = useApolloClient();
   const [lazyQuery, result] = useMeLazyQuery({
-    // onCompleted: (data) => {
-    //   if (data.me) {
-    //     myInfo({
-    //       ...data.me,
-    //     });
-    //   }
-    // },
+    onCompleted: (data) => {
+      if (data.me) {
+        myInfo({
+          ...data.me,
+        });
+      }
+    },
     onError: (error) => {
       notification({
         type: 'error',
@@ -131,6 +133,17 @@ export const Header: React.FC = () => {
   useMessageSentSubscription({
     onSubscriptionData: ({ subscriptionData }) => {
       updateCacheMessages(client, subscriptionData.data?.messageSent);
+    },
+  });
+  useReviewCreatedSubscription({
+    onSubscriptionData: ({ subscriptionData }) => {
+      const review = subscriptionData.data?.reviewCreated || null;
+      if (!review) return;
+      notification({
+        type: 'info',
+        message: `La cantina ${review.createdBy.firstName} ti ha lasciato una recensione`,
+      });
+      updateCacheReview(client, review);
     },
   });
   return <HeaderBar meQueryResult={result} onSubmitLogin={onSubmitLogin} />;

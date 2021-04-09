@@ -18,7 +18,7 @@ import { updateCacheAd } from '../utils/updateCache';
 import { BackButton } from '../components/BackButton';
 import { useStyles } from '../utils/styleHook';
 
-export const Buy: React.FC<RouteComponentProps> = () => {
+const Buy: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
   const classes = useStyles();
   const location = useLocation();
@@ -126,3 +126,5 @@ export const Buy: React.FC<RouteComponentProps> = () => {
     </Container>
   );
 };
+
+export default Buy;

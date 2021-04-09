@@ -39,26 +39,26 @@ export const cache: InMemoryCache = new InMemoryCache({
         },
         adsForUser: {
           keyArgs: ['user'],
-          merge(existing, incoming, { args }) {
-            const merged = existing ? existing.ads.slice(0) : [];
-            if (args) {
-              // Assume an offset of 0 if args.offset omitted.
-              const { offset = 0 } = args;
-              for (let i = 0; i < incoming.ads.length; ++i) {
-                merged[(offset as number) + i] = incoming.ads[i];
-              }
-            } else {
-              // It's unusual (probably a mistake) for a paginated field not
-              // to receive any arguments, so you might prefer to throw an
-              // exception here, instead of recovering by appending incoming
-              // onto the existing array.
-              // eslint-disable-next-line prefer-spread
-              merged.push.apply(merged, incoming.ads);
-            }
+          merge(existing = [], incoming) {
+            // const merged = existing ? existing.ads.slice(0) : [];
+            // if (args) {
+            //   // Assume an offset of 0 if args.offset omitted.
+            //   const { offset = 0 } = args;
+            //   for (let i = 0; i < incoming.ads.length; ++i) {
+            //     merged[(offset as number) + i] = incoming.ads[i];
+            //   }
+            // } else {
+            //   // It's unusual (probably a mistake) for a paginated field not
+            //   // to receive any arguments, so you might prefer to throw an
+            //   // exception here, instead of recovering by appending incoming
+            //   // onto the existing array.
+            //   // eslint-disable-next-line prefer-spread
+            //   merged.push.apply(merged, incoming.ads);
+            // }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return {
               __typeName: 'AdsResult',
-              ads: merged,
+              ads: _.unionBy(existing.ads, incoming.ads, '__ref'),
               pageCount: incoming.pageCount,
             };
           },
@@ -93,8 +93,7 @@ export const cache: InMemoryCache = new InMemoryCache({
           keyArgs: false,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
-          merge(existing = [], incoming, { args }) {
-            console.log(args);
+          merge(existing = [], incoming) {
             // const merged = existing ? existing.negotiations.slice(0) : [];
             // if (args && !args.isConcluded) {
             //   // Assume an offset of 0 if args.offset omitted.
@@ -157,10 +156,10 @@ export const isLoggedInVar = makeVar<boolean>(
 type AddressMyInfo = Omit<Address, 'via'>;
 
 export const myInfo = makeVar<{
-  _id: string;
+  _id: string | null;
   firstName?: string;
   address?: AddressMyInfo;
-} | null>(null);
+} | null>({ _id: localStorage.getItem('wineapp-user-id') });
 
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
 

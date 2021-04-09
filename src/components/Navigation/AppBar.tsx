@@ -91,10 +91,13 @@ export const HeaderBar: React.FC<{
     : null;
   const reducedReview = myReviews?.length
     ? //@ts-expect-error I didn't understand the error????
-      (myReviews.reduce((acc, val) => val.rating + acc.rating) as number)
+      myReviews.reduce((acc, val) => ({
+        rating: val.rating + acc.rating,
+      }))
     : null;
+
   const rating = reducedReview
-    ? reducedReview / (myReviews?.length as number)
+    ? reducedReview.rating / (myReviews?.length as number)
     : null;
   const drawerData: DrawerData = {
     isLoading: meQueryResult.loading,

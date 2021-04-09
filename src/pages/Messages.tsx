@@ -10,7 +10,7 @@ import { notification } from '../cache';
 import { RouteComponentProps } from '@reach/router';
 import { BackButton } from '../components/BackButton';
 
-export const Messages: React.FC<RouteComponentProps> = () => {
+const Messages: React.FC<RouteComponentProps> = () => {
   const messagesResult = useMessagesQuery({
     fetchPolicy: 'network-only',
     onError: (error) => {
@@ -32,9 +32,8 @@ export const Messages: React.FC<RouteComponentProps> = () => {
   if (messagesResult.loading) {
     return <Skeleton />;
   }
-
   if (messagesResult.error) return <div>error</div>;
-  if (!messagesForNegotiation) return <div>nno ci sono messaggi</div>;
+  if (!messagesForNegotiation.length) return <div>nno ci sono messaggi</div>;
   if (!messages) return null;
   return (
     <Container component='main' maxWidth='sm'>
@@ -50,3 +49,5 @@ export const Messages: React.FC<RouteComponentProps> = () => {
     </Container>
   );
 };
+
+export default Messages;

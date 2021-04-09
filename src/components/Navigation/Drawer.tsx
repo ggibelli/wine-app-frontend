@@ -17,6 +17,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link as RouterLink } from '@reach/router';
 import { LogoutButton } from '../../containers/LogoutButton';
 import { useStyleRating, StyledRating } from '../../utils/styleHook';
+import Link from '@material-ui/core/Link';
 
 export interface DrawerData {
   isLoading: boolean;
@@ -51,10 +52,17 @@ export const Drawer: React.FC<{
         <Typography color='primary' component='h1'>
           {data.data?.name}
         </Typography>
-        <div className={classes.root}>
-          <StyledRating name='read-only' value={data?.data?.rating} readOnly />
-          <Box>{data?.data?.rating ? `(${data?.data?.rating})` : null}</Box>
-        </div>
+        <Link component={RouterLink} to='/recensioni'>
+          <div className={classes.root}>
+            <StyledRating
+              name='read-only'
+              value={data?.data?.rating}
+              readOnly
+              precision={0.1}
+            />
+            <Box>{data?.data?.rating ? `(${data?.data?.rating})` : null}</Box>
+          </div>
+        </Link>
       </Box>
       <Divider />
       <List>

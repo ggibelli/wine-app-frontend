@@ -8,7 +8,7 @@ import _ from 'lodash';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-export const SignUp: React.FC<RouteComponentProps> = () => {
+const SignUp: React.FC<RouteComponentProps> = () => {
   const [createUserMutation] = useCreateUserMutation({
     onError: (error) =>
       notification({
@@ -59,3 +59,5 @@ export const SignUp: React.FC<RouteComponentProps> = () => {
     </Container>
   );
 };
+
+export default SignUp;

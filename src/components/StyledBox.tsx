@@ -6,9 +6,13 @@ interface BoxProps {
   width: number;
   typeAd: TypeAd;
   children: React.ReactNode;
+  notActive?: boolean;
 }
 
 export const StyledBox: React.FC<BoxProps> = (props) => {
+  const sellColor = props.notActive ? '#b2b2b2' : 'white';
+  const buyColor = props.notActive ? '#8a425a' : 'primary.main';
+
   return (
     <Box
       boxShadow={3}
@@ -20,7 +24,7 @@ export const StyledBox: React.FC<BoxProps> = (props) => {
       width={props.width}
       color={props.typeAd === TypeAd.Sell ? 'primary.main' : 'white'}
       borderColor={props.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
-      bgcolor={props.typeAd === TypeAd.Sell ? 'white' : 'primary.main'}
+      bgcolor={props.typeAd === TypeAd.Sell ? sellColor : buyColor}
       borderRadius={16}
     >
       {props.children}

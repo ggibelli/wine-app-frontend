@@ -24,7 +24,7 @@ import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../components/InfiniteScrollFetch';
 import { AdsWineResult } from '../types';
 
-export const Ads: React.FC<RouteComponentProps> = () => {
+const Ads: React.FC<RouteComponentProps> = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
@@ -110,6 +110,9 @@ export const Ads: React.FC<RouteComponentProps> = () => {
       }
     }
   };
+  if (ads?.length === 0) {
+    return <div>Non hai ancora creato annunci</div>;
+  }
   if (ads && ads.length && result.data?.ads?.ads?.length !== 0) {
     return (
       <Container component='main' maxWidth='xs'>
@@ -160,3 +163,5 @@ export const Ads: React.FC<RouteComponentProps> = () => {
   }
   return <Skeleton />;
 };
+
+export default Ads;

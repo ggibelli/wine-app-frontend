@@ -222,6 +222,7 @@ export type QueryAdsForUserArgs = {
   offset?: Maybe<Scalars['Int']>;
   orderBy?: Maybe<QueryOrderBy>;
   limit?: Maybe<Scalars['Int']>;
+  isActive?: Maybe<Scalars['Boolean']>;
   user: Scalars['ID'];
 };
 
@@ -1334,6 +1335,7 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
               | 'activeNegotiations'
               | 'numberViews'
               | 'datePosted'
+              | 'isActive'
             > & {
                 wine?: Maybe<
                   { __typename?: 'Wine' } & Pick<
@@ -1554,6 +1556,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'typeAd'
                   | 'activeNegotiations'
                   | 'numberViews'
+                  | 'isActive'
                   | 'datePosted'
                 > & {
                     wine?: Maybe<
@@ -1578,6 +1581,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'typeAd'
                   | 'activeNegotiations'
                   | 'numberViews'
+                  | 'isActive'
                   | 'datePosted'
                 > & {
                     postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
@@ -1777,11 +1781,11 @@ export type ReviewsQueryVariables = Exact<{
 
 export type ReviewsQuery = { __typename?: 'Query' } & {
   reviews?: Maybe<
-    { __typename?: 'ReviewResult' } & {
-      reviews?: Maybe<
-        Array<Maybe<{ __typename?: 'Review' } & ReviewDetailsFragment>>
-      >;
-    }
+    { __typename?: 'ReviewResult' } & Pick<ReviewResult, 'pageCount'> & {
+        reviews?: Maybe<
+          Array<Maybe<{ __typename?: 'Review' } & ReviewDetailsFragment>>
+        >;
+      }
   >;
 };
 
@@ -1817,6 +1821,7 @@ export type AdsForUserQueryVariables = Exact<{
   offset?: Maybe<Scalars['Int']>;
   orderBy?: Maybe<QueryOrderBy>;
   limit?: Maybe<Scalars['Int']>;
+  isActive?: Maybe<Scalars['Boolean']>;
   user: Scalars['ID'];
 }>;
 
@@ -1842,6 +1847,7 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
                   | 'activeNegotiations'
                   | 'numberViews'
                   | 'datePosted'
+                  | 'isActive'
                 > & {
                     wine?: Maybe<
                       { __typename?: 'Wine' } & Pick<
@@ -1870,6 +1876,7 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
                   | 'activeNegotiations'
                   | 'numberViews'
                   | 'datePosted'
+                  | 'isActive'
                 > & {
                     postedBy: { __typename?: 'User' } & Pick<
                       User,
@@ -2937,6 +2944,7 @@ export const FavoriteDocument = gql`
         activeNegotiations
         numberViews
         datePosted
+        isActive
       }
     }
   }
@@ -3407,6 +3415,7 @@ export const AdsWineDocument = gql`
         }
         activeNegotiations
         numberViews
+        isActive
         datePosted
       }
       pageCount
@@ -3847,6 +3856,7 @@ export const ReviewsDocument = gql`
       reviews {
         ...ReviewDetails
       }
+      pageCount
     }
   }
   ${ReviewDetailsFragmentDoc}
@@ -4008,9 +4018,16 @@ export const AdsForUserDocument = gql`
     $offset: Int
     $orderBy: QueryOrderBy
     $limit: Int
+    $isActive: Boolean
     $user: ID!
   ) {
-    adsForUser(offset: $offset, orderBy: $orderBy, limit: $limit, user: $user) {
+    adsForUser(
+      offset: $offset
+      orderBy: $orderBy
+      limit: $limit
+      user: $user
+      isActive: $isActive
+    ) {
       ads {
         _id
         postedBy {
@@ -4043,6 +4060,7 @@ export const AdsForUserDocument = gql`
         activeNegotiations
         numberViews
         datePosted
+        isActive
       }
       pageCount
     }
@@ -4064,6 +4082,7 @@ export const AdsForUserDocument = gql`
  *      offset: // value for 'offset'
  *      orderBy: // value for 'orderBy'
  *      limit: // value for 'limit'
+ *      isActive: // value for 'isActive'
  *      user: // value for 'user'
  *   },
  * });

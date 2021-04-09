@@ -345,6 +345,7 @@ export const ADS_WINE = gql`
         }
         activeNegotiations
         numberViews
+        isActive
         datePosted
       }
       pageCount
@@ -486,6 +487,7 @@ export const REVIEWS = gql`
       reviews {
         ...ReviewDetails
       }
+      pageCount
     }
   }
   ${REVIEW_DETAILS}
@@ -521,9 +523,16 @@ export const ADS_FOR_USER = gql`
     $offset: Int
     $orderBy: QueryOrderBy
     $limit: Int
+    $isActive: Boolean
     $user: ID!
   ) {
-    adsForUser(offset: $offset, orderBy: $orderBy, limit: $limit, user: $user) {
+    adsForUser(
+      offset: $offset
+      orderBy: $orderBy
+      limit: $limit
+      user: $user
+      isActive: $isActive
+    ) {
       ads {
         _id
         postedBy {
@@ -556,6 +565,7 @@ export const ADS_FOR_USER = gql`
         activeNegotiations
         numberViews
         datePosted
+        isActive
       }
       pageCount
     }

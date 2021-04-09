@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { CloseNegotiationButton } from '../containers/CloseNegotiationButton';
 import { useStyles } from '../utils/styleHook';
 
-export const Negotiation: React.FC<RouteComponentProps> = () => {
+const Negotiation: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const classes = useStyles();
@@ -71,3 +71,5 @@ export const Negotiation: React.FC<RouteComponentProps> = () => {
     </Container>
   );
 };
+
+export default Negotiation;

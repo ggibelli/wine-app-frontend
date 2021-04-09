@@ -9,7 +9,7 @@ import { Link as RouterLink } from '@reach/router';
 import { searchedWine } from '../cache';
 import { useStyles } from '../utils/styleHook';
 
-export const Home: React.FC<RouteComponentProps> = () => {
+const Home: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
   searchedWine(undefined);
   return (
@@ -69,7 +69,8 @@ export const Home: React.FC<RouteComponentProps> = () => {
           </Typography>
         </Box>
       </Link>
-      <Link component={RouterLink} to='/' style={{ textDecoration: 'none' }}>
+      {/* Next feature */}
+      {/* <Link component={RouterLink} to='/' style={{ textDecoration: 'none' }}>
         <Box
           className={classes.cruiseHome}
           boxShadow={3}
@@ -91,7 +92,9 @@ export const Home: React.FC<RouteComponentProps> = () => {
             qualcosa di interessante.
           </Typography>
         </Box>
-      </Link>
+      </Link> */}
     </Container>
   );
 };
+
+export default Home;

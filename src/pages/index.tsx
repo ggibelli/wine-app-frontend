@@ -1,29 +1,42 @@
 import * as React from 'react';
-import { Router } from '@reach/router';
+import { RouteComponentProps, Router } from '@reach/router';
 import { Header } from '../components/Navigation';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { SignUp } from './Signup';
-// import { Profile } from './Profile';
-import { Home } from './Home';
-import { Buy } from './BuySell';
-import { Ads } from './Ads';
-import { Ad } from './Ad';
-import { MyAds } from './MyAds';
-import { Negotiations } from './Negotiations';
-import { Negotiation } from './Negotiation';
-import { Messages } from './Messages';
-import { Message } from './Message';
 
-import { SavedAds } from './SavedAds';
-import { myInfo } from '../cache';
+function createLazyRoute<T extends RouteComponentProps>(
+  RouteComponent: React.ComponentType<T>
+) {
+  // eslint-disable-next-line react/display-name
+  return function (props: T) {
+    return (
+      <React.Suspense fallback={<div>loading</div>}>
+        <RouteComponent {...props} />
+      </React.Suspense>
+    );
+  };
+}
+
+const SignUp = createLazyRoute(React.lazy(() => import('./Signup')));
+const Home = createLazyRoute(React.lazy(() => import('./Home')));
+const Buy = createLazyRoute(React.lazy(() => import('./BuySell')));
+const Ads = createLazyRoute(React.lazy(() => import('./Ads')));
+const Ad = createLazyRoute(React.lazy(() => import('./Ad')));
+const MyAds = createLazyRoute(React.lazy(() => import('./MyAds')));
+const Negotiations = createLazyRoute(
+  React.lazy(() => import('./Negotiations'))
+);
+const Negotiation = createLazyRoute(React.lazy(() => import('./Negotiation')));
+const Messages = createLazyRoute(React.lazy(() => import('./Messages')));
+const Message = createLazyRoute(React.lazy(() => import('./Message')));
+const SavedAds = createLazyRoute(React.lazy(() => import('./SavedAds')));
+const Reviews = createLazyRoute(React.lazy(() => import('./Reviews')));
 
 export const Pages: React.FC = () => {
-  const id = localStorage.getItem('wineapp-user-id');
-  const isLogged = id ? true : false;
-  const RouterLogged = () => {
-    if (isLogged) {
-      myInfo({ _id: id as string });
-      return (
+  return (
+    <>
+      <CssBaseline />
+      <Header />
+      <main>
         <Router primary={false} component={React.Fragment}>
           <Home path='/' />
           {['/buy', '/sell'].map((path) => (
@@ -37,23 +50,11 @@ export const Pages: React.FC = () => {
 
           <Negotiations path='/trattative' />
           <Negotiation path='/trattative/:id' />
-
+          <Reviews path='/recensioni' />
           {/* <Profile path='/profilo' /> */}
           <SavedAds path='/salvati' />
           <SignUp path='/signup' />
         </Router>
-      );
-    } else {
-      return <div>loggati</div>;
-    }
-  };
-
-  return (
-    <>
-      <CssBaseline />
-      <Header />
-      <main>
-        <RouterLogged />
       </main>
     </>
   );

@@ -19,7 +19,7 @@ import { updateCacheNegotiations } from '../utils/updateCache';
 import { OpenNegotiations } from '../components/OpenNegotiations';
 import { useStyles } from '../utils/styleHook';
 
-export const Ad: React.FC<RouteComponentProps> = () => {
+const Ad: React.FC<RouteComponentProps> = () => {
   const [ad, setAd] = React.useState<AdQuery['ad'] | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
@@ -123,3 +123,5 @@ export const Ad: React.FC<RouteComponentProps> = () => {
     </>
   );
 };
+
+export default Ad;

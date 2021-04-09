@@ -10,12 +10,14 @@ import {
   CreateAdWineMutation,
   CreateMessageMutation,
   CreateNegotiationMutation,
+  CreateReviewMutation,
   MeDocument,
   Message,
   MessagesDocument,
   MessagesNegotiationDocument,
   Negotiation,
   NegotiationsDocument,
+  Review,
   User,
 } from '../generated/graphql';
 
@@ -238,5 +240,23 @@ export const updateCacheMessages = (
     query: MessagesNegotiationDocument,
     variables: { id: message?.negotiation._id },
     data: cachedMessagesNegotiationsLocal,
+  });
+};
+
+export const updateCacheReview = (
+  client: ApolloClient<object>,
+  review: MutationResult<
+    DeepExtractType<CreateReviewMutation, ['createReview']>['response']
+  >['data']
+) => {
+  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+    client.readQuery({
+      query: MeDocument,
+    })
+  );
+  cachedDataMeLocal?.me.reviews?.push(review as Review);
+  client.writeQuery({
+    query: MeDocument,
+    data: cachedDataMeLocal,
   });
 };

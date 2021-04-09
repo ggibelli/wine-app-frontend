@@ -15,6 +15,7 @@ export type AdsWineResult = Pick<
   | 'activeNegotiations'
   | 'numberViews'
   | 'datePosted'
+  | 'isActive'
 > & {
   wine?: Maybe<
     { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona' | 'regione'>

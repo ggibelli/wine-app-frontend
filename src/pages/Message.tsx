@@ -13,7 +13,8 @@ import { myInfo, notification } from '../cache';
 import { Chat } from '../components/Chat';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { format } from 'date-fns';
-export const Message: React.FC<RouteComponentProps> = () => {
+
+const Message: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const me = myInfo();
@@ -110,3 +111,5 @@ export const Message: React.FC<RouteComponentProps> = () => {
     </Container>
   );
 };
+
+export default Message;

@@ -8,10 +8,12 @@ import { CardWine } from '../components/CardWine';
 import { useFavoriteQuery } from '../generated/graphql';
 import { AdsWineResult } from '../types';
 
-export const SavedAds: React.FC<RouteComponentProps> = () => {
+const SavedAds: React.FC<RouteComponentProps> = () => {
   const { data, loading, error } = useFavoriteQuery();
   if (loading) return <div>loading</div>;
   if (error || !data?.me?.savedAds) return <div>error</div>;
+  if (data?.me?.savedAds.length === 0)
+    return <div>Non hai ancora salvato annunci</div>;
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
@@ -27,3 +29,5 @@ export const SavedAds: React.FC<RouteComponentProps> = () => {
     </Container>
   );
 };
+
+export default SavedAds;

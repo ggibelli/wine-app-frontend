@@ -16,21 +16,30 @@ import { myInfo } from '../cache';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { CardWine } from '../components/CardWine';
 import { AdsWineResult } from '../types';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Divider from '@material-ui/core/Divider';
+import { PurpleCheckbox } from '../components/FilterAds';
 
-export const MyAds: React.FC<RouteComponentProps> = () => {
+const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
+  const [active, setActive] = React.useState<true | undefined>(undefined);
   const [ads, setAds] = React.useState<
+    DeepExtractType<AdsWineQuery, ['ads']>['ads']
+  >([]);
+  const [adsFiltered, setAdsFiltered] = React.useState<
     DeepExtractType<AdsWineQuery, ['ads']>['ads']
   >([]);
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
+  const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
   const [query, result] = useAdsForUserLazyQuery({
     variables: {
       offset: 0,
       limit: 4,
       orderBy: QueryOrderBy.CreatedAtDesc,
       user: me?._id as string,
+      isActive: active,
     },
     onError: (error) => console.log(error),
   });
@@ -53,14 +62,35 @@ export const MyAds: React.FC<RouteComponentProps> = () => {
         .catch((e) => console.log(e));
     }
   }, [order]);
+  React.useEffect(() => {
+    setAdsFiltered(ads);
+    if (hideNotActive && ads?.length) {
+      setAdsFiltered(ads?.filter((a) => a?.isActive));
+    }
+  }, [hideNotActive, ads]);
+  const handleChange = () => {
+    setHideNotActive(!hideNotActive);
+    if (hideNotActive) {
+      setActive(undefined);
+      setAdsFiltered(ads);
+    } else {
+      setActive(true);
+    }
+  };
+
+  if (ads?.length === 0) {
+    return <div>Non hai ancora creato annunci</div>;
+  }
+
   if (ads?.length) {
     const handleFetchMore = async () => {
       if (result.fetchMore) {
         try {
           await result.fetchMore({
             variables: {
-              offset: result.data?.adsForUser?.ads?.length,
+              offset: adsFiltered?.length,
               orderBy: order,
+              isActive: active,
             },
           });
         } catch (e) {
@@ -78,14 +108,25 @@ export const MyAds: React.FC<RouteComponentProps> = () => {
         </Typography>
         <br />
         <Order setOrder={setOrder} order={order} />
+        <Divider />
+        <FormControlLabel
+          control={
+            <PurpleCheckbox
+              checked={hideNotActive}
+              onChange={handleChange}
+              name='showAll'
+            />
+          }
+          label='Nascondi gli annunci inattivi'
+        />
         <InfiniteScroll
           fetchMore={handleFetchMore}
-          isVisible={ads.length !== result.data?.adsForUser?.pageCount}
+          isVisible={adsFiltered?.length !== result.data?.adsForUser?.pageCount}
           isLoading={result.loading}
         >
           {' '}
-          {ads &&
-            ads.map((ad) => (
+          {adsFiltered &&
+            adsFiltered.map((ad) => (
               <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
             ))}
         </InfiniteScroll>
@@ -94,3 +135,5 @@ export const MyAds: React.FC<RouteComponentProps> = () => {
   }
   return <Skeleton />;
 };
+
+export default MyAds;
