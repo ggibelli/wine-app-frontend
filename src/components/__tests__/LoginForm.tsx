@@ -1,11 +1,11 @@
 import { LoginForm } from '../LoginModal/LoginForm';
 import * as React from 'react';
 import {
-  renderApollo,
   cleanup,
   fireEvent,
   screen,
   waitFor,
+  renderApolloNoRouter,
 } from '../../test-utils';
 
 describe('Login form', () => {
@@ -15,7 +15,9 @@ describe('Login form', () => {
   it('renders Login form', () => {
     const onSubmit = () => jest.fn();
     const handleClose = jest.fn();
-    renderApollo(<LoginForm onSubmit={onSubmit} onClose={handleClose} />);
+    renderApolloNoRouter(
+      <LoginForm onSubmit={onSubmit} onClose={handleClose} />
+    );
     expect(screen.getByRole('textbox', { name: /email/i })).toBeInTheDocument();
     expect(screen.getByText('Password')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
@@ -25,7 +27,7 @@ describe('Login form', () => {
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
     const handleClose = jest.fn();
-    const { getAllByText } = renderApollo(
+    const { getAllByText } = renderApolloNoRouter(
       <LoginForm onSubmit={onSubmit} onClose={handleClose} />
     );
 
@@ -49,7 +51,9 @@ describe('Login form', () => {
   it('should validate form fields and submit', async () => {
     const onSubmit = jest.fn();
     const handleClose = jest.fn();
-    renderApollo(<LoginForm onSubmit={onSubmit} onClose={handleClose} />);
+    renderApolloNoRouter(
+      <LoginForm onSubmit={onSubmit} onClose={handleClose} />
+    );
 
     fireEvent.input(screen.getByRole('textbox', { name: /email/i }), {
       target: {
@@ -76,7 +80,9 @@ describe('Login form', () => {
   it('it should close modal if click to link', () => {
     const onSubmit = () => jest.fn();
     const handleClose = jest.fn();
-    renderApollo(<LoginForm onSubmit={onSubmit} onClose={handleClose} />);
+    renderApolloNoRouter(
+      <LoginForm onSubmit={onSubmit} onClose={handleClose} />
+    );
     fireEvent.click(screen.getByRole('link', { name: /sign up/i }));
     expect(handleClose).toHaveBeenCalledTimes(1);
   });

@@ -118,7 +118,7 @@ export const Drawer: React.FC<{
           <ListItemText primary='Annunci salvati' />
         </ListItem>
         <Divider />
-        <div className={classes.bottomPush}>
+        <div data-testid='logout' className={classes.bottomPush}>
           <LogoutButton />
         </div>
       </List>

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { RouteComponentProps } from '@reach/router';
@@ -19,6 +18,8 @@ import { notification } from '../cache';
 import { PurpleCheckbox } from '../components/FilterAds';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
+import { Backdrop, CircularProgress } from '@material-ui/core';
+import { useStyles } from '../utils/styleHook';
 
 const Negotiations: React.FC<RouteComponentProps> = () => {
   const [lazyNegotiations, result] = useNegotiationsLazyQuery({
@@ -31,7 +32,7 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
     QueryOrderBy.CreatedAtDesc
   );
   const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
-
+  const classes = useStyles();
   const handleShowAll = () => {
     if (isShowAll && result.refetch) {
       void result.refetch({
@@ -92,6 +93,19 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
         .catch((e) => console.log(e));
     }
   }, [order]);
+  if (result.loading) {
+    return (
+      <>
+        <Backdrop
+          data-testid='loading'
+          className={classes.backdrop}
+          open={result.loading}
+        >
+          <CircularProgress color='inherit' />
+        </Backdrop>
+      </>
+    );
+  }
   if (negotiations?.length === 0) {
     return <div>Non hai ancora aperto trattative</div>;
   }
@@ -155,7 +169,7 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
   if (result.data?.negotiations?.negotiations?.length === 0) {
     return <div>Non ci sono negoziazioni attive</div>;
   }
-  return <Skeleton />;
+  return <div>Grave errore</div>;
 };
 
 export default Negotiations;

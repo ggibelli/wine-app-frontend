@@ -1,6 +1,6 @@
 import { LoginModal } from '../LoginModal';
 import * as React from 'react';
-import { renderApollo, cleanup, fireEvent } from '../../test-utils';
+import { renderApolloNoRouter, cleanup, fireEvent } from '../../test-utils';
 
 describe('LoginModal', () => {
   // automatically unmount and cleanup DOM after the test is finished.
@@ -9,7 +9,7 @@ describe('LoginModal', () => {
   it('renders LoginModal', () => {
     const handleClose = jest.fn();
     const onSubmit = jest.fn();
-    const { getByText, getByRole } = renderApollo(
+    const { getByText, getByRole } = renderApolloNoRouter(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       <LoginModal open={true} handleClose={handleClose} onSubmit={onSubmit} />
     );

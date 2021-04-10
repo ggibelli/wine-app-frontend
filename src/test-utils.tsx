@@ -6,6 +6,12 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import '@testing-library/jest-dom/extend-expect';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { purple } from '@material-ui/core/colors';
+import {
+  createHistory,
+  createMemorySource,
+  LocationProvider,
+  Router,
+} from '@reach/router';
 
 const theme = createMuiTheme({
   palette: {
@@ -42,6 +48,35 @@ const renderApollo = (
     defaultOptions,
     cache,
     resolvers,
+
+    ...options
+  }: RenderApolloOptions = {},
+  { route = '/', history = createHistory(createMemorySource(route)) } = {}
+) => {
+  return customRender(
+    <MockedProvider
+      mocks={mocks}
+      addTypename={addTypename}
+      defaultOptions={defaultOptions}
+      cache={cache}
+      resolvers={resolvers}
+    >
+      <LocationProvider history={history}>
+        <Router>{node}</Router>
+      </LocationProvider>
+    </MockedProvider>,
+    options
+  );
+};
+
+const renderApolloNoRouter = (
+  node: any,
+  {
+    mocks,
+    addTypename,
+    defaultOptions,
+    cache,
+    resolvers,
     ...options
   }: RenderApolloOptions = {}
 ) => {
@@ -61,5 +96,5 @@ const renderApollo = (
 
 export * from '@testing-library/react';
 export { renderApollo };
-
+export { renderApolloNoRouter };
 export { customRender as render };

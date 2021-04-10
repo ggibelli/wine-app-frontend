@@ -19,15 +19,18 @@ import { Filter } from '../components/FilterAds';
 import { SnackbarAds } from '../components/Snackbar';
 import { useTheme } from '@material-ui/core/styles';
 import { StyledBox } from '../components/StyledBox';
-import { useMediaQuery } from '@material-ui/core';
+import { Backdrop, CircularProgress, useMediaQuery } from '@material-ui/core';
 import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../components/InfiniteScrollFetch';
 import { AdsWineResult } from '../types';
+
+import { useStyles } from '../utils/styleHook';
 
 const Ads: React.FC<RouteComponentProps> = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
+  const classes = useStyles();
   const searchedWineCache = searchedWine();
   const [ads, setAds] = React.useState<
     DeepExtractType<AdsWineQuery, ['ads']>['ads']
@@ -110,6 +113,19 @@ const Ads: React.FC<RouteComponentProps> = () => {
       }
     }
   };
+  if (result.loading) {
+    return (
+      <>
+        <Backdrop
+          data-testid='loading'
+          className={classes.backdrop}
+          open={result.loading}
+        >
+          <CircularProgress color='inherit' />
+        </Backdrop>
+      </>
+    );
+  }
   if (ads?.length === 0) {
     return <div>Non hai ancora creato annunci</div>;
   }

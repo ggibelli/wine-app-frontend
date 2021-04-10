@@ -19,6 +19,8 @@ import { AdsWineResult } from '../types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import { PurpleCheckbox } from '../components/FilterAds';
+import { Backdrop, CircularProgress } from '@material-ui/core';
+import { useStyles } from '../utils/styleHook';
 
 const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
@@ -32,6 +34,7 @@ const MyAds: React.FC<RouteComponentProps> = () => {
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
+  const classes = useStyles();
   const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
   const [query, result] = useAdsForUserLazyQuery({
     variables: {
@@ -77,6 +80,20 @@ const MyAds: React.FC<RouteComponentProps> = () => {
       setActive(true);
     }
   };
+
+  if (result.loading) {
+    return (
+      <>
+        <Backdrop
+          data-testid='loading'
+          className={classes.backdrop}
+          open={result.loading}
+        >
+          <CircularProgress color='inherit' />
+        </Backdrop>
+      </>
+    );
+  }
 
   if (ads?.length === 0) {
     return <div>Non hai ancora creato annunci</div>;

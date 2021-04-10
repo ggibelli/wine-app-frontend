@@ -66,7 +66,6 @@ export const HeaderBar: React.FC<{
   const handleClickOpen = () => {
     setOpenModal(true);
   };
-
   const handleClose = () => {
     setOpenModal(false);
   };
@@ -95,7 +94,6 @@ export const HeaderBar: React.FC<{
         rating: val.rating + acc.rating,
       }))
     : null;
-
   const rating = reducedReview
     ? reducedReview.rating / (myReviews?.length as number)
     : null;
@@ -122,7 +120,10 @@ export const HeaderBar: React.FC<{
   const SigninButton = () => {
     if (loggedUser.data?.isLoggedIn) {
       return (
-        <IconButton onClick={() => navigate('/messaggi')}>
+        <IconButton
+          data-testid='messages'
+          onClick={() => navigate('/messaggi')}
+        >
           <Badge badgeContent={badgeNumber} color='secondary'>
             <ChatOutlinedIcon fontSize='large' style={{ color: '#fff' }} />
           </Badge>
@@ -139,6 +140,7 @@ export const HeaderBar: React.FC<{
       color='inherit'
       aria-label='menu'
       onClick={toggleDrawer}
+      data-testid='drawer'
     >
       <MenuIcon />
     </IconButton>

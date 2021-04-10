@@ -1,7 +1,7 @@
 import { WineFormMutation } from '../WineForms/Post/WineFormMutation';
 import * as React from 'react';
 import {
-  renderApollo,
+  renderApolloNoRouter,
   cleanup,
   fireEvent,
   screen,
@@ -40,17 +40,22 @@ describe('Wine form mutation', () => {
 
   it('renders Wine form mutation loading state', () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />);
+    renderApolloNoRouter(
+      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />
+    );
     expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
 
   it('renders Wine form query success state, shows address field by default', async () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />, {
-      mocks,
-      addTypename: true,
-      resolvers: {},
-    });
+    renderApolloNoRouter(
+      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
+      {
+        mocks,
+        addTypename: true,
+        resolvers: {},
+      }
+    );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(
@@ -81,10 +86,7 @@ describe('Wine form mutation', () => {
     expect(
       screen.getByRole('textbox', { name: /comune/i })
     ).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: /via/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', { name: /address.CAP/i })
-    ).toBeInTheDocument();
+
     expect(
       screen.getByRole('combobox', { name: /metodo produttivo/i })
     ).toBeInTheDocument();
@@ -106,11 +108,14 @@ describe('Wine form mutation', () => {
 
   it('renders Wine form query success state, does not show address field if same address', async () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />, {
-      mocks,
-      addTypename: true,
-      resolvers: {},
-    });
+    renderApolloNoRouter(
+      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
+      {
+        mocks,
+        addTypename: true,
+        resolvers: {},
+      }
+    );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(
@@ -142,8 +147,6 @@ describe('Wine form mutation', () => {
     expect(screen.queryByText(/regione/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/provincia/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/comune/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/via/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/cap/i)).not.toBeInTheDocument();
     expect(
       screen.getByRole('combobox', { name: /metodo produttivo/i })
     ).toBeInTheDocument();
@@ -165,7 +168,7 @@ describe('Wine form mutation', () => {
 
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
-    const { getAllByText } = renderApollo(
+    const { getAllByText } = renderApolloNoRouter(
       <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
@@ -245,7 +248,7 @@ describe('Wine form mutation', () => {
       harvest: 2012,
       isPost: true,
     });
-    const { getByTestId, getByText } = renderApollo(
+    const { getByTestId, getByText } = renderApolloNoRouter(
       <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
@@ -308,7 +311,7 @@ describe('Wine form mutation', () => {
       harvest: 2012,
       isPost: true,
     });
-    const { getByTestId } = renderApollo(
+    const { getByTestId } = renderApolloNoRouter(
       <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );

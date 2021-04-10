@@ -1,7 +1,7 @@
 import { WineFormQuery } from '../WineForms/Search/WineFormQuery';
 import * as React from 'react';
 import {
-  renderApollo,
+  renderApolloNoRouter,
   cleanup,
   fireEvent,
   screen,
@@ -39,7 +39,9 @@ describe('Wine form query', () => {
 
   it('renders Wine form query loading state', () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />);
+    renderApolloNoRouter(
+      <WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />
+    );
     expect(screen.getByTestId('loading')).toBeInTheDocument();
     // expect(
     //   screen.getByRole('textbox', { name: /gradazione/i })
@@ -55,11 +57,14 @@ describe('Wine form query', () => {
 
   it('renders Wine form query success state', async () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />, {
-      mocks,
-      addTypename: true,
-      resolvers: {},
-    });
+    renderApolloNoRouter(
+      <WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />,
+      {
+        mocks,
+        addTypename: true,
+        resolvers: {},
+      }
+    );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(
@@ -81,7 +86,7 @@ describe('Wine form query', () => {
 
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
-    const { getAllByText } = renderApollo(
+    const { getAllByText } = renderApolloNoRouter(
       <WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
@@ -117,7 +122,7 @@ describe('Wine form query', () => {
 
   it('should validate form fields and not submit if fields are not valid', async () => {
     const onSubmit = jest.fn();
-    const { getByTestId, getByText } = renderApollo(
+    const { getByTestId, getByText } = renderApolloNoRouter(
       <WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );
@@ -170,7 +175,7 @@ describe('Wine form query', () => {
 
   it('should validate form fields and submit if fields are valid', async () => {
     const onSubmit = jest.fn();
-    const { getByTestId } = renderApollo(
+    const { getByTestId } = renderApolloNoRouter(
       <WineFormQuery onSubmit={onSubmit} adType={TypeAd.Buy} />,
       { mocks, addTypename: true, resolvers: {} }
     );

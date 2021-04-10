@@ -13,6 +13,8 @@ import { myInfo, notification } from '../cache';
 import { Chat } from '../components/Chat';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { format } from 'date-fns';
+import { Backdrop, CircularProgress } from '@material-ui/core';
+import { useStyles } from '../utils/styleHook';
 
 const Message: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -48,7 +50,7 @@ const Message: React.FC<RouteComponentProps> = () => {
     //   updateCacheMessages(cache, data.data?.createMessage?.response);
     // },
   });
-
+  const classes = useStyles();
   React.useEffect(() => {
     if (data?.messagesForNegotiation?.messages) {
       setSortedMessage([...data?.messagesForNegotiation?.messages].reverse());
@@ -67,8 +69,6 @@ const Message: React.FC<RouteComponentProps> = () => {
       }
     }
   };
-  if (!message) return <div>niente mess ancora</div>;
-
   const handleCreate = async (message: MessageInput) => {
     await createMessage({
       variables: { message },
@@ -95,12 +95,25 @@ const Message: React.FC<RouteComponentProps> = () => {
     handleCreate,
     handleFetchMore,
   };
+  if (loading || propsMessage.isVisible === undefined) {
+    return (
+      <>
+        <Backdrop
+          data-testid='loading'
+          className={classes.backdrop}
+          open={loading}
+        >
+          <CircularProgress color='inherit' />
+        </Backdrop>
+      </>
+    );
+  }
+  if (!message) return <div>niente mess ancora</div>;
+
   if (!loading && error) {
     return <div>error</div>;
   }
-  if (loading || propsMessage.isVisible === undefined) {
-    return <div>loading</div>;
-  }
+
   if (!data?.messagesForNegotiation?.messages?.length) {
     return null;
   }

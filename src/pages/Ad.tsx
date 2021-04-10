@@ -29,7 +29,6 @@ const Ad: React.FC<RouteComponentProps> = () => {
     },
     onCompleted: (data) => (data?.ad ? setAd(data?.ad) : null),
   });
-
   React.useEffect(() => {
     if (data?.ad) {
       setAd(data?.ad);
@@ -78,10 +77,6 @@ const Ad: React.FC<RouteComponentProps> = () => {
   };
   const classes = useStyles();
   if (error && !loading) {
-    notification({
-      type: 'error',
-      message: `${error.message}`,
-    });
     return <div>Errore</div>;
   }
 
@@ -117,7 +112,11 @@ const Ad: React.FC<RouteComponentProps> = () => {
   }
   return (
     <>
-      <Backdrop className={classes.backdrop} open={loading}>
+      <Backdrop
+        data-testid='loading'
+        className={classes.backdrop}
+        open={loading}
+      >
         <CircularProgress color='inherit' />
       </Backdrop>
     </>

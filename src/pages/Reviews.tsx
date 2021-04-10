@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { RouteComponentProps } from '@reach/router';
@@ -15,6 +14,8 @@ import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../components/InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { CardReview } from '../components/CardReview';
+import { Backdrop, CircularProgress } from '@material-ui/core';
+import { useStyles } from '../utils/styleHook';
 
 const Reviews: React.FC<RouteComponentProps> = () => {
   const [reviews, setReviews] = React.useState<
@@ -31,6 +32,7 @@ const Reviews: React.FC<RouteComponentProps> = () => {
     },
     onError: (error) => console.log(error),
   });
+  const classes = useStyles();
   React.useEffect(() => {
     if (data?.reviews?.reviews) {
       setReviews(data.reviews.reviews);
@@ -45,6 +47,20 @@ const Reviews: React.FC<RouteComponentProps> = () => {
   }, [order]);
   if (reviews?.length === 0) {
     return <div>Non hai ancora recensioni</div>;
+  }
+  if (error) return <div>error</div>;
+  if (loading) {
+    return (
+      <>
+        <Backdrop
+          data-testid='loading'
+          className={classes.backdrop}
+          open={loading}
+        >
+          <CircularProgress color='inherit' />
+        </Backdrop>
+      </>
+    );
   }
   if (reviews?.length) {
     const handleFetchMore = async () => {
@@ -61,7 +77,6 @@ const Reviews: React.FC<RouteComponentProps> = () => {
         }
       }
     };
-    if (error) return <div>error</div>;
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -89,7 +104,7 @@ const Reviews: React.FC<RouteComponentProps> = () => {
       </Container>
     );
   }
-  return <Skeleton />;
+  return <div>grave errore</div>;
 };
 
 export default Reviews;

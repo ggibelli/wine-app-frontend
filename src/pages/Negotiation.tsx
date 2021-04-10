@@ -3,7 +3,12 @@ import * as React from 'react';
 import { Link, RouteComponentProps, useParams } from '@reach/router';
 import { useNegotiationQuery } from '../generated/graphql';
 import { notification } from '../cache';
-import { Container, CssBaseline } from '@material-ui/core';
+import {
+  Backdrop,
+  CircularProgress,
+  Container,
+  CssBaseline,
+} from '@material-ui/core';
 import { BackButton } from '../components/BackButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -38,7 +43,18 @@ const Negotiation: React.FC<RouteComponentProps> = () => {
     });
     return <div>Errore</div>;
   }
-  if (loading) return <div>loading</div>;
+  if (loading)
+    return (
+      <>
+        <Backdrop
+          data-testid='loading'
+          className={classes.backdrop}
+          open={loading}
+        >
+          <CircularProgress color='inherit' />
+        </Backdrop>
+      </>
+    );
 
   return (
     <Container component='main' maxWidth='xs'>

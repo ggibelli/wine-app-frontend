@@ -39,7 +39,7 @@ export const OpenNegotiations: React.FC<{
   }
   return (
     <>
-      <IconButton onClick={handleShowNegotiations}>
+      <IconButton data-testid='negotiationsAd' onClick={handleShowNegotiations}>
         {!open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
       </IconButton>
       <Collapse in={open}>
