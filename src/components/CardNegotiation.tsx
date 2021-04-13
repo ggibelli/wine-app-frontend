@@ -10,7 +10,7 @@ import { StyledBox } from './StyledBox';
 import { CloseNegotiationButton } from '../containers/CloseNegotiationButton';
 import { useStyles } from '../utils/styleHook';
 import { Grid } from '@material-ui/core';
-import { CreateReview } from '../containers/CreateReview';
+import { CreateReviewModal } from '../components/ReviewModal';
 import { myInfo } from '../cache';
 
 export const CardNegotiation: React.FC<{
@@ -69,8 +69,7 @@ export const CardNegotiation: React.FC<{
       <Grid>
         {negotiation.isConcluded || !showCloseNeg ? (
           !isReviewed ? (
-            <CreateReview
-              isBuy={isBuy}
+            <CreateReviewModal
               idNegotiation={negotiation._id}
               type={negotiation.type}
               idUser={

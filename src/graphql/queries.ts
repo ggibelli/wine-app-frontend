@@ -514,6 +514,7 @@ export const NEGOTIATION_FOR_AD = gql`
       }
       dateCreated
       dateConcluded
+      type
     }
   }
 `;

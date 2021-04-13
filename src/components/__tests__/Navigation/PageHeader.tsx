@@ -1,6 +1,11 @@
 import { HeaderBar } from '../../Navigation/AppBar';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup, fireEvent } from '../../../test-utils';
+import {
+  renderApolloNoRouter,
+  cleanup,
+  fireEvent,
+  render,
+} from '../../../test-utils';
 import { act } from '@testing-library/react';
 import { Exact, MeQuery } from '../../../generated/graphql';
 import { isLoggedInVar, cache } from '../../../cache';

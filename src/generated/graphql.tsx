@@ -1806,7 +1806,7 @@ export type NegotiationsForAdQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'Negotiation' } & Pick<
         Negotiation,
-        '_id' | 'isConcluded' | 'dateCreated' | 'dateConcluded'
+        '_id' | 'isConcluded' | 'dateCreated' | 'dateConcluded' | 'type'
       > & {
           createdBy: { __typename?: 'User' } & Pick<
             User,
@@ -2069,6 +2069,7 @@ export const AdDetailsFragmentDoc = gql`
 `;
 export const NegotiationDetailsFragmentDoc = gql`
   fragment NegotiationDetails on Negotiation {
+    __typename
     _id
     createdBy {
       _id
@@ -3961,6 +3962,7 @@ export const NegotiationsForAdDocument = gql`
       }
       dateCreated
       dateConcluded
+      type
     }
   }
 `;

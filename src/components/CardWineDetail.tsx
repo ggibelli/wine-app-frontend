@@ -33,7 +33,7 @@ export const CardWineDetail: React.FC<{
     } else if (
       me?.negotiations?.find((negotiation) => negotiation?.ad._id === ad?._id)
     ) {
-      return <div>negoziazione gia aperta</div>;
+      return <div>Negoziazione gia aperta</div>;
     }
     if (!ad?.isActive) {
       return <Typography>Annuncio non piu attivo </Typography>;
@@ -41,6 +41,7 @@ export const CardWineDetail: React.FC<{
     return (
       <>
         <Button
+          aria-label='open-negotiation-dialog'
           className={isBuy ? classes.buyButton : classes.sellButton}
           onClick={handleClickOpen}
         >

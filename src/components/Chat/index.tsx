@@ -12,7 +12,7 @@ import { myInfo } from '../../cache';
 import { InfiniteScroll } from '../InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { CloseNegotiationButton } from '../../containers/CloseNegotiationButton';
-import { CreateReview } from '../../containers/CreateReview';
+import { CreateReviewModal } from '../../components/ReviewModal';
 
 interface PropMessages {
   propsMessage: {
@@ -95,8 +95,7 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
         }}
       >
         {message.negotiation.isConcluded ? (
-          <CreateReview
-            isBuy={true}
+          <CreateReviewModal
             idNegotiation={message.negotiation._id}
             idUser={recipient}
             type={message.negotiation.type}

@@ -9,8 +9,6 @@ import {
   useNegotiationsForAdLazyQuery,
   AdQuery,
 } from '../generated/graphql';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { notification } from '../cache';
 import { CardWineDetail } from '../components/CardWineDetail';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
@@ -18,6 +16,7 @@ import { BackButton } from '../components/BackButton';
 import { updateCacheNegotiations } from '../utils/updateCache';
 import { OpenNegotiations } from '../components/OpenNegotiations';
 import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
 
 const Ad: React.FC<RouteComponentProps> = () => {
   const [ad, setAd] = React.useState<AdQuery['ad'] | undefined>(undefined);
@@ -28,6 +27,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
       id: id,
     },
     onCompleted: (data) => (data?.ad ? setAd(data?.ad) : null),
+    onError: (error) => console.log(error),
   });
   React.useEffect(() => {
     if (data?.ad) {
@@ -51,6 +51,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
         });
       }
     },
+
     onError: (error) =>
       notification({
         type: 'error',
@@ -79,7 +80,9 @@ const Ad: React.FC<RouteComponentProps> = () => {
   if (error && !loading) {
     return <div>Errore</div>;
   }
-
+  const negotiationsMyAd = data?.me?.negotiations?.filter(
+    (neg) => neg.ad._id === data?.ad?._id
+  );
   const buyerOrSeller =
     ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
   if (ad?._id) {
@@ -101,7 +104,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
           createNegotiation={openNegotiation}
           me={data?.me}
         />
-        {data?.me?._id === ad.postedBy._id ? (
+        {data?.me?._id === ad.postedBy._id && negotiationsMyAd?.length ? (
           <OpenNegotiations
             data={lazyNegResult}
             showNegotiations={handleShowNegotiations}
@@ -110,17 +113,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
       </Container>
     );
   }
-  return (
-    <>
-      <Backdrop
-        data-testid='loading'
-        className={classes.backdrop}
-        open={loading}
-      >
-        <CircularProgress color='inherit' />
-      </Backdrop>
-    </>
-  );
+  return <Loading />;
 };
 
 export default Ad;
