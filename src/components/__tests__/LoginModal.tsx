@@ -1,6 +1,10 @@
 import { LoginModal } from '../LoginModal';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup, fireEvent } from '../../test-utils';
+import {
+  renderApolloNoRouter,
+  cleanup,
+  fireEvent,
+} from '../../test-utils/test-utils';
 
 describe('LoginModal', () => {
   // automatically unmount and cleanup DOM after the test is finished.

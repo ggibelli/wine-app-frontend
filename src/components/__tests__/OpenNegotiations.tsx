@@ -1,6 +1,6 @@
 import { OpenNegotiations } from '../OpenNegotiations';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup } from '../../test-utils';
+import { renderApolloNoRouter, cleanup } from '../../test-utils/test-utils';
 import { fireEvent } from '@testing-library/react';
 
 const dataSuccess = {

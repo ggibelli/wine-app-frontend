@@ -1,6 +1,6 @@
 import { CreateReview } from '../CreateReview';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup } from '../../test-utils';
+import { renderApolloNoRouter, cleanup } from '../../test-utils/test-utils';
 import { act, fireEvent } from '@testing-library/react';
 import { CreateReviewDocument, TypeAd } from '../../generated/graphql';
 import { notification } from '../../cache';
@@ -63,7 +63,7 @@ const reviewCreatedError = {
 describe('CreateReview Component', () => {
   afterEach(cleanup);
 
-  it.only('renders the CreateReview button', () => {
+  it('renders the CreateReview button', () => {
     const { getByRole } = renderApolloNoRouter(
       <CreateReview review={review} disabled={false} closeModal={jest.fn()} />,
       {
@@ -75,7 +75,7 @@ describe('CreateReview Component', () => {
     expect(getByRole('button', { name: 'review' }));
   });
 
-  it.only('Create review successfull mutation', async () => {
+  it('Create review successfull mutation', async () => {
     const handleClose = jest.fn();
     const { getByRole } = renderApolloNoRouter(
       <CreateReview
@@ -99,7 +99,7 @@ describe('CreateReview Component', () => {
     });
   });
 
-  it.only('Create review error mutation', async () => {
+  it('Create review error mutation', async () => {
     const handleClose = jest.fn();
     const { getByRole } = renderApolloNoRouter(
       <CreateReview

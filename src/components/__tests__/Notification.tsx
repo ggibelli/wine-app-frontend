@@ -1,6 +1,10 @@
 import { Notification } from '../Notification';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup, fireEvent } from '../../test-utils';
+import {
+  renderApolloNoRouter,
+  cleanup,
+  fireEvent,
+} from '../../test-utils/test-utils';
 import { act, screen, waitFor } from '@testing-library/react';
 import { NotificationDocument } from '../../generated/graphql';
 import { notification, cache } from '../../cache';

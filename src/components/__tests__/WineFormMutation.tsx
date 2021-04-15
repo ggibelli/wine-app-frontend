@@ -8,7 +8,7 @@ import {
   waitFor,
   within,
   act,
-} from '../../test-utils';
+} from '../../test-utils/test-utils';
 import { TypeAd, TypeProduct, WinesDocument } from '../../generated/graphql';
 import { searchedWine } from '../../cache';
 

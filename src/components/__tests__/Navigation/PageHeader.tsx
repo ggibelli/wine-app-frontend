@@ -5,7 +5,7 @@ import {
   cleanup,
   fireEvent,
   render,
-} from '../../../test-utils';
+} from '../../../test-utils/test-utils';
 import { act } from '@testing-library/react';
 import { Exact, MeQuery } from '../../../generated/graphql';
 import { isLoggedInVar, cache } from '../../../cache';

@@ -1,5 +1,5 @@
 import { NegotiationModal } from '../NegotiationModal';
-import { cleanup, renderApolloNoRouter } from '../../test-utils';
+import { cleanup, renderApolloNoRouter } from '../../test-utils/test-utils';
 import * as React from 'react';
 import { fireEvent } from '@testing-library/react';
 

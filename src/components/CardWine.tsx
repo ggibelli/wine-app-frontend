@@ -16,8 +16,14 @@ export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
   const pointerEvent = ad?.isActive ? 'auto' : 'none';
   if (!ad) return null;
   return (
-    <StyledBox width={width} typeAd={ad.typeAd} notActive={!ad.isActive}>
+    <StyledBox
+      data-testid='card-wine'
+      width={width}
+      typeAd={ad.typeAd}
+      notActive={!ad.isActive}
+    >
       <Link
+        aria-label='link-ad'
         style={{ pointerEvents: pointerEvent, display: 'block' }}
         component={RouterLink}
         to={`/annunci/${ad._id}`}

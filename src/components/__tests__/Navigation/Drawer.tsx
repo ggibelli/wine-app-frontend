@@ -1,6 +1,6 @@
 import { Drawer } from '../../Navigation/Drawer';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup } from '../../../test-utils';
+import { renderApolloNoRouter, cleanup } from '../../../test-utils/test-utils';
 
 const data = {
   isLoading: false,

@@ -1,6 +1,6 @@
 import { CloseNegotiationButton } from '../CloseNegotiationButton';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup } from '../../test-utils';
+import { renderApolloNoRouter, cleanup } from '../../test-utils/test-utils';
 import { act, fireEvent } from '@testing-library/react';
 import { UpdateNegotiationDocument } from '../../generated/graphql';
 import { notification } from '../../cache';
@@ -69,11 +69,10 @@ describe('CloseNegotiationButton Component', () => {
         addTypename: false,
       }
     );
-    expect(
-      getByRole('button', { name: 'close-negotiation' }).classList.contains(
-        'buyBytton'
-      )
-    ).toBeTruthy();
+    const classes = getByRole('button', {
+      name: 'close-negotiation',
+    }).classList.value;
+    expect(classes.includes('buyButton')).toBeTruthy();
   });
 
   it('renders the CloseNegotiationButton sell class', () => {
@@ -84,11 +83,10 @@ describe('CloseNegotiationButton Component', () => {
         addTypename: false,
       }
     );
-    expect(
-      getByRole('button', { name: 'close-negotiation' }).classList.contains(
-        'sellButton'
-      )
-    ).toBeTruthy();
+    const classes = getByRole('button', {
+      name: 'close-negotiation',
+    }).classList.value;
+    expect(classes.includes('sellButton')).toBeTruthy();
   });
 
   it('Close negotiation success calls notification success', async () => {

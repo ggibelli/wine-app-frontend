@@ -26,7 +26,10 @@ export const CardWineDetail: React.FC<{
   const ContactOrEdit = () => {
     if (me?._id === ad?.postedBy._id) {
       return (
-        <Button className={isBuy ? classes.buyButton : classes.sellButton}>
+        <Button
+          aria-label='edit-ad'
+          className={isBuy ? classes.buyButton : classes.sellButton}
+        >
           Modifica l annuncio
         </Button>
       );

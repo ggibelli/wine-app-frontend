@@ -6,7 +6,7 @@ import {
   screen,
   waitFor,
   renderApolloNoRouter,
-} from '../../test-utils';
+} from '../../test-utils/test-utils';
 
 describe('Login form', () => {
   // automatically unmount and cleanup DOM after the test is finished.

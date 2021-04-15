@@ -27,6 +27,7 @@ interface FilterProps {
   setFilteredList: React.Dispatch<
     React.SetStateAction<Array<any> | undefined | null>
   >;
+  children?: React.ReactNode;
 }
 
 export const Filter: React.FC<FilterProps> = (props) => {
@@ -87,6 +88,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
         Filtri
       </Button>
       <Collapse in={showFilter}>
+        {props.children}
         <Divider />
         <FormControlLabel
           control={

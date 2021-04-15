@@ -1,6 +1,10 @@
 import { LogoutButton } from '../LogoutButton';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup, fireEvent } from '../../test-utils';
+import {
+  renderApolloNoRouter,
+  cleanup,
+  fireEvent,
+} from '../../test-utils/test-utils';
 import { cache, isLoggedInVar } from '../../cache';
 
 describe('logout button', () => {

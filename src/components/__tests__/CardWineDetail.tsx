@@ -1,4 +1,4 @@
-import { cleanup, renderApolloNoRouter } from '../../test-utils';
+import { cleanup, renderApolloNoRouter } from '../../test-utils/test-utils';
 import { CardWineDetail } from '../../components/CardWineDetail';
 import * as React from 'react';
 import {
@@ -217,29 +217,33 @@ describe('CardWineDetail component', () => {
 
   it('if owner of the ad shows modify button with buy class', () => {
     const createNegotiation = jest.fn();
-    const { getByText, queryByRole } = renderApolloNoRouter(
+    const { queryByRole, getByRole } = renderApolloNoRouter(
       <CardWineDetail
         ad={mockAdBuyOwned.ad}
         me={mockAdBuyOwned.me}
         createNegotiation={createNegotiation}
       />
     );
-    expect(getByText('Modifica l annuncio').classList.contains('buyButton'));
+    const classes = getByRole('button', {
+      name: 'edit-ad',
+    }).classList.value.split('-');
+    expect(classes.includes('buyButton')).toBeTruthy();
     expect(queryByRole('button', { name: 'save' })).toBeFalsy();
   });
 
   it('if not owner of the ad shows show contact seller', () => {
     const createNegotiation = jest.fn();
-    const { getByText, getByRole, queryByText } = renderApolloNoRouter(
+    const { getByRole, queryByText } = renderApolloNoRouter(
       <CardWineDetail
         ad={mockAdSellNotOwned.ad}
         me={mockAdSellNotOwned.me}
         createNegotiation={createNegotiation}
       />
     );
-    expect(
-      getByText('Contatta il venditore').classList.contains('sellButton')
-    ).toBeTruthy();
+    const classes = getByRole('button', {
+      name: 'open-negotiation-dialog',
+    }).classList.value.split('-');
+    expect(classes.includes('sellButton')).toBeTruthy();
     expect(getByRole('button', { name: 'save' }));
     expect(queryByText('Negoziazione gia aperta')).toBeFalsy();
   });

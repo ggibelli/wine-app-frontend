@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { navigate, RouteComponentProps } from '@reach/router';
@@ -19,18 +18,16 @@ import { Filter } from '../components/FilterAds';
 import { SnackbarAds } from '../components/Snackbar';
 import { useTheme } from '@material-ui/core/styles';
 import { StyledBox } from '../components/StyledBox';
-import { Backdrop, CircularProgress, useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@material-ui/core';
 import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../components/InfiniteScrollFetch';
 import { AdsWineResult } from '../types';
-
-import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
 
 const Ads: React.FC<RouteComponentProps> = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
-  const classes = useStyles();
   const searchedWineCache = searchedWine();
   const [ads, setAds] = React.useState<
     DeepExtractType<AdsWineQuery, ['ads']>['ads']
@@ -51,6 +48,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
       typeAd:
         searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
     },
+    notifyOnNetworkStatusChange: true,
     onError: (error) => notification({ type: 'error', message: error.message }),
   });
   React.useEffect(() => {
@@ -95,7 +93,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
     'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli';
 
   const NoResults = () => (
-    <div onClick={onClick}>
+    <div data-testid='no-result' onClick={onClick}>
       Non abbiamo trovato nulla, vuoi creare un annuncio?
     </div>
   );
@@ -114,20 +112,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
     }
   };
   if (result.loading) {
-    return (
-      <>
-        <Backdrop
-          data-testid='loading'
-          className={classes.backdrop}
-          open={result.loading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-      </>
-    );
-  }
-  if (ads?.length === 0) {
-    return <div>Non hai ancora creato annunci</div>;
+    return <Loading />;
   }
   if (ads && ads.length && result.data?.ads?.ads?.length !== 0) {
     return (
@@ -159,8 +144,10 @@ const Ads: React.FC<RouteComponentProps> = () => {
         <Typography variant='body2'>
           {adsFiltered && adsFiltered.length > 0 ? defaultText : noAdsText}
         </Typography>
-        <Filter setList={setAds} list={ads} setFilteredList={setAdsFiltered} />
-        <Order setOrder={setOrder} order={order} />
+        <Filter setList={setAds} list={ads} setFilteredList={setAdsFiltered}>
+          {' '}
+          <Order setOrder={setOrder} order={order} />
+        </Filter>
         <br />
         <InfiniteScroll
           fetchMore={handleFetchMore}
@@ -177,7 +164,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
       </Container>
     );
   }
-  return <Skeleton />;
+  return <div>Grave errore</div>;
 };
 
 export default Ads;

@@ -29,7 +29,6 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = (props) => {
   const message = pathname.split('/')[1] === 'messaggi';
   const [ref, entry] = useIntersect({ threshold: 0 });
   const [isOk, setIsOk] = React.useState<boolean>(true);
-
   React.useEffect(() => {
     if (entry && entry?.intersectionRatio >= 0.5 && isOk) {
       void props.fetchMore();

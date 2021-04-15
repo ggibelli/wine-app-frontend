@@ -7,7 +7,7 @@ import {
   screen,
   waitFor,
   within,
-} from '../../test-utils';
+} from '../../test-utils/test-utils';
 
 describe('User form', () => {
   // automatically unmount and cleanup DOM after the test is finished.

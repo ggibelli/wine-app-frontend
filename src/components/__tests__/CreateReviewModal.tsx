@@ -1,6 +1,6 @@
 import { CreateReviewModal } from '../../components/ReviewModal';
 import * as React from 'react';
-import { renderApolloNoRouter, cleanup } from '../../test-utils';
+import { renderApolloNoRouter, cleanup } from '../../test-utils/test-utils';
 import { fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 import { TypeAd } from '../../generated/graphql';
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -72,7 +72,7 @@ describe('CreateReview Component', () => {
     expect(queryByText('Recensisci la trattativa')).toBeFalsy();
   });
 
-  it.only('Button opens modal and does not create review if no content', () => {
+  it('Button opens modal and does not create review if no content', () => {
     const { getByRole, getByText } = renderApolloNoRouter(
       <CreateReviewModal idNegotiation='123' idUser='321' type={TypeAd.Sell} />,
       {
@@ -97,7 +97,7 @@ describe('CreateReview Component', () => {
     ).toBeDisabled();
   });
 
-  it.only('Button opens modal and does not create review if less than 5 chars', () => {
+  it('Button opens modal and does not create review if less than 5 chars', () => {
     const { getByRole, getByText } = renderApolloNoRouter(
       <CreateReviewModal idNegotiation='123' idUser='321' type={TypeAd.Sell} />,
       {
@@ -128,7 +128,7 @@ describe('CreateReview Component', () => {
     ).toBeDisabled();
   });
 
-  it.only('Button opens modal and create review if more than 5 chars', async () => {
+  it('Button opens modal and create review if more than 5 chars', async () => {
     const { getByRole, getByText, queryByText } = renderApolloNoRouter(
       <CreateReviewModal idNegotiation='123' idUser='321' type={TypeAd.Sell} />,
       {

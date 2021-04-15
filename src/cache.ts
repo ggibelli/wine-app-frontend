@@ -40,21 +40,6 @@ export const cache: InMemoryCache = new InMemoryCache({
         adsForUser: {
           keyArgs: ['user'],
           merge(existing = [], incoming) {
-            // const merged = existing ? existing.ads.slice(0) : [];
-            // if (args) {
-            //   // Assume an offset of 0 if args.offset omitted.
-            //   const { offset = 0 } = args;
-            //   for (let i = 0; i < incoming.ads.length; ++i) {
-            //     merged[(offset as number) + i] = incoming.ads[i];
-            //   }
-            // } else {
-            //   // It's unusual (probably a mistake) for a paginated field not
-            //   // to receive any arguments, so you might prefer to throw an
-            //   // exception here, instead of recovering by appending incoming
-            //   // onto the existing array.
-            //   // eslint-disable-next-line prefer-spread
-            //   merged.push.apply(merged, incoming.ads);
-            // }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return {
               __typeName: 'AdsResult',
@@ -94,24 +79,6 @@ export const cache: InMemoryCache = new InMemoryCache({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
           merge(existing = [], incoming) {
-            // const merged = existing ? existing.negotiations.slice(0) : [];
-            // if (args && !args.isConcluded) {
-            //   // Assume an offset of 0 if args.offset omitted.
-            //   const { offset = 0 } = args;
-            //   for (let i = 0; i < incoming.negotiations.length; ++i) {
-            //     merged[(offset as number) + i] = incoming.negotiations[i];
-            //   }
-            // } else {
-            //   // It's unusual (probably a mistake) for a paginated field not
-            //   // to receive any arguments, so you might prefer to throw an
-            //   // exception here, instead of recovering by appending incoming
-            //   // onto the existing array.
-            //   // eslint-disable-next-line prefer-spread
-            //   console.log(merged, incoming.negotiations);
-            //   const negs = _.unionBy(merged, incoming.negotiations, '__ref');
-            //   console.log(negs  );
-            //   // merged.push(...negs);
-            // }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return {
               __typeName: 'NegotiationResult',

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { renderApollo, cleanup } from '../../test-utils';
+import { renderApollo, cleanup } from '../../test-utils/test-utils';
 import { act, fireEvent } from '@testing-library/react';
 import Ad from '../Ad';
 import * as React from 'react';
