@@ -57,10 +57,11 @@ const renderApollo = (
     <MockedProvider
       mocks={mocks}
       addTypename={addTypename}
-      defaultOptions={{
-        watchQuery: { fetchPolicy: 'no-cache' },
-        query: { fetchPolicy: 'no-cache' },
-      }}
+      defaultOptions={
+        defaultOptions
+        // watchQuery: { fetchPolicy: 'no-cache' },
+        // query: { fetchPolicy: 'no-cache' },
+      }
       cache={cache}
       resolvers={resolvers}
     >

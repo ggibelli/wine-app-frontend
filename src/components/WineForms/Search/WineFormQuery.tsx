@@ -4,11 +4,12 @@ import * as Yup from 'yup';
 import { TextFieldAdornment } from '../../FormFields/TextFieldAdornment';
 import { TextField } from '../../FormFields/TextField';
 import { Combobox } from '../../FormFields/ComboboxFieldWines';
-import Skeleton from '@material-ui/lab/Skeleton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { TypeAd, useWinesQuery } from '../../../generated/graphql';
+import { Exact, TypeAd, WinesQuery } from '../../../generated/graphql';
 import { useStylesForms } from '../../../utils/styleHook';
+import { QueryResult } from '@apollo/client';
+import { Loading } from '../../Loading';
 
 export interface WineFormQuery {
   wineName: string;
@@ -32,11 +33,17 @@ const initialValues: WineFormQuery = {
 export const WineFormQuery: React.FC<{
   onSubmit: (values: WineFormQuery) => void;
   adType: TypeAd;
-}> = ({ onSubmit, adType }) => {
+  wines: QueryResult<
+    WinesQuery,
+    Exact<{
+      [key: string]: never;
+    }>
+  >;
+}> = ({ onSubmit, adType, wines }) => {
   const classes = useStylesForms();
-  const { data, loading, error } = useWinesQuery();
-  const wineOptions = data?.wines
-    ? data?.wines.map((wine) => ({
+
+  const wineOptions = wines.data?.wines
+    ? wines.data?.wines.map((wine) => ({
         denominazioneVino: wine.denominazioneVino,
         regione: wine.regione,
       }))
@@ -44,35 +51,10 @@ export const WineFormQuery: React.FC<{
   const today = new Date();
   const year = today.getFullYear();
 
-  if (loading) {
-    return (
-      <div className={classes.paper} data-testid='loading'>
-        <Skeleton variant='rect' width={'40em'} height={70} />
-        <br />
-        <Skeleton variant='rect' width={'40em'} height={30} />
-        <Skeleton variant='rect' width={'40em'} height={30} />
-        <Skeleton
-          className={classes.form}
-          variant='rect'
-          width={'40em'}
-          height={30}
-        />
-        <Skeleton
-          className={classes.form}
-          variant='rect'
-          width={'40em'}
-          height={30}
-        />
-        <Skeleton
-          className={classes.form}
-          variant='rect'
-          width={'40em'}
-          height={30}
-        />
-      </div>
-    );
+  if (wines.loading) {
+    return <Loading />;
   }
-  if (error) return <div>Error...{error.message}</div>;
+  if (wines.error) return <div>Error...{wines.error.message}</div>;
   return (
     <Formik
       initialValues={initialValues}

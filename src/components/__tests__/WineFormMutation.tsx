@@ -12,6 +12,7 @@ import {
 import { TypeAd, TypeProduct, WinesDocument } from '../../generated/graphql';
 import { searchedWine } from '../../cache';
 
+// Fix test loading status and mock apollo not needed
 const mocks = [
   {
     request: {
@@ -34,6 +35,12 @@ const mocks = [
   },
 ];
 
+const loadingData = {
+  data: undefined,
+  loading: true,
+  error: undefined,
+};
+
 describe('Wine form mutation', () => {
   // automatically unmount and cleanup DOM after the test is finished.
   afterEach(cleanup);
@@ -41,7 +48,11 @@ describe('Wine form mutation', () => {
   it('renders Wine form mutation loading state', () => {
     const onSubmit = () => jest.fn();
     renderApolloNoRouter(
-      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />
+      <WineFormMutation
+        wines={loadingData}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />
     );
     expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
@@ -49,7 +60,11 @@ describe('Wine form mutation', () => {
   it('renders Wine form query success state, shows address field by default', async () => {
     const onSubmit = () => jest.fn();
     renderApolloNoRouter(
-      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
+      <WineFormMutation
+        wines={mocks[0].result}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
       {
         mocks,
         addTypename: true,
@@ -109,7 +124,11 @@ describe('Wine form mutation', () => {
   it('renders Wine form query success state, does not show address field if same address', async () => {
     const onSubmit = () => jest.fn();
     renderApolloNoRouter(
-      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
+      <WineFormMutation
+        wines={mocks[0].result}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
       {
         mocks,
         addTypename: true,
@@ -169,7 +188,11 @@ describe('Wine form mutation', () => {
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
     const { getAllByText } = renderApolloNoRouter(
-      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
+      <WineFormMutation
+        wines={mocks[0].result}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -249,7 +272,11 @@ describe('Wine form mutation', () => {
       isPost: true,
     });
     const { getByTestId, getByText } = renderApolloNoRouter(
-      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
+      <WineFormMutation
+        wines={mocks[0].result}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -312,7 +339,11 @@ describe('Wine form mutation', () => {
       isPost: true,
     });
     const { getByTestId } = renderApolloNoRouter(
-      <WineFormMutation onSubmit={onSubmit} adType={TypeAd.Buy} />,
+      <WineFormMutation
+        wines={mocks[0].result}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
       { mocks, addTypename: true, resolvers: {} }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));

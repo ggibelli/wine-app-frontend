@@ -15,6 +15,7 @@ export const MessageChat: React.FC<{
   const borderTopRight = isMyMessage ? 0 : 12;
   return (
     <Box
+      data-testid='message-box'
       display='flex'
       flexDirection={isMyMessage ? 'row-reverse' : 'row'}
       p={1}

@@ -51,6 +51,7 @@ describe('InfiniteScroll component with intersection', () => {
     ]);
 
     //@ts-expect-error mock
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     useLocation.mockImplementation(() => ({ pathname: '/lol' }));
     renderApolloNoRouter(
       <InfiniteScroll
@@ -62,13 +63,10 @@ describe('InfiniteScroll component with intersection', () => {
         <Children />
       </InfiniteScroll>
     );
+    expect(fetchMore).toHaveBeenCalledTimes(1);
 
     expect(setState).toHaveBeenCalledTimes(1);
   });
-});
-
-describe('InfiniteScroll component with intersection', () => {
-  afterEach(cleanup);
 
   it('renders the InfiniteScroll component and does not fires on intersection < 0.5', () => {
     const fetchMore = jest.fn();
@@ -83,7 +81,8 @@ describe('InfiniteScroll component with intersection', () => {
         target: 'element',
       },
     ]);
-
+    //@ts-expect-error mock
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     useLocation.mockImplementation(() => ({ pathname: '/lol' }));
 
     renderApolloNoRouter(

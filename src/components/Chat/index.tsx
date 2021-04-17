@@ -114,10 +114,12 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
           label=''
           value={messageContent}
           onChange={handleChange}
+          inputProps={{ 'aria-label': 'input-message' }}
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
                 <IconButton
+                  aria-label='send'
                   disabled={!messageContent}
                   onClick={handleCreateMessage}
                 >

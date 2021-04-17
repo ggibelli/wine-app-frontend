@@ -86,7 +86,7 @@ export const adMockSuccess = {
         _id: '606d52c5b470d4287b4e78ed',
       },
       me: {
-        negotiations: [{ ad: { _id: '606d52c5b470d4287b4e78ed' } }],
+        negotiations: [{ _id: '123', ad: { _id: '606d52c5b470d4287b4e78ed' } }],
         __typeName: 'User',
         _id: '605a7c0dc28f1006e42fe146',
       },
@@ -164,7 +164,7 @@ const adMockSuccessOtherUser = {
           comune: 'Arosio',
           provincia: 'CO',
           regione: 'LOMBARDIA',
-          // __typename: 'Address',
+          __typename: 'Address',
         },
 
         datePosted: '07 Apr 21, 18:35',
@@ -181,7 +181,7 @@ const adMockSuccessOtherUser = {
           hideContact: false,
           lastName: 'gibelli',
           phoneNumber: '3477984716',
-          // __typename: 'User',
+          __typename: 'User',
           _id: '605a7c0dc28f1006e42fe146',
         },
 
@@ -191,15 +191,15 @@ const adMockSuccessOtherUser = {
         wine: {
           denominazioneZona: 'DOCG',
           regione: ['PIEMONTE'],
-          // __typename: 'Wine',
+          __typename: 'Wine',
         },
         wineName: "Barbera d'Asti",
-        // __typename: 'AdWine',
+        __typename: 'AdWine',
         _id: '606d52c5b470d4287b4e78ed',
       },
       me: {
         negotiations: [],
-        // __typename: 'User',
+        __typename: 'User',
         _id: '605a7c0dc28f1006e42fe147',
       },
     },
@@ -314,14 +314,14 @@ describe('Ad page', () => {
       {
         mocks: [adMockSuccess],
         addTypename: false,
-        cache: new InMemoryCache({ addTypename: false }),
+        // cache: new InMemoryCache({ addTypename: false }),
       },
       { route: '/annunci/123' }
     );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    await act(() => new Promise((resolve) => setTimeout(resolve, 50)));
     fireEvent.click(getByRole('button', { name: 'previous-page' }));
     expect(navigate).toBeCalledTimes(1);
-    expect(getByText("Contatta L'acquirente")).toBeTruthy();
+    expect(getByText('Modifica l annuncio')).toBeTruthy();
     expect(getByTestId('negotiationsAd')).toBeTruthy();
   });
 

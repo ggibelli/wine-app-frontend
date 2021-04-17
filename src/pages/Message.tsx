@@ -9,17 +9,14 @@ import {
   MessageInput,
 } from '../generated/graphql';
 import { useParams } from '@reach/router';
-import { myInfo, notification } from '../cache';
+import { notification } from '../cache';
 import { Chat } from '../components/Chat';
 import { DeepExtractType } from 'ts-deep-extract-types';
-import { format } from 'date-fns';
-import { Backdrop, CircularProgress } from '@material-ui/core';
-import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
 
 const Message: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
-  const me = myInfo();
   const { data, loading, error, fetchMore } = useMessagesNegotiationQuery({
     fetchPolicy: 'network-only',
     variables: { id, offset: 0, limit: 20 },
@@ -34,8 +31,13 @@ const Message: React.FC<RouteComponentProps> = () => {
     ? data?.messagesForNegotiation.messages[0]
     : null;
   const [createMessage] = useCreateMessageMutation({
-    onError: (error) => notification({ type: 'error', message: error.message }),
+    onError: (error) => {
+      console.log(error);
+      notification({ type: 'error', message: error.message });
+    },
     onCompleted: (createdMessage) => {
+      const messageCreated = createdMessage?.createMessage?.response;
+
       if (createdMessage.createMessage?.errors?.length) {
         const errorMessages = createdMessage.createMessage?.errors.map(
           (error) => error?.text
@@ -44,13 +46,20 @@ const Message: React.FC<RouteComponentProps> = () => {
           type: 'error',
           message: `${errorMessages.toString()}`,
         });
+        return;
+      }
+
+      if (sortedMessage?.length) {
+        setSortedMessage([...sortedMessage, messageCreated] as DeepExtractType<
+          MessagesNegotiationQuery,
+          ['messagesForNegotiation']
+        >['messages']);
       }
     },
     // update: (cache, data) => {
     //   updateCacheMessages(cache, data.data?.createMessage?.response);
     // },
   });
-  const classes = useStyles();
   React.useEffect(() => {
     if (data?.messagesForNegotiation?.messages) {
       setSortedMessage([...data?.messagesForNegotiation?.messages].reverse());
@@ -73,18 +82,6 @@ const Message: React.FC<RouteComponentProps> = () => {
     await createMessage({
       variables: { message },
     });
-    const newMessage = {
-      ...message,
-      dateSent: format(new Date(), 'dd MMM yy, H:m'),
-      sentBy: { _id: me?._id },
-      _id: Date.now().toString(),
-    };
-    if (sortedMessage?.length) {
-      setSortedMessage([...sortedMessage, newMessage] as DeepExtractType<
-        MessagesNegotiationQuery,
-        ['messagesForNegotiation']
-      >['messages']);
-    }
   };
   const propsMessage = {
     isLoading: loading,
@@ -96,23 +93,12 @@ const Message: React.FC<RouteComponentProps> = () => {
     handleFetchMore,
   };
   if (loading || propsMessage.isVisible === undefined) {
-    return (
-      <>
-        <Backdrop
-          data-testid='loading'
-          className={classes.backdrop}
-          open={loading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-      </>
-    );
+    return <Loading />;
   }
-  if (!message) return <div>niente mess ancora</div>;
-
-  if (!loading && error) {
+  if (error) {
     return <div>error</div>;
   }
+  if (!message) return <div>niente mess ancora</div>;
 
   if (!data?.messagesForNegotiation?.messages?.length) {
     return null;

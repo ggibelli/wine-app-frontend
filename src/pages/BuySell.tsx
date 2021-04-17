@@ -6,8 +6,8 @@ import {
   TypeAd,
   TypeProduct,
   useCreateAdWineMutation,
-  useWineSearchedLazyQuery,
   AddressInput,
+  useWinesQuery,
 } from '../generated/graphql';
 import { searchedWine, notification, myInfo } from '../cache';
 import { WineFormMutation } from '../components/WineForms/Post/WineFormMutation';
@@ -25,10 +25,8 @@ const Buy: React.FC<RouteComponentProps> = () => {
   const adType = location.pathname === '/buy' ? TypeAd.Buy : TypeAd.Sell;
   let sameAddress: AddressInput;
   let differentAddress: AddressInput;
-  const [lazyWines, { data }] = useWineSearchedLazyQuery();
-  React.useEffect(() => {
-    lazyWines();
-  }, []);
+  const winesQueryResult = useWinesQuery();
+  const searchedWineCache = searchedWine();
   const [createAdWineMutation] = useCreateAdWineMutation({
     onError: (error) =>
       notification({
@@ -36,18 +34,16 @@ const Buy: React.FC<RouteComponentProps> = () => {
         message: `${error.message}`,
       }),
     onCompleted: ({ createAd }) => {
-      if (createAd?.errors?.length === 0) {
-        notification({
-          type: 'success',
-          message: 'ad created',
-        });
-        void navigate('/');
-      }
       if (createAd?.errors?.length) {
         const errorMessages = createAd.errors.map((error) => error?.text);
         notification({
           type: 'error',
           message: `${errorMessages.toString()}`,
+        });
+      } else {
+        notification({
+          type: 'success',
+          message: 'ad created',
         });
       }
     },
@@ -57,7 +53,6 @@ const Buy: React.FC<RouteComponentProps> = () => {
   });
 
   const onSubmitQuery = (values: WineFormQuery) => {
-    searchedWine(undefined);
     searchedWine({
       wineName: values.wineName,
       typeAd: adType,
@@ -70,6 +65,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
     });
     void navigate('/annunci');
   };
+
   const onSubmitMutation = (values: WineFormMutation) => {
     if (values.isSameAddress && me?.address) {
       sameAddress = {
@@ -82,8 +78,8 @@ const Buy: React.FC<RouteComponentProps> = () => {
     }
     const adInput: AdInput = {
       wineName: values.wineName,
-      typeAd: data?.searchedWine?.typeAd as TypeAd,
-      typeProduct: data?.searchedWine?.typeProduct as TypeProduct,
+      typeAd: searchedWineCache?.typeAd as TypeAd,
+      typeProduct: searchedWineCache?.typeProduct as TypeProduct,
       content: values.content,
       harvest: values.harvest as number,
       abv: values.abv as number,
@@ -117,10 +113,18 @@ const Buy: React.FC<RouteComponentProps> = () => {
           Inserisci i dati del prodotto che desideri {buyOrSellText}, noi
           cercheremo per te il giusto {buyerSellerText}.
         </Typography>
-        {data?.searchedWine?.isPost ? (
-          <WineFormMutation onSubmit={onSubmitMutation} adType={adType} />
+        {searchedWineCache?.isPost ? (
+          <WineFormMutation
+            wines={winesQueryResult}
+            onSubmit={onSubmitMutation}
+            adType={adType}
+          />
         ) : (
-          <WineFormQuery onSubmit={onSubmitQuery} adType={adType} />
+          <WineFormQuery
+            wines={winesQueryResult}
+            onSubmit={onSubmitQuery}
+            adType={adType}
+          />
         )}
       </div>
     </Container>

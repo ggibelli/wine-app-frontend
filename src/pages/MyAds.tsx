@@ -124,7 +124,7 @@ const MyAds: React.FC<RouteComponentProps> = () => {
           Gli annunci che hai creato
         </Typography>
         <br />
-        <Order setOrder={setOrder} order={order} />
+        <Order isAds setOrder={setOrder} order={order} />
         <Divider />
         <FormControlLabel
           control={

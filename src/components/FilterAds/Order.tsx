@@ -8,13 +8,13 @@ import { QueryOrderBy } from '../../generated/graphql';
 interface OrderProps {
   setOrder: React.Dispatch<React.SetStateAction<QueryOrderBy>>;
   order: QueryOrderBy;
+  isAds?: boolean;
 }
 
 export const Order: React.FC<OrderProps> = (props) => {
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     props.setOrder(event.target.value as QueryOrderBy);
   };
-
   return (
     <FormControl fullWidth>
       <InputLabel style={{ color: 'black' }} htmlFor='order'>
@@ -32,8 +32,12 @@ export const Order: React.FC<OrderProps> = (props) => {
         <option aria-label='None' value='' />
         <option value={QueryOrderBy.CreatedAtDesc}>Dal piu recente</option>
         <option value={QueryOrderBy.CreatedAtAsc}>Dal meno recente</option>
-        <option value={QueryOrderBy.PriceDesc}>Dal piu caro</option>
-        <option value={QueryOrderBy.PriceAsc}>Dal meno caro</option>
+        {props.isAds ? (
+          <>
+            <option value={QueryOrderBy.PriceDesc}>Dal piu caro</option>
+            <option value={QueryOrderBy.PriceAsc}>Dal meno caro</option>
+          </>
+        ) : null}
       </Select>
     </FormControl>
   );

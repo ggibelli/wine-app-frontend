@@ -1,9 +1,12 @@
+import { format } from 'date-fns';
 import * as Factory from 'factory.ts';
 import {
   AdWine,
   DenomZona,
   EspressioneComunitaria,
+  Message,
   MetodoProduttivo,
+  Negotiation,
   Province,
   Regioni,
   TypeAd,
@@ -31,7 +34,8 @@ export const userFactory = Factory.Sync.makeFactory<User>({
   _id: Factory.Sync.each((i) => i.toString()),
 });
 
-const user = userFactory.build();
+export const user = userFactory.build();
+export const user2 = userFactory.build();
 
 export const adFactory = Factory.Sync.makeFactory<AdWine>({
   abv: 13.5,
@@ -40,7 +44,7 @@ export const adFactory = Factory.Sync.makeFactory<AdWine>({
     comune: 'Arosio',
     provincia: Province.CO,
     regione: Regioni.Lombardia,
-    // __typename: 'Address' as const,
+    __typename: 'Address' as const,
   },
 
   datePosted: '07 Apr 21, 18:35',
@@ -64,9 +68,36 @@ export const adFactory = Factory.Sync.makeFactory<AdWine>({
     denominazioneVino: "Barbera d'Asti",
     espressioneComunitaria: EspressioneComunitaria.Dop,
 
-    // __typename: 'Wine' as const,
+    __typename: 'Wine' as const,
   },
   wineName: "Barbera d'Asti",
-  // __typename: 'AdWine' as const,
+  __typename: 'AdWine' as const,
   _id: Factory.each((i) => i.toString()),
+});
+
+const ad = adFactory.build();
+
+export const negotiationFactory = Factory.Sync.makeFactory<Negotiation>({
+  _id: Factory.each((i) => i.toString()),
+  forUserAd: user,
+  createdBy: user2,
+  ad: ad,
+  isConcluded: false,
+  type: ad.typeAd,
+  __typename: 'Negotiation',
+});
+
+const negotiation = negotiationFactory.build();
+
+export const messageFactory = Factory.Sync.makeFactory<Message>({
+  _id: Factory.each((i) => i.toString()),
+  sentBy: user, //{ _id: user._id, firstName: user.firstName, lastName: user.lastName },
+  sentTo: user2, //{
+  // _id: user2._id,//
+  negotiation: negotiation,
+  // /},
+  content: 'prova',
+  dateSent: format(new Date(), 'dd MMM yy, H:m'),
+  isViewed: false,
+  __typename: 'Message',
 });

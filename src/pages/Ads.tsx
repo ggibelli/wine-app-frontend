@@ -48,7 +48,6 @@ const Ads: React.FC<RouteComponentProps> = () => {
       typeAd:
         searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
     },
-    notifyOnNetworkStatusChange: true,
     onError: (error) => notification({ type: 'error', message: error.message }),
   });
   React.useEffect(() => {
@@ -63,7 +62,6 @@ const Ads: React.FC<RouteComponentProps> = () => {
       setAds(result.data.ads.ads);
     }
   }, [result.data]);
-
   React.useEffect(() => {
     if (result.fetchMore && ads && ads.length) {
       result
@@ -101,6 +99,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
     return <NoResults />;
   }
   const handleFetchMore = async () => {
+    console.log('####');
     if (result.fetchMore) {
       try {
         await result.fetchMore({
@@ -144,9 +143,9 @@ const Ads: React.FC<RouteComponentProps> = () => {
         <Typography variant='body2'>
           {adsFiltered && adsFiltered.length > 0 ? defaultText : noAdsText}
         </Typography>
-        <Filter setList={setAds} list={ads} setFilteredList={setAdsFiltered}>
+        <Filter list={ads} setFilteredList={setAdsFiltered}>
           {' '}
-          <Order setOrder={setOrder} order={order} />
+          <Order isAds setOrder={setOrder} order={order} />
         </Filter>
         <br />
         <InfiniteScroll

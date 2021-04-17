@@ -21,7 +21,6 @@ export const PurpleCheckbox = withStyles({
 })((props: CheckboxProps) => <Checkbox color='default' {...props} />);
 
 interface FilterProps {
-  setList: React.Dispatch<React.SetStateAction<Array<any> | undefined | null>>;
   list: Array<any>;
   filteredList?: Array<any>;
   setFilteredList: React.Dispatch<
