@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { StyledBox } from './StyledBox';
+import { StyledBox } from '../../containers/StyledBox';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
-import { TypeAd } from '../generated/graphql';
+import { TypeAd } from '../../generated/graphql';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { AdsWineResult } from '../types';
+import { AdsWineResult } from '../../types';
 
 export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
   const theme = useTheme();

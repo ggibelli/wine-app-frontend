@@ -24,7 +24,6 @@ export const MessageListEl: React.FC<{
   );
   const unreadMessages = messagesForMe?.filter((message) => !message.isViewed)
     .length;
-
   const recipient = messagesForMe.length
     ? messagesForMe[0].sentBy.firstName
     : messagesFromMe[0].sentTo.firstName;

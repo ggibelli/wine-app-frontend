@@ -6,12 +6,6 @@ import { adFactory } from '../../test-utils/test-factory';
 import { useLocation } from '@reach/router';
 import * as hooks from '../../utils/useIntersectionHook';
 
-// jest.mock('../../utils/useIntersectionHook', () => ({
-//   __esModule: true, // this property makes it work
-//   ...jest.requireActual<any>('../../utils/useIntersectionHook'),
-//   useIntersect: jest.fn(),
-// }));
-
 jest.mock('@reach/router', () => ({
   __esModule: true, // this property makes it work
   ...jest.requireActual<any>('@reach/router'),

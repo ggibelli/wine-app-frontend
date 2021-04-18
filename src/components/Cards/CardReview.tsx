@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { StyledBox } from './StyledBox';
+import { StyledBox } from '../../containers/StyledBox';
 import Typography from '@material-ui/core/Typography';
-import { ReviewDetailsFragment, TypeAd } from '../generated/graphql';
+import { ReviewDetailsFragment, TypeAd } from '../../generated/graphql';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { myInfo } from '../cache';
+import { myInfo } from '../../cache';
 import Rating from '@material-ui/lab/Rating';
 
 export const CardReview: React.FC<{ review: ReviewDetailsFragment | null }> = ({

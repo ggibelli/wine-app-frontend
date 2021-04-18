@@ -10,7 +10,7 @@ import {
   AdQuery,
 } from '../generated/graphql';
 import { notification } from '../cache';
-import { CardWineDetail } from '../components/CardWineDetail';
+import { CardWineDetail } from '../components/Cards/CardWineDetail';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
 import { BackButton } from '../components/BackButton';
 import { updateCacheNegotiations } from '../utils/updateCache';

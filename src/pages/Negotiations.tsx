@@ -9,10 +9,10 @@ import {
   QueryOrderBy,
   useNegotiationsLazyQuery,
 } from '../generated/graphql';
-import { CardNegotiation } from '../components/CardNegotiation';
+import { CardNegotiation } from '../components/Cards/CardNegotiation';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
-import { InfiniteScroll } from '../components/InfiniteScrollFetch';
+import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { notification } from '../cache';
 import { PurpleCheckbox } from '../components/FilterAds';

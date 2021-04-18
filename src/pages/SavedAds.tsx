@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { RouteComponentProps } from '@reach/router';
 import * as React from 'react';
 import { BackButton } from '../components/BackButton';
-import { CardWine } from '../components/CardWine';
+import { CardWine } from '../components/Cards/CardWine';
 import { useFavoriteQuery } from '../generated/graphql';
 import { AdsWineResult } from '../types';
 import { useStyles } from '../utils/styleHook';

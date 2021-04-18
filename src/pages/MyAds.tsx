@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { RouteComponentProps } from '@reach/router';
@@ -11,16 +10,15 @@ import {
 } from '../generated/graphql';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
-import { InfiniteScroll } from '../components/InfiniteScrollFetch';
+import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { myInfo } from '../cache';
 import { DeepExtractType } from 'ts-deep-extract-types';
-import { CardWine } from '../components/CardWine';
+import { CardWine } from '../components/Cards/CardWine';
 import { AdsWineResult } from '../types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import { PurpleCheckbox } from '../components/FilterAds';
-import { Backdrop, CircularProgress } from '@material-ui/core';
-import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
 
 const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
@@ -34,9 +32,8 @@ const MyAds: React.FC<RouteComponentProps> = () => {
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
-  const classes = useStyles();
   const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
-  const [query, result] = useAdsForUserLazyQuery({
+  const [query, { data, loading, error, fetchMore }] = useAdsForUserLazyQuery({
     variables: {
       offset: 0,
       limit: 4,
@@ -52,17 +49,15 @@ const MyAds: React.FC<RouteComponentProps> = () => {
     }
   }, [me]);
   React.useEffect(() => {
-    if (result.data?.adsForUser) {
-      setAds(result.data.adsForUser.ads);
+    if (data?.adsForUser) {
+      setAds(data.adsForUser.ads);
     }
-  }, [result.data]);
+  }, [data]);
   React.useEffect(() => {
-    if (ads && ads.length && result.fetchMore) {
-      result
-        .fetchMore({
-          variables: { orderBy: order, limit: ads.length },
-        })
-        .catch((e) => console.log(e));
+    if (ads && ads.length && fetchMore) {
+      fetchMore({
+        variables: { orderBy: order, limit: ads.length },
+      }).catch((e) => console.log(e));
     }
   }, [order]);
   React.useEffect(() => {
@@ -81,29 +76,21 @@ const MyAds: React.FC<RouteComponentProps> = () => {
     }
   };
 
-  if (result.loading) {
-    return (
-      <>
-        <Backdrop
-          data-testid='loading'
-          className={classes.backdrop}
-          open={result.loading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-      </>
-    );
+  if (loading) {
+    return <Loading />;
   }
+
+  if (!me?._id || error) return <div>error</div>;
 
   if (ads?.length === 0) {
     return <div>Non hai ancora creato annunci</div>;
   }
 
-  if (ads?.length) {
+  if (adsFiltered?.length) {
     const handleFetchMore = async () => {
-      if (result.fetchMore) {
+      if (fetchMore) {
         try {
-          await result.fetchMore({
+          await fetchMore({
             variables: {
               offset: adsFiltered?.length,
               orderBy: order,
@@ -138,19 +125,18 @@ const MyAds: React.FC<RouteComponentProps> = () => {
         />
         <InfiniteScroll
           fetchMore={handleFetchMore}
-          isVisible={adsFiltered?.length !== result.data?.adsForUser?.pageCount}
-          isLoading={result.loading}
+          isVisible={adsFiltered.length !== data?.adsForUser?.pageCount}
+          isLoading={loading}
         >
           {' '}
-          {adsFiltered &&
-            adsFiltered.map((ad) => (
-              <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
-            ))}
+          {adsFiltered.map((ad) => (
+            <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
+          ))}
         </InfiniteScroll>
       </Container>
     );
   }
-  return <Skeleton />;
+  return <div>gravissimo errore</div>;
 };
 
 export default MyAds;

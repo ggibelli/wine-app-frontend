@@ -12,15 +12,15 @@ import {
 } from '../generated/graphql';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { notification, searchedWine } from '../cache';
-import { CardWine } from '../components/CardWine';
+import { CardWine } from '../components/Cards/CardWine';
 import { BackButton } from '../components/BackButton';
 import { Filter } from '../components/FilterAds';
 import { SnackbarAds } from '../components/Snackbar';
 import { useTheme } from '@material-ui/core/styles';
-import { StyledBox } from '../components/StyledBox';
+import { StyledBox } from '../containers/StyledBox';
 import { useMediaQuery } from '@material-ui/core';
 import { Order } from '../components/FilterAds/Order';
-import { InfiniteScroll } from '../components/InfiniteScrollFetch';
+import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { AdsWineResult } from '../types';
 import { Loading } from '../components/Loading';
 

@@ -9,7 +9,7 @@ import SendIcon from '@material-ui/icons/Send';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { IconButton } from '@material-ui/core';
 import { myInfo } from '../../cache';
-import { InfiniteScroll } from '../InfiniteScrollFetch';
+import { InfiniteScroll } from '../../containers/InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { CloseNegotiationButton } from '../../containers/CloseNegotiationButton';
 import { CreateReviewModal } from '../../components/ReviewModal';
@@ -33,7 +33,17 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [isFirstRender, setIsFirstRender] = React.useState<boolean>(true);
   const divRef = React.useRef<null | HTMLDivElement>(null);
-  setTimeout(() => setIsFirstRender(false), 1000);
+  const timerIdRef = React.useRef<number>();
+  const id = setTimeout(() => {
+    setIsFirstRender(false), 1000;
+    timerIdRef.current = id;
+  });
+  React.useEffect(() => {
+    const timeoutId = timerIdRef.current;
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
   React.useEffect(() => {
     if (divRef.current) {
       if (isLoading) return;

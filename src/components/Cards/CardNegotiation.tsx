@@ -2,16 +2,16 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
-import { NegotiationDetailsFragment } from '../generated/graphql';
-import { TypeAd } from '../generated/graphql';
+import { NegotiationDetailsFragment } from '../../generated/graphql';
+import { TypeAd } from '../../generated/graphql';
 import Button from '@material-ui/core/Button';
 import { useTheme, useMediaQuery } from '@material-ui/core';
-import { StyledBox } from './StyledBox';
-import { CloseNegotiationButton } from '../containers/CloseNegotiationButton';
-import { useStyles } from '../utils/styleHook';
+import { StyledBox } from '../../containers/StyledBox';
+import { CloseNegotiationButton } from '../../containers/CloseNegotiationButton';
+import { useStyles } from '../../utils/styleHook';
 import { Grid } from '@material-ui/core';
-import { CreateReviewModal } from '../components/ReviewModal';
-import { myInfo } from '../cache';
+import { CreateReviewModal } from '../ReviewModal';
+import { myInfo } from '../../cache';
 
 export const CardNegotiation: React.FC<{
   negotiation: NegotiationDetailsFragment;

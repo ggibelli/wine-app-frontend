@@ -11,9 +11,9 @@ import {
 } from '../generated/graphql';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
-import { InfiniteScroll } from '../components/InfiniteScrollFetch';
+import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
-import { CardReview } from '../components/CardReview';
+import { CardReview } from '../components/Cards/CardReview';
 import { Backdrop, CircularProgress } from '@material-ui/core';
 import { useStyles } from '../utils/styleHook';
 

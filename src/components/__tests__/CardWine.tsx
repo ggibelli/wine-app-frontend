@@ -1,5 +1,5 @@
 import { cleanup, renderApolloNoRouter } from '../../test-utils/test-utils';
-import { CardWine } from '../../components/CardWine';
+import { CardWine } from '../../components/Cards/CardWine';
 import * as React from 'react';
 import {
   Province,
