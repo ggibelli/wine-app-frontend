@@ -18,8 +18,7 @@ import { notification } from '../cache';
 import { PurpleCheckbox } from '../components/FilterAds';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
-import { Backdrop, CircularProgress } from '@material-ui/core';
-import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
 
 const Negotiations: React.FC<RouteComponentProps> = () => {
   const [lazyNegotiations, result] = useNegotiationsLazyQuery({
@@ -32,7 +31,6 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
     QueryOrderBy.CreatedAtDesc
   );
   const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
-  const classes = useStyles();
   const handleShowAll = () => {
     if (isShowAll && result.refetch) {
       void result.refetch({
@@ -94,17 +92,7 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
     }
   }, [order]);
   if (result.loading) {
-    return (
-      <>
-        <Backdrop
-          data-testid='loading'
-          className={classes.backdrop}
-          open={result.loading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-      </>
-    );
+    return <Loading />;
   }
   if (negotiations?.length === 0) {
     return <div>Non hai ancora aperto trattative</div>;

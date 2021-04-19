@@ -1,4 +1,3 @@
-import { Backdrop, CircularProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -6,25 +5,13 @@ import { RouteComponentProps } from '@reach/router';
 import * as React from 'react';
 import { BackButton } from '../components/BackButton';
 import { CardWine } from '../components/Cards/CardWine';
+import { Loading } from '../components/Loading';
 import { useFavoriteQuery } from '../generated/graphql';
 import { AdsWineResult } from '../types';
-import { useStyles } from '../utils/styleHook';
 
 const SavedAds: React.FC<RouteComponentProps> = () => {
   const { data, loading, error } = useFavoriteQuery();
-  const classes = useStyles();
-  if (loading)
-    return (
-      <>
-        <Backdrop
-          data-testid='loading'
-          className={classes.backdrop}
-          open={loading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-      </>
-    );
+  if (loading) return <Loading />;
   if (error || !data?.me?.savedAds) return <div>error</div>;
   if (data?.me?.savedAds.length === 0)
     return <div>Non hai ancora salvato annunci</div>;

@@ -118,10 +118,18 @@ export const WineFormMutation: React.FC<{
         content: Yup.string().required('Required'),
         needsFollowUp: Yup.bool().required('Required'),
         isSameAddress: Yup.bool().required('Required'),
-        address: Yup.object().shape({
-          comune: Yup.string(),
-          provincia: Yup.string(),
-          regione: Yup.string(),
+        address: Yup.object().when('isSameAddress', {
+          is: true,
+          then: Yup.object().shape({
+            comune: Yup.string(),
+            provincia: Yup.string(),
+            regione: Yup.string(),
+          }),
+          otherwise: Yup.object().shape({
+            comune: Yup.string().required('Required'),
+            provincia: Yup.string().required('Required'),
+            regione: Yup.string().required('Required'),
+          }),
         }),
       })}
       onSubmit={onSubmit}

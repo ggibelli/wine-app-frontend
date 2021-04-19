@@ -99,7 +99,6 @@ const Ads: React.FC<RouteComponentProps> = () => {
     return <NoResults />;
   }
   const handleFetchMore = async () => {
-    console.log('####');
     if (result.fetchMore) {
       try {
         await result.fetchMore({

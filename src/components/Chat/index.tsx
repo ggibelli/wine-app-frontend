@@ -39,12 +39,6 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
     timerIdRef.current = id;
   });
   React.useEffect(() => {
-    const timeoutId = timerIdRef.current;
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-  React.useEffect(() => {
     if (divRef.current) {
       if (isLoading) return;
       divRef.current.scroll({
@@ -53,6 +47,10 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
         behavior: 'smooth',
       });
     }
+    const timeoutId = timerIdRef.current;
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [propsMessage.messages]);
   const message = propsMessage.messages ? propsMessage.messages[0] : null;
   if (!message) {

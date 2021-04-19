@@ -255,7 +255,7 @@ describe('Wine form mutation', () => {
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
       expect(onSubmit).toBeCalledTimes(0);
-      expect(getAllByText('Required')).toHaveLength(6);
+      expect(getAllByText('Required')).toHaveLength(9);
     });
   });
 
@@ -322,6 +322,86 @@ describe('Wine form mutation', () => {
         getByText('La gradazione alcolica non può essere maggiore di 22')
       ).toBeVisible();
 
+      expect(onSubmit).toBeCalledTimes(0);
+    });
+  }, 10000);
+
+  it('should validate form fields and not submit if address missing', async () => {
+    const onSubmit = jest.fn();
+    searchedWine({
+      wineName: 'Barbera',
+      abv: 13.5,
+      liters: 1000,
+      price: 3.5,
+      typeAd: TypeAd.Buy,
+      typeProduct: TypeProduct.AdWine,
+      harvest: 2012,
+      isPost: true,
+    });
+    const { getByTestId } = renderApolloNoRouter(
+      <WineFormMutation
+        wines={mocks[0].result}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
+      { mocks, addTypename: true, resolvers: {} }
+    );
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
+    fireEvent.change(screen.getByRole('spinbutton', { name: /abv/i }), {
+      target: {
+        value: 13.5,
+      },
+    });
+    fireEvent.change(screen.getByRole('spinbutton', { name: /harvest/i }), {
+      target: {
+        value: 2010,
+      },
+    });
+    fireEvent.change(screen.getByRole('spinbutton', { name: /price/i }), {
+      target: {
+        value: 3.5,
+      },
+    });
+    fireEvent.change(screen.getByRole('spinbutton', { name: /liters/i }), {
+      target: {
+        value: 1000,
+      },
+    });
+    fireEvent.change(screen.getByRole('textbox', { name: /content/i }), {
+      target: {
+        value: 'vinazzo',
+      },
+    });
+    const comboboxWines = getByTestId('combobox-wines');
+    const inputWines = within(comboboxWines).getByRole('textbox');
+    comboboxWines.focus();
+    fireEvent.change(inputWines, { target: { value: 'b' } });
+    await waitFor(() => {
+      //const input = within(combobox).querySelector('input');
+
+      fireEvent.keyDown(inputWines, { key: 'ArrowDown' });
+    });
+    await waitFor(() => {
+      fireEvent.keyDown(inputWines, { key: 'Enter' });
+    });
+    await waitFor(() => {
+      fireEvent.click(
+        screen.getByRole('checkbox', {
+          name: /Aggiornami se nuovi annunci pertinenti/i,
+        })
+      );
+    });
+    // await waitFor(() => {
+    //   fireEvent.click(
+    //     screen.getByRole('checkbox', {
+    //       name: /Indirizzo uguale a quello usato in registrazione/i,
+    //     })
+    //   );
+    // });
+    fireEvent.change(screen.getByRole('textbox', { name: /vino/i }));
+    fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
+    await waitFor(() => {
       expect(onSubmit).toBeCalledTimes(0);
     });
   }, 10000);

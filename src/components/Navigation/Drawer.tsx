@@ -9,7 +9,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Badge from '@material-ui/core/Badge';
 import StoreIcon from '@material-ui/icons/Store';
 import Typography from '@material-ui/core/Typography';
 import { ApolloError } from '@apollo/client';
@@ -81,11 +80,11 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <Badge badgeContent={data.data?.numAds} color='primary'>
-              <AssignmentIcon />
-            </Badge>
+            <AssignmentIcon />
           </ListItemIcon>
-          <ListItemText primary='Annunci pubblicati' />
+          <ListItemText
+            primary={`Annunci pubblicati (${data.data?.numAds || 0})`}
+          />
         </ListItem>
         <ListItem
           button
@@ -96,11 +95,11 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <Badge badgeContent={data.data?.numOpenNegs} color='primary'>
-              <StoreIcon />
-            </Badge>
+            <StoreIcon />
           </ListItemIcon>
-          <ListItemText primary='Trattative in corso' />
+          <ListItemText
+            primary={`Trattative in corso (${data.data?.numOpenNegs || 0})`}
+          />
         </ListItem>
         <ListItem
           button
@@ -111,11 +110,11 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <Badge badgeContent={data.data?.savedAds} color='primary'>
-              <FavoriteIcon />
-            </Badge>
+            <FavoriteIcon />
           </ListItemIcon>
-          <ListItemText primary='Annunci salvati' />
+          <ListItemText
+            primary={`Annunci salvati (${data.data?.savedAds || 0})`}
+          />
         </ListItem>
         <Divider />
         <div data-testid='logout' className={classes.bottomPush}>

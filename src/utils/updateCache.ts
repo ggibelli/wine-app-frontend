@@ -60,7 +60,8 @@ export const updateCacheNegotiations = (
       CreateNegotiationMutation,
       ['createNegotiation']
     >['response']
-  >['data']
+  >['data'],
+  isSubscription = false
 ): void => {
   const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
     //@ts-expect-error error
@@ -78,7 +79,13 @@ export const updateCacheNegotiations = (
   );
 
   cachedDataMeLocal?.me.negotiations?.push(negotiation as Negotiation);
-
+  if (isSubscription) {
+    cachedDataMeLocal?.me.messages?.push({
+      isViewed: false,
+      //@ts-expect-error it does not matter if the sentBy is not complete
+      sentBy: { _id: 'placeHolder' },
+    });
+  }
   //@ts-expect-error error
   client.writeQuery({
     query: MeDocument,

@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import * as Factory from 'factory.ts';
 import {
   AdWine,
@@ -30,7 +29,7 @@ export const userFactory = Factory.Sync.makeFactory<User>({
     via: 'via della prova 1',
     CAP: '12345',
   },
-  // __typename: 'User' as const,
+  __typename: 'User' as const,
   _id: Factory.Sync.each((i) => i.toString()),
 });
 
@@ -71,7 +70,7 @@ export const adFactory = Factory.Sync.makeFactory<AdWine>({
     __typename: 'Wine' as const,
   },
   wineName: "Barbera d'Asti",
-  __typename: 'AdWine' as const,
+  __typename: 'AdWine',
   _id: Factory.each((i) => i.toString()),
 });
 
@@ -79,11 +78,40 @@ const ad = adFactory.build();
 
 export const negotiationFactory = Factory.Sync.makeFactory<Negotiation>({
   _id: Factory.each((i) => i.toString()),
-  forUserAd: user,
-  createdBy: user2,
-  ad: ad,
+  forUserAd: {
+    firstName: 'prova prova',
+    _id: Math.floor(Math.random() * 999).toString(),
+    __typename: 'User',
+  } as User,
+  createdBy: {
+    firstName: 'altra prova',
+    _id: Math.floor(Math.random() * 999).toString(),
+    __typename: 'User',
+  } as User,
+  ad: {
+    _id: Math.floor(Math.random() * 999).toString(),
+    postedBy: {
+      email: 'prova@lollo.it',
+      firstName: 'prova nola',
+      lastName: 'altrina provian',
+      phoneNumber: '1234567899',
+      hideContact: false,
+      __typename: 'User',
+
+      _id: Math.floor(Math.random() * 999).toString(),
+    } as User,
+    wine: {
+      denominazioneZona: DenomZona.Doc,
+      __typename: 'Wine',
+    },
+    wineName: "Barbera d'Asti",
+    __typename: 'AdWine',
+  } as AdWine,
   isConcluded: false,
   type: ad.typeAd,
+  review: [],
+  dateCreated: '08 Apr 21, 4:18',
+  dateConcluded: null,
   __typename: 'Negotiation',
 });
 
@@ -97,7 +125,7 @@ export const messageFactory = Factory.Sync.makeFactory<Message>({
   negotiation: negotiation,
   // /},
   content: 'prova',
-  dateSent: format(new Date(), 'dd MMM yy, H:m'),
+  dateSent: '08 Apr 21, 4:18',
   isViewed: false,
   __typename: 'Message',
 });

@@ -14,8 +14,7 @@ import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { CardReview } from '../components/Cards/CardReview';
-import { Backdrop, CircularProgress } from '@material-ui/core';
-import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
 
 const Reviews: React.FC<RouteComponentProps> = () => {
   const [reviews, setReviews] = React.useState<
@@ -32,7 +31,6 @@ const Reviews: React.FC<RouteComponentProps> = () => {
     },
     onError: (error) => console.log(error),
   });
-  const classes = useStyles();
   React.useEffect(() => {
     if (data?.reviews?.reviews) {
       setReviews(data.reviews.reviews);
@@ -50,17 +48,7 @@ const Reviews: React.FC<RouteComponentProps> = () => {
   }
   if (error) return <div>error</div>;
   if (loading) {
-    return (
-      <>
-        <Backdrop
-          data-testid='loading'
-          className={classes.backdrop}
-          open={loading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-      </>
-    );
+    return <Loading />;
   }
   if (reviews?.length) {
     const handleFetchMore = async () => {

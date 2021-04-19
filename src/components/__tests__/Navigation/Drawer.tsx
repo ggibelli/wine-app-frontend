@@ -25,9 +25,9 @@ describe('Drawer', () => {
       <Drawer state={true} toggleDrawer={() => {}} data={data} />
     );
     expect(getByText('giovanni'));
-    expect(getByText('2'));
-    expect(getByText('4'));
-    expect(getByText('3'));
+    expect(getByText('Annunci pubblicati (2)'));
+    expect(getByText('Trattative in corso (4)'));
+    expect(getByText('Annunci salvati (3)'));
     expect(getByText('(4.5)'));
     expect(getByTestId('logout'));
   });
