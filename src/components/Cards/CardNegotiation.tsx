@@ -33,6 +33,7 @@ export const CardNegotiation: React.FC<{
   return (
     <StyledBox width={width} typeAd={negotiation.type}>
       <Link
+        aria-label='link-negotiation'
         component={RouterLink}
         to={`/trattative/${negotiation._id}`}
         style={{ textDecoration: 'none' }}
@@ -63,8 +64,20 @@ export const CardNegotiation: React.FC<{
           variant='caption'
           color={isBuy ? 'textSecondary' : 'primary'}
         >
-          Trattativa aperta il {negotiation.dateCreated}
+          Trattativa aperta: {negotiation.dateCreated}
         </Typography>
+        {negotiation.isConcluded ? (
+          <>
+            <br />
+            <Typography
+              align='right'
+              variant='caption'
+              color={isBuy ? 'textSecondary' : 'primary'}
+            >
+              Trattativa conclusa: {negotiation.dateConcluded}
+            </Typography>
+          </>
+        ) : null}
       </Link>
       <Grid>
         {negotiation.isConcluded || !showCloseNeg ? (
@@ -72,11 +85,7 @@ export const CardNegotiation: React.FC<{
             <CreateReviewModal
               idNegotiation={negotiation._id}
               type={negotiation.type}
-              idUser={
-                negotiation.createdBy._id === me?._id
-                  ? negotiation.forUserAd._id
-                  : negotiation.createdBy._id
-              }
+              idUser={negotiation.forUserAd._id}
             />
           ) : null
         ) : (

@@ -2,7 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { Address, TypeAd, TypeProduct } from './generated/graphql';
+import {
+  Address,
+  QueryOrderBy,
+  TypeAd,
+  TypeProduct,
+} from './generated/graphql';
 // import { offsetLimitPagination } from '@apollo/client/utilities';
 import _ from 'lodash';
 export const cache: InMemoryCache = new InMemoryCache({
@@ -39,11 +44,19 @@ export const cache: InMemoryCache = new InMemoryCache({
         },
         adsForUser: {
           keyArgs: ['user'],
-          merge(existing = [], incoming) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          merge(existing = [], incoming, { args }) {
+            let ads;
+            const adsUnsorted = _.unionBy(existing.ads, incoming.ads, '__ref');
+            if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
+              ads = _.orderBy(adsUnsorted, '__ref', ['desc']);
+            } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
+              ads = _.orderBy(adsUnsorted, '__ref', ['asc']);
+            } else {
+              ads = adsUnsorted;
+            }
             return {
               __typeName: 'AdsResult',
-              ads: _.unionBy(existing.ads, incoming.ads, '__ref'),
+              ads: ads,
               pageCount: incoming.pageCount,
             };
           },
@@ -78,15 +91,23 @@ export const cache: InMemoryCache = new InMemoryCache({
           keyArgs: false,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
-          merge(existing = [], incoming) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          merge(existing = [], incoming, { args }) {
+            let negotiations;
+            const negotiationsUnsorted = _.unionBy(
+              existing.negotiations,
+              incoming.negotiations,
+              '__ref'
+            );
+            if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
+              negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['desc']);
+            } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
+              negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['asc']);
+            } else {
+              negotiations = negotiationsUnsorted;
+            }
             return {
               __typeName: 'NegotiationResult',
-              negotiations: _.unionBy(
-                existing.negotiations,
-                incoming.negotiations,
-                '__ref'
-              ),
+              negotiations: negotiations,
               pageCount: incoming.pageCount,
             };
           },

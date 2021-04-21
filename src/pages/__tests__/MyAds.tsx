@@ -219,7 +219,7 @@ describe('MyAds page simulating fetch more ads', () => {
       {
         data: adsMockSuccess.result.data,
         loading: false,
-        fetchMore: fetchMore2,
+        refetch: fetchMore2,
       },
     ]);
 
@@ -255,10 +255,8 @@ describe('MyAds page simulating fetch more ads', () => {
     });
     expect(fetchMore2).toHaveBeenCalledTimes(1);
     expect(fetchMore2).toHaveBeenCalledWith({
-      variables: {
-        limit: 2,
-        orderBy: QueryOrderBy.PriceDesc,
-      },
+      limit: 2,
+      orderBy: QueryOrderBy.PriceDesc,
     });
   });
 });
