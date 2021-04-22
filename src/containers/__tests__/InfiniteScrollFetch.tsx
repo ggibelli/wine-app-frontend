@@ -46,7 +46,7 @@ describe('InfiniteScroll component with intersection', () => {
 
     //@ts-expect-error mock
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    useLocation.mockImplementation(() => ({ pathname: '/lol' }));
+    useLocation.mockImplementation(() => ({ pathname: '/test' }));
     renderApolloNoRouter(
       <InfiniteScroll
         fetchMore={fetchMore}
@@ -70,14 +70,14 @@ describe('InfiniteScroll component with intersection', () => {
     jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
       jest.fn(),
       {
-        isIntersecting: true,
-        intersectionRatio: 0.4,
+        isIntersecting: false,
+        intersectionRatio: 0,
         target: 'element',
       },
     ]);
     //@ts-expect-error mock
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    useLocation.mockImplementation(() => ({ pathname: '/lol' }));
+    useLocation.mockImplementation(() => ({ pathname: '/test' }));
 
     renderApolloNoRouter(
       <InfiniteScroll

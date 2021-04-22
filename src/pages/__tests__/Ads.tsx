@@ -19,13 +19,41 @@ import { navigate } from '@reach/router';
 import { adFactory } from '../../test-utils/test-factory';
 import * as hooks from '../../utils/useIntersectionHook';
 import * as superHooks from '../../generated/graphql';
-// const mockHook = jest.fn();
-// const mockHook2 = jest.fn();
 
-// jest.mock('../../utils/useIntersectionHook', () => ({
-//   __esModule: true,
-//   useIntersect: () => [mockHook(), mockHook2()],
-// }));
+const typePolicies = {
+  Query: {
+    fields: {
+      ads: {
+        // Don't cache separate results based on
+        // any of this field's arguments.
+        keyArgs: ['wineName', 'typeProduct', 'typeAd'],
+        merge(existing, incoming, { args }) {
+          const merged = existing ? existing.ads.slice(0) : [];
+          if (args) {
+            // Assume an offset of 0 if args.offset omitted.
+            const { offset = 0 } = args;
+            for (let i = 0; i < incoming.ads.length; ++i) {
+              merged[(offset as number) + i] = incoming.ads[i];
+            }
+          } else {
+            // It's unusual (probably a mistake) for a paginated field not
+            // to receive any arguments, so you might prefer to throw an
+            // exception here, instead of recovering by appending incoming
+            // onto the existing array.
+            // eslint-disable-next-line prefer-spread
+            merged.push.apply(merged, incoming.ads);
+          }
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          return {
+            __typeName: 'AdsResult',
+            ads: merged,
+            pageCount: incoming.pageCount,
+          };
+        },
+      },
+    },
+  },
+};
 
 jest.mock('@reach/router', () => ({
   __esModule: true, // this property makes it work
@@ -61,6 +89,21 @@ const adsFirstReq = adFactory.buildList(4, {
   harvest: 2015,
 });
 
+const adsFetchMore = adFactory.buildList(4, {
+  datePosted: '08 Apr 21, 18:35',
+  harvest: 2015,
+});
+
+const oldAd = adFactory.build({
+  datePosted: '08 Mar 21, 18:35',
+  harvest: 2015,
+});
+
+const olderAd = adFactory.build({
+  datePosted: '08 Jan 21, 18:35',
+  harvest: 2015,
+});
+
 const adsMock4 = {
   request: {
     query: AdsWineDocument,
@@ -77,6 +120,28 @@ const adsMock4 = {
     data: {
       ads: {
         ads: adsFirstReq,
+        pageCount: 8,
+      },
+    },
+  },
+};
+
+const adsMockFetchMore = {
+  request: {
+    query: AdsWineDocument,
+    variables: {
+      offset: 4,
+      limit: 4,
+      orderBy: QueryOrderBy.CreatedAtDesc,
+      wineName: "Barbera d'Asti",
+      typeProduct: TypeProduct.AdWine,
+      typeAd: TypeAd.Buy,
+    },
+  },
+  result: {
+    data: {
+      ads: {
+        ads: adsFetchMore,
         pageCount: 8,
       },
     },
@@ -127,6 +192,28 @@ const adsMockSuccess = {
   },
 };
 
+const adsMockSuccessOld = {
+  request: {
+    query: AdsWineDocument,
+    variables: {
+      offset: 0,
+      limit: 8,
+      orderBy: QueryOrderBy.CreatedAtAsc,
+      wineName: "Barbera d'Asti",
+      typeProduct: TypeProduct.AdWine,
+      typeAd: TypeAd.Buy,
+    },
+  },
+  result: {
+    data: {
+      ads: {
+        ads: [oldAd, olderAd],
+        pageCount: 2,
+      },
+    },
+  },
+};
+
 const adsMockSuccessList8 = {
   request: {
     query: AdsWineDocument,
@@ -148,6 +235,61 @@ const adsMockSuccessList8 = {
     },
   },
 };
+
+// I think mocking the queryhook is more readable than testing the fetchmore with the actual one
+describe('Ads page simulating fetch more ads', () => {
+  afterEach(cleanup);
+  it('it calls fetch more ads on end page', async () => {
+    searchedWine({
+      wineName: "Barbera d'Asti",
+      typeAd: TypeAd.Sell,
+      typeProduct: TypeProduct.AdWine,
+      harvest: 2015,
+      abv: 13.5,
+      price: 2,
+      liters: 1000,
+      isPost: false,
+    });
+    //@ts-expect-error mock reached end of div
+    const endPage = jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
+      jest.fn(),
+      {
+        isIntersecting: true,
+        intersectionRatio: 0.6,
+        target: 'element',
+      },
+    ]);
+
+    const { getAllByRole } = renderApollo(
+      <Ads path='/annunci/' />,
+      {
+        mocks: [adsMock4, adsMockFetchMore],
+        addTypename: false,
+
+        cache: new InMemoryCache({
+          addTypename: false,
+          typePolicies,
+        }),
+      },
+      { route: '/annunci/' }
+    );
+    await waitFor(async () => {
+      await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+      expect(
+        getAllByRole('link', {
+          name: 'link-ad',
+        })
+      ).toHaveLength(4);
+    });
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    expect(
+      getAllByRole('link', {
+        name: 'link-ad',
+      })
+    ).toHaveLength(8);
+    endPage.mockRestore();
+  });
+});
 
 describe('Ads page', () => {
   beforeEach(() => {
@@ -304,12 +446,8 @@ describe('Ads page', () => {
       })
     ).toHaveLength(6);
   });
-});
 
-// I think mocking the queryhook is more readable than testing the fetchmore with the actual one
-describe('Ads page simulating fetch more ads', () => {
-  afterEach(cleanup);
-  it('it calls fetch more ads on end page', () => {
+  it('it changes order ads', async () => {
     searchedWine({
       wineName: "Barbera d'Asti",
       typeAd: TypeAd.Sell,
@@ -320,114 +458,44 @@ describe('Ads page simulating fetch more ads', () => {
       liters: 1000,
       isPost: false,
     });
-    //@ts-expect-error mock
-    jest.spyOn(superHooks, 'useAdsWineLazyQuery').mockImplementation(() => [
-      jest.fn(),
-      {
-        data: adsMock4.result.data,
-        loading: false,
-        fetchMore: fetchMore,
-      },
-    ]);
-
-    //@ts-expect-error mock reached end of div
-    jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
-      jest.fn(),
-      {
-        isIntersecting: true,
-        intersectionRatio: 0.6,
-        target: 'element',
-      },
-    ]);
-
-    const fetchMore = jest.fn();
-    renderApollo(
+    const { getByRole, getAllByRole, getByTestId } = renderApollo(
       <Ads path='/annunci/' />,
       {
-        mocks: [],
+        mocks: [adsMockSuccessList8, adsMockSuccessOld],
         addTypename: false,
-
         cache: new InMemoryCache({
           addTypename: false,
+          typePolicies,
         }),
       },
       { route: '/annunci/' }
     );
-
-    expect(fetchMore).toHaveBeenCalledTimes(1);
-    expect(fetchMore).toHaveBeenCalledWith({
-      variables: {
-        offset: adsMock4.result.data.ads.ads.length,
-        orderBy: QueryOrderBy.CreatedAtDesc,
-      },
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    const myAdsBefore = getAllByRole('link', {
+      name: 'link-ad',
     });
-  });
-
-  it('it calls fetch more ads on changing order', async () => {
-    searchedWine({
-      wineName: "Barbera d'Asti",
-      typeAd: TypeAd.Sell,
-      typeProduct: TypeProduct.AdWine,
-      harvest: 2015,
-      abv: 13.5,
-      price: 2,
-      liters: 1000,
-      isPost: false,
-    });
-    const fetchMore2 = jest.fn(() => Promise.resolve({ data: {} }));
-
-    //@ts-expect-error mock
-    jest.spyOn(superHooks, 'useAdsWineLazyQuery').mockImplementation(() => [
-      jest.fn(),
-      {
-        data: adsMock4.result.data,
-        loading: false,
-        fetchMore: fetchMore2,
-        // fetchMore: { catch: jest.fn() },
-      },
-    ]);
-
-    //@ts-expect-error mock did not reach end of page
-    jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
-      jest.fn(),
-      {
-        isIntersecting: false,
-        intersectionRatio: 0.0,
-        target: 'element',
-      },
-    ]);
-
-    const { getByRole } = renderApollo(
-      <Ads path='/annunci/' />,
-      {
-        mocks: [],
-        addTypename: false,
-
-        cache: new InMemoryCache({
-          addTypename: false,
-        }),
-      },
-      { route: '/annunci/' }
+    expect(myAdsBefore[0]).toHaveTextContent(
+      'Annuncio pubblicato il 08 Apr 21, 18:35'
     );
+    // expect(myAdsBefore[1]).toHaveTextContent(
+    //   'Annuncio pubblicato il 07 Apr 21, 18:35'
+    // );
     fireEvent.click(getByRole('button', { name: 'filter' }));
-    const orderSelect = getByRole('combobox', { name: 'Ordine risultati' });
-    await waitFor(() => {
-      fireEvent.change(orderSelect, { target: { value: 'price_DESC' } });
-    });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
 
-      fireEvent.keyDown(orderSelect, { key: 'ArrowDown' });
+    const orderSelect = getByRole('combobox', { name: 'Ordine risultati' });
+    fireEvent.change(orderSelect, {
+      target: { value: QueryOrderBy.CreatedAtAsc },
     });
-    await waitFor(() => {
-      fireEvent.keyDown(orderSelect, { key: 'Enter' });
+    expect(getByTestId('loading')).toBeTruthy();
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    const myAdsAfter = getAllByRole('link', {
+      name: 'link-ad',
     });
-    expect(fetchMore2).toHaveBeenCalledTimes(1);
-    expect(fetchMore2).toHaveBeenCalledWith({
-      variables: {
-        limit: 4,
-        orderBy: QueryOrderBy.PriceDesc,
-      },
-    });
+    expect(myAdsAfter[0]).toHaveTextContent(
+      'Annuncio pubblicato il 08 Mar 21, 18:35'
+    );
+    expect(myAdsAfter[1]).toHaveTextContent(
+      'Annuncio pubblicato il 08 Jan 21, 18:35'
+    );
   });
 });

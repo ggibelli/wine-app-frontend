@@ -130,8 +130,8 @@ describe('Message page', () => {
     jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
       jest.fn(),
       {
-        isIntersecting: true,
-        intersectionRatio: 0.4,
+        isIntersecting: false,
+        intersectionRatio: 0,
         target: 'element',
       },
     ]);
@@ -229,50 +229,5 @@ describe('Message page create message mutation', () => {
       message: 'error',
     });
     expect(getAllByTestId('message-box')).toHaveLength(lengthMessages);
-  });
-});
-
-describe('Message page intersectionObserver mock', () => {
-  afterEach(cleanup);
-  beforeEach(() => setupIntersectionObserverMock());
-
-  it('calls fetchmore when intersecting', async () => {
-    const fetchMore = jest.fn();
-    //@ts-expect-error mock
-    jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
-      jest.fn(),
-      {
-        isIntersecting: true,
-        intersectionRatio: 0.6,
-        target: 'element',
-      },
-    ]);
-    window.HTMLElement.prototype.scroll = jest.fn();
-
-    jest
-      .spyOn(superHooks, 'useMessagesNegotiationQuery')
-      //@ts-expect-error mock
-      .mockImplementation(() => ({
-        data: messagesMockSuccess.result.data,
-        loading: false,
-        fetchMore: fetchMore,
-      }));
-
-    renderApollo(
-      <Message path='/messaggi/:id' />,
-      {
-        mocks: [messagesMockSuccess],
-        addTypename: false,
-      },
-      { route: '/messaggi/123' }
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(fetchMore).toBeCalledWith({
-      variables: {
-        offset:
-          messagesMockSuccess.result.data.messagesForNegotiation.messages
-            .length,
-      },
-    });
   });
 });

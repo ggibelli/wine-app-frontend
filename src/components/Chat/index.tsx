@@ -31,13 +31,7 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
   const me = myInfo();
   const [messageContent, setMessageContent] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isFirstRender, setIsFirstRender] = React.useState<boolean>(true);
   const divRef = React.useRef<null | HTMLDivElement>(null);
-  const timerIdRef = React.useRef<number>();
-  const id = setTimeout(() => {
-    setIsFirstRender(false), 1000;
-    timerIdRef.current = id;
-  });
   React.useEffect(() => {
     if (divRef.current) {
       if (isLoading) return;
@@ -47,9 +41,9 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
         behavior: 'smooth',
       });
     }
-    const timeoutId = timerIdRef.current;
+    // const timeoutId = timerIdRef.current;
     return () => {
-      clearTimeout(timeoutId);
+      // clearTimeout(timeoutId);
     };
   }, [propsMessage.messages]);
   const message = propsMessage.messages ? propsMessage.messages[0] : null;
@@ -85,8 +79,8 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
       >
         <InfiniteScroll
           fetchMore={propsMessage.handleFetchMore}
-          isLoading={isLoading}
-          isVisible={propsMessage.isVisible && !isFirstRender}
+          isLoading={propsMessage.isLoading}
+          isVisible={propsMessage.isVisible}
           setIsLoading={setIsLoading}
         >
           {propsMessage.messages?.map((message) => (

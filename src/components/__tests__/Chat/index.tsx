@@ -64,8 +64,8 @@ describe('Message component', () => {
       .mockImplementation(() => [
         jest.fn(),
         {
-          isIntersecting: true,
-          intersectionRatio: 0.4,
+          isIntersecting: false,
+          intersectionRatio: 0,
           target: 'element',
         },
       ]);
@@ -131,8 +131,8 @@ describe('Message component', () => {
       .mockImplementation(() => [
         jest.fn(),
         {
-          isIntersecting: true,
-          intersectionRatio: 0.4,
+          isIntersecting: false,
+          intersectionRatio: 0,
           target: 'element',
         },
       ]);
@@ -152,8 +152,8 @@ describe('Message component', () => {
       .mockImplementation(() => [
         jest.fn(),
         {
-          isIntersecting: true,
-          intersectionRatio: 0.4,
+          isIntersecting: false,
+          intersectionRatio: 0,
           target: 'element',
         },
       ]);
@@ -179,8 +179,8 @@ describe('Message component', () => {
       .mockImplementation(() => [
         jest.fn(),
         {
-          isIntersecting: true,
-          intersectionRatio: 0.4,
+          isIntersecting: false,
+          intersectionRatio: 0,
           target: 'element',
         },
       ]);
@@ -200,8 +200,8 @@ describe('Message component', () => {
       .mockImplementation(() => [
         jest.fn(),
         {
-          isIntersecting: true,
-          intersectionRatio: 0.4,
+          isIntersecting: false,
+          intersectionRatio: 0,
           target: 'element',
         },
       ]);

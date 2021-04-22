@@ -38,7 +38,6 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
   const [negotiations, setNegotiations] = React.useState<
     DeepExtractType<NegotiationsQuery, ['negotiations']>['negotiations']
   >([]);
-
   const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
@@ -77,11 +76,9 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
       }
     }
   };
-
   const isVisible =
     (negotiations?.length as number) <
     (data?.negotiations?.pageCount as number);
-
   React.useEffect(() => {
     if (negotiations?.length && fetchMore) {
       setIsLoadOrder(true);
@@ -100,6 +97,7 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
         .catch((e) => console.log(e));
     }
   }, [order]);
+
   if (loading) {
     return <Loading />;
   }
@@ -119,7 +117,6 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
               isConcluded: isShowAll,
             },
           });
-          console.log(data);
           setNegotiations([
             ...negotiations,
             ...(data.negotiations?.negotiations as []),

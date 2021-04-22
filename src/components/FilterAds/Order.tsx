@@ -29,7 +29,6 @@ export const Order: React.FC<OrderProps> = (props) => {
           id: 'order',
         }}
       >
-        <option aria-label='None' value='' />
         <option value={QueryOrderBy.CreatedAtDesc}>Dal piu recente</option>
         <option value={QueryOrderBy.CreatedAtAsc}>Dal meno recente</option>
         {props.isAds ? (

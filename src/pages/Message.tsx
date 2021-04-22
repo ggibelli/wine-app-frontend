@@ -20,7 +20,13 @@ const Message: React.FC<RouteComponentProps> = () => {
   const { data, loading, error, fetchMore } = useMessagesNegotiationQuery({
     fetchPolicy: 'network-only',
     variables: { id, offset: 0, limit: 20 },
+    onCompleted: ({ messagesForNegotiation }) => {
+      setSortedMessage([...(messagesForNegotiation?.messages as [])].reverse());
+    },
   });
+  const [isFirstRender, setIsFirstRender] = React.useState<boolean>(true);
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [sortedMessage, setSortedMessage] = React.useState<
     DeepExtractType<
       MessagesNegotiationQuery,
@@ -37,7 +43,6 @@ const Message: React.FC<RouteComponentProps> = () => {
     },
     onCompleted: (createdMessage) => {
       const messageCreated = createdMessage?.createMessage?.response;
-
       if (createdMessage.createMessage?.errors?.length) {
         const errorMessages = createdMessage.createMessage?.errors.map(
           (error) => error?.text
@@ -56,23 +61,24 @@ const Message: React.FC<RouteComponentProps> = () => {
         >['messages']);
       }
     },
-    // update: (cache, data) => {
-    //   updateCacheMessages(cache, data.data?.createMessage?.response);
-    // },
   });
-  React.useEffect(() => {
-    if (data?.messagesForNegotiation?.messages) {
-      setSortedMessage([...data?.messagesForNegotiation?.messages].reverse());
-    }
-  }, [data?.messagesForNegotiation?.messages]);
+
   const handleFetchMore = async () => {
-    if (fetchMore) {
+    if (isFirstRender) {
+      setIsFirstRender(false);
+      return;
+    }
+    if (sortedMessage?.length && fetchMore) {
+      setIsLoading(true);
       try {
-        await fetchMore({
+        const { data } = await fetchMore({
           variables: {
-            offset: data?.messagesForNegotiation?.messages?.length,
+            offset: sortedMessage.length,
           },
         });
+        const sortedNewMessages = data.messagesForNegotiation?.messages?.reverse();
+        setSortedMessage([...(sortedNewMessages as []), ...sortedMessage]);
+        setIsLoading(false);
       } catch (e) {
         console.log(e);
       }
@@ -84,7 +90,7 @@ const Message: React.FC<RouteComponentProps> = () => {
     });
   };
   const propsMessage = {
-    isLoading: loading,
+    isLoading: isLoading,
     messages: sortedMessage,
     isVisible:
       data?.messagesForNegotiation?.messages?.length !==
