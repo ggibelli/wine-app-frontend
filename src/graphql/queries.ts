@@ -400,6 +400,9 @@ export const AD = gql`
           _id
         }
       }
+      savedAds {
+        _id
+      }
     }
   }
   ${AD_DETAILS}

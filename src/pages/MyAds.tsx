@@ -68,7 +68,11 @@ const MyAds: React.FC<RouteComponentProps> = () => {
           data.adsForUser?.pageCount !== pageCount &&
             setPageCount(data.adsForUser?.pageCount as number);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          setIsLoadOrder(false);
+
+          console.log(e);
+        });
     }
   }, [order]);
 
@@ -98,6 +102,8 @@ const MyAds: React.FC<RouteComponentProps> = () => {
           data.adsForUser?.pageCount !== pageCount &&
             setPageCount(data.adsForUser?.pageCount as number);
         } catch (e) {
+          setIsLoadFetchMore(false);
+
           console.log(e);
         }
       }

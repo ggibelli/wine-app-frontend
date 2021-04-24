@@ -3,7 +3,6 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { AdQuery, TypeAd } from '../../generated/graphql';
 import { Button, Grid } from '@material-ui/core';
-import { FavoriteButton } from '../../containers/FavoriteButton';
 import { NegotiationModal } from '../NegotiationModal';
 import { StyledBox } from '../../containers/StyledBox';
 import { useStyles } from '../../utils/styleHook';
@@ -61,8 +60,6 @@ export const CardWineDetail: React.FC<{
   const adWine = ad?.__typename === 'AdWine' ? ad : null;
   return (
     <StyledBox width={1} typeAd={ad?.typeAd as TypeAd}>
-      {ad?.postedBy._id !== me?._id ? <FavoriteButton ad={ad} /> : null}
-
       <Typography component='h5' variant='h5'>
         L&apos;utente {ad?.postedBy.firstName} {isBuy ? 'compra' : 'vende'}:
       </Typography>

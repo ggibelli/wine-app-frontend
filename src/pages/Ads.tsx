@@ -67,7 +67,11 @@ const Ads: React.FC<RouteComponentProps> = () => {
           setIsLoadOrder(false);
           setAds(data.ads?.ads);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          setIsLoadOrder(false);
+
+          console.log(e);
+        });
     }
   }, [order]);
 
@@ -107,6 +111,8 @@ const Ads: React.FC<RouteComponentProps> = () => {
         setIsLoadFetchMore(false);
         setAds([...ads, ...(data.ads?.ads as [])]);
       } catch (e) {
+        setIsLoadFetchMore(false);
+
         console.log(e);
       }
     }

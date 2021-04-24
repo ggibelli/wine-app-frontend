@@ -46,31 +46,35 @@ const Reviews: React.FC<RouteComponentProps> = () => {
           setReviews(data.reviews?.reviews);
           setIsLoadOrder(false);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          console.log(e);
+          setIsLoadOrder(false);
+        });
     }
   }, [order]);
-  if (reviews?.length === 0) {
-    return <div>Non hai ancora recensioni</div>;
-  }
+
   if (error) return <div>error</div>;
   if (loading) {
     return <Loading />;
   }
-  if (reviews?.length) {
+  if (reviews?.length === 0) {
+    return <div>Non hai ancora recensioni</div>;
+  } else if (reviews?.length) {
     const handleFetchMore = async () => {
       if (fetchMore) {
         try {
           setIsLoadFetchMore(true);
           const { data } = await fetchMore({
             variables: {
-              offset: reviews.length,
+              offset: reviews?.length,
               orderBy: order,
             },
           });
-          setReviews([...reviews, ...(data.reviews?.reviews as [])]);
+          setReviews([...(reviews as []), ...(data.reviews?.reviews as [])]);
           setIsLoadFetchMore(false);
         } catch (e) {
           console.log(e);
+          setIsLoadFetchMore(false);
         }
       }
     };
@@ -89,11 +93,11 @@ const Reviews: React.FC<RouteComponentProps> = () => {
         ) : (
           <InfiniteScroll
             fetchMore={handleFetchMore}
-            isVisible={reviews.length !== data?.reviews?.pageCount}
+            isVisible={reviews?.length !== data?.reviews?.pageCount}
             isLoading={isLoadFetchMore}
           >
             {' '}
-            {reviews.map((review) => (
+            {reviews?.map((review) => (
               <CardReview
                 key={review && review._id}
                 review={review as ReviewDetailsFragment}
@@ -104,7 +108,7 @@ const Reviews: React.FC<RouteComponentProps> = () => {
       </Container>
     );
   }
-  return <div>grave errore</div>;
+  return <div>Grave errore</div>;
 };
 
 export default Reviews;

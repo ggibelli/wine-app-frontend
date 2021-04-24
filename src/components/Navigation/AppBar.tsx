@@ -110,9 +110,6 @@ export const HeaderBar: React.FC<{
       ).length,
       savedAds: meQueryResult.data?.me?.savedAds?.length,
       name: meQueryResult.data?.me?.firstName,
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
       rating,
     },
   };

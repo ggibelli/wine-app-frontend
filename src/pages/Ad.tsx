@@ -8,12 +8,19 @@ import {
   NegotiationInput,
   useNegotiationsForAdLazyQuery,
   AdQuery,
+  useSaveAdMutation,
 } from '../generated/graphql';
 import { notification } from '../cache';
 import { CardWineDetail } from '../components/Cards/CardWineDetail';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { BackButton } from '../components/BackButton';
-import { updateCacheNegotiations } from '../utils/updateCache';
+import {
+  updateCacheNegotiations,
+  updateCacheSaveAd,
+} from '../utils/updateCache';
 import { OpenNegotiations } from '../components/OpenNegotiations';
 import { useStyles } from '../utils/styleHook';
 import { Loading } from '../components/Loading';
@@ -51,7 +58,6 @@ const Ad: React.FC<RouteComponentProps> = () => {
         });
       }
     },
-
     onError: (error) =>
       notification({
         type: 'error',
@@ -64,19 +70,31 @@ const Ad: React.FC<RouteComponentProps> = () => {
       );
     },
   });
+  const [isFavorite, setIsFavorite] = React.useState<boolean>(
+    data?.me?.savedAds?.map((ad) => ad._id).includes(id) || false
+  );
+  const [saveAd] = useSaveAdMutation({
+    variables: { id: id },
+    onCompleted: () => setIsFavorite(!isFavorite),
+    onError: (error) => console.log(error),
+    update: (cache, { data }) => {
+      updateCacheSaveAd(cache, data?.saveAd?.response);
+    },
+  });
   const [lazyNegotiations, lazyNegResult] = useNegotiationsForAdLazyQuery();
   const handleShowNegotiations = () => {
     lazyNegotiations({ variables: { ad: id } });
   };
-  const openNegotiation = () => {
+  const openNegotiation = async () => {
     const newNegotiation: NegotiationInput = {
       forUserAd: ad?.postedBy._id,
       ad: ad?._id,
       type: ad?.typeAd,
     } as NegotiationInput;
-    void createNegotiation({ variables: { negotiation: newNegotiation } });
+    await createNegotiation({ variables: { negotiation: newNegotiation } });
   };
   const classes = useStyles();
+
   if (error && !loading) {
     return <div>Errore</div>;
   }
@@ -99,6 +117,15 @@ const Ad: React.FC<RouteComponentProps> = () => {
             anche tu i parametri e decidi se procedere.
           </Typography>
         </div>
+        {data?.me?._id === ad.postedBy._id ? null : (
+          <IconButton aria-label='save' onClick={() => saveAd()}>
+            {isFavorite ? (
+              <FavoriteIcon data-testid='saved' />
+            ) : (
+              <FavoriteBorderIcon data-testid='not-saved' />
+            )}
+          </IconButton>
+        )}
         <CardWineDetail
           ad={ad}
           createNegotiation={openNegotiation}

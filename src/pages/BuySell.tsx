@@ -66,7 +66,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
     void navigate('/annunci');
   };
 
-  const onSubmitMutation = (values: WineFormMutation) => {
+  const onSubmitMutation = async (values: WineFormMutation) => {
     if (values.isSameAddress && me?.address) {
       sameAddress = {
         regione: me.address.regione,
@@ -90,7 +90,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
       needsFollowUp: values.needsFollowUp,
       address: values.isSameAddress ? sameAddress : differentAddress,
     };
-    void createAdWineMutation({
+    await createAdWineMutation({
       variables: {
         input: adInput,
       },

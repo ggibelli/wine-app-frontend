@@ -8,6 +8,7 @@ import {
   Negotiation,
   Province,
   Regioni,
+  Review,
   TypeAd,
   TypeProduct,
   User,
@@ -128,4 +129,16 @@ export const messageFactory = Factory.Sync.makeFactory<Message>({
   dateSent: '08 Apr 21, 4:18',
   isViewed: false,
   __typename: 'Message',
+});
+
+export const reviewFactory = Factory.Sync.makeFactory<Review>({
+  _id: Factory.each((i) => i.toString()),
+  forUser: user2,
+  negotiation: negotiation,
+  createdBy: user,
+  dateCreated: 'oggi',
+  rating: 5,
+  content: 'good',
+  type: ad.typeAd,
+  __typename: 'Review',
 });

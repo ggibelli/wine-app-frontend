@@ -1335,7 +1335,6 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
               | 'activeNegotiations'
               | 'numberViews'
               | 'datePosted'
-              | 'isActive'
             > & {
                 wine?: Maybe<
                   { __typename?: 'Wine' } & Pick<
@@ -1679,6 +1678,12 @@ export type AdQuery = { __typename?: 'Query' } & {
                   | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
                   | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
               }
+          >
+        >;
+        savedAds?: Maybe<
+          Array<
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+            | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
           >
         >;
       }
@@ -2069,7 +2074,6 @@ export const AdDetailsFragmentDoc = gql`
 `;
 export const NegotiationDetailsFragmentDoc = gql`
   fragment NegotiationDetails on Negotiation {
-    __typename
     _id
     createdBy {
       _id
@@ -2945,7 +2949,6 @@ export const FavoriteDocument = gql`
         activeNegotiations
         numberViews
         datePosted
-        isActive
       }
     }
   }
@@ -3512,6 +3515,9 @@ export const AdDocument = gql`
         ad {
           _id
         }
+      }
+      savedAds {
+        _id
       }
     }
   }

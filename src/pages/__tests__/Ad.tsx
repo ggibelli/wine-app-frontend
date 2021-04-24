@@ -12,6 +12,7 @@ import {
   Province,
   Regioni,
   TypeAd,
+  SaveAdDocument,
 } from '../../generated/graphql';
 import { notification } from '../../cache';
 import { InMemoryCache } from '@apollo/client';
@@ -86,6 +87,7 @@ export const adMockSuccess = {
         _id: '606d52c5b470d4287b4e78ed',
       },
       me: {
+        savedAds: [],
         negotiations: [{ _id: '123', ad: { _id: '606d52c5b470d4287b4e78ed' } }],
         __typeName: 'User',
         _id: '605a7c0dc28f1006e42fe146',
@@ -142,6 +144,7 @@ export const adMockSuccessNoNegs = {
         _id: '606d52c5b470d4287b4e78ed',
       },
       me: {
+        savedAds: [],
         negotiations: [],
         __typeName: 'User',
         _id: '605a7c0dc28f1006e42fe146',
@@ -198,6 +201,7 @@ const adMockSuccessOtherUser = {
         _id: '606d52c5b470d4287b4e78ed',
       },
       me: {
+        savedAds: [],
         negotiations: [],
         __typename: 'User',
         _id: '605a7c0dc28f1006e42fe147',
@@ -240,6 +244,26 @@ const negotiationCreatedSuccess = {
   },
 };
 
+const SaveAdSuccess = {
+  request: {
+    query: SaveAdDocument,
+    variables: {
+      id: '123',
+    },
+  },
+  result: {
+    data: {
+      saveAd: {
+        __typename: 'Ad',
+
+        _id: '123',
+
+        // errors: { __typename: 'Error' },
+      },
+    },
+  },
+};
+
 const negotiationCreatedError = {
   request: {
     query: CreateNegotiationDocument,
@@ -259,7 +283,7 @@ const negotiationCreatedError = {
           __typename: 'Negotiation',
           _id: '123',
         },
-        errors: [{ name: 'ahia', text: 'ahhaha' }],
+        errors: [{ name: 'ahia', text: 'errore' }],
       },
     },
   },
@@ -309,7 +333,7 @@ describe('Ad page', () => {
   });
 
   it('renders the Ad page success buyer and own ad and button show ads negotiations', async () => {
-    const { getByText, getByTestId, getByRole } = renderApollo(
+    const { getByText, getByTestId, getByRole, queryByRole } = renderApollo(
       <Ad path='/annunci/:id' />,
       {
         mocks: [adMockSuccess],
@@ -323,6 +347,7 @@ describe('Ad page', () => {
     expect(navigate).toBeCalledTimes(1);
     expect(getByText('Modifica l annuncio')).toBeTruthy();
     expect(getByTestId('negotiationsAd')).toBeTruthy();
+    expect(queryByRole('button', { name: 'save' })).toBeFalsy();
   });
 
   it('does not render button show negotiations because no negotiations', async () => {
@@ -353,9 +378,30 @@ describe('Ad page', () => {
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(getByRole('button', { name: 'previous-page' }));
-
+    expect(getByRole('button', { name: 'save' }));
     expect(getByText('Contatta Il venditore')).toBeTruthy();
     expect(queryByTestId('negotiationsAd')).toBeFalsy();
+  });
+
+  it('Save ad mutation works as expected', async () => {
+    const { getByText, queryByTestId, getByRole } = renderApollo(
+      <Ad path='/annunci/:id' />,
+      {
+        mocks: [adMockSuccessOtherUser, SaveAdSuccess],
+        addTypename: false,
+      },
+      { route: '/annunci/123' }
+    );
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    expect(getByRole('button', { name: 'previous-page' }));
+    const saveAd = getByRole('button', { name: 'save' });
+    fireEvent.click(saveAd);
+    expect(queryByTestId('not-saved')).toBeTruthy();
+    expect(queryByTestId('saved')).toBeFalsy();
+
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    expect(queryByTestId('saved')).toBeTruthy();
+    expect(queryByTestId('not-saved')).toBeFalsy();
   });
 
   it('renders the Ad page with error', async () => {
@@ -416,7 +462,7 @@ describe('Ad page', () => {
 
     expect(notification).toBeCalledTimes(1);
     expect(notification).toBeCalledWith({
-      message: 'ahhaha',
+      message: 'errore',
       type: 'error',
     });
   });

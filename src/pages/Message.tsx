@@ -80,6 +80,8 @@ const Message: React.FC<RouteComponentProps> = () => {
         setSortedMessage([...(sortedNewMessages as []), ...sortedMessage]);
         setIsLoading(false);
       } catch (e) {
+        setIsLoading(false);
+
         console.log(e);
       }
     }

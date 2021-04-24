@@ -94,7 +94,11 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
           setIsLoadOrder(false);
           setNegotiations(data.negotiations?.negotiations);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          setIsLoadOrder(false);
+
+          console.log(e);
+        });
     }
   }, [order]);
 
@@ -124,6 +128,7 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
           setIsLoadFetchMore(false);
         } catch (e) {
           console.log(e);
+          setIsLoadFetchMore(false);
         }
       }
     };

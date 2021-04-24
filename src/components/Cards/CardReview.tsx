@@ -27,7 +27,7 @@ export const CardReview: React.FC<{ review: ReviewDetailsFragment | null }> = ({
         color={isBuy ? 'textSecondary' : 'primary'}
       >
         {isMyReview
-          ? `Cosa hai detto riguardante la cantina ${review.forUser.firstName}`
+          ? `Cosa hai detto della cantina ${review.forUser.firstName}`
           : `La cantina ${review.createdBy.firstName} dice di te`}
         :
       </Typography>
@@ -38,6 +38,14 @@ export const CardReview: React.FC<{ review: ReviewDetailsFragment | null }> = ({
         color={isBuy ? 'textSecondary' : 'primary'}
       >
         {review.content}
+      </Typography>
+      <Typography
+        data-testid='date'
+        align='right'
+        variant='caption'
+        color={isBuy ? 'textSecondary' : 'primary'}
+      >
+        Recensito il {review.dateCreated}
       </Typography>
     </StyledBox>
   );

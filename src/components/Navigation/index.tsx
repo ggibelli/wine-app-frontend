@@ -11,6 +11,7 @@ import {
   useLoginMutation,
   useMeLazyQuery,
   Address,
+  User,
 } from '../../generated/graphql';
 import {
   updateCacheMessages,
@@ -28,7 +29,7 @@ export const Header: React.FC = () => {
       if (data.me) {
         myInfo({
           ...data.me,
-        });
+        } as User);
       }
     },
     onError: (error) => {
@@ -69,7 +70,7 @@ export const Header: React.FC = () => {
           _id: login.response?.user._id as string,
           firstName: login.response?.user.firstName as string,
           address: login.response?.user.address as Address,
-        });
+        } as User);
       }
       if (login?.errors?.length) {
         notification({

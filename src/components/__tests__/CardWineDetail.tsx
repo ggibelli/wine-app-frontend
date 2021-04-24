@@ -217,7 +217,7 @@ describe('CardWineDetail component', () => {
 
   it('if owner of the ad shows modify button with buy class', () => {
     const createNegotiation = jest.fn();
-    const { queryByRole, getByRole } = renderApolloNoRouter(
+    const { getByRole } = renderApolloNoRouter(
       <CardWineDetail
         ad={mockAdBuyOwned.ad}
         me={mockAdBuyOwned.me}
@@ -228,7 +228,6 @@ describe('CardWineDetail component', () => {
       name: 'edit-ad',
     }).classList.value.split('-');
     expect(classes.includes('buyButton')).toBeTruthy();
-    expect(queryByRole('button', { name: 'save' })).toBeFalsy();
   });
 
   it('if not owner of the ad shows show contact seller', () => {
@@ -244,13 +243,12 @@ describe('CardWineDetail component', () => {
       name: 'open-negotiation-dialog',
     }).classList.value.split('-');
     expect(classes.includes('sellButton')).toBeTruthy();
-    expect(getByRole('button', { name: 'save' }));
     expect(queryByText('Negoziazione gia aperta')).toBeFalsy();
   });
 
   it('if already open negotiations shows negotiation already open', () => {
     const createNegotiation = jest.fn();
-    const { getByText, getByRole, queryByText } = renderApolloNoRouter(
+    const { getByText, queryByText } = renderApolloNoRouter(
       <CardWineDetail
         ad={mockAdSellOpenNeg.ad}
         me={mockAdSellOpenNeg.me}
@@ -258,13 +256,12 @@ describe('CardWineDetail component', () => {
       />
     );
     expect(queryByText('Contatta il venditore')).toBeFalsy();
-    expect(getByRole('button', { name: 'save' }));
     expect(getByText('Negoziazione gia aperta'));
   });
 
   it('if ad not active is not possible to open negotiation', () => {
     const createNegotiation = jest.fn();
-    const { getByText, getByRole, queryByText } = renderApolloNoRouter(
+    const { getByText, queryByText } = renderApolloNoRouter(
       <CardWineDetail
         ad={mockAdSellAdNotActive.ad}
         me={mockAdSellAdNotActive.me}
@@ -272,7 +269,6 @@ describe('CardWineDetail component', () => {
       />
     );
     expect(queryByText('Contatta il venditore')).toBeFalsy();
-    expect(getByRole('button', { name: 'save' }));
     expect(getByText('Annuncio non piu attivo'));
   });
 });

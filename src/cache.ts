@@ -2,14 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import {
-  Address,
-  QueryOrderBy,
-  TypeAd,
-  TypeProduct,
-} from './generated/graphql';
-// import { offsetLimitPagination } from '@apollo/client/utilities';
+import { QueryOrderBy, TypeAd, TypeProduct, User } from './generated/graphql';
 import _ from 'lodash';
+
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
     Query: {
@@ -27,12 +22,7 @@ export const cache: InMemoryCache = new InMemoryCache({
                 merged[(offset as number) + i] = incoming.ads[i];
               }
             } else {
-              // It's unusual (probably a mistake) for a paginated field not
-              // to receive any arguments, so you might prefer to throw an
-              // exception here, instead of recovering by appending incoming
-              // onto the existing array.
-              // eslint-disable-next-line prefer-spread
-              merged.push.apply(merged, incoming.ads);
+              throw new Error('Cache error');
             }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return {
@@ -72,12 +62,7 @@ export const cache: InMemoryCache = new InMemoryCache({
                 merged[(offset as number) + i] = incoming.messages[i];
               }
             } else {
-              // It's unusual (probably a mistake) for a paginated field not
-              // to receive any arguments, so you might prefer to throw an
-              // exception here, instead of recovering by appending incoming
-              // onto the existing array.
-              // eslint-disable-next-line prefer-spread
-              merged.push.apply(merged, incoming.messages);
+              throw new Error('Cache error');
             }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return {
@@ -112,6 +97,27 @@ export const cache: InMemoryCache = new InMemoryCache({
             };
           },
         },
+        reviews: {
+          keyArgs: [],
+          merge(existing, incoming, { args }) {
+            const merged = existing ? existing.reviews.slice(0) : [];
+            if (args) {
+              // Assume an offset of 0 if args.offset omitted.
+              const { offset = 0 } = args;
+              for (let i = 0; i < incoming.reviews.length; ++i) {
+                merged[(offset as number) + i] = incoming.reviews[i];
+              }
+            } else {
+              throw new Error('Cache error');
+            }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            return {
+              __typeName: 'ReviewResult',
+              reviews: merged,
+              pageCount: incoming.pageCount,
+            };
+          },
+        },
         isLoggedIn: {
           read() {
             return isLoggedInVar();
@@ -141,13 +147,9 @@ export const isLoggedInVar = makeVar<boolean>(
   !!localStorage.getItem('wineapp-user-token')
 );
 
-type AddressMyInfo = Omit<Address, 'via'>;
-
-export const myInfo = makeVar<{
-  _id: string | null;
-  firstName?: string;
-  address?: AddressMyInfo;
-} | null>({ _id: localStorage.getItem('wineapp-user-id') });
+export const myInfo = makeVar<User | null>({
+  _id: localStorage.getItem('wineapp-user-id'),
+} as User);
 
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
 
