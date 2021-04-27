@@ -8,16 +8,22 @@ import {
   NegotiationInput,
   useNegotiationsForAdLazyQuery,
   AdQuery,
+  useSaveAdMutation,
 } from '../generated/graphql';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { notification } from '../cache';
-import { CardWineDetail } from '../components/CardWineDetail';
+import { CardWineDetail } from '../components/Cards/CardWineDetail';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { BackButton } from '../components/BackButton';
-import { updateCacheNegotiations } from '../utils/updateCache';
+import {
+  updateCacheNegotiations,
+  updateCacheSaveAd,
+} from '../utils/updateCache';
 import { OpenNegotiations } from '../components/OpenNegotiations';
 import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
 
 const Ad: React.FC<RouteComponentProps> = () => {
   const [ad, setAd] = React.useState<AdQuery['ad'] | undefined>(undefined);
@@ -28,8 +34,8 @@ const Ad: React.FC<RouteComponentProps> = () => {
       id: id,
     },
     onCompleted: (data) => (data?.ad ? setAd(data?.ad) : null),
+    onError: (error) => console.log(error),
   });
-
   React.useEffect(() => {
     if (data?.ad) {
       setAd(data?.ad);
@@ -64,27 +70,37 @@ const Ad: React.FC<RouteComponentProps> = () => {
       );
     },
   });
+  const [isFavorite, setIsFavorite] = React.useState<boolean>(
+    data?.me?.savedAds?.map((ad) => ad._id).includes(id) || false
+  );
+  const [saveAd] = useSaveAdMutation({
+    variables: { id: id },
+    onCompleted: () => setIsFavorite(!isFavorite),
+    onError: (error) => console.log(error),
+    update: (cache, { data }) => {
+      updateCacheSaveAd(cache, data?.saveAd?.response);
+    },
+  });
   const [lazyNegotiations, lazyNegResult] = useNegotiationsForAdLazyQuery();
   const handleShowNegotiations = () => {
     lazyNegotiations({ variables: { ad: id } });
   };
-  const openNegotiation = () => {
+  const openNegotiation = async () => {
     const newNegotiation: NegotiationInput = {
       forUserAd: ad?.postedBy._id,
       ad: ad?._id,
       type: ad?.typeAd,
     } as NegotiationInput;
-    void createNegotiation({ variables: { negotiation: newNegotiation } });
+    await createNegotiation({ variables: { negotiation: newNegotiation } });
   };
   const classes = useStyles();
+
   if (error && !loading) {
-    notification({
-      type: 'error',
-      message: `${error.message}`,
-    });
     return <div>Errore</div>;
   }
-
+  const negotiationsMyAd = data?.me?.negotiations?.filter(
+    (neg) => neg.ad._id === data?.ad?._id
+  );
   const buyerOrSeller =
     ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
   if (ad?._id) {
@@ -101,12 +117,21 @@ const Ad: React.FC<RouteComponentProps> = () => {
             anche tu i parametri e decidi se procedere.
           </Typography>
         </div>
+        {data?.me?._id === ad.postedBy._id ? null : (
+          <IconButton aria-label='save' onClick={() => saveAd()}>
+            {isFavorite ? (
+              <FavoriteIcon data-testid='saved' />
+            ) : (
+              <FavoriteBorderIcon data-testid='not-saved' />
+            )}
+          </IconButton>
+        )}
         <CardWineDetail
           ad={ad}
           createNegotiation={openNegotiation}
           me={data?.me}
         />
-        {data?.me?._id === ad.postedBy._id ? (
+        {data?.me?._id === ad.postedBy._id && negotiationsMyAd?.length ? (
           <OpenNegotiations
             data={lazyNegResult}
             showNegotiations={handleShowNegotiations}
@@ -115,13 +140,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
       </Container>
     );
   }
-  return (
-    <>
-      <Backdrop className={classes.backdrop} open={loading}>
-        <CircularProgress color='inherit' />
-      </Backdrop>
-    </>
-  );
+  return <Loading />;
 };
 
 export default Ad;

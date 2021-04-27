@@ -38,6 +38,7 @@ export const CloseNegotiationButton: React.FC<{
 
   return (
     <Button
+      aria-label='close-negotiation'
       className={isBuy ? classes.buyButton : classes.sellButton}
       disabled={loading}
       onClick={handleCloseNegotiation}

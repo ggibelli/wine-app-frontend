@@ -1,9 +1,5 @@
 import * as React from 'react';
-import {
-  MeQuery,
-  Exact,
-  useIsUserLoggedInQuery,
-} from '../../generated/graphql';
+import { MeQuery, Exact } from '../../generated/graphql';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -66,7 +62,6 @@ export const HeaderBar: React.FC<{
   const handleClickOpen = () => {
     setOpenModal(true);
   };
-
   const handleClose = () => {
     setOpenModal(false);
   };
@@ -83,7 +78,6 @@ export const HeaderBar: React.FC<{
     });
     handleClose();
   };
-  const loggedUser = useIsUserLoggedInQuery();
   const myReviews = meQueryResult.data?.me?.reviews?.length
     ? meQueryResult.data?.me?.reviews?.filter(
         (r) => r.forUser._id === meQueryResult.data?.me?._id
@@ -95,7 +89,6 @@ export const HeaderBar: React.FC<{
         rating: val.rating + acc.rating,
       }))
     : null;
-
   const rating = reducedReview
     ? reducedReview.rating / (myReviews?.length as number)
     : null;
@@ -112,17 +105,17 @@ export const HeaderBar: React.FC<{
       ).length,
       savedAds: meQueryResult.data?.me?.savedAds?.length,
       name: meQueryResult.data?.me?.firstName,
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
       rating,
     },
   };
 
   const SigninButton = () => {
-    if (loggedUser.data?.isLoggedIn) {
+    if (meQueryResult.data?.me?._id) {
       return (
-        <IconButton onClick={() => navigate('/messaggi')}>
+        <IconButton
+          data-testid='messages'
+          onClick={() => navigate('/messaggi')}
+        >
           <Badge badgeContent={badgeNumber} color='secondary'>
             <ChatOutlinedIcon fontSize='large' style={{ color: '#fff' }} />
           </Badge>
@@ -139,6 +132,7 @@ export const HeaderBar: React.FC<{
       color='inherit'
       aria-label='menu'
       onClick={toggleDrawer}
+      data-testid='drawer'
     >
       <MenuIcon />
     </IconButton>
@@ -147,7 +141,7 @@ export const HeaderBar: React.FC<{
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          {loggedUser.data?.isLoggedIn ? MenuButton() : null}
+          {meQueryResult.data?.me?._id ? MenuButton() : null}
           <Drawer state={state} toggleDrawer={toggleDrawer} data={drawerData} />
           <Link
             className={classes.title}

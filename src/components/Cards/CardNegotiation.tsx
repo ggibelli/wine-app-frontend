@@ -2,16 +2,16 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from '@reach/router';
-import { NegotiationDetailsFragment } from '../generated/graphql';
-import { TypeAd } from '../generated/graphql';
+import { NegotiationDetailsFragment } from '../../generated/graphql';
+import { TypeAd } from '../../generated/graphql';
 import Button from '@material-ui/core/Button';
 import { useTheme, useMediaQuery } from '@material-ui/core';
-import { StyledBox } from './StyledBox';
-import { CloseNegotiationButton } from '../containers/CloseNegotiationButton';
-import { useStyles } from '../utils/styleHook';
+import { StyledBox } from '../../containers/StyledBox';
+import { CloseNegotiationButton } from '../../containers/CloseNegotiationButton';
+import { useStyles } from '../../utils/styleHook';
 import { Grid } from '@material-ui/core';
-import { CreateReview } from '../containers/CreateReview';
-import { myInfo } from '../cache';
+import { CreateReviewModal } from '../ReviewModal';
+import { myInfo } from '../../cache';
 
 export const CardNegotiation: React.FC<{
   negotiation: NegotiationDetailsFragment;
@@ -33,6 +33,7 @@ export const CardNegotiation: React.FC<{
   return (
     <StyledBox width={width} typeAd={negotiation.type}>
       <Link
+        aria-label='link-negotiation'
         component={RouterLink}
         to={`/trattative/${negotiation._id}`}
         style={{ textDecoration: 'none' }}
@@ -63,21 +64,28 @@ export const CardNegotiation: React.FC<{
           variant='caption'
           color={isBuy ? 'textSecondary' : 'primary'}
         >
-          Trattativa aperta il {negotiation.dateCreated}
+          Trattativa aperta: {negotiation.dateCreated}
         </Typography>
+        {negotiation.isConcluded ? (
+          <>
+            <br />
+            <Typography
+              align='right'
+              variant='caption'
+              color={isBuy ? 'textSecondary' : 'primary'}
+            >
+              Trattativa conclusa: {negotiation.dateConcluded}
+            </Typography>
+          </>
+        ) : null}
       </Link>
       <Grid>
         {negotiation.isConcluded || !showCloseNeg ? (
           !isReviewed ? (
-            <CreateReview
-              isBuy={isBuy}
+            <CreateReviewModal
               idNegotiation={negotiation._id}
               type={negotiation.type}
-              idUser={
-                negotiation.createdBy._id === me?._id
-                  ? negotiation.forUserAd._id
-                  : negotiation.createdBy._id
-              }
+              idUser={negotiation.forUserAd._id}
             />
           ) : null
         ) : (

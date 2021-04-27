@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { AdQuery, TypeAd } from '../generated/graphql';
+import { AdQuery, TypeAd } from '../../generated/graphql';
 import { Button, Grid } from '@material-ui/core';
-import { FavoriteButton } from '../containers/FavoriteButton';
-import { NegotiationModal } from './NegotiationModal';
-import { StyledBox } from './StyledBox';
-import { useStyles } from '../utils/styleHook';
+import { NegotiationModal } from '../NegotiationModal';
+import { StyledBox } from '../../containers/StyledBox';
+import { useStyles } from '../../utils/styleHook';
 
 export const CardWineDetail: React.FC<{
   ad: AdQuery['ad'];
@@ -26,14 +25,17 @@ export const CardWineDetail: React.FC<{
   const ContactOrEdit = () => {
     if (me?._id === ad?.postedBy._id) {
       return (
-        <Button className={isBuy ? classes.buyButton : classes.sellButton}>
+        <Button
+          aria-label='edit-ad'
+          className={isBuy ? classes.buyButton : classes.sellButton}
+        >
           Modifica l annuncio
         </Button>
       );
     } else if (
       me?.negotiations?.find((negotiation) => negotiation?.ad._id === ad?._id)
     ) {
-      return <div>negoziazione gia aperta</div>;
+      return <div>Negoziazione gia aperta</div>;
     }
     if (!ad?.isActive) {
       return <Typography>Annuncio non piu attivo </Typography>;
@@ -41,6 +43,7 @@ export const CardWineDetail: React.FC<{
     return (
       <>
         <Button
+          aria-label='open-negotiation-dialog'
           className={isBuy ? classes.buyButton : classes.sellButton}
           onClick={handleClickOpen}
         >
@@ -57,8 +60,6 @@ export const CardWineDetail: React.FC<{
   const adWine = ad?.__typename === 'AdWine' ? ad : null;
   return (
     <StyledBox width={1} typeAd={ad?.typeAd as TypeAd}>
-      {ad?.postedBy._id !== me?._id ? <FavoriteButton ad={ad} /> : null}
-
       <Typography component='h5' variant='h5'>
         L&apos;utente {ad?.postedBy.firstName} {isBuy ? 'compra' : 'vende'}:
       </Typography>

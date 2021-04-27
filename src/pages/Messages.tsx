@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
@@ -9,9 +8,10 @@ import { MessageListEl } from '../components/MessageListEl';
 import { notification } from '../cache';
 import { RouteComponentProps } from '@reach/router';
 import { BackButton } from '../components/BackButton';
+import { Loading } from '../components/Loading';
 
 const Messages: React.FC<RouteComponentProps> = () => {
-  const messagesResult = useMessagesQuery({
+  const { data, loading, error } = useMessagesQuery({
     fetchPolicy: 'network-only',
     onError: (error) => {
       notification({
@@ -20,8 +20,7 @@ const Messages: React.FC<RouteComponentProps> = () => {
       });
     },
   });
-  const messages =
-    messagesResult.data?.messages && messagesResult.data?.messages;
+  const messages = data?.messages && data?.messages;
   const messagesForNegotiationObj = _.groupBy(
     messages,
     (message) => message.negotiation._id
@@ -29,11 +28,11 @@ const Messages: React.FC<RouteComponentProps> = () => {
   const messagesForNegotiation = Object.entries(
     messagesForNegotiationObj
   ).sort((a, b) => a[0].localeCompare(b[0]));
-  if (messagesResult.loading) {
-    return <Skeleton />;
+  if (loading) {
+    return <Loading />;
   }
-  if (messagesResult.error) return <div>error</div>;
-  if (!messagesForNegotiation.length) return <div>nno ci sono messaggi</div>;
+  if (error) return <div>error</div>;
+  if (!messagesForNegotiation.length) return <div>non ci sono messaggi</div>;
   if (!messages) return null;
   return (
     <Container component='main' maxWidth='sm'>

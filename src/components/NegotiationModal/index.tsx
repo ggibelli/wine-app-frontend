@@ -22,7 +22,9 @@ export const NegotiationModal: React.FC<{
         aria-labelledby='open-negotiation'
       >
         <DialogContent>
-          <Button onClick={handleClick}> Apri la trattativa</Button>
+          <Button aria-label='open-negotiation' onClick={handleClick}>
+            Apri la trattativa
+          </Button>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='primary'>

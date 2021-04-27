@@ -18,6 +18,7 @@ import {
   Negotiation,
   NegotiationsDocument,
   Review,
+  SaveAdMutation,
   User,
 } from '../generated/graphql';
 
@@ -60,7 +61,8 @@ export const updateCacheNegotiations = (
       CreateNegotiationMutation,
       ['createNegotiation']
     >['response']
-  >['data']
+  >['data'],
+  isSubscription = false
 ): void => {
   const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
     //@ts-expect-error error
@@ -78,7 +80,13 @@ export const updateCacheNegotiations = (
   );
 
   cachedDataMeLocal?.me.negotiations?.push(negotiation as Negotiation);
-
+  if (isSubscription) {
+    cachedDataMeLocal?.me.messages?.push({
+      isViewed: false,
+      //@ts-expect-error it does not matter if the sentBy is not complete
+      sentBy: { _id: 'placeHolder' },
+    });
+  }
   //@ts-expect-error error
   client.writeQuery({
     query: MeDocument,
@@ -259,4 +267,30 @@ export const updateCacheReview = (
     query: MeDocument,
     data: cachedDataMeLocal,
   });
+};
+
+export const updateCacheSaveAd = (
+  cache: ApolloCache<SaveAdMutation>,
+  ad: MutationResult<
+    DeepExtractType<SaveAdMutation, ['saveAd']>['response']
+  >['data']
+) => {
+  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+    cache.readQuery({
+      query: MeDocument,
+    })
+  );
+  if (
+    cachedDataMeLocal?.me.savedAds
+      ?.map((ad) => ad._id)
+      .includes(ad?._id as string)
+  ) {
+    const indexAd = cachedDataMeLocal?.me.savedAds.findIndex(
+      (adSaved) => adSaved._id === ad?._id
+    );
+    cachedDataMeLocal?.me.savedAds.splice(indexAd, 1);
+  } else if (cachedDataMeLocal?.me.savedAds) {
+    cachedDataMeLocal?.me.savedAds.push(ad as AdWine);
+  }
+  cache.writeQuery({ query: MeDocument, data: cachedDataMeLocal });
 };

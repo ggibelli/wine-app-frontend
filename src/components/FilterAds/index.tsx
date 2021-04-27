@@ -21,12 +21,12 @@ export const PurpleCheckbox = withStyles({
 })((props: CheckboxProps) => <Checkbox color='default' {...props} />);
 
 interface FilterProps {
-  setList: React.Dispatch<React.SetStateAction<Array<any> | undefined | null>>;
   list: Array<any>;
   filteredList?: Array<any>;
   setFilteredList: React.Dispatch<
     React.SetStateAction<Array<any> | undefined | null>
   >;
+  children?: React.ReactNode;
 }
 
 export const Filter: React.FC<FilterProps> = (props) => {
@@ -87,6 +87,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
         Filtri
       </Button>
       <Collapse in={showFilter}>
+        {props.children}
         <Divider />
         <FormControlLabel
           control={

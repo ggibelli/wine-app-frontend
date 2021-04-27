@@ -13,6 +13,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import IconButton from '@material-ui/core/IconButton';
 import { useStyles } from '../utils/styleHook';
+import { Loading } from './Loading';
+import { CreateReviewModal } from '../components/ReviewModal';
 
 export const OpenNegotiations: React.FC<{
   data: LazyQueryResult<
@@ -32,14 +34,18 @@ export const OpenNegotiations: React.FC<{
     setOpen(!open);
   };
   if (data.loading) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   if (data.error) {
     return <div>error</div>;
   }
   return (
     <>
-      <IconButton onClick={handleShowNegotiations}>
+      <IconButton
+        aria-label='show-open-negotiations'
+        data-testid='negotiationsAd'
+        onClick={handleShowNegotiations}
+      >
         {!open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
       </IconButton>
       <Collapse in={open}>
@@ -53,14 +59,16 @@ export const OpenNegotiations: React.FC<{
                   </Typography>
                   <br />
                   <Typography color='secondary' variant='body1'>
-                    aperta il {negotiation.dateCreated}{' '}
+                    aperta il {negotiation.dateCreated}
+                  </Typography>
+                  <Typography color='secondary' variant='body1'>
                     {negotiation.dateConcluded
                       ? `chiusa il ${negotiation.dateConcluded}`
                       : null}
                   </Typography>
-
                   <br />
                   <Button
+                    aria-label='open-chat'
                     className={classes.buyButton}
                     component={Link}
                     to={`/messaggi/${negotiation._id}`}
@@ -71,7 +79,11 @@ export const OpenNegotiations: React.FC<{
                   {!negotiation.isConcluded ? (
                     <CloseNegotiationButton isBuy={true} id={negotiation._id} />
                   ) : (
-                    <Button>Lascia una recensione</Button>
+                    <CreateReviewModal
+                      idNegotiation={negotiation._id}
+                      idUser={negotiation.createdBy._id}
+                      type={negotiation.type}
+                    />
                   )}
                 </div>
               </ListItem>

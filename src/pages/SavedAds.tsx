@@ -4,13 +4,14 @@ import Typography from '@material-ui/core/Typography';
 import { RouteComponentProps } from '@reach/router';
 import * as React from 'react';
 import { BackButton } from '../components/BackButton';
-import { CardWine } from '../components/CardWine';
+import { CardWine } from '../components/Cards/CardWine';
+import { Loading } from '../components/Loading';
 import { useFavoriteQuery } from '../generated/graphql';
 import { AdsWineResult } from '../types';
 
 const SavedAds: React.FC<RouteComponentProps> = () => {
   const { data, loading, error } = useFavoriteQuery();
-  if (loading) return <div>loading</div>;
+  if (loading) return <Loading />;
   if (error || !data?.me?.savedAds) return <div>error</div>;
   if (data?.me?.savedAds.length === 0)
     return <div>Non hai ancora salvato annunci</div>;

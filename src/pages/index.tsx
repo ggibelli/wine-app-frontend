@@ -2,6 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps, Router } from '@reach/router';
 import { Header } from '../components/Navigation';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Loading } from '../components/Loading';
 
 function createLazyRoute<T extends RouteComponentProps>(
   RouteComponent: React.ComponentType<T>
@@ -9,7 +10,7 @@ function createLazyRoute<T extends RouteComponentProps>(
   // eslint-disable-next-line react/display-name
   return function (props: T) {
     return (
-      <React.Suspense fallback={<div>loading</div>}>
+      <React.Suspense fallback={<Loading />}>
         <RouteComponent {...props} />
       </React.Suspense>
     );

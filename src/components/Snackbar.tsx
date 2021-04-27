@@ -14,11 +14,8 @@ const useStyles = makeStyles(() =>
     },
   })
 );
-interface SnackbarProps {
-  onClick: () => void;
-}
 
-export const SnackbarAds: React.FC<SnackbarProps> = (props) => {
+export const SnackbarAds: React.FC<{ onClick: () => void }> = ({ onClick }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -30,26 +27,23 @@ export const SnackbarAds: React.FC<SnackbarProps> = (props) => {
       setOpen(false);
       return;
     }
-
     setOpen(false);
   };
   return (
-    <>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        color='primary'
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        onClick={props.onClick}
-        ContentProps={{
-          className: classes.snackbarStyle,
-        }}
-        message='Vuoi creare un annuncio?'
-      />
-    </>
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      color='primary'
+      open={open}
+      // autoHideDuration={6000}
+      onClose={handleClose}
+      onClick={onClick}
+      ContentProps={{
+        className: classes.snackbarStyle,
+      }}
+      message='Vuoi creare un annuncio?'
+    />
   );
 };

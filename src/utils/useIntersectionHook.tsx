@@ -14,7 +14,6 @@ export const useIntersect = ({
   const [node, setNode] = React.useState<HTMLDivElement | null>(null);
 
   const observer = React.useRef<IntersectionObserver | null>(null);
-
   React.useEffect(() => {
     if (observer.current) {
       observer.current.disconnect();

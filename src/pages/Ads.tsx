@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { navigate, RouteComponentProps } from '@reach/router';
@@ -9,20 +8,21 @@ import {
   QueryOrderBy,
   TypeAd,
   TypeProduct,
-  useAdsWineLazyQuery,
+  useAdsWineQuery,
 } from '../generated/graphql';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { notification, searchedWine } from '../cache';
-import { CardWine } from '../components/CardWine';
+import { CardWine } from '../components/Cards/CardWine';
 import { BackButton } from '../components/BackButton';
 import { Filter } from '../components/FilterAds';
 import { SnackbarAds } from '../components/Snackbar';
 import { useTheme } from '@material-ui/core/styles';
-import { StyledBox } from '../components/StyledBox';
+import { StyledBox } from '../containers/StyledBox';
 import { useMediaQuery } from '@material-ui/core';
 import { Order } from '../components/FilterAds/Order';
-import { InfiniteScroll } from '../components/InfiniteScrollFetch';
+import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { AdsWineResult } from '../types';
+import { Loading } from '../components/Loading';
 
 const Ads: React.FC<RouteComponentProps> = () => {
   const theme = useTheme();
@@ -38,7 +38,10 @@ const Ads: React.FC<RouteComponentProps> = () => {
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
-  const [query, result] = useAdsWineLazyQuery({
+  const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
+  const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
+
+  const { data, loading, fetchMore } = useAdsWineQuery({
     variables: {
       offset: 0,
       limit: 4,
@@ -48,28 +51,27 @@ const Ads: React.FC<RouteComponentProps> = () => {
       typeAd:
         searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
     },
+    onCompleted: ({ ads }) => setAds(ads?.ads),
     onError: (error) => notification({ type: 'error', message: error.message }),
   });
-  React.useEffect(() => {
-    if (searchedWineCache?.wineName) {
-      query();
-    } else {
-      void navigate('/');
-    }
-  }, [searchedWineCache]);
-  React.useEffect(() => {
-    if (result.data?.ads) {
-      setAds(result.data.ads.ads);
-    }
-  }, [result.data]);
 
   React.useEffect(() => {
-    if (result.fetchMore && ads && ads.length) {
-      result
-        .fetchMore({
-          variables: { orderBy: order, limit: ads.length },
+    if (!searchedWineCache?.wineName) void navigate('/');
+
+    if (fetchMore && ads?.length) {
+      setIsLoadOrder(true);
+      fetchMore({
+        variables: { orderBy: order, limit: ads.length },
+      })
+        .then(({ data }) => {
+          setIsLoadOrder(false);
+          setAds(data.ads?.ads);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          setIsLoadOrder(false);
+
+          console.log(e);
+        });
     }
   }, [order]);
 
@@ -92,28 +94,33 @@ const Ads: React.FC<RouteComponentProps> = () => {
     'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli';
 
   const NoResults = () => (
-    <div onClick={onClick}>
+    <div data-testid='no-result' onClick={onClick}>
       Non abbiamo trovato nulla, vuoi creare un annuncio?
     </div>
   );
-  if (result.data?.ads && result.data?.ads?.pageCount === 0) {
+  if (data?.ads && data?.ads?.pageCount === 0) {
     return <NoResults />;
   }
   const handleFetchMore = async () => {
-    if (result.fetchMore) {
+    setIsLoadFetchMore(true);
+    if (ads?.length && fetchMore) {
       try {
-        await result.fetchMore({
-          variables: { offset: result.data?.ads?.ads?.length, orderBy: order },
+        const { data } = await fetchMore({
+          variables: { offset: ads.length, orderBy: order },
         });
+        setIsLoadFetchMore(false);
+        setAds([...ads, ...(data.ads?.ads as [])]);
       } catch (e) {
+        setIsLoadFetchMore(false);
+
         console.log(e);
       }
     }
   };
-  if (ads?.length === 0) {
-    return <div>Non hai ancora creato annunci</div>;
+  if (loading) {
+    return <Loading />;
   }
-  if (ads && ads.length && result.data?.ads?.ads?.length !== 0) {
+  if (ads?.length) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -143,25 +150,32 @@ const Ads: React.FC<RouteComponentProps> = () => {
         <Typography variant='body2'>
           {adsFiltered && adsFiltered.length > 0 ? defaultText : noAdsText}
         </Typography>
-        <Filter setList={setAds} list={ads} setFilteredList={setAdsFiltered} />
-        <Order setOrder={setOrder} order={order} />
-        <br />
-        <InfiniteScroll
-          fetchMore={handleFetchMore}
-          isVisible={ads.length !== result.data?.ads?.pageCount}
-          isLoading={result.loading}
-        >
+        <Filter list={ads} setFilteredList={setAdsFiltered}>
           {' '}
-          {adsFiltered &&
-            adsFiltered.map((ad) => (
-              <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
-            ))}
-        </InfiniteScroll>
+          <Order isAds setOrder={setOrder} order={order} />
+        </Filter>
+        <br />
+        {isLoadOrder ? (
+          <Loading />
+        ) : (
+          <InfiniteScroll
+            fetchMore={handleFetchMore}
+            isVisible={ads.length !== data?.ads?.pageCount}
+            isLoading={isLoadFetchMore}
+          >
+            {' '}
+            {adsFiltered &&
+              adsFiltered.map((ad) => (
+                <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
+              ))}
+          </InfiniteScroll>
+        )}
+
         <SnackbarAds onClick={onClick} />
       </Container>
     );
   }
-  return <Skeleton />;
+  return <div>Grave errore</div>;
 };
 
 export default Ads;

@@ -11,6 +11,7 @@ import {
   useLoginMutation,
   useMeLazyQuery,
   Address,
+  User,
 } from '../../generated/graphql';
 import {
   updateCacheMessages,
@@ -28,10 +29,11 @@ export const Header: React.FC = () => {
       if (data.me) {
         myInfo({
           ...data.me,
-        });
+        } as User);
       }
     },
     onError: (error) => {
+      console.log(error);
       notification({
         type: 'error',
         message: error.message,
@@ -69,7 +71,7 @@ export const Header: React.FC = () => {
           _id: login.response?.user._id as string,
           firstName: login.response?.user.firstName as string,
           address: login.response?.user.address as Address,
-        });
+        } as User);
       }
       if (login?.errors?.length) {
         notification({
@@ -137,7 +139,7 @@ export const Header: React.FC = () => {
   });
   useReviewCreatedSubscription({
     onSubscriptionData: ({ subscriptionData }) => {
-      const review = subscriptionData.data?.reviewCreated || null;
+      const review = subscriptionData.data?.reviewCreated;
       if (!review) return;
       notification({
         type: 'info',

@@ -1,99 +1,109 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { RouteComponentProps } from '@reach/router';
 import {
   QueryOrderBy,
-  useAdsForUserLazyQuery,
+  useAdsForUserQuery,
   AdsWineQuery,
 } from '../generated/graphql';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
-import { InfiniteScroll } from '../components/InfiniteScrollFetch';
+import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { myInfo } from '../cache';
 import { DeepExtractType } from 'ts-deep-extract-types';
-import { CardWine } from '../components/CardWine';
+import { CardWine } from '../components/Cards/CardWine';
 import { AdsWineResult } from '../types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import { PurpleCheckbox } from '../components/FilterAds';
+import { Loading } from '../components/Loading';
 
 const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
-  const [active, setActive] = React.useState<true | undefined>(undefined);
   const [ads, setAds] = React.useState<
-    DeepExtractType<AdsWineQuery, ['ads']>['ads']
-  >([]);
-  const [adsFiltered, setAdsFiltered] = React.useState<
     DeepExtractType<AdsWineQuery, ['ads']>['ads']
   >([]);
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
-  const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
-  const [query, result] = useAdsForUserLazyQuery({
+  const [pageCount, setPageCount] = React.useState<number>(0);
+  const { data, loading, error, fetchMore } = useAdsForUserQuery({
     variables: {
       offset: 0,
       limit: 4,
       orderBy: QueryOrderBy.CreatedAtDesc,
       user: me?._id as string,
-      isActive: active,
+      isActive: undefined,
     },
     onError: (error) => console.log(error),
+    onCompleted: ({ adsForUser }) => {
+      setPageCount(adsForUser?.pageCount as number);
+      setAds(adsForUser?.ads);
+    },
   });
+  const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
+  const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
+  const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
+  const handleShowAll = () => {
+    setHideNotActive(!hideNotActive);
+    if (!hideNotActive) setAds(ads?.filter((a) => a?.isActive));
+    else setAds(data?.adsForUser?.ads);
+  };
+
   React.useEffect(() => {
-    if (me?._id) {
-      query();
-    }
-  }, [me]);
-  React.useEffect(() => {
-    if (result.data?.adsForUser) {
-      setAds(result.data.adsForUser.ads);
-    }
-  }, [result.data]);
-  React.useEffect(() => {
-    if (ads && ads.length && result.fetchMore) {
-      result
-        .fetchMore({
-          variables: { orderBy: order, limit: ads.length },
+    if (ads?.length && fetchMore) {
+      setIsLoadOrder(true);
+      fetchMore({
+        variables: {
+          orderBy: order,
+          limit: ads.length,
+          isActive: hideNotActive,
+        },
+      })
+        .then(({ data }) => {
+          setIsLoadOrder(false);
+          setAds(data.adsForUser?.ads);
+          data.adsForUser?.pageCount !== pageCount &&
+            setPageCount(data.adsForUser?.pageCount as number);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          setIsLoadOrder(false);
+
+          console.log(e);
+        });
     }
   }, [order]);
-  React.useEffect(() => {
-    setAdsFiltered(ads);
-    if (hideNotActive && ads?.length) {
-      setAdsFiltered(ads?.filter((a) => a?.isActive));
-    }
-  }, [hideNotActive, ads]);
-  const handleChange = () => {
-    setHideNotActive(!hideNotActive);
-    if (hideNotActive) {
-      setActive(undefined);
-      setAdsFiltered(ads);
-    } else {
-      setActive(true);
-    }
-  };
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!me?._id || error) return <div>error</div>;
 
   if (ads?.length === 0) {
     return <div>Non hai ancora creato annunci</div>;
   }
-
   if (ads?.length) {
     const handleFetchMore = async () => {
-      if (result.fetchMore) {
+      setIsLoadFetchMore(true);
+      if (fetchMore) {
         try {
-          await result.fetchMore({
+          const { data } = await fetchMore({
             variables: {
-              offset: adsFiltered?.length,
+              offset: ads?.length,
               orderBy: order,
-              isActive: active,
+              isActive: hideNotActive,
             },
           });
+          setIsLoadFetchMore(false);
+          setAds([...ads, ...(data.adsForUser?.ads as [])]);
+          data.adsForUser?.pageCount !== pageCount &&
+            setPageCount(data.adsForUser?.pageCount as number);
         } catch (e) {
+          setIsLoadFetchMore(false);
+
           console.log(e);
         }
       }
@@ -113,27 +123,30 @@ const MyAds: React.FC<RouteComponentProps> = () => {
           control={
             <PurpleCheckbox
               checked={hideNotActive}
-              onChange={handleChange}
+              onChange={handleShowAll}
               name='showAll'
             />
           }
           label='Nascondi gli annunci inattivi'
         />
-        <InfiniteScroll
-          fetchMore={handleFetchMore}
-          isVisible={adsFiltered?.length !== result.data?.adsForUser?.pageCount}
-          isLoading={result.loading}
-        >
-          {' '}
-          {adsFiltered &&
-            adsFiltered.map((ad) => (
+        {isLoadOrder ? (
+          <Loading />
+        ) : (
+          <InfiniteScroll
+            fetchMore={handleFetchMore}
+            isVisible={ads.length < pageCount}
+            isLoading={isLoadFetchMore}
+          >
+            {' '}
+            {ads.map((ad) => (
               <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
             ))}
-        </InfiniteScroll>
+          </InfiniteScroll>
+        )}
       </Container>
     );
   }
-  return <Skeleton />;
+  return <div>gravissimo errore</div>;
 };
 
 export default MyAds;

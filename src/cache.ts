@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { Address, TypeAd, TypeProduct } from './generated/graphql';
-// import { offsetLimitPagination } from '@apollo/client/utilities';
+import { QueryOrderBy, TypeAd, TypeProduct, User } from './generated/graphql';
 import _ from 'lodash';
+
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
     Query: {
@@ -22,12 +22,7 @@ export const cache: InMemoryCache = new InMemoryCache({
                 merged[(offset as number) + i] = incoming.ads[i];
               }
             } else {
-              // It's unusual (probably a mistake) for a paginated field not
-              // to receive any arguments, so you might prefer to throw an
-              // exception here, instead of recovering by appending incoming
-              // onto the existing array.
-              // eslint-disable-next-line prefer-spread
-              merged.push.apply(merged, incoming.ads);
+              throw new Error('Cache error');
             }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return {
@@ -39,26 +34,19 @@ export const cache: InMemoryCache = new InMemoryCache({
         },
         adsForUser: {
           keyArgs: ['user'],
-          merge(existing = [], incoming) {
-            // const merged = existing ? existing.ads.slice(0) : [];
-            // if (args) {
-            //   // Assume an offset of 0 if args.offset omitted.
-            //   const { offset = 0 } = args;
-            //   for (let i = 0; i < incoming.ads.length; ++i) {
-            //     merged[(offset as number) + i] = incoming.ads[i];
-            //   }
-            // } else {
-            //   // It's unusual (probably a mistake) for a paginated field not
-            //   // to receive any arguments, so you might prefer to throw an
-            //   // exception here, instead of recovering by appending incoming
-            //   // onto the existing array.
-            //   // eslint-disable-next-line prefer-spread
-            //   merged.push.apply(merged, incoming.ads);
-            // }
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          merge(existing = [], incoming, { args }) {
+            let ads;
+            const adsUnsorted = _.unionBy(existing.ads, incoming.ads, '__ref');
+            if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
+              ads = _.orderBy(adsUnsorted, '__ref', ['desc']);
+            } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
+              ads = _.orderBy(adsUnsorted, '__ref', ['asc']);
+            } else {
+              ads = adsUnsorted;
+            }
             return {
               __typeName: 'AdsResult',
-              ads: _.unionBy(existing.ads, incoming.ads, '__ref'),
+              ads: ads,
               pageCount: incoming.pageCount,
             };
           },
@@ -74,12 +62,7 @@ export const cache: InMemoryCache = new InMemoryCache({
                 merged[(offset as number) + i] = incoming.messages[i];
               }
             } else {
-              // It's unusual (probably a mistake) for a paginated field not
-              // to receive any arguments, so you might prefer to throw an
-              // exception here, instead of recovering by appending incoming
-              // onto the existing array.
-              // eslint-disable-next-line prefer-spread
-              merged.push.apply(merged, incoming.messages);
+              throw new Error('Cache error');
             }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return {
@@ -93,33 +76,44 @@ export const cache: InMemoryCache = new InMemoryCache({
           keyArgs: false,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
-          merge(existing = [], incoming) {
-            // const merged = existing ? existing.negotiations.slice(0) : [];
-            // if (args && !args.isConcluded) {
-            //   // Assume an offset of 0 if args.offset omitted.
-            //   const { offset = 0 } = args;
-            //   for (let i = 0; i < incoming.negotiations.length; ++i) {
-            //     merged[(offset as number) + i] = incoming.negotiations[i];
-            //   }
-            // } else {
-            //   // It's unusual (probably a mistake) for a paginated field not
-            //   // to receive any arguments, so you might prefer to throw an
-            //   // exception here, instead of recovering by appending incoming
-            //   // onto the existing array.
-            //   // eslint-disable-next-line prefer-spread
-            //   console.log(merged, incoming.negotiations);
-            //   const negs = _.unionBy(merged, incoming.negotiations, '__ref');
-            //   console.log(negs  );
-            //   // merged.push(...negs);
-            // }
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          merge(existing = [], incoming, { args }) {
+            let negotiations;
+            const negotiationsUnsorted = _.unionBy(
+              existing.negotiations,
+              incoming.negotiations,
+              '__ref'
+            );
+            if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
+              negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['desc']);
+            } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
+              negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['asc']);
+            } else {
+              negotiations = negotiationsUnsorted;
+            }
             return {
               __typeName: 'NegotiationResult',
-              negotiations: _.unionBy(
-                existing.negotiations,
-                incoming.negotiations,
-                '__ref'
-              ),
+              negotiations: negotiations,
+              pageCount: incoming.pageCount,
+            };
+          },
+        },
+        reviews: {
+          keyArgs: [],
+          merge(existing, incoming, { args }) {
+            const merged = existing ? existing.reviews.slice(0) : [];
+            if (args) {
+              // Assume an offset of 0 if args.offset omitted.
+              const { offset = 0 } = args;
+              for (let i = 0; i < incoming.reviews.length; ++i) {
+                merged[(offset as number) + i] = incoming.reviews[i];
+              }
+            } else {
+              throw new Error('Cache error');
+            }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            return {
+              __typeName: 'ReviewResult',
+              reviews: merged,
               pageCount: incoming.pageCount,
             };
           },
@@ -153,13 +147,9 @@ export const isLoggedInVar = makeVar<boolean>(
   !!localStorage.getItem('wineapp-user-token')
 );
 
-type AddressMyInfo = Omit<Address, 'via'>;
-
-export const myInfo = makeVar<{
-  _id: string | null;
-  firstName?: string;
-  address?: AddressMyInfo;
-} | null>({ _id: localStorage.getItem('wineapp-user-id') });
+export const myInfo = makeVar<User | null>({
+  _id: localStorage.getItem('wineapp-user-id'),
+} as User);
 
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
 

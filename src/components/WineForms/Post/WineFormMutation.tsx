@@ -7,17 +7,19 @@ import { Combobox } from '../../FormFields/ComboboxFieldWines';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {
+  Exact,
   Menzione,
   MetodoProduttivo,
   TypeAd,
-  useWinesQuery,
+  WinesQuery,
 } from '../../../generated/graphql';
 import { SelectField } from '../../FormFields/SelectField';
 import { SliderField } from '../../FormFields/SliderField';
 import { searchedWine } from '../../../cache';
 import { AddressForm } from '../../AddressForm';
-import Skeleton from '@material-ui/lab/Skeleton';
 import { useStylesForms } from '../../../utils/styleHook';
+import { QueryResult } from '@apollo/client';
+import { Loading } from '../../Loading';
 
 interface AddressInputForm {
   comune: string;
@@ -53,10 +55,15 @@ interface Wine {
 export const WineFormMutation: React.FC<{
   onSubmit: (values: WineFormMutation) => void;
   adType: TypeAd;
-}> = ({ onSubmit, adType }) => {
-  const { data, loading, error } = useWinesQuery();
-  const wineOptions = data?.wines
-    ? data?.wines.map((wine) => ({
+  wines: QueryResult<
+    WinesQuery,
+    Exact<{
+      [key: string]: never;
+    }>
+  >;
+}> = ({ onSubmit, adType, wines }) => {
+  const wineOptions = wines.data?.wines
+    ? wines.data?.wines.map((wine) => ({
         denominazioneVino: wine.denominazioneVino,
         regione: wine.regione,
       }))
@@ -80,35 +87,10 @@ export const WineFormMutation: React.FC<{
     address: initialAddress,
   };
 
-  if (loading) {
-    return (
-      <div className={classes.paper} data-testid='loading'>
-        <Skeleton variant='rect' width={'40em'} height={70} />
-        <br />
-        <Skeleton variant='rect' width={'40em'} height={30} />
-        <Skeleton variant='rect' width={'40em'} height={30} />
-        <Skeleton
-          className={classes.form}
-          variant='rect'
-          width={'40em'}
-          height={30}
-        />
-        <Skeleton
-          className={classes.form}
-          variant='rect'
-          width={'40em'}
-          height={30}
-        />
-        <Skeleton
-          className={classes.form}
-          variant='rect'
-          width={'40em'}
-          height={30}
-        />
-      </div>
-    );
+  if (wines.loading) {
+    return <Loading />;
   }
-  if (error) return <div>Error...{error.message}</div>;
+  if (wines.error) return <div>Error...{wines.error.message}</div>;
   return (
     <Formik
       initialValues={initialValues}
@@ -136,10 +118,18 @@ export const WineFormMutation: React.FC<{
         content: Yup.string().required('Required'),
         needsFollowUp: Yup.bool().required('Required'),
         isSameAddress: Yup.bool().required('Required'),
-        address: Yup.object().shape({
-          comune: Yup.string(),
-          provincia: Yup.string(),
-          regione: Yup.string(),
+        address: Yup.object().when('isSameAddress', {
+          is: true,
+          then: Yup.object().shape({
+            comune: Yup.string(),
+            provincia: Yup.string(),
+            regione: Yup.string(),
+          }),
+          otherwise: Yup.object().shape({
+            comune: Yup.string().required('Required'),
+            provincia: Yup.string().required('Required'),
+            regione: Yup.string().required('Required'),
+          }),
         }),
       })}
       onSubmit={onSubmit}

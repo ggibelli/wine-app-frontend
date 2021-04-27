@@ -9,10 +9,10 @@ import SendIcon from '@material-ui/icons/Send';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { IconButton } from '@material-ui/core';
 import { myInfo } from '../../cache';
-import { InfiniteScroll } from '../InfiniteScrollFetch';
+import { InfiniteScroll } from '../../containers/InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { CloseNegotiationButton } from '../../containers/CloseNegotiationButton';
-import { CreateReview } from '../../containers/CreateReview';
+import { CreateReviewModal } from '../../components/ReviewModal';
 
 interface PropMessages {
   propsMessage: {
@@ -31,9 +31,7 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
   const me = myInfo();
   const [messageContent, setMessageContent] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isFirstRender, setIsFirstRender] = React.useState<boolean>(true);
   const divRef = React.useRef<null | HTMLDivElement>(null);
-  setTimeout(() => setIsFirstRender(false), 1000);
   React.useEffect(() => {
     if (divRef.current) {
       if (isLoading) return;
@@ -43,6 +41,10 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
         behavior: 'smooth',
       });
     }
+    // const timeoutId = timerIdRef.current;
+    return () => {
+      // clearTimeout(timeoutId);
+    };
   }, [propsMessage.messages]);
   const message = propsMessage.messages ? propsMessage.messages[0] : null;
   if (!message) {
@@ -77,8 +79,8 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
       >
         <InfiniteScroll
           fetchMore={propsMessage.handleFetchMore}
-          isLoading={isLoading}
-          isVisible={propsMessage.isVisible && !isFirstRender}
+          isLoading={propsMessage.isLoading}
+          isVisible={propsMessage.isVisible}
           setIsLoading={setIsLoading}
         >
           {propsMessage.messages?.map((message) => (
@@ -95,8 +97,7 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
         }}
       >
         {message.negotiation.isConcluded ? (
-          <CreateReview
-            isBuy={true}
+          <CreateReviewModal
             idNegotiation={message.negotiation._id}
             idUser={recipient}
             type={message.negotiation.type}
@@ -115,10 +116,12 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
           label=''
           value={messageContent}
           onChange={handleChange}
+          inputProps={{ 'aria-label': 'input-message' }}
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>
                 <IconButton
+                  aria-label='send'
                   disabled={!messageContent}
                   onClick={handleCreateMessage}
                 >

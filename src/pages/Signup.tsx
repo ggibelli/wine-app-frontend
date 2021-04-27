@@ -16,7 +16,13 @@ const SignUp: React.FC<RouteComponentProps> = () => {
         message: error.message,
       }),
     onCompleted: ({ createUser }) => {
-      if (createUser?.errors?.length === 0) {
+      if (createUser?.errors?.length) {
+        const errorMessages = createUser.errors.map((error) => error?.text);
+        notification({
+          type: 'error',
+          message: errorMessages.toString(),
+        });
+      } else {
         localStorage.setItem(
           'wineapp-user-token',
           createUser?.response?.token as string
@@ -31,13 +37,6 @@ const SignUp: React.FC<RouteComponentProps> = () => {
           message: 'welcome',
         });
         void navigate('/');
-      }
-      if (createUser?.errors?.length) {
-        const errorMessages = createUser.errors.map((error) => error?.text);
-        notification({
-          type: 'error',
-          message: errorMessages.toString(),
-        });
       }
     },
   });

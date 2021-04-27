@@ -1,13 +1,13 @@
 import { UserForm } from '../UserForm';
 import * as React from 'react';
 import {
-  renderApollo,
+  renderApolloNoRouter,
   cleanup,
   fireEvent,
   screen,
   waitFor,
   within,
-} from '../../test-utils';
+} from '../../test-utils/test-utils';
 
 describe('User form', () => {
   // automatically unmount and cleanup DOM after the test is finished.
@@ -15,7 +15,7 @@ describe('User form', () => {
 
   it('renders User form', () => {
     const onSubmit = () => jest.fn();
-    renderApollo(<UserForm onSubmit={onSubmit} />);
+    renderApolloNoRouter(<UserForm onSubmit={onSubmit} />);
     expect(screen.getByRole('textbox', { name: /email/ })).toBeInTheDocument();
     expect(
       screen.getByRole('textbox', { name: /reEmail/ })
@@ -49,7 +49,9 @@ describe('User form', () => {
 
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
-    const { getAllByText } = renderApollo(<UserForm onSubmit={onSubmit} />);
+    const { getAllByText } = renderApolloNoRouter(
+      <UserForm onSubmit={onSubmit} />
+    );
     fireEvent.input(screen.getByRole('textbox', { name: /email/ }), {
       target: {
         value: '',
@@ -129,7 +131,9 @@ describe('User form', () => {
 
   it('should validate form fields and not submit if fields are not valid', async () => {
     const onSubmit = jest.fn();
-    const { getByText } = renderApollo(<UserForm onSubmit={onSubmit} />);
+    const { getByText } = renderApolloNoRouter(
+      <UserForm onSubmit={onSubmit} />
+    );
 
     fireEvent.input(screen.getByRole('textbox', { name: /email/ }), {
       target: {
@@ -212,11 +216,13 @@ describe('User form', () => {
       expect(getByText(/La partita iva /i)).toBeVisible();
       expect(getByText('Must be exactly 5 characters')).toBeVisible();
     });
-  }, 10000);
+  }, 15000);
 
   it('should validate form fields and submit if fields are valid', async () => {
     const onSubmit = jest.fn();
-    const { getByTestId } = renderApollo(<UserForm onSubmit={onSubmit} />);
+    const { getByTestId } = renderApolloNoRouter(
+      <UserForm onSubmit={onSubmit} />
+    );
 
     fireEvent.input(screen.getByRole('textbox', { name: /email/ }), {
       target: {

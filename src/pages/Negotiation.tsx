@@ -2,20 +2,21 @@
 import * as React from 'react';
 import { Link, RouteComponentProps, useParams } from '@reach/router';
 import { useNegotiationQuery } from '../generated/graphql';
-import { notification } from '../cache';
 import { Container, CssBaseline } from '@material-ui/core';
 import { BackButton } from '../components/BackButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CloseNegotiationButton } from '../containers/CloseNegotiationButton';
 import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
+import { CreateReviewModal } from '../components/ReviewModal';
 
 const Negotiation: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const classes = useStyles();
-
-  const { data, loading, error } = useNegotiationQuery({ variables: { id } });
+  const result = useNegotiationQuery({ variables: { id } });
+  const { data, loading, error } = result;
   const adWine =
     data?.negotiation?.ad.__typename === 'AdWine'
       ? data?.negotiation?.ad
@@ -25,21 +26,16 @@ const Negotiation: React.FC<RouteComponentProps> = () => {
       return null;
     }
     return (
-      <div>
+      <div data-testid='info-contact'>
         puoi contattare l utente al numero: {adWine?.postedBy.phoneNumber} o
         alla mail {adWine?.postedBy.email}
       </div>
     );
   };
-  if (error && !loading) {
-    notification({
-      type: 'error',
-      message: `${error.message}`,
-    });
-    return <div>Errore</div>;
-  }
-  if (loading) return <div>loading</div>;
 
+  if (error) return <div>{error.message}</div>;
+
+  if (loading) return <Loading />;
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
@@ -58,10 +54,17 @@ const Negotiation: React.FC<RouteComponentProps> = () => {
         Questa trattativa riguarda l annuncio per {adWine?.wineName}{' '}
         {adWine?.wine?.denominazioneZona}
       </Typography>
-      {data?.negotiation?.isConcluded ? null : (
+      {data?.negotiation?.isConcluded ? (
+        <CreateReviewModal
+          idNegotiation={data.negotiation._id}
+          idUser={data.negotiation.forUserAd._id}
+          type={data.negotiation.type}
+        />
+      ) : (
         <CloseNegotiationButton id={id} />
       )}
       <Button
+        aria-label='open-chat'
         className={classes.sellButton}
         component={Link}
         to={`/messaggi/${data?.negotiation?._id}`}

@@ -1335,7 +1335,6 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
               | 'activeNegotiations'
               | 'numberViews'
               | 'datePosted'
-              | 'isActive'
             > & {
                 wine?: Maybe<
                   { __typename?: 'Wine' } & Pick<
@@ -1681,6 +1680,12 @@ export type AdQuery = { __typename?: 'Query' } & {
               }
           >
         >;
+        savedAds?: Maybe<
+          Array<
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+            | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+          >
+        >;
       }
   >;
 };
@@ -1806,7 +1811,7 @@ export type NegotiationsForAdQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'Negotiation' } & Pick<
         Negotiation,
-        '_id' | 'isConcluded' | 'dateCreated' | 'dateConcluded'
+        '_id' | 'isConcluded' | 'dateCreated' | 'dateConcluded' | 'type'
       > & {
           createdBy: { __typename?: 'User' } & Pick<
             User,
@@ -2944,7 +2949,6 @@ export const FavoriteDocument = gql`
         activeNegotiations
         numberViews
         datePosted
-        isActive
       }
     }
   }
@@ -3512,6 +3516,9 @@ export const AdDocument = gql`
           _id
         }
       }
+      savedAds {
+        _id
+      }
     }
   }
 `;
@@ -3961,6 +3968,7 @@ export const NegotiationsForAdDocument = gql`
       }
       dateCreated
       dateConcluded
+      type
     }
   }
 `;

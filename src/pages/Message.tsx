@@ -9,19 +9,24 @@ import {
   MessageInput,
 } from '../generated/graphql';
 import { useParams } from '@reach/router';
-import { myInfo, notification } from '../cache';
+import { notification } from '../cache';
 import { Chat } from '../components/Chat';
 import { DeepExtractType } from 'ts-deep-extract-types';
-import { format } from 'date-fns';
+import { Loading } from '../components/Loading';
 
 const Message: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
-  const me = myInfo();
   const { data, loading, error, fetchMore } = useMessagesNegotiationQuery({
     fetchPolicy: 'network-only',
     variables: { id, offset: 0, limit: 20 },
+    onCompleted: ({ messagesForNegotiation }) => {
+      setSortedMessage([...(messagesForNegotiation?.messages as [])].reverse());
+    },
   });
+  const [isFirstRender, setIsFirstRender] = React.useState<boolean>(true);
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [sortedMessage, setSortedMessage] = React.useState<
     DeepExtractType<
       MessagesNegotiationQuery,
@@ -32,8 +37,12 @@ const Message: React.FC<RouteComponentProps> = () => {
     ? data?.messagesForNegotiation.messages[0]
     : null;
   const [createMessage] = useCreateMessageMutation({
-    onError: (error) => notification({ type: 'error', message: error.message }),
+    onError: (error) => {
+      console.log(error);
+      notification({ type: 'error', message: error.message });
+    },
     onCompleted: (createdMessage) => {
+      const messageCreated = createdMessage?.createMessage?.response;
       if (createdMessage.createMessage?.errors?.length) {
         const errorMessages = createdMessage.createMessage?.errors.map(
           (error) => error?.text
@@ -42,52 +51,48 @@ const Message: React.FC<RouteComponentProps> = () => {
           type: 'error',
           message: `${errorMessages.toString()}`,
         });
+        return;
+      }
+
+      if (sortedMessage?.length) {
+        setSortedMessage([...sortedMessage, messageCreated] as DeepExtractType<
+          MessagesNegotiationQuery,
+          ['messagesForNegotiation']
+        >['messages']);
       }
     },
-    // update: (cache, data) => {
-    //   updateCacheMessages(cache, data.data?.createMessage?.response);
-    // },
   });
 
-  React.useEffect(() => {
-    if (data?.messagesForNegotiation?.messages) {
-      setSortedMessage([...data?.messagesForNegotiation?.messages].reverse());
-    }
-  }, [data?.messagesForNegotiation?.messages]);
   const handleFetchMore = async () => {
-    if (fetchMore) {
+    if (isFirstRender) {
+      setIsFirstRender(false);
+      return;
+    }
+    if (sortedMessage?.length && fetchMore) {
+      setIsLoading(true);
       try {
-        await fetchMore({
+        const { data } = await fetchMore({
           variables: {
-            offset: data?.messagesForNegotiation?.messages?.length,
+            offset: sortedMessage.length,
           },
         });
+        const sortedNewMessages = data.messagesForNegotiation?.messages?.reverse();
+        setSortedMessage([...(sortedNewMessages as []), ...sortedMessage]);
+        setIsLoading(false);
       } catch (e) {
+        setIsLoading(false);
+
         console.log(e);
       }
     }
   };
-  if (!message) return <div>niente mess ancora</div>;
-
   const handleCreate = async (message: MessageInput) => {
     await createMessage({
       variables: { message },
     });
-    const newMessage = {
-      ...message,
-      dateSent: format(new Date(), 'dd MMM yy, H:m'),
-      sentBy: { _id: me?._id },
-      _id: Date.now().toString(),
-    };
-    if (sortedMessage?.length) {
-      setSortedMessage([...sortedMessage, newMessage] as DeepExtractType<
-        MessagesNegotiationQuery,
-        ['messagesForNegotiation']
-      >['messages']);
-    }
   };
   const propsMessage = {
-    isLoading: loading,
+    isLoading: isLoading,
     messages: sortedMessage,
     isVisible:
       data?.messagesForNegotiation?.messages?.length !==
@@ -95,12 +100,14 @@ const Message: React.FC<RouteComponentProps> = () => {
     handleCreate,
     handleFetchMore,
   };
-  if (!loading && error) {
+  if (loading || propsMessage.isVisible === undefined) {
+    return <Loading />;
+  }
+  if (error) {
     return <div>error</div>;
   }
-  if (loading || propsMessage.isVisible === undefined) {
-    return <div>loading</div>;
-  }
+  if (!message) return <div>niente mess ancora</div>;
+
   if (!data?.messagesForNegotiation?.messages?.length) {
     return null;
   }

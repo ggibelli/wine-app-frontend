@@ -400,6 +400,9 @@ export const AD = gql`
           _id
         }
       }
+      savedAds {
+        _id
+      }
     }
   }
   ${AD_DETAILS}
@@ -514,6 +517,7 @@ export const NEGOTIATION_FOR_AD = gql`
       }
       dateCreated
       dateConcluded
+      type
     }
   }
 `;
