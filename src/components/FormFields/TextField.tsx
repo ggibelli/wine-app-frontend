@@ -23,6 +23,7 @@ export const TextField: React.FC<Props> = (props) => {
   });
   return (
     <TextFieldMaterial
+      required
       {...field}
       fullWidth
       InputLabelProps={{

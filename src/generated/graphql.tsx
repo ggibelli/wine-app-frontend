@@ -1396,12 +1396,13 @@ export type MeQuery = { __typename?: 'Query' } & {
         >;
         ads?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id' | 'isActive'> & {
-                  postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-                })
+            | ({ __typename?: 'AdWine' } & Pick<
+                AdWine,
+                'wineName' | '_id' | 'isActive' | 'harvest' | 'typeAd'
+              > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
             | ({ __typename?: 'AdGrape' } & Pick<
                 AdGrape,
-                '_id' | 'isActive'
+                '_id' | 'isActive' | 'harvest' | 'typeAd'
               > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
           >
         >;
@@ -3064,6 +3065,11 @@ export const MeDocument = gql`
           _id
         }
         isActive
+        harvest
+        typeAd
+        ... on AdWine {
+          wineName
+        }
       }
       savedAds {
         _id

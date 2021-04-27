@@ -197,6 +197,11 @@ export const ME = gql`
           _id
         }
         isActive
+        harvest
+        typeAd
+        ... on AdWine {
+          wineName
+        }
       }
       savedAds {
         _id

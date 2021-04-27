@@ -15,7 +15,7 @@ import { notification, searchedWine } from '../cache';
 import { CardWine } from '../components/Cards/CardWine';
 import { BackButton } from '../components/BackButton';
 import { Filter } from '../components/FilterAds';
-import { SnackbarAds } from '../components/Snackbar';
+// import { SnackbarAds } from '../components/Snackbar';
 import { useTheme } from '@material-ui/core/styles';
 import { StyledBox } from '../containers/StyledBox';
 import { useMediaQuery } from '@material-ui/core';
@@ -81,7 +81,6 @@ const Ads: React.FC<RouteComponentProps> = () => {
     } else {
       searchedWine({
         ...searchedWineCache,
-        isPost: true,
       });
       const url = searchedWineCache.typeAd === TypeAd.Buy ? '/buy' : '/sell';
       await navigate(url);
@@ -138,9 +137,9 @@ const Ads: React.FC<RouteComponentProps> = () => {
             <br />
             {`Gradazione: ${searchedWineCache?.abv as number} % Vol`}
             <br />
-            {`Quantità: ${searchedWineCache?.liters as number} l`}
+            {`Quantità: ${searchedWineCache?.litersTo as number} l`}
             <br />
-            {`Prezzo: ${searchedWineCache?.price as number} euro al litro`}
+            {`Prezzo: ${searchedWineCache?.priceTo as number} euro al litro`}
           </Typography>
         </StyledBox>
         <br />
@@ -171,7 +170,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
           </InfiniteScroll>
         )}
 
-        <SnackbarAds onClick={onClick} />
+        {/* <SnackbarAds onClick={onClick} /> */}
       </Container>
     );
   }

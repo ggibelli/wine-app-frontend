@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps, useLocation, navigate } from '@reach/router';
-import { WineFormQuery } from '../components/WineForms/Search/WineFormQuery';
 import {
   AdInput,
   TypeAd,
@@ -8,6 +7,8 @@ import {
   useCreateAdWineMutation,
   AddressInput,
   useWinesQuery,
+  AdsWineDocument,
+  QueryOrderBy,
 } from '../generated/graphql';
 import { searchedWine, notification, myInfo } from '../cache';
 import { WineFormMutation } from '../components/WineForms/Post/WineFormMutation';
@@ -17,6 +18,7 @@ import Container from '@material-ui/core/Container';
 import { updateCacheAd } from '../utils/updateCache';
 import { BackButton } from '../components/BackButton';
 import { useStyles } from '../utils/styleHook';
+import { Loading } from '../components/Loading';
 
 const Buy: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
@@ -26,8 +28,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
   let sameAddress: AddressInput;
   let differentAddress: AddressInput;
   const winesQueryResult = useWinesQuery();
-  const searchedWineCache = searchedWine();
-  const [createAdWineMutation] = useCreateAdWineMutation({
+  const [createAdWineMutation, { loading, client }] = useCreateAdWineMutation({
     onError: (error) =>
       notification({
         type: 'error',
@@ -45,26 +46,14 @@ const Buy: React.FC<RouteComponentProps> = () => {
           type: 'success',
           message: 'ad created',
         });
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        void navigate(`/annunci`);
       }
     },
     update: (cache, response) => {
       updateCacheAd(cache, response.data?.createAd?.response);
     },
   });
-
-  const onSubmitQuery = (values: WineFormQuery) => {
-    searchedWine({
-      wineName: values.wineName,
-      typeAd: adType,
-      typeProduct: TypeProduct.AdWine,
-      liters: values.liters as number,
-      harvest: values.harvest as number,
-      abv: values.abv as number,
-      price: values.price as number,
-      isPost: false,
-    });
-    void navigate('/annunci');
-  };
 
   const onSubmitMutation = async (values: WineFormMutation) => {
     if (values.isSameAddress && me?.address) {
@@ -78,8 +67,8 @@ const Buy: React.FC<RouteComponentProps> = () => {
     }
     const adInput: AdInput = {
       wineName: values.wineName,
-      typeAd: searchedWineCache?.typeAd as TypeAd,
-      typeProduct: searchedWineCache?.typeProduct as TypeProduct,
+      typeAd: adType,
+      typeProduct: TypeProduct.AdWine,
       content: values.content,
       harvest: values.harvest as number,
       abv: values.abv as number,
@@ -87,19 +76,44 @@ const Buy: React.FC<RouteComponentProps> = () => {
       priceTo: values.price as number,
       litersFrom: values.liters as number,
       litersTo: values.liters as number,
-      needsFollowUp: values.needsFollowUp,
+      // needsFollowUp: values.needsFollowUp,
       address: values.isSameAddress ? sameAddress : differentAddress,
     };
-    await createAdWineMutation({
+    searchedWine({ ...adInput });
+
+    const adAlreadyPosted = me?.ads?.find(
+      (ad) =>
+        ad.__typename === 'AdWine' &&
+        ad.wineName === adInput.wineName &&
+        ad.harvest === adInput.harvest &&
+        ad.typeAd === adType &&
+        ad.isActive === true
+    );
+    await client.query({
+      query: AdsWineDocument,
       variables: {
-        input: adInput,
+        wineName: adInput.wineName,
+        typeProduct: TypeProduct.AdWine,
+        typeAd: adType,
+        offset: 0,
+        limit: 4,
+        orderBy: QueryOrderBy.CreatedAtDesc,
       },
     });
-    searchedWine(undefined);
-    void navigate('/');
+    if (adAlreadyPosted) {
+      void navigate('/annunci');
+    } else {
+      await createAdWineMutation({
+        variables: {
+          input: adInput,
+        },
+      });
+    }
   };
   const buyOrSellText = adType === TypeAd.Buy ? 'comprare' : 'vendere';
   const buyerSellerText = adType === TypeAd.Buy ? 'acquirente' : 'venditore';
+
+  if (loading) return <Loading />;
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -113,19 +127,11 @@ const Buy: React.FC<RouteComponentProps> = () => {
           Inserisci i dati del prodotto che desideri {buyOrSellText}, noi
           cercheremo per te il giusto {buyerSellerText}.
         </Typography>
-        {searchedWineCache?.isPost ? (
-          <WineFormMutation
-            wines={winesQueryResult}
-            onSubmit={onSubmitMutation}
-            adType={adType}
-          />
-        ) : (
-          <WineFormQuery
-            wines={winesQueryResult}
-            onSubmit={onSubmitQuery}
-            adType={adType}
-          />
-        )}
+        <WineFormMutation
+          wines={winesQueryResult}
+          onSubmit={onSubmitMutation}
+          adType={adType}
+        />
       </div>
     </Container>
   );

@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { myInfo, searchedWine } from '../cache';
 import {
+  AdsForUserDocument,
   AdsWineDocument,
   AdWine,
   CreateAdWineMutation,
@@ -29,6 +30,10 @@ interface IAds {
 
 interface ICachedDataAds {
   ads: IAds;
+}
+
+interface ICachedDataMyAds {
+  adsForUser: IAds;
 }
 
 export interface ICachedMe {
@@ -81,6 +86,7 @@ export const updateCacheNegotiations = (
 
   cachedDataMeLocal?.me.negotiations?.push(negotiation as Negotiation);
   if (isSubscription) {
+    console.log('aggiungo messaggio');
     cachedDataMeLocal?.me.messages?.push({
       isViewed: false,
       //@ts-expect-error it does not matter if the sentBy is not complete
@@ -185,6 +191,15 @@ export const updateCacheAd = (
       variables: variablesCacheUpdate,
     })
   );
+  const me = myInfo();
+  const cachedDataMyAdsLocal: ICachedDataMyAds | null = _.cloneDeep(
+    cache.readQuery({
+      query: AdsForUserDocument,
+      variables: {
+        user: me?._id,
+      },
+    })
+  );
   const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
     cache.readQuery({
       query: MeDocument,
@@ -197,7 +212,16 @@ export const updateCacheAd = (
     query: MeDocument,
     data: cachedDataMeLocal,
   });
-
+  if (cachedDataMyAdsLocal) {
+    cachedDataMyAdsLocal.adsForUser.ads.push(ad as AdWine);
+    cache.writeQuery({
+      query: AdsForUserDocument,
+      variables: {
+        user: me?._id,
+      },
+      data: cachedDataMyAdsLocal,
+    });
+  }
   if (!cachedDataAdsLocal) return;
   cachedDataAdsLocal.ads.ads.push(ad as AdWine);
   cachedDataAdsLocal.ads.pageCount += 1;

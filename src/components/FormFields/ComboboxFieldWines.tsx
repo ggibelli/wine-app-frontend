@@ -79,6 +79,7 @@ export const Combobox: React.FC<{
       }}
       renderInput={(params) => (
         <Field
+          required
           component={TextField}
           {...params}
           label={label}

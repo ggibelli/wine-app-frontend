@@ -25,6 +25,7 @@ export const TextFieldAdornment: React.FC<Props> = (props) => {
   });
   return (
     <TextFieldMaterial
+      required
       {...field}
       fullWidth
       type={props.type}

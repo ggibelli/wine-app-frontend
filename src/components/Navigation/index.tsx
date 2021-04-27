@@ -101,10 +101,10 @@ export const Header: React.FC = () => {
         type: 'success',
         message: 'qualcuno ha aperto una trattativa con te',
       });
-
       updateCacheNegotiations(
         client,
-        subscriptionData.data?.negotiationCreated
+        subscriptionData.data?.negotiationCreated,
+        true
       );
     },
   });

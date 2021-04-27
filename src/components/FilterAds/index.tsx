@@ -35,7 +35,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
   const [showFilter, setShowFilter] = React.useState<boolean>(false);
   const [filterAds, setFilterAds] = React.useState<IFilters>({
     priceTo: (priceTo: number) =>
-      priceTo <= (searchedWineCache?.price as number),
+      priceTo <= (searchedWineCache?.priceTo as number),
     abv: (abv: number) =>
       abv >= (searchedWineCache?.abv as number) - 0.5 ||
       abv <= (searchedWineCache?.abv as number) + 0.5,
@@ -43,7 +43,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
       harvest === (searchedWineCache?.harvest as number) ||
       harvest - 1 === (searchedWineCache?.harvest as number),
     litersTo: (litersTo: number) =>
-      litersTo >= (searchedWineCache?.liters as number),
+      litersTo >= (searchedWineCache?.litersTo as number),
   });
   React.useEffect(() => {
     if (props.list.length > 0) {
@@ -62,7 +62,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
     } else {
       setFilterAds({
         priceTo: (priceTo: number) =>
-          priceTo <= (searchedWineCache?.price as number),
+          priceTo <= (searchedWineCache?.priceTo as number),
         abv: (abv: number) =>
           abv >= (searchedWineCache?.abv as number) - 0.5 ||
           abv <= (searchedWineCache?.abv as number) + 0.5,
@@ -70,7 +70,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
           harvest === (searchedWineCache?.harvest as number) ||
           harvest - 1 === (searchedWineCache?.harvest as number),
         litersTo: (litersTo: number) =>
-          litersTo >= (searchedWineCache?.liters as number),
+          litersTo >= (searchedWineCache?.litersTo as number),
       });
     }
     setIsShowAll(!isShowAll);

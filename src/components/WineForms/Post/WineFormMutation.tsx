@@ -15,7 +15,7 @@ import {
 } from '../../../generated/graphql';
 import { SelectField } from '../../FormFields/SelectField';
 import { SliderField } from '../../FormFields/SliderField';
-import { searchedWine } from '../../../cache';
+// import { searchedWine } from '../../../cache';
 import { AddressForm } from '../../AddressForm';
 import { useStylesForms } from '../../../utils/styleHook';
 import { QueryResult } from '@apollo/client';
@@ -43,7 +43,7 @@ export interface WineFormMutation {
   menzione?: Menzione | '';
   content: string;
   metodoProduttivo?: MetodoProduttivo | '';
-  needsFollowUp: boolean;
+  // needsFollowUp: boolean;
   isSameAddress: boolean;
   address?: AddressInputForm;
 }
@@ -71,18 +71,18 @@ export const WineFormMutation: React.FC<{
   const classes = useStylesForms();
   const today = new Date();
   const year = today.getFullYear();
-  const searchedWineCache = searchedWine();
+  // const searchedWineCache = searchedWine();
   const initialValues: WineFormMutation = {
-    wineName: searchedWineCache?.wineName as string,
-    harvest: searchedWineCache?.harvest as number,
-    abv: searchedWineCache?.abv as number,
-    price: searchedWineCache?.price as number,
-    liters: searchedWineCache?.liters as number,
+    wineName: '' as string,
+    harvest: 2015 as number,
+    abv: 13.5 as number,
+    price: 3 as number,
+    liters: 100 as number,
     sottoZona: '',
     menzione: '',
     metodoProduttivo: '',
     content: '',
-    needsFollowUp: false,
+    // needsFollowUp: false,
     isSameAddress: false,
     address: initialAddress,
   };
@@ -112,11 +112,11 @@ export const WineFormMutation: React.FC<{
         liters: Yup.number()
           .positive('La quantità deve essere positiva')
           .required('Required'),
-        sottoZona: Yup.string(),
+        // sottoZona: Yup.string(),
         menzione: Yup.string(),
         metodoProduttivo: Yup.string(),
         content: Yup.string().required('Required'),
-        needsFollowUp: Yup.bool().required('Required'),
+        // needsFollowUp: Yup.bool().required('Required'),
         isSameAddress: Yup.bool().required('Required'),
         address: Yup.object().when('isSameAddress', {
           is: true,
@@ -262,7 +262,7 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            <TextField
+            {/* <TextField
               name='sottoZona'
               type='text'
               label='Sotto zona del vino'
@@ -276,7 +276,7 @@ export const WineFormMutation: React.FC<{
               inputTextColor={
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
-            />
+            /> */}
             <TextField
               name='content'
               type='text'
@@ -293,11 +293,11 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            <SliderField
+            {/* <SliderField
               name='needsFollowUp'
               label='Aggiornami se nuovi annunci pertinenti'
               labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-            />
+            /> */}
             <SliderField
               name='isSameAddress'
               label='Indirizzo uguale a quello usato in registrazione'

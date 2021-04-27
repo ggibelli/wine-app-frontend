@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { QueryOrderBy, TypeAd, TypeProduct, User } from './generated/graphql';
+import { AdInput, MeQuery, QueryOrderBy, User } from './generated/graphql';
 import _ from 'lodash';
+import { DeepExtractType } from 'ts-deep-extract-types';
 
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
@@ -147,24 +148,13 @@ export const isLoggedInVar = makeVar<boolean>(
   !!localStorage.getItem('wineapp-user-token')
 );
 
-export const myInfo = makeVar<User | null>({
+export const myInfo = makeVar<DeepExtractType<MeQuery, ['me']> | null>({
   _id: localStorage.getItem('wineapp-user-id'),
 } as User);
 
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
 
-interface WineSearched {
-  typeAd: TypeAd;
-  typeProduct: TypeProduct;
-  wineName: string;
-  harvest: number;
-  abv: number;
-  price: number;
-  liters: number;
-  isPost: boolean;
-}
-
-export const searchedWine = makeVar<WineSearched | undefined>(undefined);
+export const searchedWine = makeVar<AdInput | undefined>(undefined);
 
 interface Notification {
   type: AlertStatus;

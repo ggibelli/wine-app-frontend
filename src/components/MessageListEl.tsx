@@ -16,6 +16,7 @@ export const MessageListEl: React.FC<{
 }> = ({ messages, id }) => {
   const me = myInfo();
   if (!messages) return null;
+  messages.map((m) => console.log(m.sentBy.firstName));
   const messagesForMe = messages.filter(
     (message) => message.sentTo._id === me?._id
   );
