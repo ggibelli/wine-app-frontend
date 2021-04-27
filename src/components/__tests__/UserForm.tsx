@@ -216,7 +216,7 @@ describe('User form', () => {
       expect(getByText(/La partita iva /i)).toBeVisible();
       expect(getByText('Must be exactly 5 characters')).toBeVisible();
     });
-  }, 10000);
+  }, 15000);
 
   it('should validate form fields and submit if fields are valid', async () => {
     const onSubmit = jest.fn();

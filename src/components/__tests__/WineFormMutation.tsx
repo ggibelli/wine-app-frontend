@@ -257,7 +257,7 @@ describe('Wine form mutation', () => {
       expect(onSubmit).toBeCalledTimes(0);
       expect(getAllByText('Required')).toHaveLength(9);
     });
-  });
+  }, 10000);
 
   it('should validate form fields and not submit if fields are not valid', async () => {
     const onSubmit = jest.fn();
