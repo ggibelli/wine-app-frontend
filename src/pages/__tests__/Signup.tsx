@@ -29,13 +29,16 @@ jest.mock('../../cache', () => ({
 }));
 
 const localStorageMock = (function () {
-  let store = {};
+  let store: Record<string | number, string> = {};
 
   return {
     getItem: function (key: string | number) {
       return store[key] || null;
     },
-    setItem: function (key: string | number, value: { toString: () => any }) {
+    setItem: function (
+      key: string | number,
+      value: { toString: () => string }
+    ) {
       store[key] = value.toString();
     },
     removeItem: function (key: string | number) {

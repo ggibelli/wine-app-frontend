@@ -1,9 +1,5 @@
 import * as React from 'react';
-import {
-  MeQuery,
-  Exact,
-  useIsUserLoggedInQuery,
-} from '../../generated/graphql';
+import { MeQuery, Exact } from '../../generated/graphql';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -82,7 +78,6 @@ export const HeaderBar: React.FC<{
     });
     handleClose();
   };
-  const loggedUser = useIsUserLoggedInQuery();
   const myReviews = meQueryResult.data?.me?.reviews?.length
     ? meQueryResult.data?.me?.reviews?.filter(
         (r) => r.forUser._id === meQueryResult.data?.me?._id
@@ -115,7 +110,7 @@ export const HeaderBar: React.FC<{
   };
 
   const SigninButton = () => {
-    if (loggedUser.data?.isLoggedIn) {
+    if (meQueryResult.data?.me?._id) {
       return (
         <IconButton
           data-testid='messages'
@@ -146,7 +141,7 @@ export const HeaderBar: React.FC<{
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          {loggedUser.data?.isLoggedIn ? MenuButton() : null}
+          {meQueryResult.data?.me?._id ? MenuButton() : null}
           <Drawer state={state} toggleDrawer={toggleDrawer} data={drawerData} />
           <Link
             className={classes.title}

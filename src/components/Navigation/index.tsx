@@ -33,6 +33,7 @@ export const Header: React.FC = () => {
       }
     },
     onError: (error) => {
+      console.log(error);
       notification({
         type: 'error',
         message: error.message,
@@ -138,7 +139,7 @@ export const Header: React.FC = () => {
   });
   useReviewCreatedSubscription({
     onSubscriptionData: ({ subscriptionData }) => {
-      const review = subscriptionData.data?.reviewCreated || null;
+      const review = subscriptionData.data?.reviewCreated;
       if (!review) return;
       notification({
         type: 'info',

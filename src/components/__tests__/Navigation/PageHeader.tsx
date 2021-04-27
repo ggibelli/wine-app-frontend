@@ -4,7 +4,6 @@ import {
   renderApolloNoRouter,
   cleanup,
   fireEvent,
-  render,
 } from '../../../test-utils/test-utils';
 import { act } from '@testing-library/react';
 import { Exact, MeQuery } from '../../../generated/graphql';
@@ -116,69 +115,6 @@ describe('PageHeader', () => {
       fireEvent.click(container.getByTestId('messages'));
       expect(navigate).toBeCalledTimes(1);
       expect(navigate).toBeCalledWith('/messaggi');
-      // expect(container.getByText('Profilo'));
     });
-    // const { getByText, queryByText } = renderApollo(
-    //   // eslint-disable-next-line @typescript-eslint/no-empty-function
-    //   <HeaderBar
-    //     onSubmitLogin={onSubmitLogin}
-    //     meQueryResult={meResultLoggedIn}
-    //   />,
-    //   { mocks, addTypename: false }
-    // );
-
-    // await wait(500);
-    // expect(getByText('Log in')).toBeFalsy();
-    // const sibeBarButton = queryByText('Open sidebar');
-    // expect(sibeBarButton).not.toBeInTheDocument();
   });
-
-  // it('renders Header without login button and sidebar', async () => {
-  //   const mocks = [
-  //     {
-  //       request: {
-  //         query: LoginDocument,
-  //         variables: { email: 'jhon.dee@someemail.com', password: 'giovanni' },
-  //       },
-  //       result: {
-  //         data: {
-  //           login: {
-  //             errors: [],
-  //             response: {
-  //               token: '123abc',
-  //               user: {
-  //                 _id: '111aaa',
-  //                 firstName: 'Giovanni',
-  //                 __typename: 'User',
-  //               },
-  //               __typename: 'AuthUser',
-  //             },
-  //             __typename: 'AuthUserPayload',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   ];
-  //   const { getByText } = renderApollo(
-  //     // eslint-disable-next-line @typescript-eslint/no-empty-function
-  //     <HeaderBar
-  //       onSubmitLogin={onSubmitLogin}
-  //       meQueryResult={meResultLoggedOut}
-  //     />,
-  //     { mocks, cache, addTypename: true, resolvers: {} }
-  //   );
-  //   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  //   expect(isLoggedInVar()).toBeFalsy();
-  //   const loginButton = getByText('Log in');
-
-  //   await waitFor(() => {
-  //     fireEvent.click(loginButton);
-  //   });
-  //   userEvent.type(screen.getByLabelText(/email/i), 'jhon.dee@someemail.com');
-  //   userEvent.type(screen.getByTestId('password'), 'giovanni');
-  //   userEvent.click(screen.getByRole('button', { name: /submit/i }));
-  //   await waitFor(() => {
-  //     expect(isLoggedInVar()).toBeTruthy();
-  //   });
-  // }, 10000);
 });
