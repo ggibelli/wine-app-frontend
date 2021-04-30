@@ -1,46 +1,23 @@
-# Getting Started with Create React App
+# Wine trading app client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the front-end of the wine trading app I developed for the Italian market, the app is still work in progress. I followed the design guidelines that were given to me from a designer that used Abode XD
 
-## Available Scripts
+## Technology used
 
-In the project directory, you can run:
+This app is written using ReactJS and ApolloClient for the state management.
 
-### `yarn start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Users can register (a mail is sent to verify email address)
+- Users can post/update Ads
+- Users can save Ad
+- Users can open/close Negotiations
+- Users can review other Users
+- Users can send real time messages
+- Users can manage their own ads and negotiations
+- Admin can add or remove wines
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## What is missing
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+At the moment some components are not fully graphically finished, the 404 page and error pages are missing, the notification texts are work in progress, the profile page is missing and various texts need to be updated.
+The e2e tests are missing and so the CI/CD pipeline

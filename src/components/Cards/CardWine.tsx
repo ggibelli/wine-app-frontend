@@ -48,7 +48,7 @@ export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
           <br />
           Quantità: {ad.litersTo} l
           <br />
-          Prezzo: {ad.priceFrom} euro al litro
+          Prezzo: {ad.priceFrom} €/l
         </Typography>
         <br />
         <Typography
@@ -56,7 +56,7 @@ export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
           variant='caption'
           color={isBuy ? 'textSecondary' : 'primary'}
         >
-          Annuncio pubblicato il {ad.datePosted}
+          pubblicato il {ad.datePosted}
         </Typography>
       </Link>
     </StyledBox>

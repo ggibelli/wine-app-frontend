@@ -149,15 +149,15 @@ export const useStylesForms = makeStyles(
 export const useStyleRating = makeStyles(
   () => ({
     root: {
-      width: 250,
+      width: 270,
       display: 'flex',
       alignItems: 'center',
     },
     list: {
-      width: 250,
+      width: 270,
     },
     bottomPush: {
-      width: 250,
+      width: 270,
       position: 'fixed',
       bottom: 0,
       textAlign: 'center',

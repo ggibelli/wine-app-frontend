@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import * as React from 'react';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -16,7 +15,6 @@ export const MessageListEl: React.FC<{
 }> = ({ messages, id }) => {
   const me = myInfo();
   if (!messages) return null;
-  messages.map((m) => console.log(m.sentBy.firstName));
   const messagesForMe = messages.filter(
     (message) => message.sentTo._id === me?._id
   );
@@ -36,36 +34,28 @@ export const MessageListEl: React.FC<{
       (messagesFromMe[0].negotiation.ad.wineName as string);
 
   return (
-    <>
-      <ListItem
-        button
-        // eslint-disable-next-line react/display-name
-        component={React.forwardRef((itemProps, ref) => (
-          //ts ignore because followed the mui docs
+    <ListItem
+      divider
+      button
+      // eslint-disable-next-line react/display-name
+      component={React.forwardRef((itemProps, ref) => (
+        //ts ignore because followed the mui docs
 
-          <RouterLink
-            to={`/messaggi/${id}`}
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            ref={ref}
-            {...itemProps}
-          />
-        ))}
-      >
-        <ListItemIcon>
-          <Badge badgeContent={unreadMessages} color='primary'>
-            <MailOutlineIcon />
-          </Badge>
-        </ListItemIcon>
-        <ListItemText
-          primary={
-            recipient === 'Amministratore'
-              ? 'Amministratore'
-              : `Cantina ${recipient} - ${ad}`
-          }
+        <RouterLink
+          to={`/messaggi/${id}`}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          ref={ref}
+          {...itemProps}
         />
-      </ListItem>
-      <Divider />
-    </>
+      ))}
+    >
+      <ListItemIcon>
+        <Badge badgeContent={unreadMessages} color='primary'>
+          <MailOutlineIcon />
+        </Badge>
+      </ListItemIcon>
+      <ListItemText primary={`Cantina ${recipient} - ${ad}`} />
+    </ListItem>
   );
 };

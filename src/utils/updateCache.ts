@@ -86,7 +86,6 @@ export const updateCacheNegotiations = (
 
   cachedDataMeLocal?.me.negotiations?.push(negotiation as Negotiation);
   if (isSubscription) {
-    console.log('aggiungo messaggio');
     cachedDataMeLocal?.me.messages?.push({
       isViewed: false,
       //@ts-expect-error it does not matter if the sentBy is not complete

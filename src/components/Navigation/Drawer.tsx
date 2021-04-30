@@ -11,16 +11,15 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import StoreIcon from '@material-ui/icons/Store';
 import Typography from '@material-ui/core/Typography';
-import { ApolloError } from '@apollo/client';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link as RouterLink } from '@reach/router';
-import { LogoutButton } from '../../containers/LogoutButton';
 import { useStyleRating, StyledRating } from '../../utils/styleHook';
 import Link from '@material-ui/core/Link';
+import { isLoggedInVar } from '../../cache';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useApolloClient } from '@apollo/client';
 
 export interface DrawerData {
-  isLoading: boolean;
-  error?: ApolloError;
   data?: {
     numAds?: number | null;
     numOpenNegs?: number | null;
@@ -37,6 +36,17 @@ export const Drawer: React.FC<{
   data: DrawerData;
 }> = ({ state, toggleDrawer, data }) => {
   const classes = useStyleRating();
+  const client = useApolloClient();
+  const handleCLick = async () => {
+    isLoggedInVar(false);
+    localStorage.removeItem('wineapp-user-token');
+    localStorage.removeItem('wineapp-user-id');
+    try {
+      await client.resetStore();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const list = () => (
     <div
       className={classes.list}
@@ -59,7 +69,9 @@ export const Drawer: React.FC<{
               readOnly
               precision={0.1}
             />
-            <Box>{data?.data?.rating ? `(${data?.data?.rating})` : null}</Box>
+            <Box>
+              {data?.data?.rating ? `(${data?.data?.rating.toFixed(2)})` : null}
+            </Box>
           </div>
         </Link>
       </Box>
@@ -118,7 +130,12 @@ export const Drawer: React.FC<{
         </ListItem>
         <Divider />
         <div data-testid='logout' className={classes.bottomPush}>
-          <LogoutButton />
+          <ListItem button onClick={handleCLick}>
+            <ListItemIcon data-testid='logout-button'>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary='Esci' />
+          </ListItem>
         </div>
       </List>
     </div>

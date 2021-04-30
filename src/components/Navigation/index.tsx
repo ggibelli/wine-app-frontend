@@ -22,7 +22,13 @@ import {
 import { HeaderBar } from './AppBar';
 
 export const Header: React.FC = () => {
-  const loggedUser = useIsUserLoggedInQuery();
+  // const [stop, setStop] = React.useState(false);
+  const { data } = useIsUserLoggedInQuery();
+  React.useEffect(() => {
+    if (data?.isLoggedIn) {
+      lazyQuery();
+    }
+  }, [data]);
   const client = useApolloClient();
   const [lazyQuery, result] = useMeLazyQuery({
     onCompleted: (data) => {
@@ -30,22 +36,16 @@ export const Header: React.FC = () => {
         myInfo({
           ...data.me,
         } as User);
+        // setStop(true);
       }
     },
     onError: (error) => {
-      console.log(error);
       notification({
         type: 'error',
         message: error.message,
       });
     },
   });
-  React.useEffect(() => {
-    if (loggedUser.data?.isLoggedIn) {
-      lazyQuery();
-    }
-  }, [loggedUser.data?.isLoggedIn]);
-
   const [loginMutation] = useLoginMutation({
     onError: (error) =>
       notification({
@@ -148,5 +148,12 @@ export const Header: React.FC = () => {
       updateCacheReview(client, review);
     },
   });
-  return <HeaderBar meQueryResult={result} onSubmitLogin={onSubmitLogin} />;
+
+  return (
+    <HeaderBar
+      meQueryResult={result}
+      onSubmitLogin={onSubmitLogin}
+      isLoggedIn={data?.isLoggedIn || false}
+    />
+  );
 };

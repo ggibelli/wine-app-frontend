@@ -24,8 +24,13 @@ const Message: React.FC<RouteComponentProps> = () => {
       setSortedMessage([...(messagesForNegotiation?.messages as [])].reverse());
     },
   });
+  React.useEffect(() => {
+    if (sortedMessage?.length)
+      setSortedMessage(
+        [...(data?.messagesForNegotiation?.messages as [])].reverse()
+      );
+  }, [data]);
   const [isFirstRender, setIsFirstRender] = React.useState<boolean>(true);
-
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [sortedMessage, setSortedMessage] = React.useState<
     DeepExtractType<

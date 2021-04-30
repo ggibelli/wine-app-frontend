@@ -9,16 +9,20 @@ import { useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { useMessagesQuery } from '../generated/graphql';
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import { useMessagesQuery, useGetMessageLazyQuery } from '../generated/graphql';
 import _ from 'lodash';
 import { MessageListEl } from '../components/MessageListEl';
-import { notification } from '../cache';
+import { myInfo, notification } from '../cache';
 import { RouteComponentProps } from '@reach/router';
 import { BackButton } from '../components/BackButton';
 import { Loading } from '../components/Loading';
 import { Box, ListItem, ListItemText } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import { useStyles } from '../utils/styleHook';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { NotificationModal } from '../components/NotificationModal';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -50,15 +54,8 @@ function a11yProps(index: any) {
   };
 }
 
-// const useStyles = makeStyles((theme: Theme) => ({
-//   root: {
-//     backgroundColor: theme.palette.background.paper,
-//     // width: 500,
-//   },
-// }));
-
 const Messages: React.FC<RouteComponentProps> = () => {
-  const { data, loading, error, client } = useMessagesQuery({
+  const { data, loading, error } = useMessagesQuery({
     fetchPolicy: 'network-only',
     onError: (error) => {
       notification({
@@ -67,8 +64,17 @@ const Messages: React.FC<RouteComponentProps> = () => {
       });
     },
   });
+  const [lazyMessage, result] = useGetMessageLazyQuery({
+    onError: (error) => {
+      notification({
+        type: 'error',
+        message: error.message,
+      });
+    },
+  });
+  const [open, setOpen] = React.useState(false);
+  const me = myInfo();
   const classes = useStyles();
-
   const notifications = data?.messages?.filter(
     (message) => message.sentBy.firstName === 'Amministratore'
   );
@@ -77,7 +83,6 @@ const Messages: React.FC<RouteComponentProps> = () => {
   const messages = data?.messages?.filter(
     (message) => message.sentBy.firstName !== 'Amministratore'
   );
-  // messages?.map((m) => console.log(m.sentBy.firstName)); // console.log(messages);
   const messagesForNegotiationObj = _.groupBy(
     messages,
     (message) => message.negotiation._id
@@ -85,8 +90,6 @@ const Messages: React.FC<RouteComponentProps> = () => {
   const messagesForNegotiation = Object.entries(
     messagesForNegotiationObj
   ).sort((a, b) => a[0].localeCompare(b[0]));
-
-  // const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -98,15 +101,25 @@ const Messages: React.FC<RouteComponentProps> = () => {
   const handleChangeIndex = (index: number) => {
     setValue(index);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const messNumberRaw = messagesForNegotiation.map((mess) => mess[1]).flat();
-  const unreadBadge = messNumberRaw.filter((m) => !m.isViewed).length;
+  const unreadBadge = messNumberRaw.filter(
+    (m) => !m.isViewed && m.sentBy._id !== me?._id
+  ).length;
+
+  const handleClickNotification = (id: string) => {
+    lazyMessage({ variables: { id: id } });
+    setOpen(true);
+  };
 
   if (loading) {
     return <Loading />;
   }
   if (error) return <div>error</div>;
-  if (!messagesForNegotiation.length) return <div>non ci sono messaggi</div>;
-  if (!messages) return null;
   return (
     <Container component='main' maxWidth='sm'>
       <CssBaseline />
@@ -123,6 +136,7 @@ const Messages: React.FC<RouteComponentProps> = () => {
             aria-label='full width tabs example'
           >
             <Tab
+              icon={<ChatBubbleOutlineIcon />}
               label={
                 <Badge badgeContent={unreadBadge} color='primary'>
                   Messaggi
@@ -131,6 +145,7 @@ const Messages: React.FC<RouteComponentProps> = () => {
               {...a11yProps(0)}
             />
             <Tab
+              icon={<NotificationsNoneOutlinedIcon />}
               label={
                 <Badge badgeContent={unreadNotificationsBadge} color='primary'>
                   Notifiche
@@ -157,11 +172,30 @@ const Messages: React.FC<RouteComponentProps> = () => {
           <TabPanel value={value} index={1} dir={theme.direction}>
             <List>
               {notifications?.map((notification) => (
-                <ListItem key={notification._id}>
+                <ListItem
+                  key={notification._id}
+                  divider
+                  button
+                  onClick={() => handleClickNotification(notification._id)}
+                >
+                  <ListItemIcon>
+                    <Badge
+                      badgeContent={notification.isViewed ? 0 : 1}
+                      color='primary'
+                    >
+                      <NotificationsNoneOutlinedIcon />
+                    </Badge>
+                  </ListItemIcon>
                   <ListItemText primary={notification.content} />
                 </ListItem>
               ))}
             </List>
+            <NotificationModal
+              open={open}
+              handleClose={handleClose}
+              content={result.data?.message?.content}
+              loading={result.loading}
+            />
           </TabPanel>
         </SwipeableViews>
       </div>

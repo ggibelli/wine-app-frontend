@@ -580,3 +580,12 @@ export const ADS_FOR_USER = gql`
     }
   }
 `;
+
+export const GET_MESSAGE = gql`
+  query getMessage($id: ID!) {
+    message(id: $id) {
+      ...MessageDetails
+    }
+  }
+  ${MESSAGE_DETAILS}
+`;

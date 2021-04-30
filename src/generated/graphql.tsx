@@ -1900,6 +1900,14 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type GetMessageQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetMessageQuery = { __typename?: 'Query' } & {
+  message?: Maybe<{ __typename?: 'Message' } & MessageDetailsFragment>;
+};
+
 export type AdPostedFollowUpSubscriptionVariables = Exact<{
   [key: string]: never;
 }>;
@@ -4130,6 +4138,61 @@ export type AdsForUserLazyQueryHookResult = ReturnType<
 export type AdsForUserQueryResult = Apollo.QueryResult<
   AdsForUserQuery,
   AdsForUserQueryVariables
+>;
+export const GetMessageDocument = gql`
+  query getMessage($id: ID!) {
+    message(id: $id) {
+      ...MessageDetails
+    }
+  }
+  ${MessageDetailsFragmentDoc}
+`;
+
+/**
+ * __useGetMessageQuery__
+ *
+ * To run a query within a React component, call `useGetMessageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMessageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMessageQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetMessageQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetMessageQuery,
+    GetMessageQueryVariables
+  >
+) {
+  return Apollo.useQuery<GetMessageQuery, GetMessageQueryVariables>(
+    GetMessageDocument,
+    baseOptions
+  );
+}
+export function useGetMessageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetMessageQuery,
+    GetMessageQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<GetMessageQuery, GetMessageQueryVariables>(
+    GetMessageDocument,
+    baseOptions
+  );
+}
+export type GetMessageQueryHookResult = ReturnType<typeof useGetMessageQuery>;
+export type GetMessageLazyQueryHookResult = ReturnType<
+  typeof useGetMessageLazyQuery
+>;
+export type GetMessageQueryResult = Apollo.QueryResult<
+  GetMessageQuery,
+  GetMessageQueryVariables
 >;
 export const AdPostedFollowUpDocument = gql`
   subscription AdPostedFollowUp {
