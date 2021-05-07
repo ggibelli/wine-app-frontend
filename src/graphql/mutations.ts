@@ -97,7 +97,6 @@ export const CREATE_ADWINE = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd

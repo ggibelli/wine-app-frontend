@@ -29,9 +29,9 @@ const Ads: React.FC<RouteComponentProps> = () => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
   const searchedWineCache = searchedWine();
-  const [ads, setAds] = React.useState<
-    DeepExtractType<AdsWineQuery, ['ads']>['ads']
-  >([]);
+  // const [ads, setAds] = React.useState<
+  //   DeepExtractType<AdsWineQuery, ['ads']>['ads']
+  // >([]);
   const [adsFiltered, setAdsFiltered] = React.useState<
     DeepExtractType<AdsWineQuery, ['ads']>['ads']
   >([]);
@@ -51,21 +51,22 @@ const Ads: React.FC<RouteComponentProps> = () => {
       typeAd:
         searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
     },
-    onCompleted: ({ ads }) => setAds(ads?.ads),
+    // onCompleted: ({ ads }) => setAds(ads?.ads),
     onError: (error) => notification({ type: 'error', message: error.message }),
   });
+  console.log(data?.ads?.ads);
 
   React.useEffect(() => {
     if (!searchedWineCache?.wineName) void navigate('/');
 
-    if (fetchMore && ads?.length) {
+    if (fetchMore) {
       setIsLoadOrder(true);
       fetchMore({
-        variables: { orderBy: order, limit: ads.length },
+        variables: { orderBy: order, limit: data?.ads?.ads?.length },
       })
-        .then(({ data }) => {
+        .then(() => {
           setIsLoadOrder(false);
-          setAds(data.ads?.ads);
+          // setAds(data.ads?.ads);
         })
         .catch((e) => {
           setIsLoadOrder(false);
@@ -102,13 +103,13 @@ const Ads: React.FC<RouteComponentProps> = () => {
   }
   const handleFetchMore = async () => {
     setIsLoadFetchMore(true);
-    if (ads?.length && fetchMore) {
+    if (fetchMore) {
       try {
-        const { data } = await fetchMore({
-          variables: { offset: ads.length, orderBy: order },
+        await fetchMore({
+          variables: { offset: data?.ads?.ads?.length, orderBy: order },
         });
         setIsLoadFetchMore(false);
-        setAds([...ads, ...(data.ads?.ads as [])]);
+        // setAds([...ads, ...(data.ads?.ads as [])]);
       } catch (e) {
         setIsLoadFetchMore(false);
 
@@ -119,7 +120,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
   if (loading) {
     return <Loading />;
   }
-  if (ads?.length) {
+  if (data?.ads?.ads?.length) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -149,7 +150,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
         <Typography variant='body2'>
           {adsFiltered && adsFiltered.length > 0 ? defaultText : noAdsText}
         </Typography>
-        <Filter list={ads} setFilteredList={setAdsFiltered}>
+        <Filter list={data?.ads?.ads} setFilteredList={setAdsFiltered}>
           {' '}
           <Order isAds setOrder={setOrder} order={order} />
         </Filter>
@@ -159,14 +160,13 @@ const Ads: React.FC<RouteComponentProps> = () => {
         ) : (
           <InfiniteScroll
             fetchMore={handleFetchMore}
-            isVisible={ads.length !== data?.ads?.pageCount}
+            isVisible={data.ads.ads?.length !== data?.ads?.pageCount}
             isLoading={isLoadFetchMore}
           >
             {' '}
-            {adsFiltered &&
-              adsFiltered.map((ad) => (
-                <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
-              ))}
+            {adsFiltered?.map((ad) => (
+              <CardWine key={ad?._id} ad={ad as AdsWineResult} />
+            ))}
           </InfiniteScroll>
         )}
 

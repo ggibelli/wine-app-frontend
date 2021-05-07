@@ -20,16 +20,16 @@ export const PurpleCheckbox = withStyles({
   checked: {},
 })((props: CheckboxProps) => <Checkbox color='default' {...props} />);
 
-interface FilterProps {
-  list: Array<any>;
-  filteredList?: Array<any>;
+interface FilterProps<T, Y> {
+  list: Array<T>;
+  filteredList?: Array<Y>;
   setFilteredList: React.Dispatch<
     React.SetStateAction<Array<any> | undefined | null>
   >;
   children?: React.ReactNode;
 }
 
-export const Filter: React.FC<FilterProps> = (props) => {
+export const Filter = <T, Y>(props: FilterProps<T, Y>): React.ReactElement => {
   const searchedWineCache = searchedWine();
   const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
   const [showFilter, setShowFilter] = React.useState<boolean>(false);

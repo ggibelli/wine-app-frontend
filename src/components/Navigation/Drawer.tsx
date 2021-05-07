@@ -9,7 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import StoreIcon from '@material-ui/icons/Store';
+import { HandshakeOutline } from 'mdi-material-ui';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link as RouterLink } from '@reach/router';
@@ -107,7 +107,7 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <StoreIcon />
+            <HandshakeOutline />
           </ListItemIcon>
           <ListItemText
             primary={`Trattative in corso (${data.data?.numOpenNegs || 0})`}

@@ -14,6 +14,7 @@ export type AdsWineResult = Pick<
   | 'typeAd'
   | 'activeNegotiations'
   | 'numberViews'
+  | 'savedTimes'
   | 'datePosted'
   | 'isActive'
 > & {

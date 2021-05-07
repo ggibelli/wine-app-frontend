@@ -339,7 +339,6 @@ export const ADS_WINE = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd
@@ -350,6 +349,7 @@ export const ADS_WINE = gql`
         }
         activeNegotiations
         numberViews
+        savedTimes
         isActive
         datePosted
       }
@@ -383,7 +383,6 @@ export const AD = gql`
         metodoProduttivo
         wine {
           denominazioneZona
-          regione
         }
       }
       typeAd
@@ -394,6 +393,7 @@ export const AD = gql`
       }
       activeNegotiations
       numberViews
+      savedTimes
       datePosted
       isActive
     }
@@ -562,7 +562,6 @@ export const ADS_FOR_USER = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd
@@ -575,6 +574,7 @@ export const ADS_FOR_USER = gql`
         numberViews
         datePosted
         isActive
+        savedTimes
       }
       pageCount
     }

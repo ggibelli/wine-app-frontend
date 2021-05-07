@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/ban-types */
-import { ApolloCache, ApolloClient, MutationResult } from '@apollo/client';
+import { ApolloCache, ApolloClient, gql, MutationResult } from '@apollo/client';
 import _ from 'lodash';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { myInfo, searchedWine } from '../cache';
@@ -76,6 +76,9 @@ export const updateCacheNegotiations = (
       variables: {},
     })
   );
+  if (!cachedDataMeLocal) {
+    return;
+  }
   const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = _.cloneDeep(
     //@ts-expect-error error
     client.readQuery({
@@ -98,6 +101,7 @@ export const updateCacheNegotiations = (
     variables: {},
     data: cachedDataMeLocal,
   });
+  myInfo({ ...cachedDataMeLocal?.me });
 
   if (!cachedDataNegotiationsLocal) return;
   cachedDataNegotiationsLocal.negotiations.negotiations.push(
@@ -143,6 +147,10 @@ export const updateCacheMessagesAdmin = (
       query: MeDocument,
     })
   );
+  if (!cachedDataMeLocal) {
+    return;
+  }
+
   const indexNegToClose = cachedDataMeLocal?.me.negotiations?.findIndex(
     (neg) => neg.ad._id === negotiation?._id
   );
@@ -157,6 +165,8 @@ export const updateCacheMessagesAdmin = (
     query: MeDocument,
     data: cachedDataMeLocal,
   });
+  myInfo({ ...cachedDataMeLocal?.me });
+
   const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = _.cloneDeep(
     client.readQuery({
       query: NegotiationsDocument,
@@ -204,6 +214,9 @@ export const updateCacheAd = (
       query: MeDocument,
     })
   );
+  if (!cachedDataMeLocal) {
+    return;
+  }
 
   cachedDataMeLocal?.me.ads?.push(ad as AdWine);
 
@@ -211,6 +224,8 @@ export const updateCacheAd = (
     query: MeDocument,
     data: cachedDataMeLocal,
   });
+  myInfo({ ...cachedDataMeLocal?.me });
+
   if (cachedDataMyAdsLocal) {
     cachedDataMyAdsLocal.adsForUser.ads.push(ad as AdWine);
     cache.writeQuery({
@@ -242,11 +257,16 @@ export const updateCacheMessages = (
       query: MeDocument,
     })
   );
+  if (!cachedDataMeLocal) {
+    return;
+  }
   cachedDataMeLocal?.me.messages?.push(message as Message);
   client.writeQuery({
     query: MeDocument,
     data: cachedDataMeLocal,
   });
+  myInfo({ ...cachedDataMeLocal?.me });
+
   const cachedMessagesLocal: ICachedMessages | null = _.cloneDeep(
     client.readQuery({
       query: MessagesDocument,
@@ -285,11 +305,15 @@ export const updateCacheReview = (
       query: MeDocument,
     })
   );
+  if (!cachedDataMeLocal) {
+    return;
+  }
   cachedDataMeLocal?.me.reviews?.push(review as Review);
   client.writeQuery({
     query: MeDocument,
     data: cachedDataMeLocal,
   });
+  myInfo({ ...cachedDataMeLocal?.me });
 };
 
 export const updateCacheSaveAd = (
@@ -303,6 +327,22 @@ export const updateCacheSaveAd = (
       query: MeDocument,
     })
   );
+  const adCache: { savedTimes: number } | null = _.cloneDeep(
+    cache.readFragment({
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      id: `AdWine:${ad?._id}`,
+      fragment: gql`
+        fragment MyAd on AdWine {
+          savedTimes
+        }
+      `,
+    })
+  );
+  console.log(adCache);
+  if (!cachedDataMeLocal || !adCache) {
+    return;
+  }
+  // let times: number;
   if (
     cachedDataMeLocal?.me.savedAds
       ?.map((ad) => ad._id)
@@ -312,8 +352,32 @@ export const updateCacheSaveAd = (
       (adSaved) => adSaved._id === ad?._id
     );
     cachedDataMeLocal?.me.savedAds.splice(indexAd, 1);
+    adCache.savedTimes -= 1;
   } else if (cachedDataMeLocal?.me.savedAds) {
     cachedDataMeLocal?.me.savedAds.push(ad as AdWine);
+    adCache.savedTimes += 1;
   }
+  cache.writeFragment({
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    id: `AdWine:${ad?._id}`,
+    fragment: gql`
+      fragment MyAd on AdWine {
+        savedTimes
+      }
+    `,
+    data: adCache,
+  });
+  console.log(
+    cache.readFragment({
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      id: `AdWine:${ad?._id}`,
+      fragment: gql`
+        fragment MyAd on AdWine {
+          savedTimes
+        }
+      `,
+    })
+  );
   cache.writeQuery({ query: MeDocument, data: cachedDataMeLocal });
+  myInfo({ ...cachedDataMeLocal?.me });
 };

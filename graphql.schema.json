@@ -820,6 +820,18 @@
             "deprecationReason": null
           },
           {
+            "name": "savedTimes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "numberViews",
             "description": "viewedBy: [User]",
             "args": [],
@@ -1185,6 +1197,18 @@
             "deprecationReason": null
           },
           {
+            "name": "savedTimes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "numberViews",
             "description": "viewedBy: [User]",
             "args": [],
@@ -1506,6 +1530,18 @@
           },
           {
             "name": "activeNegotiations",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "savedTimes",
             "description": null,
             "args": [],
             "type": {

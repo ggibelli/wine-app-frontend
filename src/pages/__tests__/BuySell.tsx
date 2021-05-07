@@ -122,20 +122,9 @@ describe('Buy or Sell page', () => {
     expect(getByText('Che cosa vuoi comprare?'));
 
     expect(getByText('Gradazione alcolica'));
-    expect(queryByText('Sotto zona del vino')).toBeFalsy();
   });
 
   it('renders the Sell page post', async () => {
-    searchedWine({
-      wineName: 'Barbera',
-      abv: 13.5,
-      liters: 1000,
-      price: 3.5,
-      typeAd: TypeAd.Buy,
-      typeProduct: TypeProduct.AdWine,
-      harvest: 2012,
-      isPost: true,
-    });
     const { getByText } = renderApollo(
       <Buy path='/sell' />,
       {
@@ -149,7 +138,6 @@ describe('Buy or Sell page', () => {
     expect(getByText('Che cosa vuoi vendere?'));
 
     expect(getByText('Gradazione alcolica'));
-    expect(getByText('Sotto zona del vino'));
   });
 
   it('it updates cache and navigate on submit query', async () => {
@@ -213,16 +201,6 @@ describe('Buy or Sell page', () => {
   });
 
   it('ad posted mutation success', async () => {
-    searchedWine({
-      wineName: 'Barbera',
-      abv: 13.5,
-      liters: 1000,
-      price: 3.5,
-      typeAd: TypeAd.Buy,
-      typeProduct: TypeProduct.AdWine,
-      harvest: 2012,
-      isPost: true,
-    });
     const { getByRole, getByTestId } = renderApollo(
       <Buy path='/sell' />,
       {
@@ -270,13 +248,7 @@ describe('Buy or Sell page', () => {
     await waitFor(() => {
       fireEvent.keyDown(inputWines, { key: 'Enter' });
     });
-    await waitFor(() => {
-      fireEvent.click(
-        getByRole('checkbox', {
-          name: /Aggiornami se nuovi annunci pertinenti/i,
-        })
-      );
-    });
+
     await waitFor(() => {
       fireEvent.click(
         getByRole('checkbox', {

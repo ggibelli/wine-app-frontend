@@ -22,9 +22,7 @@ import { Loading } from '../components/Loading';
 
 const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
-  const [ads, setAds] = React.useState<
-    DeepExtractType<AdsWineQuery, ['ads']>['ads']
-  >([]);
+
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
@@ -40,31 +38,37 @@ const MyAds: React.FC<RouteComponentProps> = () => {
     onError: (error) => console.log(error),
     onCompleted: ({ adsForUser }) => {
       setPageCount(adsForUser?.pageCount as number);
-      setAds(adsForUser?.ads);
+      console.log(myInfo());
     },
   });
+  const [ads, setAds] = React.useState<
+    DeepExtractType<AdsWineQuery, ['ads']>['ads']
+  >([]);
   const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
   const handleShowAll = () => {
     setHideNotActive(!hideNotActive);
-    if (!hideNotActive) setAds(ads?.filter((a) => a?.isActive));
-    else setAds(data?.adsForUser?.ads);
   };
 
   React.useEffect(() => {
-    if (ads?.length && fetchMore) {
+    if (hideNotActive) setAds(ads?.filter((a) => a?.isActive));
+    else setAds(data?.adsForUser?.ads);
+  }, [data?.adsForUser?.ads, hideNotActive]);
+
+  React.useEffect(() => {
+    if (data?.adsForUser?.ads?.length && fetchMore) {
       setIsLoadOrder(true);
       fetchMore({
         variables: {
           orderBy: order,
-          limit: ads.length,
+          limit: data?.adsForUser?.ads?.length,
           isActive: hideNotActive,
         },
       })
         .then(({ data }) => {
           setIsLoadOrder(false);
-          setAds(data.adsForUser?.ads);
+          // setAds(data.adsForUser?.ads);
           data.adsForUser?.pageCount !== pageCount &&
             setPageCount(data.adsForUser?.pageCount as number);
         })
@@ -82,23 +86,22 @@ const MyAds: React.FC<RouteComponentProps> = () => {
 
   if (!me?._id || error) return <div>error</div>;
 
-  if (ads?.length === 0) {
+  if (data?.adsForUser?.ads?.length === 0) {
     return <div>Non hai ancora creato annunci</div>;
   }
-  if (ads?.length) {
+  if (data?.adsForUser?.ads?.length) {
     const handleFetchMore = async () => {
       setIsLoadFetchMore(true);
       if (fetchMore) {
         try {
-          const { data } = await fetchMore({
+          await fetchMore({
             variables: {
-              offset: ads?.length,
+              offset: data?.adsForUser?.ads?.length,
               orderBy: order,
               isActive: hideNotActive,
             },
           });
           setIsLoadFetchMore(false);
-          setAds([...ads, ...(data.adsForUser?.ads as [])]);
           data.adsForUser?.pageCount !== pageCount &&
             setPageCount(data.adsForUser?.pageCount as number);
         } catch (e) {
@@ -134,11 +137,11 @@ const MyAds: React.FC<RouteComponentProps> = () => {
         ) : (
           <InfiniteScroll
             fetchMore={handleFetchMore}
-            isVisible={ads.length < pageCount}
+            isVisible={data?.adsForUser?.ads?.length < pageCount}
             isLoading={isLoadFetchMore}
           >
             {' '}
-            {ads.map((ad) => (
+            {ads?.map((ad) => (
               <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
             ))}
           </InfiniteScroll>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -90,6 +91,7 @@ export type Ad = {
   address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
+  savedTimes?: Maybe<Scalars['Int']>;
   /** viewedBy: [User] */
   numberViews?: Maybe<Scalars['Int']>;
   typeAd: TypeAd;
@@ -122,6 +124,7 @@ export type AdWine = Ad & {
   address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
+  savedTimes?: Maybe<Scalars['Int']>;
   /** viewedBy: [User] */
   numberViews?: Maybe<Scalars['Int']>;
   typeAd: TypeAd;
@@ -151,6 +154,7 @@ export type AdGrape = Ad & {
   address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
+  savedTimes?: Maybe<Scalars['Int']>;
   /** viewedBy: [User] */
   numberViews?: Maybe<Scalars['Int']>;
   typeAd: TypeAd;
@@ -1556,6 +1560,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'typeAd'
                   | 'activeNegotiations'
                   | 'numberViews'
+                  | 'savedTimes'
                   | 'isActive'
                   | 'datePosted'
                 > & {
@@ -1581,6 +1586,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'typeAd'
                   | 'activeNegotiations'
                   | 'numberViews'
+                  | 'savedTimes'
                   | 'isActive'
                   | 'datePosted'
                 > & {
@@ -1618,6 +1624,7 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'typeAd'
         | 'activeNegotiations'
         | 'numberViews'
+        | 'savedTimes'
         | 'datePosted'
         | 'isActive'
       > & {
@@ -1652,6 +1659,7 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'typeAd'
         | 'activeNegotiations'
         | 'numberViews'
+        | 'savedTimes'
         | 'datePosted'
         | 'isActive'
       > & {
@@ -1854,6 +1862,7 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
                   | 'numberViews'
                   | 'datePosted'
                   | 'isActive'
+                  | 'savedTimes'
                 > & {
                     wine?: Maybe<
                       { __typename?: 'Wine' } & Pick<
@@ -1883,6 +1892,7 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
                   | 'numberViews'
                   | 'datePosted'
                   | 'isActive'
+                  | 'savedTimes'
                 > & {
                     postedBy: { __typename?: 'User' } & Pick<
                       User,
@@ -3433,6 +3443,7 @@ export const AdsWineDocument = gql`
         }
         activeNegotiations
         numberViews
+        savedTimes
         isActive
         datePosted
       }
@@ -3519,6 +3530,7 @@ export const AdDocument = gql`
       }
       activeNegotiations
       numberViews
+      savedTimes
       datePosted
       isActive
     }
@@ -4083,6 +4095,7 @@ export const AdsForUserDocument = gql`
         numberViews
         datePosted
         isActive
+        savedTimes
       }
       pageCount
     }

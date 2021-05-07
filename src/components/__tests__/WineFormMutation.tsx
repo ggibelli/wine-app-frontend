@@ -9,8 +9,7 @@ import {
   within,
   act,
 } from '../../test-utils/test-utils';
-import { TypeAd, TypeProduct, WinesDocument } from '../../generated/graphql';
-import { searchedWine } from '../../cache';
+import { TypeAd, WinesDocument } from '../../generated/graphql';
 
 // Fix test loading status and mock apollo not needed
 const mocks = [
@@ -86,9 +85,7 @@ describe('Wine form mutation', () => {
       screen.getByRole('spinbutton', { name: /liters/i })
     ).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /vino/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: /sottozona/i })
-    ).toBeInTheDocument();
+
     expect(
       screen.getByRole('textbox', { name: /content/i })
     ).toBeInTheDocument();
@@ -108,11 +105,7 @@ describe('Wine form mutation', () => {
     expect(
       screen.getByRole('combobox', { name: /menzione/i })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('checkbox', {
-        name: /Aggiornami se nuovi annunci pertinenti/i,
-      })
-    ).toBeInTheDocument();
+
     expect(
       screen.getByRole('checkbox', {
         name: /Indirizzo uguale a quello usato in registrazione/i,
@@ -150,9 +143,7 @@ describe('Wine form mutation', () => {
       screen.getByRole('spinbutton', { name: /liters/i })
     ).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /vino/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: /sottozona/i })
-    ).toBeInTheDocument();
+
     expect(
       screen.getByRole('textbox', { name: /content/i })
     ).toBeInTheDocument();
@@ -172,11 +163,7 @@ describe('Wine form mutation', () => {
     expect(
       screen.getByRole('combobox', { name: /menzione/i })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('checkbox', {
-        name: /Aggiornami se nuovi annunci pertinenti/i,
-      })
-    ).toBeInTheDocument();
+
     expect(
       screen.getByRole('checkbox', {
         name: /Indirizzo uguale a quello usato in registrazione/i,
@@ -222,26 +209,13 @@ describe('Wine form mutation', () => {
         value: '',
       },
     });
-    fireEvent.change(screen.getByRole('textbox', { name: /sottozona/i }), {
-      target: {
-        value: '',
-      },
-    });
+
     fireEvent.change(screen.getByRole('textbox', { name: /content/i }), {
       target: {
         value: '',
       },
     });
-    fireEvent.change(
-      screen.getByRole('checkbox', {
-        name: /Aggiornami se nuovi annunci pertinenti/i,
-      }),
-      {
-        target: {
-          value: '',
-        },
-      }
-    );
+
     fireEvent.change(
       screen.getByRole('checkbox', {
         name: /Indirizzo uguale a quello usato in registrazione/i,
@@ -261,16 +235,7 @@ describe('Wine form mutation', () => {
 
   it('should validate form fields and not submit if fields are not valid', async () => {
     const onSubmit = jest.fn();
-    searchedWine({
-      wineName: 'Barbera',
-      abv: 13.5,
-      liters: 1000,
-      price: 3.5,
-      typeAd: TypeAd.Buy,
-      typeProduct: TypeProduct.AdWine,
-      harvest: 2012,
-      isPost: true,
-    });
+
     const { getByTestId, getByText } = renderApolloNoRouter(
       <WineFormMutation
         wines={mocks[0].result}
@@ -328,16 +293,7 @@ describe('Wine form mutation', () => {
 
   it('should validate form fields and not submit if address missing', async () => {
     const onSubmit = jest.fn();
-    searchedWine({
-      wineName: 'Barbera',
-      abv: 13.5,
-      liters: 1000,
-      price: 3.5,
-      typeAd: TypeAd.Buy,
-      typeProduct: TypeProduct.AdWine,
-      harvest: 2012,
-      isPost: true,
-    });
+
     const { getByTestId } = renderApolloNoRouter(
       <WineFormMutation
         wines={mocks[0].result}
@@ -385,13 +341,7 @@ describe('Wine form mutation', () => {
     await waitFor(() => {
       fireEvent.keyDown(inputWines, { key: 'Enter' });
     });
-    await waitFor(() => {
-      fireEvent.click(
-        screen.getByRole('checkbox', {
-          name: /Aggiornami se nuovi annunci pertinenti/i,
-        })
-      );
-    });
+
     // await waitFor(() => {
     //   fireEvent.click(
     //     screen.getByRole('checkbox', {
@@ -406,18 +356,9 @@ describe('Wine form mutation', () => {
     });
   }, 10000);
 
-  it('should validate form fields and submit if fields are valid using cache', async () => {
+  it('should validate form fields and submit if fields are valid', async () => {
     const onSubmit = jest.fn();
-    searchedWine({
-      wineName: 'Barbera',
-      abv: 13.5,
-      liters: 1000,
-      price: 3.5,
-      typeAd: TypeAd.Buy,
-      typeProduct: TypeProduct.AdWine,
-      harvest: 2012,
-      isPost: true,
-    });
+
     const { getByTestId } = renderApolloNoRouter(
       <WineFormMutation
         wines={mocks[0].result}
@@ -465,13 +406,7 @@ describe('Wine form mutation', () => {
     await waitFor(() => {
       fireEvent.keyDown(inputWines, { key: 'Enter' });
     });
-    await waitFor(() => {
-      fireEvent.click(
-        screen.getByRole('checkbox', {
-          name: /Aggiornami se nuovi annunci pertinenti/i,
-        })
-      );
-    });
+
     await waitFor(() => {
       fireEvent.click(
         screen.getByRole('checkbox', {
