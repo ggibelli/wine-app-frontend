@@ -79,13 +79,14 @@ export const updateCacheNegotiations = (
   if (!cachedDataMeLocal) {
     return;
   }
-  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = _.cloneDeep(
-    //@ts-expect-error error
-    client.readQuery({
-      query: NegotiationsDocument,
-      variables: {},
-    })
-  );
+  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null =
+    _.cloneDeep(
+      //@ts-expect-error error
+      client.readQuery({
+        query: NegotiationsDocument,
+        variables: {},
+      })
+    );
 
   cachedDataMeLocal?.me.negotiations?.push(negotiation as Negotiation);
   if (isSubscription) {
@@ -167,11 +168,12 @@ export const updateCacheMessagesAdmin = (
   });
   myInfo({ ...cachedDataMeLocal?.me });
 
-  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = _.cloneDeep(
-    client.readQuery({
-      query: NegotiationsDocument,
-    })
-  );
+  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null =
+    _.cloneDeep(
+      client.readQuery({
+        query: NegotiationsDocument,
+      })
+    );
   if (!cachedDataNegotiationsLocal) return;
   cachedDataNegotiationsLocal?.negotiations.negotiations.filter(
     (neg) => neg.ad._id !== negotiation?._id
@@ -278,12 +280,13 @@ export const updateCacheMessages = (
     variables: { id: message?.negotiation._id },
     data: cachedMessagesLocal,
   });
-  const cachedMessagesNegotiationsLocal: ICachedMessagesNegs | null = _.cloneDeep(
-    client.readQuery({
-      query: MessagesNegotiationDocument,
-      variables: { id: message?.negotiation._id },
-    })
-  );
+  const cachedMessagesNegotiationsLocal: ICachedMessagesNegs | null =
+    _.cloneDeep(
+      client.readQuery({
+        query: MessagesNegotiationDocument,
+        variables: { id: message?.negotiation._id },
+      })
+    );
   cachedMessagesNegotiationsLocal?.messagesForNegotiation.messages.unshift(
     message as Message
   );
@@ -338,7 +341,6 @@ export const updateCacheSaveAd = (
       `,
     })
   );
-  console.log(adCache);
   if (!cachedDataMeLocal || !adCache) {
     return;
   }
@@ -367,17 +369,6 @@ export const updateCacheSaveAd = (
     `,
     data: adCache,
   });
-  console.log(
-    cache.readFragment({
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      id: `AdWine:${ad?._id}`,
-      fragment: gql`
-        fragment MyAd on AdWine {
-          savedTimes
-        }
-      `,
-    })
-  );
   cache.writeQuery({ query: MeDocument, data: cachedDataMeLocal });
   myInfo({ ...cachedDataMeLocal?.me });
 };

@@ -40,26 +40,23 @@ const Ads: React.FC<RouteComponentProps> = () => {
   );
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
-
   const { data, loading, fetchMore } = useAdsWineQuery({
     variables: {
       offset: 0,
       limit: 4,
-      orderBy: order,
+      orderBy: QueryOrderBy.CreatedAtDesc,
       wineName: searchedWineCache?.wineName,
       typeProduct: searchedWineCache?.typeProduct as TypeProduct,
       typeAd:
         searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
     },
-    // onCompleted: ({ ads }) => setAds(ads?.ads),
+    // onCompleted: (ad) => console.log(ad),
     onError: (error) => notification({ type: 'error', message: error.message }),
   });
-  console.log(data?.ads?.ads);
 
   React.useEffect(() => {
     if (!searchedWineCache?.wineName) void navigate('/');
-
-    if (fetchMore) {
+    if (fetchMore && data?.ads?.ads?.length) {
       setIsLoadOrder(true);
       fetchMore({
         variables: { orderBy: order, limit: data?.ads?.ads?.length },
@@ -103,10 +100,14 @@ const Ads: React.FC<RouteComponentProps> = () => {
   }
   const handleFetchMore = async () => {
     setIsLoadFetchMore(true);
-    if (fetchMore) {
+    if (fetchMore && data?.ads?.ads?.length) {
       try {
         await fetchMore({
-          variables: { offset: data?.ads?.ads?.length, orderBy: order },
+          variables: {
+            offset: data?.ads?.ads?.length,
+            orderBy: order,
+            limit: 4,
+          },
         });
         setIsLoadFetchMore(false);
         // setAds([...ads, ...(data.ads?.ads as [])]);

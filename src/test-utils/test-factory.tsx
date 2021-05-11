@@ -57,6 +57,7 @@ export const adFactory = Factory.Sync.makeFactory<AdWine>({
   numberViews: 1,
   postedBy: user,
   content: 'nice wine',
+  savedTimes: 3,
   typeProduct: TypeProduct.AdWine,
   priceFrom: 2,
   priceTo: 2,

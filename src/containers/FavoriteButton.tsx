@@ -33,8 +33,7 @@ export const FavoriteButton: React.FC<{
       );
       setStop(true);
     }
-  }, [data]);
-  console.log(data);
+  }, [data, id, stop]);
 
   return (
     <IconButton aria-label='save' onClick={() => saveAd()}>
