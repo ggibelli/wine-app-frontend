@@ -7,7 +7,6 @@ import {
   useCreateNegotiationMutation,
   NegotiationInput,
   useNegotiationsForAdLazyQuery,
-  AdQuery,
 } from '../generated/graphql';
 import { notification } from '../cache';
 import { CardWineDetail } from '../components/Cards/CardWineDetail';
@@ -19,21 +18,14 @@ import { useStyles } from '../utils/styleHook';
 import { Loading } from '../components/Loading';
 
 const Ad: React.FC<RouteComponentProps> = () => {
-  const [ad, setAd] = React.useState<AdQuery['ad'] | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const { data, loading, error } = useAdQuery({
     variables: {
       id: id,
     },
-    onCompleted: (data) => (data?.ad ? setAd(data?.ad) : null),
     onError: (error) => console.log(error),
   });
-  React.useEffect(() => {
-    if (data?.ad) {
-      setAd(data?.ad);
-    }
-  }, [data?.ad?.activeNegotiations]);
   const [createNegotiation] = useCreateNegotiationMutation({
     onCompleted: (createdNegotiation) => {
       if (createdNegotiation.createNegotiation?.errors?.length) {
@@ -70,9 +62,9 @@ const Ad: React.FC<RouteComponentProps> = () => {
   };
   const openNegotiation = async () => {
     const newNegotiation: NegotiationInput = {
-      forUserAd: ad?.postedBy._id,
-      ad: ad?._id,
-      type: ad?.typeAd,
+      forUserAd: data?.ad?.postedBy._id,
+      ad: data?.ad?._id,
+      type: data?.ad?.typeAd,
     } as NegotiationInput;
     await createNegotiation({ variables: { negotiation: newNegotiation } });
   };
@@ -85,8 +77,8 @@ const Ad: React.FC<RouteComponentProps> = () => {
     (neg) => neg.ad._id === data?.ad?._id
   );
   const buyerOrSeller =
-    ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
-  if (ad?._id) {
+    data?.ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
+  if (data?.ad?._id) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -101,11 +93,11 @@ const Ad: React.FC<RouteComponentProps> = () => {
           </Typography>
         </div>
         <CardWineDetail
-          ad={ad}
+          ad={data?.ad}
           createNegotiation={openNegotiation}
           me={data?.me}
         />
-        {data?.me?._id === ad.postedBy._id && negotiationsMyAd?.length ? (
+        {data?.me?._id === data?.ad.postedBy._id && negotiationsMyAd?.length ? (
           <OpenNegotiations
             data={lazyNegResult}
             showNegotiations={handleShowNegotiations}

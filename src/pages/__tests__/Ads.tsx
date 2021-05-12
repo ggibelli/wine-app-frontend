@@ -30,7 +30,6 @@ const typePolicies = {
         merge(existing, incoming, { args }) {
           const merged = existing ? existing.ads.slice(0) : [];
           if (args) {
-            console.log(args);
             // Assume an offset of 0 if args.offset omitted.
             const { offset = 0 } = args;
             for (let i = 0; i < incoming.ads.length; ++i) {

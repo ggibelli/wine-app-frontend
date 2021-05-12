@@ -50,7 +50,6 @@ const Ads: React.FC<RouteComponentProps> = () => {
       typeAd:
         searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
     },
-    // onCompleted: (ad) => console.log(ad),
     onError: (error) => notification({ type: 'error', message: error.message }),
   });
 

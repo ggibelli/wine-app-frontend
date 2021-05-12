@@ -60,6 +60,8 @@ export const LoginForm: React.FC<{
   onSubmit: (values: LoginData) => void;
   onClose: () => void;
 }> = ({ onSubmit, onClose }) => {
+  const classes = useStyles();
+
   const initialValues = { password: '', email: '' };
   return (
     <Formik
@@ -71,7 +73,6 @@ export const LoginForm: React.FC<{
       })}
     >
       {({ isValid, dirty }) => {
-        const classes = useStyles();
         return (
           <Container component='main'>
             <CssBaseline />

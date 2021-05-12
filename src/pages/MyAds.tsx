@@ -6,19 +6,21 @@ import { RouteComponentProps } from '@reach/router';
 import {
   QueryOrderBy,
   useAdsForUserQuery,
-  AdsWineQuery,
+  // AdsWineQuery,
+  AdsForUserQuery,
 } from '../generated/graphql';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { myInfo } from '../cache';
-import { DeepExtractType } from 'ts-deep-extract-types';
+// import { DeepExtractType } from 'ts-deep-extract-types';
 import { CardWine } from '../components/Cards/CardWine';
 import { AdsWineResult } from '../types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import { PurpleCheckbox } from '../components/FilterAds';
 import { Loading } from '../components/Loading';
+import { ApolloQueryResult } from '@apollo/client';
 
 const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
@@ -38,12 +40,9 @@ const MyAds: React.FC<RouteComponentProps> = () => {
     onError: (error) => console.log(error),
     onCompleted: ({ adsForUser }) => {
       setPageCount(adsForUser?.pageCount as number);
-      console.log(myInfo());
     },
   });
-  const [ads, setAds] = React.useState<
-    DeepExtractType<AdsWineQuery, ['ads']>['ads']
-  >([]);
+
   const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
@@ -52,31 +51,26 @@ const MyAds: React.FC<RouteComponentProps> = () => {
   };
 
   React.useEffect(() => {
-    if (hideNotActive) setAds(ads?.filter((a) => a?.isActive));
-    else setAds(data?.adsForUser?.ads);
-  }, [data?.adsForUser?.ads, hideNotActive]);
-
-  React.useEffect(() => {
-    if (data?.adsForUser?.ads?.length && fetchMore) {
+    const loadMore = async () => {
       setIsLoadOrder(true);
-      fetchMore({
-        variables: {
-          orderBy: order,
-          limit: data?.adsForUser?.ads?.length,
-          isActive: hideNotActive,
-        },
-      })
-        .then(({ data }) => {
-          setIsLoadOrder(false);
-          // setAds(data.adsForUser?.ads);
-          data.adsForUser?.pageCount !== pageCount &&
-            setPageCount(data.adsForUser?.pageCount as number);
-        })
-        .catch((e) => {
-          setIsLoadOrder(false);
-
-          console.log(e);
+      try {
+        const result: ApolloQueryResult<AdsForUserQuery> = await fetchMore({
+          variables: {
+            orderBy: order,
+            limit: data?.adsForUser?.ads?.length,
+            isActive: hideNotActive,
+          },
         });
+        setIsLoadOrder(false);
+        result.data.adsForUser?.pageCount !== pageCount &&
+          setPageCount(result.data.adsForUser?.pageCount as number);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    if (data?.adsForUser?.ads?.length && fetchMore) {
+      void loadMore();
     }
   }, [order]);
 
@@ -92,7 +86,7 @@ const MyAds: React.FC<RouteComponentProps> = () => {
   if (data?.adsForUser?.ads?.length) {
     const handleFetchMore = async () => {
       setIsLoadFetchMore(true);
-      if (fetchMore) {
+      if (fetchMore && data?.adsForUser?.ads?.length) {
         try {
           await fetchMore({
             variables: {
@@ -141,9 +135,17 @@ const MyAds: React.FC<RouteComponentProps> = () => {
             isLoading={isLoadFetchMore}
           >
             {' '}
-            {ads?.map((ad) => (
-              <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
-            ))}
+            {data?.adsForUser?.ads
+              ?.filter((ad) => {
+                if (hideNotActive) {
+                  return ad?.isActive === hideNotActive;
+                } else {
+                  return ad;
+                }
+              })
+              .map((ad) => (
+                <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
+              ))}
           </InfiniteScroll>
         )}
       </Container>

@@ -6,18 +6,15 @@ import * as React from 'react';
 import {
   AdDocument,
   CreateNegotiationDocument,
-  DenomZona,
-  MetodoProduttivo,
   NegotiationsForAdDocument,
-  Province,
-  Regioni,
-  TypeAd,
   SaveAdDocument,
+  TypeAd,
 } from '../../generated/graphql';
 import { notification } from '../../cache';
 import { InMemoryCache } from '@apollo/client';
 import { updateCacheNegotiations } from '../../utils/updateCache';
 import { navigate } from '@reach/router';
+import { adFactory } from '../../test-utils/test-factory';
 
 jest.mock('@reach/router', () => ({
   __esModule: true, // this property makes it work
@@ -39,6 +36,32 @@ jest.mock('../../cache', () => ({
   notification: jest.fn(),
 }));
 
+const ad = adFactory.build({
+  _id: '606d52c5b470d4287b4e78ed',
+  postedBy: {
+    email: 'gorge91@lollllo.com',
+    firstName: 'giovanni',
+    hideContact: false,
+    lastName: 'gibelli',
+    phoneNumber: '3477984716',
+    // __typename: 'User' as const,
+    _id: '605a7c0dc28f1006e42fe146',
+  },
+});
+
+const adSell = adFactory.build({
+  typeAd: TypeAd.Sell,
+  _id: '606d52c5b470d4287b4e78ed',
+  postedBy: {
+    email: 'gorge91@lollllo.com',
+    firstName: 'giovanni',
+    hideContact: false,
+    lastName: 'gibelli',
+    phoneNumber: '3477984716',
+    // __typename: 'User' as const,
+    _id: '605a7c0dc28f1006e42fe146',
+  },
+});
 export const adMockSuccess = {
   request: {
     query: AdDocument,
@@ -46,46 +69,7 @@ export const adMockSuccess = {
   },
   result: {
     data: {
-      ad: {
-        abv: 13.5,
-        activeNegotiations: 0,
-        address: {
-          comune: 'Arosio',
-          provincia: Province.CO,
-          regione: Regioni.Lombardia,
-          // __typename: 'Address' as const,
-        },
-
-        datePosted: '07 Apr 21, 18:35',
-        harvest: 2018,
-        isActive: true,
-        litersFrom: 1000,
-        litersTo: 1000,
-        metodoProduttivo: MetodoProduttivo.Convenzionale,
-        needsFollowUp: true,
-        numberViews: 1,
-        postedBy: {
-          email: 'gorge91@lollllo.com',
-          firstName: 'giovanni',
-          hideContact: false,
-          lastName: 'gibelli',
-          phoneNumber: '3477984716',
-          // __typename: 'User' as const,
-          _id: '605a7c0dc28f1006e42fe146',
-        },
-
-        priceFrom: 2,
-        priceTo: 2,
-        typeAd: TypeAd.Buy,
-        wine: {
-          denominazioneZona: DenomZona.Docg,
-          regione: [Regioni.Piemonte],
-          // __typename: 'Wine' as const,
-        },
-        wineName: "Barbera d'Asti",
-        // __typename: 'AdWine' as const,
-        _id: '606d52c5b470d4287b4e78ed',
-      },
+      ad,
       me: {
         savedAds: [],
         negotiations: [{ _id: '123', ad: { _id: '606d52c5b470d4287b4e78ed' } }],
@@ -103,46 +87,7 @@ export const adMockSuccessNoNegs = {
   },
   result: {
     data: {
-      ad: {
-        abv: 13.5,
-        activeNegotiations: 0,
-        address: {
-          comune: 'Arosio',
-          provincia: Province.CO,
-          regione: Regioni.Lombardia,
-          // __typename: 'Address' as const,
-        },
-
-        datePosted: '07 Apr 21, 18:35',
-        harvest: 2018,
-        isActive: true,
-        litersFrom: 1000,
-        litersTo: 1000,
-        metodoProduttivo: MetodoProduttivo.Convenzionale,
-        needsFollowUp: true,
-        numberViews: 1,
-        postedBy: {
-          email: 'gorge91@lollllo.com',
-          firstName: 'giovanni',
-          hideContact: false,
-          lastName: 'gibelli',
-          phoneNumber: '3477984716',
-          // __typename: 'User' as const,
-          _id: '605a7c0dc28f1006e42fe146',
-        },
-
-        priceFrom: 2,
-        priceTo: 2,
-        typeAd: TypeAd.Buy,
-        wine: {
-          denominazioneZona: DenomZona.Docg,
-          regione: [Regioni.Piemonte],
-          // __typename: 'Wine' as const,
-        },
-        wineName: "Barbera d'Asti",
-        // __typename: 'AdWine' as const,
-        _id: '606d52c5b470d4287b4e78ed',
-      },
+      ad,
       me: {
         savedAds: [],
         negotiations: [],
@@ -160,46 +105,25 @@ const adMockSuccessOtherUser = {
   },
   result: {
     data: {
-      ad: {
-        abv: 13.5,
-        activeNegotiations: 0,
-        address: {
-          comune: 'Arosio',
-          provincia: 'CO',
-          regione: 'LOMBARDIA',
-          __typename: 'Address',
-        },
-
-        datePosted: '07 Apr 21, 18:35',
-        harvest: 2018,
-        isActive: true,
-        litersFrom: 1000,
-        litersTo: 1000,
-        metodoProduttivo: 'CONVENZIONALE',
-        needsFollowUp: true,
-        numberViews: 1,
-        postedBy: {
-          email: 'gorge91@lollllo.com',
-          firstName: 'giovanni',
-          hideContact: false,
-          lastName: 'gibelli',
-          phoneNumber: '3477984716',
-          __typename: 'User',
-          _id: '605a7c0dc28f1006e42fe146',
-        },
-
-        priceFrom: 2,
-        priceTo: 2,
-        typeAd: 'SELL',
-        wine: {
-          denominazioneZona: 'DOCG',
-          regione: ['PIEMONTE'],
-          __typename: 'Wine',
-        },
-        wineName: "Barbera d'Asti",
-        __typename: 'AdWine',
-        _id: '606d52c5b470d4287b4e78ed',
+      ad,
+      me: {
+        savedAds: [],
+        negotiations: [],
+        __typename: 'User',
+        _id: '605a7c0dc28f1006e42fe147',
       },
+    },
+  },
+};
+
+const adMockSuccessOtherUserSell = {
+  request: {
+    query: AdDocument,
+    variables: { id: '123' },
+  },
+  result: {
+    data: {
+      ad: adSell,
       me: {
         savedAds: [],
         negotiations: [],
@@ -333,21 +257,20 @@ describe('Ad page', () => {
   });
 
   it('renders the Ad page success buyer and own ad and button show ads negotiations', async () => {
-    const { getByText, getByTestId, getByRole, queryByRole } = renderApollo(
+    const { getByText, getByTestId, getByRole } = renderApollo(
       <Ad path='/annunci/:id' />,
       {
         mocks: [adMockSuccess],
         addTypename: false,
-        // cache: new InMemoryCache({ addTypename: false }),
+        cache: new InMemoryCache({ addTypename: false }),
       },
       { route: '/annunci/123' }
     );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 50)));
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     fireEvent.click(getByRole('button', { name: 'previous-page' }));
     expect(navigate).toBeCalledTimes(1);
     expect(getByText('Modifica l annuncio')).toBeTruthy();
     expect(getByTestId('negotiationsAd')).toBeTruthy();
-    expect(queryByRole('button', { name: 'save' })).toBeFalsy();
   });
 
   it('does not render button show negotiations because no negotiations', async () => {
@@ -371,38 +294,39 @@ describe('Ad page', () => {
     const { getByText, queryByTestId, getByRole } = renderApollo(
       <Ad path='/annunci/:id' />,
       {
-        mocks: [adMockSuccessOtherUser],
+        mocks: [adMockSuccessOtherUserSell],
         addTypename: false,
       },
       { route: '/annunci/123' }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(getByRole('button', { name: 'previous-page' }));
-    expect(getByRole('button', { name: 'save' }));
     expect(getByText('Contatta Il venditore')).toBeTruthy();
     expect(queryByTestId('negotiationsAd')).toBeFalsy();
   });
 
-  it('Save ad mutation works as expected', async () => {
-    const { getByText, queryByTestId, getByRole } = renderApollo(
-      <Ad path='/annunci/:id' />,
-      {
-        mocks: [adMockSuccessOtherUser, SaveAdSuccess],
-        addTypename: false,
-      },
-      { route: '/annunci/123' }
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(getByRole('button', { name: 'previous-page' }));
-    const saveAd = getByRole('button', { name: 'save' });
-    fireEvent.click(saveAd);
-    expect(queryByTestId('not-saved')).toBeTruthy();
-    expect(queryByTestId('saved')).toBeFalsy();
+  // TODO MOVE TEST TO NEW TEST FAVORITE BUTTON
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(queryByTestId('saved')).toBeTruthy();
-    expect(queryByTestId('not-saved')).toBeFalsy();
-  });
+  // it('Save ad mutation works as expected', async () => {
+  //   const { getByText, queryByTestId, getByRole } = renderApollo(
+  //     <Ad path='/annunci/:id' />,
+  //     {
+  //       mocks: [adMockSuccessOtherUser, SaveAdSuccess],
+  //       addTypename: false,
+  //     },
+  //     { route: '/annunci/123' }
+  //   );
+  //   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+  //   expect(getByRole('button', { name: 'previous-page' }));
+  //   const saveAd = getByRole('button', { name: 'save' });
+  //   fireEvent.click(saveAd);
+  //   expect(queryByTestId('not-saved')).toBeTruthy();
+  //   expect(queryByTestId('saved')).toBeFalsy();
+
+  //   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+  //   expect(queryByTestId('saved')).toBeTruthy();
+  //   expect(queryByTestId('not-saved')).toBeFalsy();
+  // });
 
   it('renders the Ad page with error', async () => {
     const { getByText } = renderApollo(

@@ -100,6 +100,8 @@ const initialValues: UserInputForm = {
 export const UserForm: React.FC<{
   onSubmit: (values: UserInputForm) => void;
 }> = ({ onSubmit }) => {
+  const classes = useStyles();
+
   return (
     <Formik
       initialValues={initialValues}
@@ -107,7 +109,6 @@ export const UserForm: React.FC<{
       onSubmit={onSubmit}
     >
       {({ isValid, dirty, setFieldValue }) => {
-        const classes = useStyles();
         return (
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
