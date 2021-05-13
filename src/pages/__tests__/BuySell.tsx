@@ -4,7 +4,9 @@ import { act, fireEvent, waitFor, within } from '@testing-library/react';
 import Buy from '../BuySell';
 import * as React from 'react';
 import {
+  AdsWineDocument,
   CreateAdWineDocument,
+  QueryOrderBy,
   TypeAd,
   TypeProduct,
   WinesDocument,
@@ -35,12 +37,10 @@ jest.mock('../../cache', () => ({
   notification: jest.fn(),
 }));
 
-const ad = adFactory.build();
-
 const adInput = {
   wineName: 'Barbera',
-  typeAd: TypeAd.Buy,
-  typeProduct: ad.typeProduct,
+  typeAd: 'SELL',
+  typeProduct: 'AdWine',
   content: 'vinazzo',
   harvest: 2010,
   abv: 13.5,
@@ -48,7 +48,6 @@ const adInput = {
   priceTo: 3.5,
   litersFrom: 1000,
   litersTo: 1000,
-  needsFollowUp: true,
   address: undefined,
 };
 
@@ -93,6 +92,33 @@ const adCreatedSuccess = {
   },
 };
 
+const adsFirstReq = adFactory.buildList(4, {
+  datePosted: '08 Apr 21, 18:35',
+  harvest: 2015,
+});
+
+const adsMock4 = {
+  request: {
+    query: AdsWineDocument,
+    variables: {
+      offset: 0,
+      limit: 4,
+      orderBy: QueryOrderBy.CreatedAtDesc,
+      wineName: 'Barbera',
+      typeProduct: TypeProduct.AdWine,
+      typeAd: TypeAd.Sell,
+    },
+  },
+  result: {
+    data: {
+      ads: {
+        ads: adsFirstReq,
+        pageCount: 8,
+      },
+    },
+  },
+};
+
 describe('Buy or Sell page', () => {
   afterEach(cleanup);
 
@@ -109,7 +135,7 @@ describe('Buy or Sell page', () => {
   });
 
   it('renders the Buy page search', async () => {
-    const { getByText, queryByText } = renderApollo(
+    const { getByText } = renderApollo(
       <Buy path='/buy' />,
       {
         mocks: [winesQuery],
@@ -140,71 +166,17 @@ describe('Buy or Sell page', () => {
     expect(getByText('Gradazione alcolica'));
   });
 
-  it('it updates cache and navigate on submit query', async () => {
-    searchedWine(undefined);
-    const { getByTestId, getByRole } = renderApollo(
-      <Buy path='/buy' />,
-      {
-        mocks: [winesQuery],
-        addTypename: false,
-        cache: new InMemoryCache({ addTypename: false }),
-      },
-      { route: '/buy' }
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    fireEvent.change(getByRole('spinbutton', { name: /abv/i }), {
-      target: {
-        value: 13.5,
-      },
-    });
-    fireEvent.change(getByRole('spinbutton', { name: /harvest/i }), {
-      target: {
-        value: 2010,
-      },
-    });
-    fireEvent.change(getByRole('spinbutton', { name: /price/i }), {
-      target: {
-        value: 3.5,
-      },
-    });
-    fireEvent.change(getByRole('spinbutton', { name: /liters/i }), {
-      target: {
-        value: 1000,
-      },
-    });
-    const comboboxWines = getByTestId('combobox-wines');
-    const inputWines = within(comboboxWines).getByRole('textbox');
-    comboboxWines.focus();
-    fireEvent.change(inputWines, { target: { value: 'b' } });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
-
-      fireEvent.keyDown(inputWines, { key: 'ArrowDown' });
-    });
-    await waitFor(() => {
-      fireEvent.keyDown(inputWines, { key: 'Enter' });
-    });
-    await waitFor(() => {
-      fireEvent.submit(getByRole('button', { name: /submit/i }));
-    });
-    expect(searchedWine()).toStrictEqual({
-      wineName: 'Barbera',
-      typeAd: 'BUY',
-      typeProduct: 'AdWine',
-      liters: 1000,
-      harvest: 2010,
-      abv: 13.5,
-      price: 3.5,
-      isPost: false,
-    });
-    expect(navigate).toHaveBeenCalledWith('/annunci');
-  });
-
-  it('ad posted mutation success', async () => {
+  it('ad posted mutation success and navigate to results', async () => {
     const { getByRole, getByTestId } = renderApollo(
       <Buy path='/sell' />,
       {
-        mocks: [winesQuery, adCreatedSuccess],
+        mocks: [
+          winesQuery,
+          adsMock4,
+          adCreatedSuccess,
+          adsMock4,
+          adCreatedSuccess,
+        ],
         addTypename: false,
         cache: new InMemoryCache({ addTypename: false }),
       },
@@ -260,12 +232,27 @@ describe('Buy or Sell page', () => {
       fireEvent.submit(getByRole('button', { name: /submit/i }));
     });
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(searchedWine()).toBe(undefined);
-    expect(navigate).toHaveBeenCalledWith('/');
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
     expect(notification).toHaveBeenCalledWith({
       type: 'success',
       message: 'ad created',
     });
     expect(updateCacheAd).toHaveBeenCalled();
+    expect(searchedWine()).toStrictEqual({
+      wineName: 'Barbera',
+      typeAd: 'SELL',
+      typeProduct: 'AdWine',
+      content: 'vinazzo',
+      harvest: 2010,
+      abv: 13.5,
+      priceFrom: 3.5,
+      priceTo: 3.5,
+      litersFrom: 1000,
+      litersTo: 1000,
+      address: undefined,
+    });
+
+    expect(navigate).toHaveBeenCalledWith('/annunci');
   });
 });

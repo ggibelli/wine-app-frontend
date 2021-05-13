@@ -29,11 +29,12 @@ const Buy: React.FC<RouteComponentProps> = () => {
   let differentAddress: AddressInput;
   const winesQueryResult = useWinesQuery();
   const [createAdWineMutation, { loading, client }] = useCreateAdWineMutation({
-    onError: (error) =>
+    onError: (error) => {
       notification({
         type: 'error',
         message: `${error.message}`,
-      }),
+      });
+    },
     onCompleted: ({ createAd }) => {
       if (createAd?.errors?.length) {
         const errorMessages = createAd.errors.map((error) => error?.text);
