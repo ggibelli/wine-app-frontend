@@ -317,7 +317,7 @@ describe('MyAds page', () => {
   it('it changes order ads', async () => {
     myInfo(user);
 
-    const { getByRole, getAllByRole, getByTestId, debug } = renderApollo(
+    const { getByRole, getAllByRole, getByTestId } = renderApollo(
       <MyAds path='/creati/' />,
       {
         mocks: [adsMockSuccess, adsMockSuccessOld],

@@ -5,14 +5,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Loading } from '../Loading';
+// import { Loading } from '../Loading';
 
 export const NotificationModal: React.FC<{
   open: boolean;
   handleClose: () => void;
   content?: string;
   loading: boolean;
-}> = ({ open, handleClose, content, loading }) => {
+}> = ({ open, handleClose, content }) => {
   return (
     <div>
       <Dialog
@@ -22,11 +22,11 @@ export const NotificationModal: React.FC<{
       >
         <DialogTitle id='responsive-dialog-title'>{'Notifica app'}</DialogTitle>
         <DialogContent>
-          {loading ? (
+          {/* {loading ? (
             <Loading />
-          ) : (
-            <DialogContentText color='primary'>{content}</DialogContentText>
-          )}
+          ) : ( */}
+          <DialogContentText color='primary'>{content}</DialogContentText>
+          {/* )} */}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color='primary'>

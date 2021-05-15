@@ -6,8 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import Badge from '@material-ui/core/Badge';
 import { Link as RouterLink } from '@reach/router';
-import { myInfo } from '../cache';
-import { MessagesQuery } from '../generated/graphql';
+import { myInfo } from '../../cache';
+import { MessagesQuery } from '../../generated/graphql';
 
 export const MessageListEl: React.FC<{
   id: string;
@@ -21,8 +21,9 @@ export const MessageListEl: React.FC<{
   const messagesFromMe = messages.filter(
     (message) => message.sentBy._id === me?._id
   );
-  const unreadMessages = messagesForMe?.filter((message) => !message.isViewed)
-    .length;
+  const unreadMessages = messagesForMe?.filter(
+    (message) => !message.isViewed
+  ).length;
   const recipient = messagesForMe.length
     ? messagesForMe[0].sentBy.firstName
     : messagesFromMe[0].sentTo.firstName;
