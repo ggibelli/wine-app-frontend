@@ -70,12 +70,10 @@ export const SwipableTabsNotification: React.FC<NotificationProps> = (
     messages,
     (message) => message.negotiation._id
   );
-
   const messagesForNegotiation = Object.entries(messagesForNegotiationObj).sort(
     (a, b) => a[0].localeCompare(b[0])
   );
   const messNumberRaw = messagesForNegotiation.map((mess) => mess[1]).flat();
-
   const unreadNotificationsBadge = notifications?.filter(
     (n) => !n.isViewed
   ).length;
@@ -86,7 +84,6 @@ export const SwipableTabsNotification: React.FC<NotificationProps> = (
   const handleChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
-
   const handleChangeIndex = (index: number) => {
     setValue(index);
   };

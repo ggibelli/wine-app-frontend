@@ -238,7 +238,7 @@ describe('Signup page', () => {
       type: 'error',
       message: 'errore',
     });
-  }, 10000);
+  }, 15000);
 
   it('it calls notification and localstorage if mutation successful', async () => {
     const localStorageSetMock = jest.spyOn(localStorage, 'setItem');
@@ -366,5 +366,5 @@ describe('Signup page', () => {
       message: 'welcome',
       type: 'success',
     });
-  }, 10000);
+  }, 15000);
 });

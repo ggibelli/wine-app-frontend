@@ -20,7 +20,7 @@ describe('Drawer', () => {
   afterEach(cleanup);
 
   it('renders drawer', () => {
-    const { getByText, getByTestId } = renderApolloNoRouter(
+    const { getByText, getByTestId, getByRole } = renderApolloNoRouter(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       <Drawer state={true} toggleDrawer={() => {}} data={data} />
     );
@@ -28,7 +28,7 @@ describe('Drawer', () => {
     expect(getByText('Annunci pubblicati (2)'));
     expect(getByText('Trattative in corso (4)'));
     expect(getByText('Annunci salvati (3)'));
-    expect(getByText('(4.5)'));
+    expect(getByRole('link', { name: '4.5 Stars (4.50)' }));
     expect(getByTestId('logout'));
   });
 });

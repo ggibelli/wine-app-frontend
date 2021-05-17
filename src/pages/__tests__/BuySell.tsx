@@ -254,5 +254,5 @@ describe('Buy or Sell page', () => {
     });
 
     expect(navigate).toHaveBeenCalledWith('/annunci');
-  });
+  }, 10000);
 });

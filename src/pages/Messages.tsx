@@ -6,7 +6,7 @@ import { notification } from '../cache';
 import { RouteComponentProps } from '@reach/router';
 import { BackButton } from '../components/BackButton';
 import { Loading } from '../components/Loading';
-import { NotificationModal } from '../components/NotificationModal/NotificationModal';
+import { NotificationModal } from '../components/NotificationModal';
 import { SwipableTabsNotification } from '../components/SwipableTabsNotification';
 
 const Messages: React.FC<RouteComponentProps> = () => {
