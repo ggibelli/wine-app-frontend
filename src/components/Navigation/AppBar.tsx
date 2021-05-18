@@ -14,7 +14,6 @@ import Link from '@material-ui/core/Link';
 import { Link as RouterLink, navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { Badge } from '@material-ui/core';
-// import { myInfo } from '../../cache';
 import { LazyQueryResult } from '@apollo/client';
 import { MeQuery, Exact } from '../../generated/graphql';
 
@@ -53,7 +52,6 @@ export const HeaderBar: React.FC<{
   const toggleDrawer = () => {
     setState(!state);
   };
-  // let mez = myInfo();
   const me = meQueryResult.data?.me;
   const [openModal, setOpenModal] = React.useState<boolean>(false);
   const badgeNumber = me?.messages?.length

@@ -3,7 +3,7 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { AdQuery, TypeAd } from '../../generated/graphql';
 import { Button, Grid } from '@material-ui/core';
-import { NegotiationModal } from '../NegotiationModal';
+import { OpenNegotiationModal } from '../NegotiationModals/OpenNegotiationModal';
 import { StyledBox } from '../../containers/StyledBox';
 import { useStyles } from '../../utils/styleHook';
 
@@ -49,7 +49,7 @@ export const CardWineDetail: React.FC<{
         >
           Contatta il {ad?.typeAd === TypeAd.Buy ? 'compratore' : 'venditore'}
         </Button>
-        <NegotiationModal
+        <OpenNegotiationModal
           handleClose={handleClose}
           open={openModal}
           createNegotiation={createNegotiation}

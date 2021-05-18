@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import * as React from 'react';
 import { notification } from '../cache';
-import { useUpdateNegotiationMutation } from '../generated/graphql';
+import { useDeleteNegotiationMutation } from '../generated/graphql';
 import { useStyles } from '../utils/styleHook';
 
 export const CloseNegotiationButton: React.FC<{
@@ -9,10 +9,10 @@ export const CloseNegotiationButton: React.FC<{
   isBuy?: boolean;
 }> = ({ id, isBuy }) => {
   const classes = useStyles();
-  const [closeNegotiation, { loading }] = useUpdateNegotiationMutation({
+  const [closeNegotiation, { loading }] = useDeleteNegotiationMutation({
     onCompleted: (closedNegotiation) => {
-      if (closedNegotiation.updateNegotiation?.errors?.length) {
-        const errorMessages = closedNegotiation.updateNegotiation?.errors.map(
+      if (closedNegotiation.deleteNegotiation?.errors?.length) {
+        const errorMessages = closedNegotiation.deleteNegotiation?.errors.map(
           (error) => error?.text
         );
         notification({
@@ -21,8 +21,8 @@ export const CloseNegotiationButton: React.FC<{
         });
       } else {
         notification({
-          message: 'trattativa chiusa con successo',
-          type: 'success',
+          message: 'trattativa cancellata con successo',
+          type: 'info',
         });
       }
     },
@@ -31,7 +31,7 @@ export const CloseNegotiationButton: React.FC<{
 
   const handleCloseNegotiation = async () => {
     await closeNegotiation({
-      variables: { negotiation: { _id: id, isConcluded: true } },
+      variables: { id },
     });
   };
 
@@ -42,7 +42,7 @@ export const CloseNegotiationButton: React.FC<{
       disabled={loading}
       onClick={handleCloseNegotiation}
     >
-      Dichiara chiusa la trattativa
+      Cancella la trattativa
     </Button>
   );
 };

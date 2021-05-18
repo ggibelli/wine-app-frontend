@@ -13,7 +13,7 @@ export const FavoriteButton: React.FC<{
 }> = ({ id, fontSize = 'default' }) => {
   const { data } = useMyInfoQuery();
   const [saveAd] = useSaveAdMutation({
-    variables: { id: id },
+    variables: { id },
     onCompleted: () => {
       setIsFav(!isFav);
     },

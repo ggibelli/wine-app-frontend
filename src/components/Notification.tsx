@@ -14,21 +14,21 @@ export const Notification: React.FC = () => {
   };
   const { data, loading, error } = useNotificationQuery();
   const [isVisible, setIsVisible] = React.useState(false);
-  const timeoutId = React.useRef<number | undefined>(undefined);
+  // const timeoutId = React.useRef<number | undefined>(undefined);
   React.useEffect(() => {
     if (data && !loading) {
       setIsVisible(true);
     }
-    clearTimeout(timeoutId.current);
+    // clearTimeout(timeoutId.current);
   }, [data, loading]);
 
-  React.useEffect(() => {
-    if (isVisible) {
-      timeoutId.current = window.setTimeout(() => {
-        onClose();
-      }, 10000);
-    }
-  }, [isVisible, data?.notification?.message]);
+  // React.useEffect(() => {
+  //   if (isVisible) {
+  //     timeoutId.current = window.setTimeout(() => {
+  //       onClose();
+  //     }, 10000);
+  //   }
+  // }, [isVisible, data?.notification?.message]);
 
   if (!isVisible || error) {
     return null;

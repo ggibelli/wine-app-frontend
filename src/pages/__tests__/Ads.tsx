@@ -17,7 +17,6 @@ import { searchedWine } from '../../cache';
 import { InMemoryCache } from '@apollo/client';
 import { navigate } from '@reach/router';
 import { adFactory } from '../../test-utils/test-factory';
-import * as hooks from '../../utils/useIntersectionHook';
 import * as superHooks from '../../generated/graphql';
 
 const typePolicies = {

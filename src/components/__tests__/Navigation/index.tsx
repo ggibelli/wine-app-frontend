@@ -124,16 +124,12 @@ describe('Header component', () => {
     ];
     const localStorageSetMock = jest.spyOn(localStorage, 'setItem');
 
-    const {
-      getByText,
-      getByLabelText,
-      getByTestId,
-      getByRole,
-    } = renderApolloNoRouter(
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      <Header />,
-      { mocks, cache, addTypename: true, resolvers: {} }
-    );
+    const { getByText, getByLabelText, getByTestId, getByRole } =
+      renderApolloNoRouter(
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        <Header />,
+        { mocks, cache, addTypename: true, resolvers: {} }
+      );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(isLoggedInVar()).toBeFalsy();
     const loginButton = getByText('Log in');
@@ -200,16 +196,12 @@ describe('Header component', () => {
     ];
     const localStorageSetMock = jest.spyOn(localStorage, 'setItem');
 
-    const {
-      getByText,
-      getByLabelText,
-      getByTestId,
-      getByRole,
-    } = renderApolloNoRouter(
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      <Header />,
-      { mocks, cache, addTypename: true, resolvers: {} }
-    );
+    const { getByText, getByLabelText, getByTestId, getByRole } =
+      renderApolloNoRouter(
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        <Header />,
+        { mocks, cache, addTypename: true, resolvers: {} }
+      );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(isLoggedInVar()).toBeFalsy();
     const loginButton = getByText('Log in');

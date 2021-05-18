@@ -41,7 +41,7 @@ export interface WineFormMutation {
   liters: number | '';
   sottoZona?: string;
   menzione?: Menzione | '';
-  content: string;
+  content?: string;
   metodoProduttivo?: MetodoProduttivo | '';
   // needsFollowUp: boolean;
   isSameAddress: boolean;
@@ -115,7 +115,7 @@ export const WineFormMutation: React.FC<{
         // sottoZona: Yup.string(),
         menzione: Yup.string(),
         metodoProduttivo: Yup.string(),
-        content: Yup.string().required('Required'),
+        content: Yup.string(),
         // needsFollowUp: Yup.bool().required('Required'),
         isSameAddress: Yup.bool().required('Required'),
         address: Yup.object().when('isSameAddress', {
@@ -159,7 +159,22 @@ export const WineFormMutation: React.FC<{
                   : classes.underlineSell
               }
             />
+            <SelectField
+              name='menzione'
+              label='Menzione del vino'
+              options={Object.values(Menzione)}
+              underlineColor={
+                adType === TypeAd.Buy
+                  ? classes.underline
+                  : classes.underlineSell
+              }
+              labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
+              textColor={
+                adType === TypeAd.Buy ? classes.input : classes.inputSell
+              }
+            />
             <TextField
+              required={true}
               name='harvest'
               type='number'
               label='Vendemmia'
@@ -234,20 +249,7 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            <SelectField
-              name='menzione'
-              label='Menzione del vino'
-              options={Object.values(Menzione)}
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-              labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              textColor={
-                adType === TypeAd.Buy ? classes.input : classes.inputSell
-              }
-            />
+
             <SelectField
               name='metodoProduttivo'
               label='Metodo produttivo del vino'

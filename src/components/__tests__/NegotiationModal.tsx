@@ -1,4 +1,4 @@
-import { NegotiationModal } from '../NegotiationModal';
+import { OpenNegotiationModal } from '../NegotiationModals/OpenNegotiationModal';
 import { cleanup, renderApolloNoRouter } from '../../test-utils/test-utils';
 import * as React from 'react';
 import { fireEvent } from '@testing-library/react';
@@ -10,7 +10,7 @@ describe('NegotiationModal component', () => {
     const createNegotiation = jest.fn();
     const handleClose = jest.fn();
     renderApolloNoRouter(
-      <NegotiationModal
+      <OpenNegotiationModal
         handleClose={handleClose}
         open={true}
         createNegotiation={createNegotiation}
@@ -22,7 +22,7 @@ describe('NegotiationModal component', () => {
     const createNegotiation = jest.fn();
     const handleClose = jest.fn();
     const { getByText } = renderApolloNoRouter(
-      <NegotiationModal
+      <OpenNegotiationModal
         handleClose={handleClose}
         open={true}
         createNegotiation={createNegotiation}

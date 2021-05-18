@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -39,7 +38,7 @@ export type AddressInput = {
 export type AdInput = {
   typeAd: TypeAd;
   typeProduct: TypeProduct;
-  content: Scalars['String'];
+  content?: Maybe<Scalars['String']>;
   address: AddressInput;
   harvest: Scalars['Int'];
   abv: Scalars['Float'];
@@ -87,7 +86,7 @@ export type Ad = {
   abv: Scalars['Float'];
   priceFrom: Scalars['Float'];
   priceTo: Scalars['Float'];
-  content: Scalars['String'];
+  content?: Maybe<Scalars['String']>;
   address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
@@ -120,7 +119,7 @@ export type AdWine = Ad & {
   priceTo: Scalars['Float'];
   litersFrom?: Maybe<Scalars['Int']>;
   litersTo?: Maybe<Scalars['Int']>;
-  content: Scalars['String'];
+  content?: Maybe<Scalars['String']>;
   address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
@@ -150,7 +149,7 @@ export type AdGrape = Ad & {
   priceTo: Scalars['Float'];
   kgFrom: Scalars['Int'];
   kgTo: Scalars['Int'];
-  content: Scalars['String'];
+  content?: Maybe<Scalars['String']>;
   address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
@@ -1001,10 +1000,7 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
             | 'datePosted'
           > & {
               wine?: Maybe<
-                { __typename?: 'Wine' } & Pick<
-                  Wine,
-                  'denominazioneZona' | 'regione'
-                >
+                { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
               >;
               postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
               address: { __typename?: 'Address' } & Pick<
@@ -1565,10 +1561,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'datePosted'
                 > & {
                     wine?: Maybe<
-                      { __typename?: 'Wine' } & Pick<
-                        Wine,
-                        'denominazioneZona' | 'regione'
-                      >
+                      { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
                     >;
                     postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
                     address: { __typename?: 'Address' } & Pick<
@@ -1629,10 +1622,7 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'isActive'
       > & {
           wine?: Maybe<
-            { __typename?: 'Wine' } & Pick<
-              Wine,
-              'denominazioneZona' | 'regione'
-            >
+            { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
           >;
           postedBy: { __typename?: 'User' } & Pick<
             User,
@@ -1865,10 +1855,7 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
                   | 'savedTimes'
                 > & {
                     wine?: Maybe<
-                      { __typename?: 'Wine' } & Pick<
-                        Wine,
-                        'denominazioneZona' | 'regione'
-                      >
+                      { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
                     >;
                     postedBy: { __typename?: 'User' } & Pick<
                       User,
@@ -2058,6 +2045,11 @@ export type ReviewCreatedSubscription = { __typename?: 'Subscription' } & {
   reviewCreated: { __typename?: 'Review' } & ReviewDetailsFragment;
 };
 
+export type MyAdFragment = { __typename?: 'AdWine' } & Pick<
+  AdWine,
+  'savedTimes'
+>;
+
 export const AdDetailsFragmentDoc = gql`
   fragment AdDetails on Ad {
     _id
@@ -2182,6 +2174,11 @@ export const ReviewDetailsFragmentDoc = gql`
     type
   }
 `;
+export const MyAdFragmentDoc = gql`
+  fragment MyAd on AdWine {
+    savedTimes
+  }
+`;
 export const LoginDocument = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -2297,7 +2294,8 @@ export function useCreateUserMutation(
 export type CreateUserMutationHookResult = ReturnType<
   typeof useCreateUserMutation
 >;
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationResult =
+  Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
   CreateUserMutation,
   CreateUserMutationVariables
@@ -2352,7 +2350,8 @@ export function useUpdateUserMutation(
 export type UpdateUserMutationHookResult = ReturnType<
   typeof useUpdateUserMutation
 >;
-export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationResult =
+  Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
   UpdateUserMutation,
   UpdateUserMutationVariables
@@ -2407,7 +2406,8 @@ export function useDeleteUserMutation(
 export type DeleteUserMutationHookResult = ReturnType<
   typeof useDeleteUserMutation
 >;
-export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
+export type DeleteUserMutationResult =
+  Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<
   DeleteUserMutation,
   DeleteUserMutationVariables
@@ -2431,7 +2431,6 @@ export const CreateAdWineDocument = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd
@@ -2487,7 +2486,8 @@ export function useCreateAdWineMutation(
 export type CreateAdWineMutationHookResult = ReturnType<
   typeof useCreateAdWineMutation
 >;
-export type CreateAdWineMutationResult = Apollo.MutationResult<CreateAdWineMutation>;
+export type CreateAdWineMutationResult =
+  Apollo.MutationResult<CreateAdWineMutation>;
 export type CreateAdWineMutationOptions = Apollo.BaseMutationOptions<
   CreateAdWineMutation,
   CreateAdWineMutationVariables
@@ -2541,7 +2541,8 @@ export function useUpdateAdWineMutation(
 export type UpdateAdWineMutationHookResult = ReturnType<
   typeof useUpdateAdWineMutation
 >;
-export type UpdateAdWineMutationResult = Apollo.MutationResult<UpdateAdWineMutation>;
+export type UpdateAdWineMutationResult =
+  Apollo.MutationResult<UpdateAdWineMutation>;
 export type UpdateAdWineMutationOptions = Apollo.BaseMutationOptions<
   UpdateAdWineMutation,
   UpdateAdWineMutationVariables
@@ -2713,7 +2714,8 @@ export function useCreateNegotiationMutation(
 export type CreateNegotiationMutationHookResult = ReturnType<
   typeof useCreateNegotiationMutation
 >;
-export type CreateNegotiationMutationResult = Apollo.MutationResult<CreateNegotiationMutation>;
+export type CreateNegotiationMutationResult =
+  Apollo.MutationResult<CreateNegotiationMutation>;
 export type CreateNegotiationMutationOptions = Apollo.BaseMutationOptions<
   CreateNegotiationMutation,
   CreateNegotiationMutationVariables
@@ -2768,7 +2770,8 @@ export function useUpdateNegotiationMutation(
 export type UpdateNegotiationMutationHookResult = ReturnType<
   typeof useUpdateNegotiationMutation
 >;
-export type UpdateNegotiationMutationResult = Apollo.MutationResult<UpdateNegotiationMutation>;
+export type UpdateNegotiationMutationResult =
+  Apollo.MutationResult<UpdateNegotiationMutation>;
 export type UpdateNegotiationMutationOptions = Apollo.BaseMutationOptions<
   UpdateNegotiationMutation,
   UpdateNegotiationMutationVariables
@@ -2822,7 +2825,8 @@ export function useDeleteNegotiationMutation(
 export type DeleteNegotiationMutationHookResult = ReturnType<
   typeof useDeleteNegotiationMutation
 >;
-export type DeleteNegotiationMutationResult = Apollo.MutationResult<DeleteNegotiationMutation>;
+export type DeleteNegotiationMutationResult =
+  Apollo.MutationResult<DeleteNegotiationMutation>;
 export type DeleteNegotiationMutationOptions = Apollo.BaseMutationOptions<
   DeleteNegotiationMutation,
   DeleteNegotiationMutationVariables
@@ -2877,7 +2881,8 @@ export function useCreateMessageMutation(
 export type CreateMessageMutationHookResult = ReturnType<
   typeof useCreateMessageMutation
 >;
-export type CreateMessageMutationResult = Apollo.MutationResult<CreateMessageMutation>;
+export type CreateMessageMutationResult =
+  Apollo.MutationResult<CreateMessageMutation>;
 export type CreateMessageMutationOptions = Apollo.BaseMutationOptions<
   CreateMessageMutation,
   CreateMessageMutationVariables
@@ -2932,7 +2937,8 @@ export function useCreateReviewMutation(
 export type CreateReviewMutationHookResult = ReturnType<
   typeof useCreateReviewMutation
 >;
-export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutation>;
+export type CreateReviewMutationResult =
+  Apollo.MutationResult<CreateReviewMutation>;
 export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<
   CreateReviewMutation,
   CreateReviewMutationVariables
@@ -3432,7 +3438,6 @@ export const AdsWineDocument = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd
@@ -3519,7 +3524,6 @@ export const AdDocument = gql`
         metodoProduttivo
         wine {
           denominazioneZona
-          regione
         }
       }
       typeAd
@@ -4082,7 +4086,6 @@ export const AdsForUserDocument = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd
@@ -4270,7 +4273,8 @@ export function useAdPostedFollowUpSubscription(
 export type AdPostedFollowUpSubscriptionHookResult = ReturnType<
   typeof useAdPostedFollowUpSubscription
 >;
-export type AdPostedFollowUpSubscriptionResult = Apollo.SubscriptionResult<AdPostedFollowUpSubscription>;
+export type AdPostedFollowUpSubscriptionResult =
+  Apollo.SubscriptionResult<AdPostedFollowUpSubscription>;
 export const AdRemovedDocument = gql`
   subscription AdRemoved {
     adRemoved {
@@ -4308,7 +4312,8 @@ export function useAdRemovedSubscription(
 export type AdRemovedSubscriptionHookResult = ReturnType<
   typeof useAdRemovedSubscription
 >;
-export type AdRemovedSubscriptionResult = Apollo.SubscriptionResult<AdRemovedSubscription>;
+export type AdRemovedSubscriptionResult =
+  Apollo.SubscriptionResult<AdRemovedSubscription>;
 export const MessageSentDocument = gql`
   subscription MessageSent {
     messageSent {
@@ -4347,7 +4352,8 @@ export function useMessageSentSubscription(
 export type MessageSentSubscriptionHookResult = ReturnType<
   typeof useMessageSentSubscription
 >;
-export type MessageSentSubscriptionResult = Apollo.SubscriptionResult<MessageSentSubscription>;
+export type MessageSentSubscriptionResult =
+  Apollo.SubscriptionResult<MessageSentSubscription>;
 export const NegotiationCreatedDocument = gql`
   subscription NegotiationCreated {
     negotiationCreated {
@@ -4386,7 +4392,8 @@ export function useNegotiationCreatedSubscription(
 export type NegotiationCreatedSubscriptionHookResult = ReturnType<
   typeof useNegotiationCreatedSubscription
 >;
-export type NegotiationCreatedSubscriptionResult = Apollo.SubscriptionResult<NegotiationCreatedSubscription>;
+export type NegotiationCreatedSubscriptionResult =
+  Apollo.SubscriptionResult<NegotiationCreatedSubscription>;
 export const NegotiationClosedDocument = gql`
   subscription NegotiationClosed {
     negotiationClosed {
@@ -4450,7 +4457,8 @@ export function useNegotiationClosedSubscription(
 export type NegotiationClosedSubscriptionHookResult = ReturnType<
   typeof useNegotiationClosedSubscription
 >;
-export type NegotiationClosedSubscriptionResult = Apollo.SubscriptionResult<NegotiationClosedSubscription>;
+export type NegotiationClosedSubscriptionResult =
+  Apollo.SubscriptionResult<NegotiationClosedSubscription>;
 export const ReviewCreatedDocument = gql`
   subscription ReviewCreated {
     reviewCreated {
@@ -4489,4 +4497,5 @@ export function useReviewCreatedSubscription(
 export type ReviewCreatedSubscriptionHookResult = ReturnType<
   typeof useReviewCreatedSubscription
 >;
-export type ReviewCreatedSubscriptionResult = Apollo.SubscriptionResult<ReviewCreatedSubscription>;
+export type ReviewCreatedSubscriptionResult =
+  Apollo.SubscriptionResult<ReviewCreatedSubscription>;
