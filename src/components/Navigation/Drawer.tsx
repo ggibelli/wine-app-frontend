@@ -44,7 +44,7 @@ export const Drawer: React.FC<{
     try {
       await client.resetStore();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
   const list = () => (

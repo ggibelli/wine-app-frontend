@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import { RouteComponentProps } from '@reach/router';
 import {
   NegotiationDetailsFragment,
-  NegotiationsQuery,
   QueryOrderBy,
   useNegotiationsQuery,
 } from '../generated/graphql';
@@ -13,7 +12,6 @@ import { CardNegotiation } from '../components/Cards/CardNegotiation';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
-import { DeepExtractType } from 'ts-deep-extract-types';
 import { notification } from '../cache';
 import { PurpleCheckbox } from '../components/FilterAds';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -31,42 +29,27 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
       orderBy: order,
       isConcluded: false,
     },
-    onCompleted: ({ negotiations }) =>
-      setNegotiations(negotiations?.negotiations),
-    onError: (error) => console.log(error),
+    onError: (error) => console.error(error),
   });
-  const [negotiations, setNegotiations] = React.useState<
-    DeepExtractType<NegotiationsQuery, ['negotiations']>['negotiations']
-  >([]);
+  console.log(data?.negotiations?.negotiations);
   const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
   const handleShowAll = async () => {
-    setIsLoadOrder(true);
-    if (isShowAll && fetchMore) {
-      setIsShowAll(false);
-      const { data } = await fetchMore({
-        variables: {
-          offset: 0,
-          limit: 4,
-          orderBy: order,
-          isConcluded: false,
-        },
-      });
-      setNegotiations(data.negotiations?.negotiations);
-      setIsLoadOrder(false);
+    if (isShowAll) {
+      setIsShowAll(!isShowAll);
+      return;
     }
+    setIsLoadOrder(true);
     if (fetchMore && !isShowAll) {
       try {
         setIsShowAll(true);
-        const { data } = await fetchMore({
-          variables: { limit: negotiations?.length, isConcluded: true },
+        await fetchMore({
+          variables: {
+            limit: data?.negotiations?.negotiations?.length,
+            isConcluded: true,
+          },
         });
-        setNegotiations([
-          ...(negotiations as []),
-          ...(data.negotiations?.negotiations as []),
-        ]);
-
         setIsLoadOrder(false);
       } catch (e) {
         notification({
@@ -77,27 +60,26 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
     }
   };
   const isVisible =
-    (negotiations?.length as number) <
+    (data?.negotiations?.negotiations?.length as number) <
     (data?.negotiations?.pageCount as number);
   React.useEffect(() => {
-    if (negotiations?.length && fetchMore) {
+    if (data?.negotiations?.negotiations?.length && fetchMore) {
       setIsLoadOrder(true);
 
       fetchMore({
         variables: {
           orderBy: order,
-          limit: negotiations?.length,
+          limit: data?.negotiations?.negotiations?.length,
           isConcluded: isShowAll,
         },
       })
-        .then(({ data }) => {
+        .then(() => {
           setIsLoadOrder(false);
-          setNegotiations(data.negotiations?.negotiations);
         })
         .catch((e) => {
           setIsLoadOrder(false);
 
-          console.log(e);
+          console.error(e);
         });
     }
   }, [order]);
@@ -106,28 +88,24 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
     return <Loading />;
   }
   if (error) return <div>{error.message}</div>;
-  if (negotiations?.length === 0) {
-    return <div>Non hai ancora aperto trattative</div>;
+  if (data?.negotiations?.negotiations?.length === 0) {
+    return <div>Non hai trattative attive</div>;
   }
-  if (negotiations?.length && data?.negotiations?.negotiations?.length !== 0) {
+  if (data?.negotiations?.negotiations?.length) {
     const handleFetchMore = async () => {
       setIsLoadFetchMore(true);
       if (fetchMore) {
         try {
-          const { data } = await fetchMore({
+          await fetchMore({
             variables: {
-              offset: negotiations.length,
+              offset: data?.negotiations?.negotiations?.length,
               orderBy: order,
               isConcluded: isShowAll,
             },
           });
-          setNegotiations([
-            ...negotiations,
-            ...(data.negotiations?.negotiations as []),
-          ]);
           setIsLoadFetchMore(false);
         } catch (e) {
-          console.log(e);
+          console.error(e);
           setIsLoadFetchMore(false);
         }
       }
@@ -162,12 +140,18 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
             isVisible={isVisible}
             isLoading={isLoadFetchMore}
           >
-            {negotiations.map((negotiation) => (
-              <CardNegotiation
-                key={negotiation?._id}
-                negotiation={negotiation as NegotiationDetailsFragment}
-              />
-            ))}
+            {data?.negotiations?.negotiations
+              .filter((negotiation) =>
+                !isShowAll
+                  ? negotiation?.isConcluded === isShowAll
+                  : negotiation
+              )
+              .map((negotiation) => (
+                <CardNegotiation
+                  key={negotiation?._id}
+                  negotiation={negotiation as NegotiationDetailsFragment}
+                />
+              ))}
           </InfiniteScroll>
         )}
       </Container>

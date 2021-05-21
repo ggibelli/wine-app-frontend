@@ -98,7 +98,7 @@ describe('OpenNegotiations Component', () => {
     expect(getByText('Rocco'));
     expect(getByText('aperta il 30 Mar 21, 17:45'));
     expect(getByText('Vai alla chat'));
-    expect(getByText('Dichiara chiusa la trattativa'));
+    expect(getByText('Chiudi trattativa'));
   });
 
   it('renders the OpenNegotiations Component success state negotiation closed', () => {

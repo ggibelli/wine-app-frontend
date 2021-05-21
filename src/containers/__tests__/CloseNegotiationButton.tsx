@@ -61,37 +61,20 @@ const negotiationClosedError = {
 describe('CloseNegotiationButton Component', () => {
   afterEach(cleanup);
 
-  it('renders the CloseNegotiationButton buy class', () => {
-    const { getByRole } = renderApolloNoRouter(
-      <CloseNegotiationButton id='123' isBuy />,
+  it('renders the CloseNegotiationButton', () => {
+    renderApolloNoRouter(
+      <CloseNegotiationButton id='123' handleClose={jest.fn()} />,
       {
         mocks: [],
         addTypename: false,
       }
     );
-    const classes = getByRole('button', {
-      name: 'close-negotiation',
-    }).classList.value;
-    expect(classes.includes('buyButton')).toBeTruthy();
-  });
-
-  it('renders the CloseNegotiationButton sell class', () => {
-    const { getByRole } = renderApolloNoRouter(
-      <CloseNegotiationButton id='123' />,
-      {
-        mocks: [],
-        addTypename: false,
-      }
-    );
-    const classes = getByRole('button', {
-      name: 'close-negotiation',
-    }).classList.value;
-    expect(classes.includes('sellButton')).toBeTruthy();
   });
 
   it('Close negotiation success calls notification success', async () => {
+    const handleClick = jest.fn();
     const { getByRole } = renderApolloNoRouter(
-      <CloseNegotiationButton id='123' />,
+      <CloseNegotiationButton id='123' handleClose={handleClick} />,
       {
         mocks: [negotiationClosedSuccess],
         addTypename: false,
@@ -104,11 +87,12 @@ describe('CloseNegotiationButton Component', () => {
       message: 'trattativa chiusa con successo',
       type: 'success',
     });
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
   it('Close negotiation error calls notification error', async () => {
     const { getByRole } = renderApolloNoRouter(
-      <CloseNegotiationButton id='123' />,
+      <CloseNegotiationButton id='123' handleClose={jest.fn()} />,
       {
         mocks: [negotiationClosedError],
         addTypename: false,

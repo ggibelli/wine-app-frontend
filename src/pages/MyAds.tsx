@@ -6,14 +6,12 @@ import { RouteComponentProps } from '@reach/router';
 import {
   QueryOrderBy,
   useAdsForUserQuery,
-  // AdsWineQuery,
   AdsForUserQuery,
 } from '../generated/graphql';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { myInfo } from '../cache';
-// import { DeepExtractType } from 'ts-deep-extract-types';
 import { CardWine } from '../components/Cards/CardWine';
 import { AdsWineResult } from '../types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -24,7 +22,6 @@ import { ApolloQueryResult } from '@apollo/client';
 
 const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
-
   const [order, setOrder] = React.useState<QueryOrderBy>(
     QueryOrderBy.CreatedAtDesc
   );
@@ -37,12 +34,11 @@ const MyAds: React.FC<RouteComponentProps> = () => {
       user: me?._id as string,
       isActive: undefined,
     },
-    onError: (error) => console.log(error),
+    onError: (error) => console.error(error),
     onCompleted: ({ adsForUser }) => {
       setPageCount(adsForUser?.pageCount as number);
     },
   });
-
   const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
@@ -65,7 +61,7 @@ const MyAds: React.FC<RouteComponentProps> = () => {
         result.data.adsForUser?.pageCount !== pageCount &&
           setPageCount(result.data.adsForUser?.pageCount as number);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     };
 
@@ -100,8 +96,7 @@ const MyAds: React.FC<RouteComponentProps> = () => {
             setPageCount(data.adsForUser?.pageCount as number);
         } catch (e) {
           setIsLoadFetchMore(false);
-
-          console.log(e);
+          console.error(e);
         }
       }
     };

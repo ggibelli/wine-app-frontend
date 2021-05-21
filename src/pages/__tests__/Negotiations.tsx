@@ -57,6 +57,10 @@ jest.mock('../../cache', () => ({
 const negotiationActive = negotiationFactory.build({
   dateCreated: "l'altroieri",
 });
+const negotiationOther = negotiationFactory.build({
+  dateCreated: 'ieri',
+  isConcluded: false,
+});
 const negotiationClosed = negotiationFactory.build({
   dateCreated: 'ieri',
   isConcluded: true,
@@ -122,7 +126,7 @@ const negotiationsSuccessMockFetchMore = {
   result: {
     data: {
       negotiations: {
-        negotiations: [negotiationClosed],
+        negotiations: [negotiationOther],
         pageCount: 2,
       },
     },
@@ -142,7 +146,7 @@ const negotiationsSuccessOrder = {
   result: {
     data: {
       negotiations: {
-        negotiations: [negotiationActive, negotiationClosed],
+        negotiations: [negotiationActive, negotiationOther],
         pageCount: 2,
       },
     },
@@ -188,16 +192,36 @@ const negotiationsErrorMock = {
 // I think mocking the queryhook is more readable than testing the fetchmore with the actual one
 describe('Negotiations page simulating fetch more ads', () => {
   afterEach(cleanup);
+  beforeEach(() => {
+    global.IntersectionObserver = class IntersectionObserver {
+      constructor(private func, private options) {}
+
+      observe(element: HTMLElement) {
+        this.func([
+          { isIntersecting: true, target: element, intersectionRatio: 1 },
+        ]);
+      }
+
+      disconnect() {
+        return null;
+      }
+
+      unobserve() {
+        return null;
+      }
+    };
+  });
   it('it fetches more negotiations on end page', async () => {
     //@ts-expect-error mock reached end of div
-    const endPage = jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
-      jest.fn(),
-      {
-        isIntersecting: true,
-        intersectionRatio: 0.6,
-        target: 'element',
-      },
-    ]);
+    // const endPage = jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
+    //   jest.fn(),
+    //   {
+    //     isIntersecting: true,
+    //     intersectionRatio: 0.6,
+    //     target: 'element',
+    //   },
+    // ]);
+
     const { getByRole, getAllByRole } = renderApollo(
       <Negotiations path='/trattative/' />,
       {
@@ -219,13 +243,13 @@ describe('Negotiations page simulating fetch more ads', () => {
       );
     });
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    // await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(
       getAllByRole('link', {
         name: 'link-negotiation',
       })
     ).toHaveLength(2);
-    endPage.mockRestore();
+    //endPage.mockRestore();
   });
 });
 
@@ -313,7 +337,7 @@ describe('Negotiations page', () => {
     ).toHaveLength(2);
   });
 
-  it('it changes order negotiations', async () => {
+  it.only('it changes order negotiations', async () => {
     const { getByRole, getAllByRole, getByTestId } = renderApollo(
       <Negotiations path='/trattative/' />,
       {
@@ -330,10 +354,10 @@ describe('Negotiations page', () => {
     const negotiationsBefore = getAllByRole('link', {
       name: 'link-negotiation',
     });
-    expect(negotiationsBefore[0]).toHaveTextContent('Trattativa aperta: ieri');
     expect(negotiationsBefore[1]).toHaveTextContent(
       "Trattativa aperta: l'altroieri"
     );
+    expect(negotiationsBefore[0]).toHaveTextContent('Trattativa aperta: ieri');
     const orderSelect = getByRole('combobox', { name: 'Ordine risultati' });
     fireEvent.change(orderSelect, {
       target: { value: QueryOrderBy.CreatedAtAsc },
@@ -343,10 +367,10 @@ describe('Negotiations page', () => {
     const negotiationsAfter = getAllByRole('link', {
       name: 'link-negotiation',
     });
-    expect(negotiationsAfter[0]).toHaveTextContent(
+    expect(negotiationsAfter[2]).toHaveTextContent(
       'Trattativa aperta: mille anni fa'
     );
-    expect(negotiationsAfter[1]).toHaveTextContent(
+    expect(negotiationsAfter[3]).toHaveTextContent(
       'Trattativa aperta: duemila anni fa'
     );
   });

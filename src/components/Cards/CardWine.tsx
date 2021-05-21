@@ -3,22 +3,33 @@ import { StyledBox } from '../../containers/StyledBox';
 import Typography from '@material-ui/core/Typography';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Link from '@material-ui/core/Link';
-import { Link as RouterLink } from '@reach/router';
-import { TypeAd } from '../../generated/graphql';
+import { Link as RouterLink, navigate } from '@reach/router';
+import { TypeAd, TypeProduct } from '../../generated/graphql';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AdsWineResult } from '../../types';
 import Grid from '@material-ui/core/Grid';
 import { HandshakeOutline } from 'mdi-material-ui';
 import { FavoriteButton } from '../../containers/FavoriteButton';
+import { Button } from '@material-ui/core';
+import { myInfo, searchedWine } from '../../cache';
 
-export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
+export const CardWine: React.FC<{ ad: AdsWineResult }> = ({ ad }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
   const isBuy = ad?.typeAd === TypeAd.Buy ? true : false;
   const pointerEvent = ad?.isActive ? 'auto' : 'none';
-  if (!ad) return null;
+  const me = myInfo();
+  const myAd = me?.ads?.map((ad) => ad._id).includes(ad._id);
+  const handleClick = () => {
+    searchedWine({
+      ...ad,
+      typeProduct: TypeProduct.AdWine,
+      wine: undefined,
+    });
+    void navigate('/annunci');
+  };
   return (
     <>
       <StyledBox
@@ -74,8 +85,9 @@ export const CardWine: React.FC<{ ad: AdsWineResult | null }> = ({ ad }) => {
           <FavoriteButton id={ad._id} fontSize='small' />
           {ad?.savedTimes || 0}
         </div>
+        {myAd ? <Button onClick={handleClick}>Cerca di nuovo</Button> : null}
 
-        <Typography align='right' variant='caption'></Typography>
+        {/* <Typography align='right' variant='caption'></Typography> */}
       </Grid>
     </>
   );

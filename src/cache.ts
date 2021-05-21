@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { AdInput, MeQuery, QueryOrderBy, User } from './generated/graphql';
+import {
+  AdInput,
+  MeQuery,
+  NegotiationResult,
+  QueryOrderBy,
+  User,
+} from './generated/graphql';
 import _ from 'lodash';
 import { DeepExtractType } from 'ts-deep-extract-types';
 
@@ -78,6 +84,8 @@ export const cache: InMemoryCache = new InMemoryCache({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
           merge(existing = [], incoming, { args }) {
+            if (args && Object.values(args).every((val) => val == undefined))
+              return incoming as NegotiationResult;
             let negotiations;
             const negotiationsUnsorted = _.unionBy(
               existing.negotiations,

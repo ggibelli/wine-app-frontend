@@ -17,7 +17,7 @@ export const FavoriteButton: React.FC<{
     onCompleted: () => {
       setIsFav(!isFav);
     },
-    onError: (error) => console.log(error),
+    onError: (error) => console.error(error),
     update: (cache, { data }) => {
       updateCacheSaveAd(cache, data?.saveAd?.response);
     },
@@ -33,7 +33,7 @@ export const FavoriteButton: React.FC<{
       );
       setStop(true);
     }
-  }, [data, id, stop]);
+  }, [data]);
 
   return (
     <IconButton aria-label='save' onClick={() => saveAd()}>

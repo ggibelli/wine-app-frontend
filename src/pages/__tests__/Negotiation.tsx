@@ -87,7 +87,7 @@ describe('Negotiation page', () => {
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 50)));
     expect(getByText('Gestisci la trattativa')).toBeTruthy();
-    expect(getByRole('button', { name: 'close-negotiation' }));
+    expect(getByRole('button', { name: 'close-negotiation-popup' }));
     expect(getByRole('button', { name: 'open-chat' }));
     expect(getByTestId('info-contact'));
   });
@@ -133,7 +133,7 @@ describe('Negotiation page', () => {
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 50)));
     expect(getByText('Gestisci la trattativa')).toBeTruthy();
-    expect(getByRole('button', { name: 'close-negotiation' }));
+    expect(getByRole('button', { name: 'close-negotiation-popup' }));
     expect(getByRole('button', { name: 'open-chat' }));
     expect(queryByTestId('info-contact')).toBeFalsy();
   });

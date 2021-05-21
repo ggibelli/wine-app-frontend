@@ -7,7 +7,6 @@ import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { Link } from '@reach/router';
-import { CloseNegotiationButton } from '../containers/CloseNegotiationButton';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -15,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { useStyles } from '../utils/styleHook';
 import { Loading } from './Loading';
 import { CreateReviewModal } from '../components/ReviewModal';
+import { CloseNegotiationModal } from './NegotiationModals/CloseNegotiationModal';
 
 export const OpenNegotiations: React.FC<{
   data: LazyQueryResult<
@@ -77,7 +77,7 @@ export const OpenNegotiations: React.FC<{
                   </Button>
                   <br />
                   {!negotiation.isConcluded ? (
-                    <CloseNegotiationButton isBuy={true} id={negotiation._id} />
+                    <CloseNegotiationModal id={negotiation._id} />
                   ) : (
                     <CreateReviewModal
                       idNegotiation={negotiation._id}

@@ -32,7 +32,7 @@ const Reviews: React.FC<RouteComponentProps> = () => {
       limit: 4,
       orderBy: QueryOrderBy.CreatedAtDesc,
     },
-    onError: (error) => console.log(error),
+    onError: (error) => console.error(error),
     onCompleted: ({ reviews }) => setReviews(reviews?.reviews),
   });
 
@@ -47,7 +47,7 @@ const Reviews: React.FC<RouteComponentProps> = () => {
           setIsLoadOrder(false);
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
           setIsLoadOrder(false);
         });
     }
@@ -73,7 +73,7 @@ const Reviews: React.FC<RouteComponentProps> = () => {
           setReviews([...(reviews as []), ...(data.reviews?.reviews as [])]);
           setIsLoadFetchMore(false);
         } catch (e) {
-          console.log(e);
+          console.error(e);
           setIsLoadFetchMore(false);
         }
       }

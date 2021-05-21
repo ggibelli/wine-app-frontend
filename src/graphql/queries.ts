@@ -161,6 +161,8 @@ export const FAVORITE = gql`
         activeNegotiations
         numberViews
         datePosted
+        isActive
+        savedTimes
       }
     }
   }

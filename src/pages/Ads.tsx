@@ -67,7 +67,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
         .catch((e) => {
           setIsLoadOrder(false);
 
-          console.log(e);
+          console.error(e);
         });
     }
   }, [order]);
@@ -113,7 +113,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
       } catch (e) {
         setIsLoadFetchMore(false);
 
-        console.log(e);
+        console.error(e);
       }
     }
   };

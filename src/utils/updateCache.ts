@@ -12,6 +12,7 @@ import {
   CreateMessageMutation,
   CreateNegotiationMutation,
   CreateReviewMutation,
+  DeleteNegotiationMutation,
   MeDocument,
   Message,
   MessagesDocument,
@@ -371,4 +372,53 @@ export const updateCacheSaveAd = (
   });
   cache.writeQuery({ query: MeDocument, data: cachedDataMeLocal });
   myInfo({ ...cachedDataMeLocal?.me });
+};
+
+export const updateRemovedNeg = (
+  client: ApolloCache<DeleteNegotiationMutation>,
+  negotiation: MutationResult<
+    DeepExtractType<
+      DeleteNegotiationMutation,
+      ['deleteNegotiation']
+    >['response']
+  >['data']
+): void => {
+  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+    client.readQuery({
+      query: MeDocument,
+      variables: {},
+    })
+  );
+  if (!cachedDataMeLocal) {
+    return;
+  }
+  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null =
+    _.cloneDeep(
+      client.readQuery({
+        query: NegotiationsDocument,
+        variables: {},
+      })
+    );
+
+  cachedDataMeLocal.me.negotiations = cachedDataMeLocal.me.negotiations?.filter(
+    (n) => n._id !== negotiation?._id
+  );
+  client.writeQuery({
+    query: MeDocument,
+    variables: {},
+    data: cachedDataMeLocal,
+  });
+  myInfo({ ...cachedDataMeLocal?.me });
+
+  if (!cachedDataNegotiationsLocal) return;
+  cachedDataNegotiationsLocal.negotiations.negotiations =
+    cachedDataNegotiationsLocal.negotiations.negotiations.filter(
+      (n) => n._id !== negotiation?._id
+    );
+  cachedDataNegotiationsLocal.negotiations.pageCount -= 1;
+  client.writeQuery({
+    query: NegotiationsDocument,
+    variables: {},
+    data: cachedDataNegotiationsLocal,
+  });
 };

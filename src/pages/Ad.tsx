@@ -24,7 +24,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
     variables: {
       id: id,
     },
-    onError: (error) => console.log(error),
+    onError: (error) => console.error(error),
   });
   const [createNegotiation] = useCreateNegotiationMutation({
     onCompleted: (createdNegotiation) => {

@@ -1,7 +1,7 @@
 import {
   cleanup,
+  fireEvent,
   renderApolloNoRouter,
-  waitFor,
 } from '../../test-utils/test-utils';
 import { CardWine } from '../../components/Cards/CardWine';
 import * as React from 'react';
@@ -11,8 +11,21 @@ import {
   MetodoProduttivo,
   TypeAd,
   DenomZona,
+  TypeProduct,
 } from '../../generated/graphql';
-import { act } from 'react-dom/test-utils';
+import { myInfo, searchedWine } from '../../cache';
+import { navigate } from '@reach/router';
+
+jest.mock('../../containers/FavoriteButton', () => ({
+  __esModule: true,
+  FavoriteButton: () => <div>ciao</div>,
+}));
+
+jest.mock('@reach/router', () => ({
+  __esModule: true, // this property makes it work
+  ...jest.requireActual<any>('@reach/router'),
+  navigate: jest.fn(),
+}));
 
 const mockAdBuyOwned = {
   ad: {
@@ -161,58 +174,62 @@ const mockAdSellAdNotActive = {
 describe('CardWine component', () => {
   afterEach(cleanup);
 
-  it('renders the CardWines component', async () => {
-    await waitFor(() => {
-      act(() => {
-        renderApolloNoRouter(<CardWine ad={mockAdBuyOwned.ad} />);
-      });
+  it('renders the CardWines component', () => {
+    renderApolloNoRouter(<CardWine ad={mockAdBuyOwned.ad} />);
+  });
+
+  it('if ad buy proper text is rendered', () => {
+    const { getByText } = renderApolloNoRouter(
+      <CardWine ad={mockAdBuyOwned.ad} />
+    );
+    expect(getByText("Compro Barbera d'Asti"));
+  });
+
+  it('if not my ad search again not shown', () => {
+    const { getByText, queryByText } = renderApolloNoRouter(
+      <CardWine ad={mockAdBuyOwned.ad} />
+    );
+    expect(getByText("Compro Barbera d'Asti"));
+    expect(queryByText('Cerca di nuovo')).toBeFalsy();
+  });
+
+  it('if my ad search again button works ', () => {
+    myInfo({ ads: [{ _id: mockAdBuyOwned.ad._id }] });
+
+    const { getByText } = renderApolloNoRouter(
+      <CardWine ad={mockAdBuyOwned.ad} />
+    );
+    expect(getByText("Compro Barbera d'Asti"));
+    fireEvent.click(getByText('Cerca di nuovo'));
+    expect(navigate).toHaveBeenCalledWith('/annunci');
+    expect(searchedWine()).toEqual({
+      ...mockAdBuyOwned.ad,
+      wine: undefined,
+      typeProduct: TypeProduct.AdWine,
     });
   });
 
-  it('if ad buy proper text is rendered', async () => {
-    await waitFor(() => {
-      act(() => {
-        const { getByText } = renderApolloNoRouter(
-          <CardWine ad={mockAdBuyOwned.ad} />
-        );
-        expect(getByText("Compro Barbera d'Asti"));
-      });
-    });
+  it('if ad sell proper text is rendered', () => {
+    const { getByText } = renderApolloNoRouter(
+      <CardWine ad={mockAdSellNotOwned.ad} />
+    );
+
+    expect(getByText("Vendo Barbera d'Asti"));
   });
 
-  it('if ad sell proper text is rendered', async () => {
-    await waitFor(() => {
-      act(() => {
-        const { getByText } = renderApolloNoRouter(
-          <CardWine ad={mockAdSellNotOwned.ad} />
-        );
-
-        expect(getByText("Vendo Barbera d'Asti"));
-      });
-    });
+  it('if ad not active is not clickable', () => {
+    const { getByRole } = renderApolloNoRouter(
+      <CardWine ad={mockAdSellAdNotActive.ad} />
+    );
+    const link = getByRole('link', { name: 'link-ad' });
+    expect(link.style.pointerEvents).toBe('none');
   });
 
-  it('if ad not active is not clickable', async () => {
-    await waitFor(() => {
-      act(() => {
-        const { getByRole } = renderApolloNoRouter(
-          <CardWine ad={mockAdSellAdNotActive.ad} />
-        );
-        const link = getByRole('link', { name: 'link-ad' });
-        expect(link.style.pointerEvents).toBe('none');
-      });
-    });
-  });
-
-  it('if ad active is clickable', async () => {
-    await waitFor(() => {
-      act(() => {
-        const { getByRole } = renderApolloNoRouter(
-          <CardWine ad={mockAdSellNotOwned.ad} />
-        );
-        const link = getByRole('link', { name: 'link-ad' });
-        expect(link.style.pointerEvents).toBe('auto');
-      });
-    });
+  it('if ad active is clickable', () => {
+    const { getByRole } = renderApolloNoRouter(
+      <CardWine ad={mockAdSellNotOwned.ad} />
+    );
+    const link = getByRole('link', { name: 'link-ad' });
+    expect(link.style.pointerEvents).toBe('auto');
   });
 });

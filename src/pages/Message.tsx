@@ -43,7 +43,7 @@ const Message: React.FC<RouteComponentProps> = () => {
     : null;
   const [createMessage] = useCreateMessageMutation({
     onError: (error) => {
-      console.log(error);
+      console.error(error);
       notification({ type: 'error', message: error.message });
     },
     onCompleted: (createdMessage) => {
@@ -81,13 +81,14 @@ const Message: React.FC<RouteComponentProps> = () => {
             offset: sortedMessage.length,
           },
         });
-        const sortedNewMessages = data.messagesForNegotiation?.messages?.reverse();
+        const sortedNewMessages =
+          data.messagesForNegotiation?.messages?.reverse();
         setSortedMessage([...(sortedNewMessages as []), ...sortedMessage]);
         setIsLoading(false);
       } catch (e) {
         setIsLoading(false);
 
-        console.log(e);
+        console.error(e);
       }
     }
   };

@@ -269,7 +269,7 @@ describe('Ad page', () => {
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     fireEvent.click(getByRole('button', { name: 'previous-page' }));
     expect(navigate).toBeCalledTimes(1);
-    expect(getByText('Modifica l annuncio')).toBeTruthy();
+    expect(getByText("Modifica l'annuncio")).toBeTruthy();
     expect(getByTestId('negotiationsAd')).toBeTruthy();
   });
 

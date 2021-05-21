@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { AdQuery, TypeAd } from '../../generated/graphql';
@@ -25,12 +24,20 @@ export const CardWineDetail: React.FC<{
   const ContactOrEdit = () => {
     if (me?._id === ad?.postedBy._id) {
       return (
-        <Button
-          aria-label='edit-ad'
-          className={isBuy ? classes.buyButton : classes.sellButton}
-        >
-          Modifica l annuncio
-        </Button>
+        <>
+          <Button
+            aria-label='edit-ad'
+            className={isBuy ? classes.buyButton : classes.sellButton}
+          >
+            Modifica l&apos;annuncio
+          </Button>
+          <Button
+            aria-label='search-again'
+            className={isBuy ? classes.buyButton : classes.sellButton}
+          >
+            Cerca di nuovo
+          </Button>
+        </>
       );
     } else if (
       me?.negotiations?.find((negotiation) => negotiation?.ad._id === ad?._id)

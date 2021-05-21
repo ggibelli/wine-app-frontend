@@ -1479,8 +1479,8 @@ export type MyInfoQuery = { __typename?: 'Query' } & {
         >;
         savedAds?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
-            | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id' | 'isActive'>)
+            | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id' | 'isActive'>)
           >
         >;
         messages?: Maybe<
@@ -2974,6 +2974,8 @@ export const FavoriteDocument = gql`
         activeNegotiations
         numberViews
         datePosted
+        isActive
+        savedTimes
       }
     }
   }
@@ -3269,11 +3271,11 @@ export const MyInfoDocument = gql`
       _id
       firstName
       lastName
-      address {
-        regione
-        provincia
-        comune
-      }
+      # address {
+      #   regione
+      #   provincia
+      #   comune
+      # }
       ads {
         _id
         postedBy {
@@ -3283,25 +3285,26 @@ export const MyInfoDocument = gql`
       }
       savedAds {
         _id
+        # isActive
       }
-      messages {
-        _id
-        isViewed
-        sentBy {
-          _id
-        }
-      }
-      negotiations {
-        _id
-        isConcluded
-        ad {
-          _id
-        }
-      }
-      reviews {
-        _id
-        rating
-      }
+      # messages {
+      #   _id
+      #   isViewed
+      #   sentBy {
+      #     _id
+      #   }
+      # }
+      # negotiations {
+      #   _id
+      #   isConcluded
+      #   ad {
+      #     _id
+      #   }
+      # }
+      # reviews {
+      #   _id
+      #   rating
+      # }
     }
   }
 `;

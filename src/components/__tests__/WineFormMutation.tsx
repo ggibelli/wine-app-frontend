@@ -229,7 +229,7 @@ describe('Wine form mutation', () => {
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
       expect(onSubmit).toBeCalledTimes(0);
-      expect(getAllByText('Required')).toHaveLength(9);
+      expect(getAllByText('Required')).toHaveLength(8);
     });
   }, 10000);
 
