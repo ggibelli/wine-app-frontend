@@ -24,6 +24,7 @@ export const TextField: React.FC<Props> = (props) => {
   });
   return (
     <TextFieldMaterial
+      style={{ paddingBottom: 10 }}
       required={props.required}
       {...field}
       fullWidth

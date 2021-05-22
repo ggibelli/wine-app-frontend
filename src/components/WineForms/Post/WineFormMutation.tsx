@@ -143,6 +143,12 @@ export const WineFormMutation: React.FC<{
               component='h3'
               variant='h5'
               color={adType === TypeAd.Buy ? 'textSecondary' : 'primary'}
+              style={{
+                marginLeft: -10,
+                marginTop: -10,
+                paddingBottom: 20,
+                marginBottom: -20,
+              }}
             >
               Dati prodotto
             </Typography>
@@ -284,7 +290,7 @@ export const WineFormMutation: React.FC<{
               type='text'
               multiline={true}
               label='Descrizione'
-              placeholder='Vino veramente buono'
+              placeholder='Arneis'
               underlineColor={
                 adType === TypeAd.Buy
                   ? classes.underline
@@ -308,6 +314,7 @@ export const WineFormMutation: React.FC<{
             <AddressForm setFieldValue={setFieldValue} />
 
             <Button
+              fullWidth
               //isLoading={isValidating || isSubmitting}
               className={
                 adType === TypeAd.Buy ? classes.submit : classes.submitSell

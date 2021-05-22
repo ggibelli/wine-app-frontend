@@ -16,7 +16,10 @@ export const SliderField: React.FC<Props> = (props) => {
     name: props.name,
   });
   return (
-    <FormControl error={touched && error !== undefined}>
+    <FormControl
+      error={touched && error !== undefined}
+      style={{ paddingTop: 10 }}
+    >
       <FormControlLabel
         control={<Switch data-testid={props.name} {...field} />}
         label={props.label}

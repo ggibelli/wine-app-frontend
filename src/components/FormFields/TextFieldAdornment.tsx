@@ -25,6 +25,7 @@ export const TextFieldAdornment: React.FC<Props> = (props) => {
   });
   return (
     <TextFieldMaterial
+      style={{ paddingBottom: 10 }}
       required
       {...field}
       fullWidth

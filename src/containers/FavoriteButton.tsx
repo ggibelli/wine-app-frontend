@@ -9,8 +9,9 @@ type FontSize = 'small' | 'inherit' | 'default' | 'large';
 
 export const FavoriteButton: React.FC<{
   id: string;
+  timesFavorite: number;
   fontSize?: FontSize;
-}> = ({ id, fontSize = 'default' }) => {
+}> = ({ id, fontSize = 'default', timesFavorite }) => {
   const { data } = useMyInfoQuery();
   const [saveAd] = useSaveAdMutation({
     variables: { id },
@@ -36,12 +37,13 @@ export const FavoriteButton: React.FC<{
   }, [data]);
 
   return (
-    <IconButton aria-label='save' onClick={() => saveAd()}>
+    <IconButton aria-label='save' onClick={() => saveAd()} size='small'>
       {isFav ? (
         <FavoriteIcon fontSize={fontSize} />
       ) : (
         <FavoriteBorderIcon fontSize={fontSize} />
       )}
+      {timesFavorite}
     </IconButton>
   );
 };

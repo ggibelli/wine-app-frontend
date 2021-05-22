@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { useTheme, useMediaQuery } from '@material-ui/core';
 import { StyledBox } from '../../containers/StyledBox';
 import { useStyles } from '../../utils/styleHook';
-import { Grid } from '@material-ui/core';
+// import { Grid } from '@material-ui/core';
 import { CreateReviewModal } from '../ReviewModal';
 import { myInfo } from '../../cache';
 import { CloseNegotiationModal } from '../NegotiationModals/CloseNegotiationModal';
@@ -55,27 +55,30 @@ export const CardNegotiation: React.FC<{
           {negotiation.isConcluded ? 'Trattativa conclusa' : null}
         </Typography>
         <br />
-        <Typography
-          align='right'
-          variant='caption'
-          color={isBuy ? 'textSecondary' : 'primary'}
-        >
-          Trattativa aperta: {negotiation.dateCreated}
-        </Typography>
-        {negotiation.isConcluded ? (
-          <>
-            <br />
-            <Typography
-              align='right'
-              variant='caption'
-              color={isBuy ? 'textSecondary' : 'primary'}
-            >
-              Trattativa conclusa: {negotiation.dateConcluded}
-            </Typography>
-          </>
-        ) : null}
       </Link>
-      <Grid>
+      <Typography
+        align='right'
+        variant='caption'
+        color={isBuy ? 'textSecondary' : 'primary'}
+      >
+        Trattativa aperta: {negotiation.dateCreated}
+      </Typography>
+
+      {negotiation.isConcluded ? (
+        <>
+          <br />
+          <Typography
+            align='right'
+            variant='caption'
+            color={isBuy ? 'textSecondary' : 'primary'}
+          >
+            Trattativa conclusa: {negotiation.dateConcluded}
+          </Typography>
+        </>
+      ) : null}
+
+      <div>
+        <br />
         {negotiation.isConcluded ? (
           !isReviewed ? (
             <CreateReviewModal
@@ -89,16 +92,18 @@ export const CardNegotiation: React.FC<{
           //   {' '}
           <CloseNegotiationModal isBuy={isBuy} id={negotiation._id} />
         )}
-      </Grid>
 
-      <Button
-        className={isBuy ? classes.buyButton : classes.sellButton}
-        color='primary'
-        component={RouterLink}
-        to={`/messaggi/${negotiation._id}`}
-      >
-        Apri la chat
-      </Button>
+        <Button
+          style={{ marginTop: 5 }}
+          fullWidth
+          className={isBuy ? classes.buyButton : classes.sellButton}
+          color='primary'
+          component={RouterLink}
+          to={`/messaggi/${negotiation._id}`}
+        >
+          Apri la chat
+        </Button>
+      </div>
     </StyledBox>
   );
 };

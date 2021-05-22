@@ -32,7 +32,8 @@ export const CreateReviewModal: React.FC<{
   idNegotiation: string;
   idUser: string;
   type: TypeAd;
-}> = ({ idUser, idNegotiation, type }) => {
+  isMessage?: boolean;
+}> = ({ idUser, idNegotiation, type, isMessage }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<number | null>(2);
   const [hover, setHover] = React.useState<number>(-1);
@@ -49,10 +50,11 @@ export const CreateReviewModal: React.FC<{
   const handleClose = () => {
     setOpen(false);
   };
-
+  type = isMessage ? TypeAd.Sell : type;
   return (
     <>
       <Button
+        fullWidth
         aria-label='review'
         className={type === TypeAd.Buy ? classes.buyButton : classes.sellButton}
         onClick={handleModal}

@@ -10,7 +10,7 @@ export const useStyles = makeStyles(
         color: '#fff',
       },
       paper: {
-        marginTop: theme.spacing(4),
+        marginTop: theme.spacing(3),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
@@ -63,8 +63,8 @@ export const useStylesForms = makeStyles(
     form: {
       borderRadius: 16,
       color: '#fff',
-      margin: 6,
-      padding: 6,
+      // margin: 6,
+      padding: 40,
       backgroundColor: '#6d1331',
       width: '100%', // Fix IE 11 issue.
       marginTop: theme.spacing(4),
@@ -85,8 +85,8 @@ export const useStylesForms = makeStyles(
       borderStyle: 'solid',
       borderWidth: '1px',
       color: '#6d1331',
-      margin: 6,
-      padding: 6,
+      // margin: 6,
+      padding: 40,
       backgroundColor: '#fff',
       width: '100%', // Fix IE 11 issue.
       marginTop: theme.spacing(4),

@@ -100,10 +100,11 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
           <CreateReviewModal
             idNegotiation={message.negotiation._id}
             idUser={recipient}
+            isMessage
             type={message.negotiation.type}
           />
         ) : (
-          <CloseNegotiationModal id={message.negotiation._id} />
+          <CloseNegotiationModal id={message.negotiation._id} isMessage />
         )}
         <TextField
           fullWidth

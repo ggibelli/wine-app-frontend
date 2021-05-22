@@ -26,17 +26,13 @@ export const CardWineDetail: React.FC<{
       return (
         <>
           <Button
+            fullWidth
             aria-label='edit-ad'
             className={isBuy ? classes.buyButton : classes.sellButton}
           >
             Modifica l&apos;annuncio
           </Button>
-          <Button
-            aria-label='search-again'
-            className={isBuy ? classes.buyButton : classes.sellButton}
-          >
-            Cerca di nuovo
-          </Button>
+          <br />
         </>
       );
     } else if (
@@ -50,6 +46,7 @@ export const CardWineDetail: React.FC<{
     return (
       <>
         <Button
+          fullWidth
           aria-label='open-negotiation-dialog'
           className={isBuy ? classes.buyButton : classes.sellButton}
           onClick={handleClickOpen}
@@ -70,37 +67,32 @@ export const CardWineDetail: React.FC<{
       <Typography component='h5' variant='h5'>
         L&apos;utente {ad?.postedBy.firstName} {isBuy ? 'compra' : 'vende'}:
       </Typography>
-      <Typography align='left' variant='h6'>
+      <br />
+      <Typography align='left' variant='h6' color='textPrimary'>
         {adWine?.wineName} {adWine?.wine?.denominazioneZona}
         <br />
         Annata: {ad?.harvest}
         <br />
         Gradazione: {ad?.abv} % Vol
         <br />
-        Quantità: {adWine?.litersTo}
+        Quantità: {adWine?.litersTo} litri
         <br />
         Prezzo: {ad?.priceFrom} euro al litro
       </Typography>
       <br />
-      <Typography align='left' component='h5' variant='h5'>
-        Indirizzo
-      </Typography>
-      <br />
-      <Typography align='left' variant='h6'>
-        Regione: {ad?.address?.regione}
-        <br />
-        Provincia: {ad?.address?.provincia}
-        <br />
-        Comune: {ad?.address?.comune}
+      <Typography align='left' component='h5' variant='h6' color='textPrimary'>
+        Zona di produzione: {ad?.address?.comune} ({ad?.address?.provincia})
       </Typography>
       <br />
       <ContactOrEdit />
+      <br />
+
       <Grid container justify='space-between'>
-        <Typography align='left' variant='caption'>
-          Annuncio visualizzato {ad?.numberViews} volte
+        <Typography align='left' variant='caption' color='textPrimary'>
+          Annuncio visualizzato: {ad?.numberViews} volte
         </Typography>
 
-        <Typography align='right' variant='caption'>
+        <Typography align='right' variant='caption' color='textPrimary'>
           Negoziazioni attive: {ad?.activeNegotiations}
         </Typography>
       </Grid>

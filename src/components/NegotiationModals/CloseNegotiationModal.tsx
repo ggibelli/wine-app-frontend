@@ -10,7 +10,8 @@ import { useStyles } from '../../utils/styleHook';
 export const CloseNegotiationModal: React.FC<{
   id: string;
   isBuy?: boolean;
-}> = ({ id, isBuy }) => {
+  isMessage?: boolean;
+}> = ({ id, isBuy, isMessage }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState<boolean>(false);
   const handleModal = () => {
@@ -19,9 +20,11 @@ export const CloseNegotiationModal: React.FC<{
   const handleClose = () => {
     setOpen(false);
   };
+  isBuy = !!isMessage;
   return (
     <>
       <Button
+        fullWidth
         aria-label='close-negotiation-popup'
         className={isBuy ? classes.buyButton : classes.sellButton}
         onClick={handleModal}

@@ -66,7 +66,10 @@ export const CardWine: React.FC<{ ad: AdsWineResult }> = ({ ad }) => {
             <br />
             Prezzo: {ad.priceFrom} €/l
           </Typography>
-          <br />
+        </Link>
+        <br />
+        <Grid container justify='space-between'>
+          {' '}
           <Typography
             align='right'
             variant='caption'
@@ -74,18 +77,25 @@ export const CardWine: React.FC<{ ad: AdsWineResult }> = ({ ad }) => {
           >
             pubblicato il {ad.datePosted}
           </Typography>
-        </Link>
+          <div style={{ color: 'secondary' }}>
+            <VisibilityIcon fontSize='small' />
+            {ad?.numberViews}
+            <HandshakeOutline fontSize='small' />
+            {ad?.activeNegotiations}
+          </div>
+        </Grid>
       </StyledBox>
       <Grid container justify='space-between'>
         <div>
-          <VisibilityIcon fontSize='small' />
-          {ad?.numberViews}
-          <HandshakeOutline fontSize='small' />
-          {ad?.activeNegotiations}
-          <FavoriteButton id={ad._id} fontSize='small' />
-          {ad?.savedTimes || 0}
+          {myAd ? <Button onClick={handleClick}>Cerca di nuovo</Button> : null}
         </div>
-        {myAd ? <Button onClick={handleClick}>Cerca di nuovo</Button> : null}
+        <div>
+          <FavoriteButton
+            id={ad._id}
+            fontSize='small'
+            timesFavorite={ad?.savedTimes || 0}
+          />
+        </div>
 
         {/* <Typography align='right' variant='caption'></Typography> */}
       </Grid>
