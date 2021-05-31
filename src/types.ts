@@ -18,9 +18,7 @@ export type AdsWineResult = Pick<
   | 'datePosted'
   | 'isActive'
 > & {
-  wine?: Maybe<
-    { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona' | 'regione'>
-  >;
+  wine?: Maybe<{ __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>>;
   postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
   address: { __typename?: 'Address' } & Pick<
     Address,

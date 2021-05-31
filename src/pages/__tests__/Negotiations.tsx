@@ -337,8 +337,8 @@ describe('Negotiations page', () => {
     ).toHaveLength(2);
   });
 
-  it.only('it changes order negotiations', async () => {
-    const { getByRole, getAllByRole, getByTestId } = renderApollo(
+  it('it changes order negotiations', async () => {
+    const { getByRole, getAllByTestId, getByTestId } = renderApollo(
       <Negotiations path='/trattative/' />,
       {
         mocks: [negotiationsSuccessOrder, negotiationsSuccessOrderRefetch],
@@ -351,9 +351,7 @@ describe('Negotiations page', () => {
       { route: '/trattative/' }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const negotiationsBefore = getAllByRole('link', {
-      name: 'link-negotiation',
-    });
+    const negotiationsBefore = getAllByTestId('published');
     expect(negotiationsBefore[1]).toHaveTextContent(
       "Trattativa aperta: l'altroieri"
     );
@@ -364,9 +362,7 @@ describe('Negotiations page', () => {
     });
     expect(getByTestId('loading')).toBeTruthy();
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const negotiationsAfter = getAllByRole('link', {
-      name: 'link-negotiation',
-    });
+    const negotiationsAfter = getAllByTestId('published');
     expect(negotiationsAfter[2]).toHaveTextContent(
       'Trattativa aperta: mille anni fa'
     );

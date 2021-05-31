@@ -31,7 +31,6 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
     },
     onError: (error) => console.error(error),
   });
-  console.log(data?.negotiations?.negotiations);
   const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);

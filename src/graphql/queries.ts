@@ -19,10 +19,6 @@ export const AD_DETAILS = gql`
       litersFrom
       litersTo
       metodoProduttivo
-      wine {
-        denominazioneZona
-        regione
-      }
     }
     typeAd
     address {
@@ -147,10 +143,6 @@ export const FAVORITE = gql`
           litersFrom
           litersTo
           metodoProduttivo
-          wine {
-            denominazioneZona
-            regione
-          }
         }
         typeAd
         address {
@@ -422,7 +414,8 @@ export const WINES = gql`
       denominazioneVino
       espressioneComunitaria
       denominazioneZona
-      regione
+      tipoVino
+      vitigni
     }
   }
 `;

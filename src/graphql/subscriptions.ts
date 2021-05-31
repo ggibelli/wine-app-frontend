@@ -23,10 +23,6 @@ export const AD_POSTED_FOLLOWUP = gql`
         litersFrom
         litersTo
         metodoProduttivo
-        wine {
-          denominazioneZona
-          regione
-        }
       }
       typeAd
       address {
@@ -86,10 +82,6 @@ export const NEGOTIATION_CLOSED = gql`
         litersFrom
         litersTo
         metodoProduttivo
-        wine {
-          denominazioneZona
-          regione
-        }
       }
       typeAd
       address {

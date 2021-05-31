@@ -6,7 +6,7 @@ import {
   TypeProduct,
   useCreateAdWineMutation,
   AddressInput,
-  useWinesQuery,
+  // useWinesQuery,
   AdsWineDocument,
   QueryOrderBy,
 } from '../generated/graphql';
@@ -19,15 +19,15 @@ import { updateCacheAd } from '../utils/updateCache';
 import { BackButton } from '../components/BackButton';
 import { useStyles } from '../utils/styleHook';
 import { Loading } from '../components/Loading';
+import { wines } from '../utils/wineList';
 
 const Buy: React.FC<RouteComponentProps> = () => {
-  const me = myInfo();
   const classes = useStyles();
   const location = useLocation();
   const adType = location.pathname === '/buy' ? TypeAd.Buy : TypeAd.Sell;
   let sameAddress: AddressInput;
   let differentAddress: AddressInput;
-  const winesQueryResult = useWinesQuery();
+  // const winesQueryResult = useWinesQuery();
   const [createAdWineMutation, { loading, client }] = useCreateAdWineMutation({
     onError: (error) => {
       notification({
@@ -57,6 +57,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
   });
 
   const onSubmitMutation = async (values: WineFormMutation) => {
+    const me = myInfo();
     if (values.isSameAddress && me?.address) {
       sameAddress = {
         regione: me.address.regione,
@@ -129,7 +130,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
           cercheremo per te il giusto {buyerSellerText}.
         </Typography>
         <WineFormMutation
-          wines={winesQueryResult}
+          wines={wines}
           onSubmit={onSubmitMutation}
           adType={adType}
         />

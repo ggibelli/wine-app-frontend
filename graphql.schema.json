@@ -4638,6 +4638,41 @@
       },
       {
         "kind": "OBJECT",
+        "name": "Coordinates",
+        "description": null,
+        "fields": [
+          {
+            "name": "latitude",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "longitude",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "User",
         "description": null,
         "fields": [
@@ -4765,6 +4800,18 @@
                 "name": "Boolean",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "coordinates",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Coordinates",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -5120,7 +5167,7 @@
             "defaultValue": null
           },
           {
-            "name": "aka",
+            "name": "tipoVino",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -5158,23 +5205,15 @@
             "defaultValue": null
           },
           {
-            "name": "regione",
+            "name": "vitigni",
             "description": null,
             "type": {
-              "kind": "NON_NULL",
+              "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "ENUM",
-                    "name": "Regioni",
-                    "ofType": null
-                  }
-                }
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             "defaultValue": null
@@ -5215,7 +5254,7 @@
             "defaultValue": null
           },
           {
-            "name": "aka",
+            "name": "tipoVino",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -5245,14 +5284,14 @@
             "defaultValue": null
           },
           {
-            "name": "regione",
+            "name": "vitigni",
             "description": null,
             "type": {
               "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "Regioni",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -5301,7 +5340,7 @@
             "deprecationReason": null
           },
           {
-            "name": "aka",
+            "name": "tipoVino",
             "description": null,
             "args": [],
             "type": {
@@ -5345,24 +5384,16 @@
             "deprecationReason": null
           },
           {
-            "name": "regione",
+            "name": "vitigni",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
+              "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "ENUM",
-                    "name": "Regioni",
-                    "ofType": null
-                  }
-                }
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -7747,7 +7778,7 @@
               "name": "String",
               "ofType": null
             },
-            "defaultValue": "\"dd MMM yy, H:m\""
+            "defaultValue": "\"dd MMM yy, H:mm\""
           }
         ]
       },

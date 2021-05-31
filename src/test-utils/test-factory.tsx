@@ -65,7 +65,6 @@ export const adFactory = Factory.Sync.makeFactory<AdWine>({
   wine: {
     _id: Math.floor(Math.random() * 999).toString(),
     denominazioneZona: DenomZona.Docg,
-    regione: [Regioni.Piemonte],
     denominazioneVino: "Barbera d'Asti",
     espressioneComunitaria: EspressioneComunitaria.Dop,
 

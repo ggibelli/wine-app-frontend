@@ -45,7 +45,6 @@ export const WineFormQuery: React.FC<{
   const wineOptions = wines.data?.wines
     ? wines.data?.wines.map((wine) => ({
         denominazioneVino: wine.denominazioneVino,
-        regione: wine.regione,
       }))
     : null;
   const today = new Date();

@@ -510,7 +510,7 @@ describe('Ads page', () => {
         comune: 'Prova',
       },
     });
-    const { getByRole, getAllByRole, getByTestId } = renderApollo(
+    const { getByRole, getByTestId, getAllByTestId } = renderApollo(
       <Ads path='/annunci/' />,
       {
         mocks: [adsMockSuccessList8, adsMockSuccessOld],
@@ -524,9 +524,7 @@ describe('Ads page', () => {
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
-    const myAdsBefore = getAllByRole('link', {
-      name: 'link-ad',
-    });
+    const myAdsBefore = getAllByTestId('published');
     expect(myAdsBefore[0]).toHaveTextContent('pubblicato il 08 Apr 21, 18:35');
     // expect(myAdsBefore[1]).toHaveTextContent(
     //   'Annuncio pubblicato il 07 Apr 21, 18:35'
@@ -539,9 +537,7 @@ describe('Ads page', () => {
     });
     expect(getByTestId('loading')).toBeTruthy();
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const myAdsAfter = getAllByRole('link', {
-      name: 'link-ad',
-    });
+    const myAdsAfter = getAllByTestId('published');
     expect(myAdsAfter[0]).toHaveTextContent('pubblicato il 08 Mar 21, 18:35');
     expect(myAdsAfter[1]).toHaveTextContent('pubblicato il 08 Jan 21, 18:35');
   });

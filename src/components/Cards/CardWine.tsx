@@ -71,6 +71,7 @@ export const CardWine: React.FC<{ ad: AdsWineResult }> = ({ ad }) => {
         <Grid container justify='space-between'>
           {' '}
           <Typography
+            data-testid='published'
             align='right'
             variant='caption'
             color={isBuy ? 'textSecondary' : 'primary'}

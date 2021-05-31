@@ -579,6 +579,12 @@ export type UserInputUpdate = {
   ownedVineyards?: Maybe<OwnedVineyardsInput>;
 };
 
+export type Coordinates = {
+  __typename?: 'Coordinates';
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+};
+
 export type User = {
   __typename?: 'User';
   _id: Scalars['ID'];
@@ -589,6 +595,7 @@ export type User = {
   phoneNumber: Scalars['String'];
   address: Address;
   isVerified: Scalars['Boolean'];
+  coordinates?: Maybe<Coordinates>;
   isPremium?: Maybe<Scalars['Boolean']>;
   isAdmin: Scalars['Boolean'];
   hideContact: Scalars['Boolean'];
@@ -627,29 +634,29 @@ export type UserPayload = {
 
 export type WineInput = {
   denominazioneVino: Scalars['String'];
-  aka?: Maybe<Scalars['String']>;
+  tipoVino?: Maybe<Scalars['String']>;
   espressioneComunitaria: EspressioneComunitaria;
   denominazioneZona: DenomZona;
-  regione: Array<Regioni>;
+  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type WineInputUpdate = {
   _id: Scalars['ID'];
   denominazioneVino?: Maybe<Scalars['String']>;
-  aka?: Maybe<Scalars['String']>;
+  tipoVino?: Maybe<Scalars['String']>;
   espressioneComunitaria?: Maybe<EspressioneComunitaria>;
   denominazioneZona?: Maybe<DenomZona>;
-  regione?: Maybe<Array<Maybe<Regioni>>>;
+  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type Wine = {
   __typename?: 'Wine';
   _id: Scalars['ID'];
   denominazioneVino: Scalars['String'];
-  aka?: Maybe<Scalars['String']>;
+  tipoVino?: Maybe<Scalars['String']>;
   espressioneComunitaria: EspressioneComunitaria;
   denominazioneZona: DenomZona;
-  regione: Array<Regioni>;
+  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type WinePayload = {
@@ -1203,9 +1210,6 @@ type AdDetails_AdWine_Fragment = { __typename?: 'AdWine' } & Pick<
   | 'activeNegotiations'
   | 'datePosted'
 > & {
-    wine?: Maybe<
-      { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona' | 'regione'>
-    >;
     postedBy: { __typename?: 'User' } & Pick<
       User,
       '_id' | 'firstName' | 'lastName' | 'hideContact'
@@ -1335,13 +1339,9 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
               | 'activeNegotiations'
               | 'numberViews'
               | 'datePosted'
+              | 'isActive'
+              | 'savedTimes'
             > & {
-                wine?: Maybe<
-                  { __typename?: 'Wine' } & Pick<
-                    Wine,
-                    'denominazioneZona' | 'regione'
-                  >
-                >;
                 postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
                 address: { __typename?: 'Address' } & Pick<
                   Address,
@@ -1359,6 +1359,8 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
               | 'activeNegotiations'
               | 'numberViews'
               | 'datePosted'
+              | 'isActive'
+              | 'savedTimes'
             > & {
                 postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
                 address: { __typename?: 'Address' } & Pick<
@@ -1479,8 +1481,8 @@ export type MyInfoQuery = { __typename?: 'Query' } & {
         >;
         savedAds?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id' | 'isActive'>)
-            | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id' | 'isActive'>)
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
+            | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
           >
         >;
         messages?: Maybe<
@@ -1700,7 +1702,8 @@ export type WinesQuery = { __typename?: 'Query' } & {
         | 'denominazioneVino'
         | 'espressioneComunitaria'
         | 'denominazioneZona'
-        | 'regione'
+        | 'tipoVino'
+        | 'vitigni'
       >
     >
   >;
@@ -1927,12 +1930,6 @@ export type AdPostedFollowUpSubscription = { __typename?: 'Subscription' } & {
         | 'numberViews'
         | 'datePosted'
       > & {
-          wine?: Maybe<
-            { __typename?: 'Wine' } & Pick<
-              Wine,
-              'denominazioneZona' | 'regione'
-            >
-          >;
           postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
           address: { __typename?: 'Address' } & Pick<
             Address,
@@ -2005,12 +2002,6 @@ export type NegotiationClosedSubscription = { __typename?: 'Subscription' } & {
         | 'numberViews'
         | 'datePosted'
       > & {
-          wine?: Maybe<
-            { __typename?: 'Wine' } & Pick<
-              Wine,
-              'denominazioneZona' | 'regione'
-            >
-          >;
           postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
           address: { __typename?: 'Address' } & Pick<
             Address,
@@ -2069,10 +2060,6 @@ export const AdDetailsFragmentDoc = gql`
       litersFrom
       litersTo
       metodoProduttivo
-      wine {
-        denominazioneZona
-        regione
-      }
     }
     typeAd
     address {
@@ -2960,10 +2947,6 @@ export const FavoriteDocument = gql`
           litersFrom
           litersTo
           metodoProduttivo
-          wine {
-            denominazioneZona
-            regione
-          }
         }
         typeAd
         address {
@@ -3271,11 +3254,11 @@ export const MyInfoDocument = gql`
       _id
       firstName
       lastName
-      # address {
-      #   regione
-      #   provincia
-      #   comune
-      # }
+      address {
+        regione
+        provincia
+        comune
+      }
       ads {
         _id
         postedBy {
@@ -3285,26 +3268,25 @@ export const MyInfoDocument = gql`
       }
       savedAds {
         _id
-        # isActive
       }
-      # messages {
-      #   _id
-      #   isViewed
-      #   sentBy {
-      #     _id
-      #   }
-      # }
-      # negotiations {
-      #   _id
-      #   isConcluded
-      #   ad {
-      #     _id
-      #   }
-      # }
-      # reviews {
-      #   _id
-      #   rating
-      # }
+      messages {
+        _id
+        isViewed
+        sentBy {
+          _id
+        }
+      }
+      negotiations {
+        _id
+        isConcluded
+        ad {
+          _id
+        }
+      }
+      reviews {
+        _id
+        rating
+      }
     }
   }
 `;
@@ -3595,7 +3577,8 @@ export const WinesDocument = gql`
       denominazioneVino
       espressioneComunitaria
       denominazioneZona
-      regione
+      tipoVino
+      vitigni
     }
   }
 `;
@@ -4229,10 +4212,6 @@ export const AdPostedFollowUpDocument = gql`
         litersFrom
         litersTo
         metodoProduttivo
-        wine {
-          denominazioneZona
-          regione
-        }
       }
       typeAd
       address {
@@ -4413,10 +4392,6 @@ export const NegotiationClosedDocument = gql`
         litersFrom
         litersTo
         metodoProduttivo
-        wine {
-          denominazioneZona
-          regione
-        }
       }
       typeAd
       address {

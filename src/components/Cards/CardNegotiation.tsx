@@ -57,6 +57,7 @@ export const CardNegotiation: React.FC<{
         <br />
       </Link>
       <Typography
+        data-testid='published'
         align='right'
         variant='caption'
         color={isBuy ? 'textSecondary' : 'primary'}
