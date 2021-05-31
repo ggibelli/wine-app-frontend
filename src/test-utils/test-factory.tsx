@@ -6,8 +6,6 @@ import {
   Message,
   MetodoProduttivo,
   Negotiation,
-  Province,
-  Regioni,
   Review,
   TypeAd,
   TypeProduct,
@@ -25,8 +23,7 @@ export const userFactory = Factory.Sync.makeFactory<User>({
   hideContact: true,
   address: {
     comune: 'Arosio',
-    provincia: Province.CO,
-    regione: Regioni.Lombardia,
+
     via: 'via della prova 1',
     CAP: '12345',
   },
@@ -40,12 +37,6 @@ export const user2 = userFactory.build();
 export const adFactory = Factory.Sync.makeFactory<AdWine>({
   abv: 13.5,
   activeNegotiations: 0,
-  address: {
-    comune: 'Arosio',
-    provincia: Province.CO,
-    regione: Regioni.Lombardia,
-    __typename: 'Address' as const,
-  },
 
   datePosted: '07 Apr 21, 18:35',
   harvest: 2018,

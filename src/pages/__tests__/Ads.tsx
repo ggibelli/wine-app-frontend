@@ -264,11 +264,6 @@ describe('Ads page simulating fetch more ads', () => {
       litersFrom: 1000,
       litersTo: 1000,
       content: 'nice nice',
-      address: {
-        provincia: superHooks.Province.AQ,
-        regione: superHooks.Regioni.Abruzzo,
-        comune: 'Prova',
-      },
     });
     //@ts-expect-error mock reached end of div
     // const endPage = jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
@@ -330,11 +325,6 @@ describe('Ads page', () => {
       litersFrom: 1000,
       litersTo: 1000,
       content: 'nice nice',
-      address: {
-        provincia: superHooks.Province.AQ,
-        regione: superHooks.Regioni.Abruzzo,
-        comune: 'Prova',
-      },
     });
     const { getByTestId } = renderApollo(
       <Ads path='/annunci/' />,
@@ -360,11 +350,6 @@ describe('Ads page', () => {
       litersFrom: 1000,
       litersTo: 1000,
       content: 'nice nice',
-      address: {
-        provincia: superHooks.Province.AQ,
-        regione: superHooks.Regioni.Abruzzo,
-        comune: 'Prova',
-      },
     });
     const { getByText, getByRole } = renderApollo(
       <Ads path='/annunci/' />,
@@ -427,11 +412,6 @@ describe('Ads page', () => {
       litersFrom: 1000,
       litersTo: 1000,
       content: 'nice nice',
-      address: {
-        provincia: superHooks.Province.AQ,
-        regione: superHooks.Regioni.Abruzzo,
-        comune: 'Prova',
-      },
     });
     const { getByTestId } = renderApollo(
       <Ads path='/annunci/' />,
@@ -459,11 +439,6 @@ describe('Ads page', () => {
       litersFrom: 1000,
       litersTo: 1000,
       content: 'nice nice',
-      address: {
-        provincia: superHooks.Province.AQ,
-        regione: superHooks.Regioni.Abruzzo,
-        comune: 'Prova',
-      },
     });
     const { getByText, getAllByRole } = renderApollo(
       <Ads path='/annunci/' />,
@@ -504,11 +479,6 @@ describe('Ads page', () => {
       litersFrom: 1000,
       litersTo: 1000,
       content: 'nice nice',
-      address: {
-        provincia: superHooks.Province.AQ,
-        regione: superHooks.Regioni.Abruzzo,
-        comune: 'Prova',
-      },
     });
     const { getByRole, getByTestId, getAllByTestId } = renderApollo(
       <Ads path='/annunci/' />,

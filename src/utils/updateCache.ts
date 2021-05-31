@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/ban-types */
 import { ApolloCache, ApolloClient, gql, MutationResult } from '@apollo/client';
-import _ from 'lodash';
+import { cloneDeep } from 'lodash';
 import { DeepExtractType } from 'ts-deep-extract-types';
 import { myInfo, searchedWine } from '../cache';
 import {
@@ -70,7 +70,7 @@ export const updateCacheNegotiations = (
   >['data'],
   isSubscription = false
 ): void => {
-  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+  const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     //@ts-expect-error error
     client.readQuery({
       query: MeDocument,
@@ -80,14 +80,13 @@ export const updateCacheNegotiations = (
   if (!cachedDataMeLocal) {
     return;
   }
-  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null =
-    _.cloneDeep(
-      //@ts-expect-error error
-      client.readQuery({
-        query: NegotiationsDocument,
-        variables: {},
-      })
-    );
+  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = cloneDeep(
+    //@ts-expect-error error
+    client.readQuery({
+      query: NegotiationsDocument,
+      variables: {},
+    })
+  );
 
   cachedDataMeLocal?.me.negotiations?.push(negotiation as Negotiation);
   if (isSubscription) {
@@ -124,7 +123,7 @@ export const updateCacheMessagesAdmin = (
     DeepExtractType<CreateAdWineMutation, ['createAd']>['response']
   >['data']
 ): void => {
-  const cachedDataMessagesLocal: ICachedMessages | null = _.cloneDeep(
+  const cachedDataMessagesLocal: ICachedMessages | null = cloneDeep(
     client.readQuery({
       query: MessagesDocument,
     })
@@ -144,7 +143,7 @@ export const updateCacheMessagesAdmin = (
     data: cachedDataMessagesLocal,
   });
 
-  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+  const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     client.readQuery({
       query: MeDocument,
     })
@@ -169,12 +168,11 @@ export const updateCacheMessagesAdmin = (
   });
   myInfo({ ...cachedDataMeLocal?.me });
 
-  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null =
-    _.cloneDeep(
-      client.readQuery({
-        query: NegotiationsDocument,
-      })
-    );
+  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = cloneDeep(
+    client.readQuery({
+      query: NegotiationsDocument,
+    })
+  );
   if (!cachedDataNegotiationsLocal) return;
   cachedDataNegotiationsLocal?.negotiations.negotiations.filter(
     (neg) => neg.ad._id !== negotiation?._id
@@ -197,14 +195,14 @@ export const updateCacheAd = (
     typeProduct: searchedWineCache?.typeProduct,
     typeAd: searchedWineCache?.typeAd,
   };
-  const cachedDataAdsLocal: ICachedDataAds | null = _.cloneDeep(
+  const cachedDataAdsLocal: ICachedDataAds | null = cloneDeep(
     cache.readQuery({
       query: AdsWineDocument,
       variables: variablesCacheUpdate,
     })
   );
   const me = myInfo();
-  const cachedDataMyAdsLocal: ICachedDataMyAds | null = _.cloneDeep(
+  const cachedDataMyAdsLocal: ICachedDataMyAds | null = cloneDeep(
     cache.readQuery({
       query: AdsForUserDocument,
       variables: {
@@ -212,7 +210,7 @@ export const updateCacheAd = (
       },
     })
   );
-  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+  const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     cache.readQuery({
       query: MeDocument,
     })
@@ -255,7 +253,7 @@ export const updateCacheMessages = (
     DeepExtractType<CreateMessageMutation, ['createMessage']>['response']
   >['data']
 ): void => {
-  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+  const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     client.readQuery({
       query: MeDocument,
     })
@@ -270,7 +268,7 @@ export const updateCacheMessages = (
   });
   myInfo({ ...cachedDataMeLocal?.me });
 
-  const cachedMessagesLocal: ICachedMessages | null = _.cloneDeep(
+  const cachedMessagesLocal: ICachedMessages | null = cloneDeep(
     client.readQuery({
       query: MessagesDocument,
     })
@@ -281,13 +279,12 @@ export const updateCacheMessages = (
     variables: { id: message?.negotiation._id },
     data: cachedMessagesLocal,
   });
-  const cachedMessagesNegotiationsLocal: ICachedMessagesNegs | null =
-    _.cloneDeep(
-      client.readQuery({
-        query: MessagesNegotiationDocument,
-        variables: { id: message?.negotiation._id },
-      })
-    );
+  const cachedMessagesNegotiationsLocal: ICachedMessagesNegs | null = cloneDeep(
+    client.readQuery({
+      query: MessagesNegotiationDocument,
+      variables: { id: message?.negotiation._id },
+    })
+  );
   cachedMessagesNegotiationsLocal?.messagesForNegotiation.messages.unshift(
     message as Message
   );
@@ -304,7 +301,7 @@ export const updateCacheReview = (
     DeepExtractType<CreateReviewMutation, ['createReview']>['response']
   >['data']
 ) => {
-  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+  const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     client.readQuery({
       query: MeDocument,
     })
@@ -326,12 +323,12 @@ export const updateCacheSaveAd = (
     DeepExtractType<SaveAdMutation, ['saveAd']>['response']
   >['data']
 ) => {
-  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+  const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     cache.readQuery({
       query: MeDocument,
     })
   );
-  const adCache: { savedTimes: number } | null = _.cloneDeep(
+  const adCache: { savedTimes: number } | null = cloneDeep(
     cache.readFragment({
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       id: `AdWine:${ad?._id}`,
@@ -383,7 +380,7 @@ export const updateRemovedNeg = (
     >['response']
   >['data']
 ): void => {
-  const cachedDataMeLocal: ICachedMe | null = _.cloneDeep(
+  const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     client.readQuery({
       query: MeDocument,
       variables: {},
@@ -392,13 +389,12 @@ export const updateRemovedNeg = (
   if (!cachedDataMeLocal) {
     return;
   }
-  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null =
-    _.cloneDeep(
-      client.readQuery({
-        query: NegotiationsDocument,
-        variables: {},
-      })
-    );
+  const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = cloneDeep(
+    client.readQuery({
+      query: NegotiationsDocument,
+      variables: {},
+    })
+  );
 
   cachedDataMeLocal.me.negotiations = cachedDataMeLocal.me.negotiations?.filter(
     (n) => n._id !== negotiation?._id

@@ -5,7 +5,6 @@ import {
   TypeAd,
   TypeProduct,
   useCreateAdWineMutation,
-  AddressInput,
   // useWinesQuery,
   AdsWineDocument,
   QueryOrderBy,
@@ -25,8 +24,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
   const location = useLocation();
   const adType = location.pathname === '/buy' ? TypeAd.Buy : TypeAd.Sell;
-  let sameAddress: AddressInput;
-  let differentAddress: AddressInput;
+
   // const winesQueryResult = useWinesQuery();
   const [createAdWineMutation, { loading, client }] = useCreateAdWineMutation({
     onError: (error) => {
@@ -58,15 +56,15 @@ const Buy: React.FC<RouteComponentProps> = () => {
 
   const onSubmitMutation = async (values: WineFormMutation) => {
     const me = myInfo();
-    if (values.isSameAddress && me?.address) {
-      sameAddress = {
-        regione: me.address.regione,
-        provincia: me.address.provincia,
-        comune: me.address.comune,
-      };
-    } else {
-      differentAddress = values.address as AddressInput;
-    }
+    // if (values.isSameAddress && me?.address) {
+    //   sameAddress = {
+    //     regione: me.address.regione,
+    //     provincia: me.address.provincia,
+    //     comune: me.address.comune,
+    //   };
+    // } else {
+    //   differentAddress = values.address as AddressInput;
+    // }
     const adInput: AdInput = {
       wineName: values.wineName,
       typeAd: adType,
@@ -79,7 +77,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
       litersFrom: values.liters as number,
       litersTo: values.liters as number,
       // needsFollowUp: values.needsFollowUp,
-      address: values.isSameAddress ? sameAddress : differentAddress,
+      // address: values.isSameAddress ? sameAddress : differentAddress,
     };
     searchedWine({ ...adInput });
 

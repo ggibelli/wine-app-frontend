@@ -12,7 +12,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import * as React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { MessageListEl } from './MessageListEl';
-import _ from 'lodash';
+import { groupBy } from 'lodash';
 import { useStyles } from '../../utils/styleHook';
 import { MessagesQuery } from '../../generated/graphql';
 import { myInfo } from '../../cache';
@@ -66,7 +66,7 @@ export const SwipableTabsNotification: React.FC<NotificationProps> = (
   const messages = props.messages?.filter(
     (message) => message.sentBy.firstName !== 'Amministratore'
   );
-  const messagesForNegotiationObj = _.groupBy(
+  const messagesForNegotiationObj = groupBy(
     messages,
     (message) => message.negotiation._id
   );

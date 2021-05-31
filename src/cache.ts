@@ -9,7 +9,7 @@ import {
   QueryOrderBy,
   User,
 } from './generated/graphql';
-import _ from 'lodash';
+import { orderBy, unionBy } from 'lodash';
 import { DeepExtractType } from 'ts-deep-extract-types';
 
 export const cache: InMemoryCache = new InMemoryCache({
@@ -43,11 +43,11 @@ export const cache: InMemoryCache = new InMemoryCache({
           keyArgs: ['user'],
           merge(existing = [], incoming, { args }) {
             let ads;
-            const adsUnsorted = _.unionBy(existing.ads, incoming.ads, '__ref');
+            const adsUnsorted = unionBy(existing.ads, incoming.ads, '__ref');
             if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
-              ads = _.orderBy(adsUnsorted, '__ref', ['desc']);
+              ads = orderBy(adsUnsorted, '__ref', ['desc']);
             } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
-              ads = _.orderBy(adsUnsorted, '__ref', ['asc']);
+              ads = orderBy(adsUnsorted, '__ref', ['asc']);
             } else {
               ads = adsUnsorted;
             }
@@ -87,15 +87,15 @@ export const cache: InMemoryCache = new InMemoryCache({
             if (args && Object.values(args).every((val) => val == undefined))
               return incoming as NegotiationResult;
             let negotiations;
-            const negotiationsUnsorted = _.unionBy(
+            const negotiationsUnsorted = unionBy(
               existing.negotiations,
               incoming.negotiations,
               '__ref'
             );
             if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
-              negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['desc']);
+              negotiations = orderBy(negotiationsUnsorted, '__ref', ['desc']);
             } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
-              negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['asc']);
+              negotiations = orderBy(negotiationsUnsorted, '__ref', ['asc']);
             } else {
               negotiations = negotiationsUnsorted;
             }

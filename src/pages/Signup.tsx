@@ -4,7 +4,7 @@ import { UserForm, UserInputForm } from '../components/UserForm';
 import { useCreateUserMutation, UserInput } from '../generated/graphql';
 import { isLoggedInVar, notification } from '../cache';
 import { navigate } from '@reach/router';
-import _ from 'lodash';
+import { cloneDeep } from 'lodash';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -41,10 +41,9 @@ const SignUp: React.FC<RouteComponentProps> = () => {
     },
   });
   const onSubmit = async (values: UserInputForm) => {
-    const userInputValues = _.cloneDeep(values);
+    const userInputValues = cloneDeep(values);
     delete userInputValues.reEmail;
     delete userInputValues.rePassword;
-    userInputValues.address.CAP = userInputValues.address.CAP.toString();
     await createUserMutation({
       variables: {
         userInput: userInputValues as UserInput,

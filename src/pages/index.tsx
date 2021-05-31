@@ -3,7 +3,7 @@ import { RouteComponentProps, Router } from '@reach/router';
 import { Header } from '../components/Navigation';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Loading } from '../components/Loading';
-import Buy from './BuySell';
+// import Buy from './BuySell';
 function createLazyRoute<T extends RouteComponentProps>(
   RouteComponent: React.ComponentType<T>
 ) {
@@ -19,7 +19,7 @@ function createLazyRoute<T extends RouteComponentProps>(
 
 const SignUp = createLazyRoute(React.lazy(() => import('./Signup')));
 const Home = createLazyRoute(React.lazy(() => import('./Home')));
-// const Buy = createLazyRoute(React.lazy(() => import('./BuySell')));
+const Buy = createLazyRoute(React.lazy(() => import('./BuySell')));
 const Ads = createLazyRoute(React.lazy(() => import('./Ads')));
 const Ad = createLazyRoute(React.lazy(() => import('./Ad')));
 const MyAds = createLazyRoute(React.lazy(() => import('./MyAds')));

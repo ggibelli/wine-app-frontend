@@ -15,8 +15,8 @@ export const LOGIN = gql`
           _id
           firstName
           address {
-            regione
-            provincia
+            # regione
+            # provincia
             comune
           }
         }
@@ -100,11 +100,11 @@ export const CREATE_ADWINE = gql`
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
+        # address {
+        #   regione
+        #   provincia
+        #   comune
+        # }
         activeNegotiations
         numberViews
         datePosted

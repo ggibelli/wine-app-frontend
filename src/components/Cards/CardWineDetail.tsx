@@ -79,10 +79,7 @@ export const CardWineDetail: React.FC<{
         <br />
         Prezzo: {ad?.priceFrom} euro al litro
       </Typography>
-      <br />
-      <Typography align='left' component='h5' variant='h6' color='textPrimary'>
-        Zona di produzione: {ad?.address?.comune} ({ad?.address?.provincia})
-      </Typography>
+
       <br />
       <ContactOrEdit />
       <br />

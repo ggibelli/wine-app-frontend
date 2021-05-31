@@ -12,22 +12,17 @@ import {
 import { TypeAd } from '../../generated/graphql';
 
 // Fix test loading status and mock apollo not needed
-const wines = [
-  {
-    denominazioneVino: 'Abruzzo DOC bianco',
-    tipoVino: 'fermo',
-    vitigni: ['Trebbiano Abruzzese, Trebbiano Toscano'],
-  },
-  {
-    denominazioneVino: 'Abruzzo DOC Cococciola',
-    tipoVino: 'fermo',
-    vitigni: ['Cococciola'],
-  },
-  {
-    denominazioneVino: 'Abruzzo DOC Cococciola superiore',
-    tipoVino: 'fermo',
-    vitigni: ['Cococciola'],
-  },
+const wines: string[] = [
+  'Abruzzo DOC bianco',
+  'Abruzzo DOC Cococciola',
+  'Abruzzo DOC Cococciola superiore',
+  'Abruzzo DOC Malvasia',
+  'Abruzzo DOC Malvasia superiore',
+  'Abruzzo DOC Montonico',
+  'Abruzzo DOC Montonico superiore',
+  'Abruzzo DOC Passerina',
+  'Abruzzo DOC Passerina superiore',
+  'Abruzzo DOC passito bianco',
 ];
 
 describe('Wine form mutation', () => {
@@ -57,71 +52,11 @@ describe('Wine form mutation', () => {
     expect(
       screen.getByRole('textbox', { name: /content/i })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: /regione/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: /provincia/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: /comune/i })
-    ).toBeInTheDocument();
 
     expect(
       screen.getByRole('combobox', { name: /metodo produttivo/i })
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('checkbox', {
-        name: /Indirizzo uguale a quello usato in registrazione/i,
-      })
-    ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
-  });
-
-  it('renders Wine form query success state, does not show address field if same address', async () => {
-    const onSubmit = () => jest.fn();
-    renderApolloNoRouter(
-      <WineFormMutation wines={wines} onSubmit={onSubmit} adType={TypeAd.Buy} />
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-
-    expect(
-      screen.getByRole('spinbutton', { name: /abv/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', { name: /harvest/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', { name: /price/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', { name: /liters/i })
-    ).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: /vino/i })).toBeInTheDocument();
-
-    expect(
-      screen.getByRole('textbox', { name: /content/i })
-    ).toBeInTheDocument();
-    await waitFor(() => {
-      fireEvent.click(
-        screen.getByRole('checkbox', {
-          name: /Indirizzo uguale a quello usato in registrazione/i,
-        })
-      );
-    });
-    expect(screen.queryByText(/regione/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/provincia/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/comune/i)).not.toBeInTheDocument();
-    expect(
-      screen.getByRole('combobox', { name: /metodo produttivo/i })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole('checkbox', {
-        name: /Indirizzo uguale a quello usato in registrazione/i,
-      })
-    ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
   });
 
@@ -164,20 +99,10 @@ describe('Wine form mutation', () => {
       },
     });
 
-    fireEvent.change(
-      screen.getByRole('checkbox', {
-        name: /Indirizzo uguale a quello usato in registrazione/i,
-      }),
-      {
-        target: {
-          value: '',
-        },
-      }
-    );
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
       expect(onSubmit).toBeCalledTimes(0);
-      expect(getAllByText('Required')).toHaveLength(8);
+      expect(getAllByText('Required')).toHaveLength(5);
     });
   }, 10000);
 
@@ -234,66 +159,6 @@ describe('Wine form mutation', () => {
     });
   }, 10000);
 
-  it('should validate form fields and not submit if address missing', async () => {
-    const onSubmit = jest.fn();
-
-    const { getByTestId } = renderApolloNoRouter(
-      <WineFormMutation wines={wines} onSubmit={onSubmit} adType={TypeAd.Buy} />
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-
-    fireEvent.change(screen.getByRole('spinbutton', { name: /abv/i }), {
-      target: {
-        value: 13.5,
-      },
-    });
-    fireEvent.change(screen.getByRole('spinbutton', { name: /harvest/i }), {
-      target: {
-        value: 2010,
-      },
-    });
-    fireEvent.change(screen.getByRole('spinbutton', { name: /price/i }), {
-      target: {
-        value: 3.5,
-      },
-    });
-    fireEvent.change(screen.getByRole('spinbutton', { name: /liters/i }), {
-      target: {
-        value: 1000,
-      },
-    });
-    fireEvent.change(screen.getByRole('textbox', { name: /content/i }), {
-      target: {
-        value: 'vinazzo',
-      },
-    });
-    const comboboxWines = getByTestId('combobox-wines');
-    const inputWines = within(comboboxWines).getByRole('textbox');
-    comboboxWines.focus();
-    fireEvent.change(inputWines, { target: { value: 'b' } });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
-
-      fireEvent.keyDown(inputWines, { key: 'ArrowDown' });
-    });
-    await waitFor(() => {
-      fireEvent.keyDown(inputWines, { key: 'Enter' });
-    });
-
-    // await waitFor(() => {
-    //   fireEvent.click(
-    //     screen.getByRole('checkbox', {
-    //       name: /Indirizzo uguale a quello usato in registrazione/i,
-    //     })
-    //   );
-    // });
-    fireEvent.change(screen.getByRole('textbox', { name: /vino/i }));
-    fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
-    await waitFor(() => {
-      expect(onSubmit).toBeCalledTimes(0);
-    });
-  }, 10000);
-
   it('should validate form fields and submit if fields are valid', async () => {
     const onSubmit = jest.fn();
 
@@ -340,13 +205,6 @@ describe('Wine form mutation', () => {
       fireEvent.keyDown(inputWines, { key: 'Enter' });
     });
 
-    await waitFor(() => {
-      fireEvent.click(
-        screen.getByRole('checkbox', {
-          name: /Indirizzo uguale a quello usato in registrazione/i,
-        })
-      );
-    });
     fireEvent.change(screen.getByRole('textbox', { name: /vino/i }));
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {

@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import * as React from 'react';
 import { TextField } from '../FormFields/TextField';
 import { PasswordField } from '../FormFields/PasswordField';
-import { optionsRegioni } from './data';
+// import { optionsRegioni } from './data';
 import { validationSchema } from '../../utils/formHelper';
 import { SliderField } from '../FormFields/SliderField';
 import Button from '@material-ui/core/Button';
@@ -12,8 +12,8 @@ import Avatar from '@material-ui/core/Avatar';
 import LinkMUI from '@material-ui/core/Link';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { ComboboxField } from '../FormFields/ComboboxField';
-import { ComboboxProvince } from '../FormFields/ComboboxProvince';
+// import { ComboboxField } from '../FormFields/ComboboxField';
+// import { ComboboxProvince } from '../FormFields/ComboboxProvince';
 import { ComboboxComuni } from '../FormFields/ComboboxComuni';
 // import { AddressForm } from '../AddressForm';
 
@@ -58,17 +58,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface AddressInputForm {
   via: string;
   comune: string;
-  provincia: string;
-  regione: string;
-  CAP: string;
 }
 
 const initialAddress: AddressInputForm = {
   via: '',
   comune: '',
-  provincia: '',
-  regione: '',
-  CAP: '12345',
 };
 
 export interface UserInputForm {
@@ -199,7 +193,7 @@ export const UserForm: React.FC<{
                 </Grid>
                 {/* <AddressForm setFieldValue={setFieldValue} /> */}
                 <Grid item xs={12}>
-                  <ComboboxField
+                  {/* <ComboboxField
                     setFieldValue={setFieldValue}
                     name='address.regione'
                     label='Regione'
@@ -215,7 +209,7 @@ export const UserForm: React.FC<{
                     label='Provincia'
                     labelTextColor={'#6d1331'}
                     underlineColor={classes.underline}
-                  />
+                  />*/}
                 </Grid>
                 <Grid item xs={12}>
                   <ComboboxComuni

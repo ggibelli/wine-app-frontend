@@ -34,13 +34,7 @@ describe('User form', () => {
     expect(
       screen.getByRole('textbox', { name: /comune/i })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: /provincia/i })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: /regione/i })
-    ).toBeInTheDocument();
-    expect(screen.getByRole('spinbutton', { name: /CAP/ })).toBeInTheDocument();
+
     expect(screen.getByTestId('password')).toBeInTheDocument();
     expect(screen.getByTestId('hideContact')).toBeInTheDocument();
     expect(screen.getByTestId('rePassword')).toBeInTheDocument();
@@ -92,21 +86,7 @@ describe('User form', () => {
         value: '',
       },
     });
-    fireEvent.input(screen.getByRole('textbox', { name: /provincia/i }), {
-      target: {
-        value: '',
-      },
-    });
-    fireEvent.input(screen.getByRole('textbox', { name: /regione/i }), {
-      target: {
-        value: '',
-      },
-    });
-    fireEvent.input(screen.getByRole('spinbutton', { name: /cap/i }), {
-      target: {
-        value: '',
-      },
-    });
+
     fireEvent.input(screen.getByRole('textbox', { name: /piva/i }), {
       target: {
         value: '',
@@ -125,7 +105,7 @@ describe('User form', () => {
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
       expect(onSubmit).toBeCalledTimes(0);
-      expect(getAllByText('Required')).toHaveLength(12);
+      expect(getAllByText('Required')).toHaveLength(10);
     });
   }, 10000);
 
@@ -175,21 +155,6 @@ describe('User form', () => {
         value: 'Canelli',
       },
     });
-    fireEvent.input(screen.getByRole('textbox', { name: /provincia/i }), {
-      target: {
-        value: 'At',
-      },
-    });
-    fireEvent.input(screen.getByRole('textbox', { name: /regione/i }), {
-      target: {
-        value: 'Piemonte',
-      },
-    });
-    fireEvent.input(screen.getByRole('spinbutton', { name: /cap/i }), {
-      target: {
-        value: '122',
-      },
-    });
     fireEvent.change(screen.getByRole('textbox', { name: /piva/i }), {
       target: {
         value: '123456789',
@@ -214,7 +179,6 @@ describe('User form', () => {
       expect(getByText('Password not safe')).toBeVisible();
       expect(getByText('Il numero di telefono non e valido')).toBeVisible();
       expect(getByText(/La partita iva /i)).toBeVisible();
-      expect(getByText('Must be exactly 5 characters')).toBeVisible();
     });
   }, 15000);
 
@@ -259,31 +223,6 @@ describe('User form', () => {
         value: 'via della prova 1',
       },
     });
-    const comboboxRegioni = getByTestId('address.regione');
-    const input = within(comboboxRegioni).getByRole('textbox');
-    comboboxRegioni.focus();
-    fireEvent.change(input, { target: { value: 'a' } });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
-
-      fireEvent.keyDown(comboboxRegioni, { key: 'ArrowDown' });
-    });
-    await waitFor(() => {
-      fireEvent.keyDown(comboboxRegioni, { key: 'Enter' });
-    });
-
-    const comboboxProvince = getByTestId('combobox-province');
-    const inputProvince = within(comboboxProvince).getByRole('textbox');
-    comboboxProvince.focus();
-    fireEvent.change(inputProvince, { target: { value: 'a' } });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
-
-      fireEvent.keyDown(comboboxProvince, { key: 'ArrowDown' });
-    });
-    await waitFor(() => {
-      fireEvent.keyDown(comboboxProvince, { key: 'Enter' });
-    });
 
     const comboboxComuni = getByTestId('combobox-comuni');
     const inputComuni = within(comboboxComuni).getByRole('textbox');
@@ -297,11 +236,7 @@ describe('User form', () => {
     await waitFor(() => {
       fireEvent.keyDown(comboboxComuni, { key: 'Enter' });
     });
-    fireEvent.input(screen.getByRole('spinbutton', { name: /cap/i }), {
-      target: {
-        value: '12245',
-      },
-    });
+
     fireEvent.change(screen.getByRole('textbox', { name: /piva/i }), {
       target: {
         value: '26264321204',

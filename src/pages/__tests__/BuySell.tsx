@@ -193,13 +193,6 @@ describe('Buy or Sell page', () => {
     });
 
     await waitFor(() => {
-      fireEvent.click(
-        getByRole('checkbox', {
-          name: /Indirizzo uguale a quello usato in registrazione/i,
-        })
-      );
-    });
-    await waitFor(() => {
       fireEvent.submit(getByRole('button', { name: /submit/i }));
     });
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
@@ -221,7 +214,6 @@ describe('Buy or Sell page', () => {
       priceTo: 3.5,
       litersFrom: 1000,
       litersTo: 1000,
-      address: undefined,
     });
 
     expect(navigate).toHaveBeenCalledWith('/annunci');

@@ -7,12 +7,7 @@ import {
   fireEvent,
 } from '../../../test-utils/test-utils';
 import { act, waitFor } from '@testing-library/react';
-import {
-  LoginDocument,
-  MeDocument,
-  Province,
-  Regioni,
-} from '../../../generated/graphql';
+import { LoginDocument, MeDocument } from '../../../generated/graphql';
 import { isLoggedInVar, cache, notification, myInfo } from '../../../cache';
 import userEvent from '@testing-library/user-event';
 
@@ -108,8 +103,6 @@ describe('Header component', () => {
               firstName: 'Giovanni',
               lastName: 'vabb',
               address: {
-                regione: Regioni.Abruzzo,
-                provincia: Province.AG,
                 comune: 'popopo',
               },
               ads: [],
@@ -169,8 +162,6 @@ describe('Header component', () => {
       firstName: 'Giovanni',
       lastName: 'vabb',
       address: {
-        regione: Regioni.Abruzzo,
-        provincia: Province.AG,
         comune: 'popopo',
       },
       ads: [],
@@ -240,8 +231,6 @@ describe('Header component', () => {
               firstName: 'Giovanni',
               lastName: 'vabb',
               address: {
-                regione: Regioni.Abruzzo,
-                provincia: Province.AG,
                 comune: 'popopo',
               },
               ads: [],

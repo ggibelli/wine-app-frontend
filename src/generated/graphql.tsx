@@ -23,23 +23,18 @@ export type Address = {
   via?: Maybe<Scalars['String']>;
   CAP?: Maybe<Scalars['String']>;
   comune: Scalars['String'];
-  provincia: Province;
-  regione: Regioni;
 };
 
 export type AddressInput = {
   via?: Maybe<Scalars['String']>;
   CAP?: Maybe<Scalars['String']>;
   comune: Scalars['String'];
-  provincia: Province;
-  regione: Regioni;
 };
 
 export type AdInput = {
   typeAd: TypeAd;
   typeProduct: TypeProduct;
   content?: Maybe<Scalars['String']>;
-  address: AddressInput;
   harvest: Scalars['Int'];
   abv: Scalars['Float'];
   wine?: Maybe<Scalars['ID']>;
@@ -87,7 +82,6 @@ export type Ad = {
   priceFrom: Scalars['Float'];
   priceTo: Scalars['Float'];
   content?: Maybe<Scalars['String']>;
-  address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
   savedTimes?: Maybe<Scalars['Int']>;
@@ -120,7 +114,6 @@ export type AdWine = Ad & {
   litersFrom?: Maybe<Scalars['Int']>;
   litersTo?: Maybe<Scalars['Int']>;
   content?: Maybe<Scalars['String']>;
-  address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
   savedTimes?: Maybe<Scalars['Int']>;
@@ -150,7 +143,6 @@ export type AdGrape = Ad & {
   kgFrom: Scalars['Int'];
   kgTo: Scalars['Int'];
   content?: Maybe<Scalars['String']>;
-  address: Address;
   negotiations?: Maybe<Array<Negotiation>>;
   activeNegotiations?: Maybe<Scalars['Int']>;
   savedTimes?: Maybe<Scalars['Int']>;
@@ -689,138 +681,138 @@ export type VineyardPayload = {
   errors?: Maybe<Array<Maybe<Errors>>>;
 };
 
-export enum Province {
-  AG = 'AG',
-  AL = 'AL',
-  AN = 'AN',
-  AO = 'AO',
-  AP = 'AP',
-  AQ = 'AQ',
-  AR = 'AR',
-  AT = 'AT',
-  AV = 'AV',
-  BA = 'BA',
-  BG = 'BG',
-  BI = 'BI',
-  BL = 'BL',
-  BN = 'BN',
-  BO = 'BO',
-  BR = 'BR',
-  BS = 'BS',
-  BT = 'BT',
-  BZ = 'BZ',
-  CA = 'CA',
-  CB = 'CB',
-  CE = 'CE',
-  CH = 'CH',
-  CL = 'CL',
-  CN = 'CN',
-  CO = 'CO',
-  CR = 'CR',
-  CS = 'CS',
-  CT = 'CT',
-  CZ = 'CZ',
-  EN = 'EN',
-  FC = 'FC',
-  FE = 'FE',
-  FG = 'FG',
-  FI = 'FI',
-  FM = 'FM',
-  FR = 'FR',
-  GE = 'GE',
-  GO = 'GO',
-  GR = 'GR',
-  IM = 'IM',
-  IS = 'IS',
-  KR = 'KR',
-  LC = 'LC',
-  LE = 'LE',
-  LI = 'LI',
-  LO = 'LO',
-  LT = 'LT',
-  LU = 'LU',
-  MB = 'MB',
-  MC = 'MC',
-  ME = 'ME',
-  MI = 'MI',
-  MN = 'MN',
-  MO = 'MO',
-  MS = 'MS',
-  MT = 'MT',
-  NA = 'NA',
-  NO = 'NO',
-  NU = 'NU',
-  OR = 'OR',
-  PA = 'PA',
-  PC = 'PC',
-  PD = 'PD',
-  PE = 'PE',
-  PG = 'PG',
-  PI = 'PI',
-  PN = 'PN',
-  PO = 'PO',
-  PR = 'PR',
-  PT = 'PT',
-  PU = 'PU',
-  PV = 'PV',
-  PZ = 'PZ',
-  RA = 'RA',
-  RC = 'RC',
-  RE = 'RE',
-  RG = 'RG',
-  RI = 'RI',
-  RM = 'RM',
-  RN = 'RN',
-  RO = 'RO',
-  SA = 'SA',
-  SI = 'SI',
-  SO = 'SO',
-  SP = 'SP',
-  SR = 'SR',
-  SS = 'SS',
-  SU = 'SU',
-  SV = 'SV',
-  TA = 'TA',
-  TE = 'TE',
-  TN = 'TN',
-  TO = 'TO',
-  TP = 'TP',
-  TR = 'TR',
-  TS = 'TS',
-  TV = 'TV',
-  UD = 'UD',
-  VA = 'VA',
-  VB = 'VB',
-  VC = 'VC',
-  VE = 'VE',
-  VI = 'VI',
-  VR = 'VR',
-  VT = 'VT',
-  VV = 'VV',
-}
+// export enum Province {
+//   Ag = 'AG',
+//   Al = 'AL',
+//   An = 'AN',
+//   Ao = 'AO',
+//   Ap = 'AP',
+//   Aq = 'AQ',
+//   Ar = 'AR',
+//   At = 'AT',
+//   Av = 'AV',
+//   Ba = 'BA',
+//   Bg = 'BG',
+//   Bi = 'BI',
+//   Bl = 'BL',
+//   Bn = 'BN',
+//   Bo = 'BO',
+//   Br = 'BR',
+//   Bs = 'BS',
+//   Bt = 'BT',
+//   Bz = 'BZ',
+//   Ca = 'CA',
+//   Cb = 'CB',
+//   Ce = 'CE',
+//   Ch = 'CH',
+//   Cl = 'CL',
+//   Cn = 'CN',
+//   Co = 'CO',
+//   Cr = 'CR',
+//   Cs = 'CS',
+//   Ct = 'CT',
+//   Cz = 'CZ',
+//   En = 'EN',
+//   Fc = 'FC',
+//   Fe = 'FE',
+//   Fg = 'FG',
+//   Fi = 'FI',
+//   Fm = 'FM',
+//   Fr = 'FR',
+//   Ge = 'GE',
+//   Go = 'GO',
+//   Gr = 'GR',
+//   Im = 'IM',
+//   Is = 'IS',
+//   Kr = 'KR',
+//   Lc = 'LC',
+//   Le = 'LE',
+//   Li = 'LI',
+//   Lo = 'LO',
+//   Lt = 'LT',
+//   Lu = 'LU',
+//   Mb = 'MB',
+//   Mc = 'MC',
+//   Me = 'ME',
+//   Mi = 'MI',
+//   Mn = 'MN',
+//   Mo = 'MO',
+//   Ms = 'MS',
+//   Mt = 'MT',
+//   Na = 'NA',
+//   No = 'NO',
+//   Nu = 'NU',
+//   Or = 'OR',
+//   Pa = 'PA',
+//   Pc = 'PC',
+//   Pd = 'PD',
+//   Pe = 'PE',
+//   Pg = 'PG',
+//   Pi = 'PI',
+//   Pn = 'PN',
+//   Po = 'PO',
+//   Pr = 'PR',
+//   Pt = 'PT',
+//   Pu = 'PU',
+//   Pv = 'PV',
+//   Pz = 'PZ',
+//   Ra = 'RA',
+//   Rc = 'RC',
+//   Re = 'RE',
+//   Rg = 'RG',
+//   Ri = 'RI',
+//   Rm = 'RM',
+//   Rn = 'RN',
+//   Ro = 'RO',
+//   Sa = 'SA',
+//   Si = 'SI',
+//   So = 'SO',
+//   Sp = 'SP',
+//   Sr = 'SR',
+//   Ss = 'SS',
+//   Su = 'SU',
+//   Sv = 'SV',
+//   Ta = 'TA',
+//   Te = 'TE',
+//   Tn = 'TN',
+//   To = 'TO',
+//   Tp = 'TP',
+//   Tr = 'TR',
+//   Ts = 'TS',
+//   Tv = 'TV',
+//   Ud = 'UD',
+//   Va = 'VA',
+//   Vb = 'VB',
+//   Vc = 'VC',
+//   Ve = 'VE',
+//   Vi = 'VI',
+//   Vr = 'VR',
+//   Vt = 'VT',
+//   Vv = 'VV'
+// }
 
-export enum Regioni {
-  Abruzzo = 'ABRUZZO',
-  Basilicata = 'BASILICATA',
-  Calabria = 'CALABRIA',
-  Campania = 'CAMPANIA',
-  Emilia = 'EMILIA',
-  Friuli = 'FRIULI',
-  Lazio = 'LAZIO',
-  Liguria = 'LIGURIA',
-  Lombardia = 'LOMBARDIA',
-  Marche = 'MARCHE',
-  Molise = 'MOLISE',
-  Piemonte = 'PIEMONTE',
-  Puglia = 'PUGLIA',
-  Sardegna = 'SARDEGNA',
-  Sicilia = 'SICILIA',
-  Toscana = 'TOSCANA',
-  Trentino = 'TRENTINO',
-  Umbria = 'UMBRIA',
-  Valdaosta = 'VALDAOSTA',
-  Veneto = 'VENETO',
-}
+// export enum Regioni {
+//   Abruzzo = 'ABRUZZO',
+//   Basilicata = 'BASILICATA',
+//   Calabria = 'CALABRIA',
+//   Campania = 'CAMPANIA',
+//   Emilia = 'EMILIA',
+//   Friuli = 'FRIULI',
+//   Lazio = 'LAZIO',
+//   Liguria = 'LIGURIA',
+//   Lombardia = 'LOMBARDIA',
+//   Marche = 'MARCHE',
+//   Molise = 'MOLISE',
+//   Piemonte = 'PIEMONTE',
+//   Puglia = 'PUGLIA',
+//   Sardegna = 'SARDEGNA',
+//   Sicilia = 'SICILIA',
+//   Toscana = 'TOSCANA',
+//   Trentino = 'TRENTINO',
+//   Umbria = 'UMBRIA',
+//   Valdaosta = 'VALDAOSTA',
+//   Veneto = 'VENETO'
+// }
 
 export enum TypeAd {
   Sell = 'SELL',
@@ -915,10 +907,7 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
       response?: Maybe<
         { __typename?: 'AuthUser' } & Pick<AuthUser, 'token'> & {
             user: { __typename?: 'User' } & Pick<User, '_id' | 'firstName'> & {
-                address: { __typename?: 'Address' } & Pick<
-                  Address,
-                  'regione' | 'provincia' | 'comune'
-                >;
+                address: { __typename?: 'Address' } & Pick<Address, 'comune'>;
               };
           }
       >;
@@ -1010,10 +999,6 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
                 { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
               >;
               postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-              address: { __typename?: 'Address' } & Pick<
-                Address,
-                'regione' | 'provincia' | 'comune'
-              >;
             })
         | ({ __typename?: 'AdGrape' } & Pick<
             AdGrape,
@@ -1026,13 +1011,7 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
             | 'activeNegotiations'
             | 'numberViews'
             | 'datePosted'
-          > & {
-              postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-              address: { __typename?: 'Address' } & Pick<
-                Address,
-                'regione' | 'provincia' | 'comune'
-              >;
-            })
+          > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
       >;
       errors?: Maybe<
         Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
@@ -1214,10 +1193,6 @@ type AdDetails_AdWine_Fragment = { __typename?: 'AdWine' } & Pick<
       User,
       '_id' | 'firstName' | 'lastName' | 'hideContact'
     >;
-    address: { __typename?: 'Address' } & Pick<
-      Address,
-      'regione' | 'provincia'
-    >;
   };
 
 type AdDetails_AdGrape_Fragment = { __typename?: 'AdGrape' } & Pick<
@@ -1235,10 +1210,6 @@ type AdDetails_AdGrape_Fragment = { __typename?: 'AdGrape' } & Pick<
     postedBy: { __typename?: 'User' } & Pick<
       User,
       '_id' | 'firstName' | 'lastName' | 'hideContact'
-    >;
-    address: { __typename?: 'Address' } & Pick<
-      Address,
-      'regione' | 'provincia'
     >;
   };
 
@@ -1341,13 +1312,7 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
               | 'datePosted'
               | 'isActive'
               | 'savedTimes'
-            > & {
-                postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-                address: { __typename?: 'Address' } & Pick<
-                  Address,
-                  'regione' | 'provincia' | 'comune'
-                >;
-              })
+            > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
           | ({ __typename?: 'AdGrape' } & Pick<
               AdGrape,
               | '_id'
@@ -1361,13 +1326,7 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
               | 'datePosted'
               | 'isActive'
               | 'savedTimes'
-            > & {
-                postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-                address: { __typename?: 'Address' } & Pick<
-                  Address,
-                  'regione' | 'provincia' | 'comune'
-                >;
-              })
+            > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
         >
       >;
     }
@@ -1379,10 +1338,7 @@ export type LightMeQueryVariables = Exact<{ [key: string]: never }>;
 export type LightMeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
     { __typename?: 'User' } & Pick<User, '_id' | 'firstName'> & {
-        address: { __typename?: 'Address' } & Pick<
-          Address,
-          'regione' | 'provincia' | 'comune'
-        >;
+        address: { __typename?: 'Address' } & Pick<Address, 'comune'>;
       }
   >;
 };
@@ -1392,10 +1348,7 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>;
 export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
     { __typename?: 'User' } & Pick<User, '_id' | 'firstName' | 'lastName'> & {
-        address: { __typename?: 'Address' } & Pick<
-          Address,
-          'regione' | 'provincia' | 'comune'
-        >;
+        address: { __typename?: 'Address' } & Pick<Address, 'comune'>;
         ads?: Maybe<
           Array<
             | ({ __typename?: 'AdWine' } & Pick<
@@ -1464,10 +1417,7 @@ export type MyInfoQueryVariables = Exact<{ [key: string]: never }>;
 export type MyInfoQuery = { __typename?: 'Query' } & {
   myInfo?: Maybe<
     { __typename?: 'User' } & Pick<User, '_id' | 'firstName' | 'lastName'> & {
-        address: { __typename?: 'Address' } & Pick<
-          Address,
-          'regione' | 'provincia' | 'comune'
-        >;
+        address: { __typename?: 'Address' } & Pick<Address, 'comune'>;
         ads?: Maybe<
           Array<
             | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id' | 'isActive'> & {
@@ -1566,10 +1516,6 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                       { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
                     >;
                     postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-                    address: { __typename?: 'Address' } & Pick<
-                      Address,
-                      'regione' | 'provincia' | 'comune'
-                    >;
                   })
               | ({ __typename?: 'AdGrape' } & Pick<
                   AdGrape,
@@ -1584,13 +1530,7 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                   | 'savedTimes'
                   | 'isActive'
                   | 'datePosted'
-                > & {
-                    postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-                    address: { __typename?: 'Address' } & Pick<
-                      Address,
-                      'regione' | 'provincia' | 'comune'
-                    >;
-                  })
+                > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
             >
           >
         >;
@@ -1635,10 +1575,6 @@ export type AdQuery = { __typename?: 'Query' } & {
             | 'email'
             | 'phoneNumber'
           >;
-          address: { __typename?: 'Address' } & Pick<
-            Address,
-            'regione' | 'provincia' | 'comune'
-          >;
         })
     | ({ __typename?: 'AdGrape' } & Pick<
         AdGrape,
@@ -1663,10 +1599,6 @@ export type AdQuery = { __typename?: 'Query' } & {
             | 'hideContact'
             | 'email'
             | 'phoneNumber'
-          >;
-          address: { __typename?: 'Address' } & Pick<
-            Address,
-            'regione' | 'provincia' | 'comune'
           >;
         })
   >;
@@ -1864,10 +1796,6 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
                       User,
                       '_id' | 'firstName' | 'lastName' | 'hideContact'
                     >;
-                    address: { __typename?: 'Address' } & Pick<
-                      Address,
-                      'regione' | 'provincia' | 'comune'
-                    >;
                   })
               | ({ __typename?: 'AdGrape' } & Pick<
                   AdGrape,
@@ -1887,10 +1815,6 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
                     postedBy: { __typename?: 'User' } & Pick<
                       User,
                       '_id' | 'firstName' | 'lastName' | 'hideContact'
-                    >;
-                    address: { __typename?: 'Address' } & Pick<
-                      Address,
-                      'regione' | 'provincia' | 'comune'
                     >;
                   })
             >
@@ -1929,13 +1853,7 @@ export type AdPostedFollowUpSubscription = { __typename?: 'Subscription' } & {
         | 'activeNegotiations'
         | 'numberViews'
         | 'datePosted'
-      > & {
-          postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-          address: { __typename?: 'Address' } & Pick<
-            Address,
-            'regione' | 'provincia' | 'comune'
-          >;
-        })
+      > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
     | ({ __typename?: 'AdGrape' } & Pick<
         AdGrape,
         | '_id'
@@ -1947,13 +1865,7 @@ export type AdPostedFollowUpSubscription = { __typename?: 'Subscription' } & {
         | 'activeNegotiations'
         | 'numberViews'
         | 'datePosted'
-      > & {
-          postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-          address: { __typename?: 'Address' } & Pick<
-            Address,
-            'regione' | 'provincia' | 'comune'
-          >;
-        });
+      > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> });
 };
 
 export type AdRemovedSubscriptionVariables = Exact<{ [key: string]: never }>;
@@ -2001,13 +1913,7 @@ export type NegotiationClosedSubscription = { __typename?: 'Subscription' } & {
         | 'activeNegotiations'
         | 'numberViews'
         | 'datePosted'
-      > & {
-          postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-          address: { __typename?: 'Address' } & Pick<
-            Address,
-            'regione' | 'provincia' | 'comune'
-          >;
-        })
+      > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
     | ({ __typename?: 'AdGrape' } & Pick<
         AdGrape,
         | '_id'
@@ -2019,13 +1925,7 @@ export type NegotiationClosedSubscription = { __typename?: 'Subscription' } & {
         | 'activeNegotiations'
         | 'numberViews'
         | 'datePosted'
-      > & {
-          postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-          address: { __typename?: 'Address' } & Pick<
-            Address,
-            'regione' | 'provincia' | 'comune'
-          >;
-        });
+      > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> });
 };
 
 export type ReviewCreatedSubscriptionVariables = Exact<{
@@ -2062,10 +1962,6 @@ export const AdDetailsFragmentDoc = gql`
       metodoProduttivo
     }
     typeAd
-    address {
-      regione
-      provincia
-    }
     activeNegotiations
     datePosted
   }
@@ -2175,8 +2071,6 @@ export const LoginDocument = gql`
           _id
           firstName
           address {
-            regione
-            provincia
             comune
           }
         }
@@ -2421,11 +2315,6 @@ export const CreateAdWineDocument = gql`
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
         activeNegotiations
         numberViews
         datePosted
@@ -2949,11 +2838,6 @@ export const FavoriteDocument = gql`
           metodoProduttivo
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
         activeNegotiations
         numberViews
         datePosted
@@ -3012,8 +2896,6 @@ export const LightMeDocument = gql`
       _id
       firstName
       address {
-        regione
-        provincia
         comune
       }
     }
@@ -3064,8 +2946,6 @@ export const MeDocument = gql`
       firstName
       lastName
       address {
-        regione
-        provincia
         comune
       }
       ads {
@@ -3255,8 +3135,6 @@ export const MyInfoDocument = gql`
       firstName
       lastName
       address {
-        regione
-        provincia
         comune
       }
       ads {
@@ -3426,11 +3304,6 @@ export const AdsWineDocument = gql`
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
         activeNegotiations
         numberViews
         savedTimes
@@ -3512,11 +3385,6 @@ export const AdDocument = gql`
         }
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
       activeNegotiations
       numberViews
       savedTimes
@@ -4075,11 +3943,6 @@ export const AdsForUserDocument = gql`
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
         activeNegotiations
         numberViews
         datePosted
@@ -4214,11 +4077,6 @@ export const AdPostedFollowUpDocument = gql`
         metodoProduttivo
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
       activeNegotiations
       numberViews
       datePosted
@@ -4394,11 +4252,6 @@ export const NegotiationClosedDocument = gql`
         metodoProduttivo
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
       activeNegotiations
       numberViews
       datePosted

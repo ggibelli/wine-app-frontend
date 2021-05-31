@@ -21,10 +21,10 @@ export const AD_DETAILS = gql`
       metodoProduttivo
     }
     typeAd
-    address {
-      regione
-      provincia
-    }
+    # address {
+    #   regione
+    #   provincia
+    # }
     activeNegotiations
     datePosted
   }
@@ -145,11 +145,11 @@ export const FAVORITE = gql`
           metodoProduttivo
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
+        # address {
+        #   regione
+        #   provincia
+        #   comune
+        # }
         activeNegotiations
         numberViews
         datePosted
@@ -166,8 +166,8 @@ export const LIGHT_ME = gql`
       _id
       firstName
       address {
-        regione
-        provincia
+        # regione
+        # provincia
         comune
       }
     }
@@ -181,8 +181,8 @@ export const ME = gql`
       firstName
       lastName
       address {
-        regione
-        provincia
+        # regione
+        # provincia
         comune
       }
       ads {
@@ -247,8 +247,8 @@ export const MY_INFO = gql`
       firstName
       lastName
       address {
-        regione
-        provincia
+        # regione
+        # provincia
         comune
       }
       ads {
@@ -336,11 +336,11 @@ export const ADS_WINE = gql`
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
+        # address {
+        #   regione
+        #   provincia
+        #   comune
+        # }
         activeNegotiations
         numberViews
         savedTimes
@@ -380,11 +380,11 @@ export const AD = gql`
         }
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
+      # address {
+      #   regione
+      #   provincia
+      #   comune
+      # }
       activeNegotiations
       numberViews
       savedTimes
@@ -560,11 +560,11 @@ export const ADS_FOR_USER = gql`
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
+        # address {
+        #   regione
+        #   provincia
+        #   comune
+        # }
         activeNegotiations
         numberViews
         datePosted

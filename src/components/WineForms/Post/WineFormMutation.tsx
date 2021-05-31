@@ -8,23 +8,22 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Menzione, MetodoProduttivo, TypeAd } from '../../../generated/graphql';
 import { SelectField } from '../../FormFields/SelectField';
-import { SliderField } from '../../FormFields/SliderField';
+// import { SliderField } from '../../FormFields/SliderField';
 // import { searchedWine } from '../../../cache';
-import { AddressForm } from '../../AddressForm';
+// import { AddressForm } from '../../AddressForm';
 import { useStylesForms } from '../../../utils/styleHook';
-import { WineOption } from '../../../utils/wineList';
 
-interface AddressInputForm {
-  comune: string;
-  provincia: string;
-  regione: string;
-}
+// interface AddressInputForm {
+//   comune: string;
+//   provincia: string;
+//   regione: string;
+// }
 
-const initialAddress: AddressInputForm = {
-  comune: '',
-  provincia: '',
-  regione: '',
-};
+// const initialAddress: AddressInputForm = {
+//   comune: '',
+//   provincia: '',
+//   regione: '',
+// };
 
 export interface WineFormMutation {
   wineName: string;
@@ -37,14 +36,14 @@ export interface WineFormMutation {
   content?: string;
   metodoProduttivo?: MetodoProduttivo | '';
   // needsFollowUp: boolean;
-  isSameAddress: boolean;
-  address?: AddressInputForm;
+  // isSameAddress: boolean;
+  // address?: AddressInputForm;
 }
 
 export const WineFormMutation: React.FC<{
   onSubmit: (values: WineFormMutation) => void;
   adType: TypeAd;
-  wines: WineOption[];
+  wines: string[];
 }> = ({ onSubmit, adType, wines }) => {
   const classes = useStylesForms();
   const today = new Date();
@@ -61,8 +60,8 @@ export const WineFormMutation: React.FC<{
     metodoProduttivo: '',
     content: '',
     // needsFollowUp: false,
-    isSameAddress: false,
-    address: initialAddress,
+    // isSameAddress: false,
+    // address: initialAddress,
   };
 
   return (
@@ -89,20 +88,20 @@ export const WineFormMutation: React.FC<{
         metodoProduttivo: Yup.string(),
         content: Yup.string(),
         // needsFollowUp: Yup.bool().required('Required'),
-        isSameAddress: Yup.bool().required('Required'),
-        address: Yup.object().when('isSameAddress', {
-          is: true,
-          then: Yup.object().shape({
-            comune: Yup.string(),
-            provincia: Yup.string(),
-            regione: Yup.string(),
-          }),
-          otherwise: Yup.object().shape({
-            comune: Yup.string().required('Required'),
-            provincia: Yup.string().required('Required'),
-            regione: Yup.string().required('Required'),
-          }),
-        }),
+        // isSameAddress: Yup.bool().required('Required'),
+        // address: Yup.object().when('isSameAddress', {
+        //   is: true,
+        //   then: Yup.object().shape({
+        //     comune: Yup.string(),
+        //     provincia: Yup.string(),
+        //     regione: Yup.string(),
+        //   }),
+        //   otherwise: Yup.object().shape({
+        //     comune: Yup.string().required('Required'),
+        //     provincia: Yup.string().required('Required'),
+        //     regione: Yup.string().required('Required'),
+        //   }),
+        // }),
       })}
       onSubmit={onSubmit}
     >
@@ -264,12 +263,12 @@ export const WineFormMutation: React.FC<{
               label='Aggiornami se nuovi annunci pertinenti'
               labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
             /> */}
-            <SliderField
+            {/* <SliderField
               name='isSameAddress'
               label='Indirizzo uguale a quello usato in registrazione'
               labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
             />
-            <AddressForm setFieldValue={setFieldValue} />
+            <AddressForm setFieldValue={setFieldValue} /> */}
 
             <Button
               fullWidth

@@ -13,7 +13,7 @@ import { NegotiationsDocument, QueryOrderBy } from '../../generated/graphql';
 import { InMemoryCache } from '@apollo/client';
 import { negotiationFactory } from '../../test-utils/test-factory';
 import * as hooks from '../../utils/useIntersectionHook';
-import _ from 'lodash';
+import { unionBy, orderBy } from 'lodash';
 
 const typePolicies = {
   Query: {
@@ -24,15 +24,15 @@ const typePolicies = {
         //@ts-ignore
         merge(existing = [], incoming, { args }) {
           let negotiations;
-          const negotiationsUnsorted = _.unionBy(
+          const negotiationsUnsorted = unionBy(
             existing.negotiations,
             incoming.negotiations,
             '__ref'
           );
           if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
-            negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['desc']);
+            negotiations = orderBy(negotiationsUnsorted, '__ref', ['desc']);
           } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
-            negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['asc']);
+            negotiations = orderBy(negotiationsUnsorted, '__ref', ['asc']);
           } else {
             negotiations = negotiationsUnsorted;
           }

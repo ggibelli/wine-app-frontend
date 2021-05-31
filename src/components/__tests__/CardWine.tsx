@@ -6,8 +6,6 @@ import {
 import { CardWine } from '../../components/Cards/CardWine';
 import * as React from 'react';
 import {
-  Province,
-  Regioni,
   MetodoProduttivo,
   TypeAd,
   DenomZona,
@@ -31,12 +29,6 @@ const mockAdBuyOwned = {
   ad: {
     abv: 13.5,
     activeNegotiations: 0,
-    address: {
-      comune: 'Arosio',
-      provincia: Province.CO,
-      regione: Regioni.Lombardia,
-      __typename: 'Address' as const,
-    },
 
     datePosted: '07 Apr 21, 18:35',
     harvest: 2018,
@@ -61,7 +53,6 @@ const mockAdBuyOwned = {
     typeAd: TypeAd.Buy,
     wine: {
       denominazioneZona: DenomZona.Docg,
-      regione: [Regioni.Piemonte],
       __typename: 'Wine' as const,
     },
     wineName: "Barbera d'Asti",
@@ -79,12 +70,6 @@ const mockAdSellNotOwned = {
   ad: {
     abv: 13.5,
     activeNegotiations: 0,
-    address: {
-      comune: 'Arosio',
-      provincia: Province.CO,
-      regione: Regioni.Lombardia,
-      __typename: 'Address' as const,
-    },
 
     datePosted: '07 Apr 21, 18:35',
     harvest: 2018,
@@ -109,7 +94,6 @@ const mockAdSellNotOwned = {
     typeAd: TypeAd.Sell,
     wine: {
       denominazioneZona: DenomZona.Docg,
-      regione: [Regioni.Piemonte],
       __typename: 'Wine' as const,
     },
     wineName: "Barbera d'Asti",
@@ -127,12 +111,6 @@ const mockAdSellAdNotActive = {
   ad: {
     abv: 13.5,
     activeNegotiations: 0,
-    address: {
-      comune: 'Arosio',
-      provincia: Province.CO,
-      regione: Regioni.Lombardia,
-      __typename: 'Address' as const,
-    },
 
     datePosted: '07 Apr 21, 18:35',
     harvest: 2018,
@@ -157,7 +135,6 @@ const mockAdSellAdNotActive = {
     typeAd: TypeAd.Sell,
     wine: {
       denominazioneZona: DenomZona.Docg,
-      regione: [Regioni.Piemonte],
       __typename: 'Wine' as const,
     },
     wineName: "Barbera d'Asti",

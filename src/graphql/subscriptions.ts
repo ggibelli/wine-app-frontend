@@ -25,11 +25,11 @@ export const AD_POSTED_FOLLOWUP = gql`
         metodoProduttivo
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
+      # address {
+      #   regione
+      #   provincia
+      #   comune
+      # }
       activeNegotiations
       numberViews
       datePosted
@@ -84,11 +84,11 @@ export const NEGOTIATION_CLOSED = gql`
         metodoProduttivo
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
+      # address {
+      #   regione
+      #   provincia
+      #   comune
+      # }
       activeNegotiations
       numberViews
       datePosted

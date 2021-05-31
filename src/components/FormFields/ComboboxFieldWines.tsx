@@ -11,7 +11,6 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { VariableSizeList, ListChildComponentProps } from 'react-window';
 import { Typography } from '@material-ui/core';
-import { WineOption } from '../../utils/wineList';
 
 const LISTBOX_PADDING = 8; // px
 
@@ -102,7 +101,7 @@ const useStyles = makeStyles({
 });
 
 export const Combobox: React.FC<{
-  items: WineOption[];
+  items: string[];
   label: string;
   name: string;
   defaultWine?: string;
@@ -127,7 +126,7 @@ export const Combobox: React.FC<{
     <Autocomplete
       disableListWrap
       data-testid='combobox-wines'
-      options={items.map((item) => item.denominazioneVino)} //options.sort((a, b) => -b.regione.localeCompare(a.regione))}
+      options={items} //options.sort((a, b) => -b.regione.localeCompare(a.regione))}
       classes={{
         option: classes.option,
         groupLabel: classes.groupLabel,

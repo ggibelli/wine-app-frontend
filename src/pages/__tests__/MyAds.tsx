@@ -13,7 +13,7 @@ import { AdsForUserDocument, QueryOrderBy } from '../../generated/graphql';
 import { myInfo } from '../../cache';
 import { adFactory, user } from '../../test-utils/test-factory';
 import * as hooks from '../../utils/useIntersectionHook';
-import _ from 'lodash';
+import { unionBy, orderBy } from 'lodash';
 import { InMemoryCache } from '@apollo/client';
 
 const typePolicies = {
@@ -23,11 +23,11 @@ const typePolicies = {
         keyArgs: ['user'],
         merge(existing = [], incoming, { args }) {
           let ads;
-          const adsUnsorted = _.unionBy(existing.ads, incoming.ads, '__ref');
+          const adsUnsorted = unionBy(existing.ads, incoming.ads, '__ref');
           if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
-            ads = _.orderBy(adsUnsorted, '__ref', ['desc']);
+            ads = orderBy(adsUnsorted, '__ref', ['desc']);
           } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
-            ads = _.orderBy(adsUnsorted, '__ref', ['asc']);
+            ads = orderBy(adsUnsorted, '__ref', ['asc']);
           } else {
             ads = adsUnsorted;
           }
