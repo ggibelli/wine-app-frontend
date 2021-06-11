@@ -1,6 +1,27 @@
-# Getting Started with Create React App
+# Wine trading app client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+App that connects wine cellars in need to sell or buy bulk wine, choosing between more than 4000 Italian wines. 
+The user can post an ad, and if there is already a wine listed that matches the parameters, the user can send a message to the seller/buyer. 
+The app sends a notification and a mail when a new wine is posted that matches the user's active ad, users can chat in real-time, leave reviews and manage active negotiations and posted ads.
+
+## Technology used
+
+This app is built with React and ApolloServer, I used MaterialUI as a framework
+
+## Features
+
+- Users can signup
+- Users can post/update Ads
+- Users can open/close Negotiations
+- Users can review other Users
+- Users can send real time messages
+- Automatic notification after certain actions (ie. when opening or closing a negotiation)
+- Admin can add or remove wines (work in progress)
+
+## What is missing
+
+The E2E tests using cypress are missing.
+The CI/CD pipeline is also missing.
 
 ## Available Scripts
 
