@@ -232,18 +232,6 @@ export const UserForm: React.FC<{
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
-                    name='address.CAP'
-                    type='number'
-                    max='99999'
-                    label='CAP'
-                    placeholder='CAP'
-                    underlineColor={classes.underline}
-                    labelTextColor={'#6d1331'}
-                    inputTextColor={classes.input}
-                  />
-                </Grid>
-                <Grid item xs={12}>
                   <SliderField
                     name='hideContact'
                     label='Nascondi info personali'

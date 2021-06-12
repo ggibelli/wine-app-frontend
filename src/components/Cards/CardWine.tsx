@@ -9,7 +9,7 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AdsWineResult } from '../../types';
 import Grid from '@material-ui/core/Grid';
-import { HandshakeOutline } from 'mdi-material-ui';
+import HandshakeOutline from 'mdi-material-ui/HandshakeOutline';
 import { FavoriteButton } from '../../containers/FavoriteButton';
 import { Button } from '@material-ui/core';
 import { myInfo, searchedWine } from '../../cache';

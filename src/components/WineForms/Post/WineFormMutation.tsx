@@ -8,22 +8,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Menzione, MetodoProduttivo, TypeAd } from '../../../generated/graphql';
 import { SelectField } from '../../FormFields/SelectField';
-// import { SliderField } from '../../FormFields/SliderField';
-// import { searchedWine } from '../../../cache';
-// import { AddressForm } from '../../AddressForm';
 import { useStylesForms } from '../../../utils/styleHook';
-
-// interface AddressInputForm {
-//   comune: string;
-//   provincia: string;
-//   regione: string;
-// }
-
-// const initialAddress: AddressInputForm = {
-//   comune: '',
-//   provincia: '',
-//   regione: '',
-// };
+import { WineOption } from '../../../utils/wineList';
 
 export interface WineFormMutation {
   wineName: string;
@@ -35,20 +21,16 @@ export interface WineFormMutation {
   menzione?: Menzione | '';
   content?: string;
   metodoProduttivo?: MetodoProduttivo | '';
-  // needsFollowUp: boolean;
-  // isSameAddress: boolean;
-  // address?: AddressInputForm;
 }
 
 export const WineFormMutation: React.FC<{
   onSubmit: (values: WineFormMutation) => void;
   adType: TypeAd;
-  wines: string[];
+  wines: WineOption[];
 }> = ({ onSubmit, adType, wines }) => {
   const classes = useStylesForms();
   const today = new Date();
   const year = today.getFullYear();
-  // const searchedWineCache = searchedWine();
   const initialValues: WineFormMutation = {
     wineName: '' as string,
     harvest: 2015 as number,
@@ -59,9 +41,6 @@ export const WineFormMutation: React.FC<{
     menzione: '',
     metodoProduttivo: '',
     content: '',
-    // needsFollowUp: false,
-    // isSameAddress: false,
-    // address: initialAddress,
   };
 
   return (
@@ -87,21 +66,6 @@ export const WineFormMutation: React.FC<{
           .required('Required'),
         metodoProduttivo: Yup.string(),
         content: Yup.string(),
-        // needsFollowUp: Yup.bool().required('Required'),
-        // isSameAddress: Yup.bool().required('Required'),
-        // address: Yup.object().when('isSameAddress', {
-        //   is: true,
-        //   then: Yup.object().shape({
-        //     comune: Yup.string(),
-        //     provincia: Yup.string(),
-        //     regione: Yup.string(),
-        //   }),
-        //   otherwise: Yup.object().shape({
-        //     comune: Yup.string().required('Required'),
-        //     provincia: Yup.string().required('Required'),
-        //     regione: Yup.string().required('Required'),
-        //   }),
-        // }),
       })}
       onSubmit={onSubmit}
     >
@@ -227,21 +191,6 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            {/* <TextField
-              name='sottoZona'
-              type='text'
-              label='Sotto zona del vino'
-              placeholder='Sotto zona del vino'
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              inputTextColor={
-                adType === TypeAd.Buy ? classes.input : classes.inputSell
-              }
-            /> */}
             <TextField
               name='content'
               type='text'
@@ -258,21 +207,9 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            {/* <SliderField
-              name='needsFollowUp'
-              label='Aggiornami se nuovi annunci pertinenti'
-              labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-            /> */}
-            {/* <SliderField
-              name='isSameAddress'
-              label='Indirizzo uguale a quello usato in registrazione'
-              labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-            />
-            <AddressForm setFieldValue={setFieldValue} /> */}
 
             <Button
               fullWidth
-              //isLoading={isValidating || isSubmitting}
               className={
                 adType === TypeAd.Buy ? classes.submit : classes.submitSell
               }

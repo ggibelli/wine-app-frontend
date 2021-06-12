@@ -52,7 +52,7 @@ const SignUp: React.FC<RouteComponentProps> = () => {
   };
   return (
     <Container component='main' maxWidth='xs'>
-      <UserForm onSubmit={onSubmit} />;
+      <UserForm onSubmit={onSubmit} />
       <CssBaseline />
     </Container>
   );

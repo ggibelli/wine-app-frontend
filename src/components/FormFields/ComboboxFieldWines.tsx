@@ -3,7 +3,6 @@
 
 import * as React from 'react';
 import { Field, useField } from 'formik';
-
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -11,6 +10,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { VariableSizeList, ListChildComponentProps } from 'react-window';
 import { Typography } from '@material-ui/core';
+import { WineOption } from '../../utils/wineList';
 
 const LISTBOX_PADDING = 8; // px
 
@@ -101,12 +101,12 @@ const useStyles = makeStyles({
 });
 
 export const Combobox: React.FC<{
-  items: string[];
+  items: WineOption[];
   label: string;
   name: string;
   defaultWine?: string;
   labelTextColor?: string;
-  underlineColor?: string;
+  underlineColor: string;
 
   setFieldValue: (name: string, value: string) => void;
 }> = ({
@@ -126,7 +126,7 @@ export const Combobox: React.FC<{
     <Autocomplete
       disableListWrap
       data-testid='combobox-wines'
-      options={items} //options.sort((a, b) => -b.regione.localeCompare(a.regione))}
+      options={items.map((item) => item.d)} //options.sort((a, b) => -b.regione.localeCompare(a.regione))}
       classes={{
         option: classes.option,
         groupLabel: classes.groupLabel,

@@ -71,7 +71,6 @@ export const updateCacheNegotiations = (
   isSubscription = false
 ): void => {
   const cachedDataMeLocal: ICachedMe | null = cloneDeep(
-    //@ts-expect-error error
     client.readQuery({
       query: MeDocument,
       variables: {},
@@ -81,7 +80,6 @@ export const updateCacheNegotiations = (
     return;
   }
   const cachedDataNegotiationsLocal: ICachedDataNegotiations | null = cloneDeep(
-    //@ts-expect-error error
     client.readQuery({
       query: NegotiationsDocument,
       variables: {},
@@ -96,7 +94,6 @@ export const updateCacheNegotiations = (
       sentBy: { _id: 'placeHolder' },
     });
   }
-  //@ts-expect-error error
   client.writeQuery({
     query: MeDocument,
     variables: {},
@@ -109,7 +106,6 @@ export const updateCacheNegotiations = (
     negotiation as Negotiation
   );
   cachedDataNegotiationsLocal.negotiations.pageCount += 1;
-  //@ts-expect-error error
   client.writeQuery({
     query: NegotiationsDocument,
     variables: {},

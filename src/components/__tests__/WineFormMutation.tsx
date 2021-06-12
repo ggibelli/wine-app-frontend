@@ -10,19 +10,30 @@ import {
   act,
 } from '../../test-utils/test-utils';
 import { TypeAd } from '../../generated/graphql';
+import { WineOption } from '../../utils/wineList';
 
 // Fix test loading status and mock apollo not needed
-const wines: string[] = [
-  'Abruzzo DOC bianco',
-  'Abruzzo DOC Cococciola',
-  'Abruzzo DOC Cococciola superiore',
-  'Abruzzo DOC Malvasia',
-  'Abruzzo DOC Malvasia superiore',
-  'Abruzzo DOC Montonico',
-  'Abruzzo DOC Montonico superiore',
-  'Abruzzo DOC Passerina',
-  'Abruzzo DOC Passerina superiore',
-  'Abruzzo DOC passito bianco',
+const wines: WineOption[] = [
+  {
+    d: 'Abruzzo DOC bianco',
+
+    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+  },
+  {
+    d: 'Abruzzo DOC Cococciola',
+
+    v: ['Cococciola'],
+  },
+  {
+    d: 'Abruzzo DOC Cococciola superiore',
+
+    v: ['Cococciola'],
+  },
+  {
+    d: 'Abruzzo DOC Malvasia',
+
+    v: ['Malvasia'],
+  },
 ];
 
 describe('Wine form mutation', () => {

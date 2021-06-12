@@ -1,4643 +1,20734 @@
-import { Wine } from '../generated/graphql';
-
-export type WineOption = Pick<
-  Wine,
-  'denominazioneVino' | 'tipoVino' | 'vitigni'
->;
-
-export const wines: string[] = [
-  'Abruzzo DOC bianco',
-  'Abruzzo DOC Cococciola',
-  'Abruzzo DOC Cococciola superiore',
-  'Abruzzo DOC Malvasia',
-  'Abruzzo DOC Malvasia superiore',
-  'Abruzzo DOC Montonico',
-  'Abruzzo DOC Montonico superiore',
-  'Abruzzo DOC Passerina',
-  'Abruzzo DOC Passerina superiore',
-  'Abruzzo DOC passito bianco',
-
-  'Abruzzo DOC passito rosso',
-  'Abruzzo DOC Pecorino',
-  'Abruzzo DOC Pecorino superiore',
-  'Abruzzo DOC rosso',
-  'Abruzzo DOC spumante bianco charmat',
-
-  'Abruzzo DOC spumante bianco metodo classico',
-
-  'Abruzzo DOC spumante rosé charmat',
-  'Abruzzo DOC spumante rosé metodo classico',
-  'Aglianico del Taburno o Taburno rosato DOCG',
-  'Aglianico del Taburno o Taburno rosso DOCG',
-
-  'Aglianico del Taburno riserva o Taburno rosso riserva DOCG',
-  'Aglianico del Vulture DOC',
-  'Aglianico del Vulture spumante DOC',
-  'Aglianico del Vulture Superiore DOCG',
-  'Aglianico del Vulture Superiore riserva DOCG',
-  'Alba DOC',
-  'Alba riserva DOC',
-  'Albugnano DOC',
-  'Alcamo DOC Ansonica o Inzolia',
-  'Alcamo DOC bianco',
-
-  'Alcamo DOC bianco classico',
-  'Alcamo DOC bianco spumante',
-
-  'Alcamo DOC Cabernet sauvignon',
-  'Alcamo DOC Calabrese o nero d’Avola',
-  'Alcamo DOC Catarratto',
-  'Alcamo DOC Chardonnay',
-  'Alcamo DOC Grecanico',
-  'Alcamo DOC Grillo',
-  'Alcamo DOC Merlot',
-  'Alcamo DOC Müller-Thurgau',
-  'Alcamo DOC rosato',
-
-  'Alcamo DOC rosato spumante',
-
-  'Alcamo DOC rosso',
-
-  'Alcamo DOC rosso novello',
-
-  'Alcamo DOC rosso riserva',
-
-  'Alcamo DOC Sauvignon',
-  'Alcamo DOC Syrah',
-  'Alcamo DOC vendemmia tardiva',
-
-  'Aleatico di Gradoli DOC',
-  'Aleatico di Gradoli DOC liquoroso',
-  'Aleatico di Gradoli DOC liquoroso riserva',
-  'Aleatico di Gradoli DOC passito',
-  'Aleatico di Puglia DOC',
-  'Alezio rosato DOC',
-  'Alezio rosso DOC',
-  'Alezio rosso riserva DOC',
-  'Alghero DOC bianco',
-  'Alghero DOC bianco frizzante',
-  'Alghero DOC bianco passito',
-  'Alghero DOC bianco spumante',
-  'Alghero DOC Cabernet',
-  'Alghero DOC Cabernet riserva',
-  'Alghero DOC Cagnulari',
-  'Alghero DOC Cagnulari riserva',
-  'Alghero DOC Chardonnay',
-  'Alghero DOC Chardonnay spumante',
-  'Alghero DOC Merlot',
-  'Alghero DOC Merlot riserva',
-  'Alghero DOC rosato',
-  'Alghero DOC rosato frizzante',
-  'Alghero DOC rosso',
-  'Alghero DOC rosso liquoroso',
-  'Alghero DOC rosso novello',
-  'Alghero DOC rosso riserva',
-  'Alghero DOC Sangiovese',
-  'Alghero DOC Sauvignon',
-  'Alghero DOC Torbato',
-  'Alghero DOC Torbato spumante',
-  'Alghero DOC Vermentino frizzante',
-  'Alta Langa spumante DOCG',
-  'Alta Langa spumante riserva DOCG',
-  'Alta Langa spumante rosato DOCG',
-  'Alta Langa spumante rosato riserva DOCG',
-  'Alto Adige o dell’Alto Adige bianco DOC',
-  'Alto Adige o dell’Alto Adige bianco passito DOC',
-
-  'Alto Adige o dell’Alto Adige bianco vendemmia tardiva DOC',
-  'Alto Adige o dell’Alto Adige Cabernet DOC',
-  'Alto Adige o dell’Alto Adige Cabernet franc DOC',
-  'Alto Adige o dell’Alto Adige Cabernet sauvignon DOC',
-  'Alto Adige o dell’Alto Adige Cabernet-Lagrein DOC',
-  'Alto Adige o dell’Alto Adige Cabernet-Merlot DOC',
-  'Alto Adige o dell’Alto Adige Chardonnay DOC',
-  'Alto Adige o dell’Alto Adige Chardonnay passito DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay passito Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay passito Val Venosta DOC',
-  'Alto Adige o dell’Alto Adige Chardonnay Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay vendemmia tardiva Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay vendemmia tardiva Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay-Pinot bianco DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay-Pinot bianco passito DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay-Pinot grigio DOC',
-
-  'Alto Adige o dell’Alto Adige Chardonnay-Pinot grigio passito DOC',
-
-  'Alto Adige o dell’Alto Adige Colli di Bolzano o Bozner Leiten DOC',
-  'Alto Adige o dell’Alto Adige Kerner DOC',
-  'Alto Adige o dell’Alto Adige Kerner passito DOC',
-
-  'Alto Adige o dell’Alto Adige Kerner passito Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Kerner passito Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Kerner Val Venosta DOC',
-  'Alto Adige o dell’Alto Adige Kerner Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Kerner vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Kerner vendemmia tardiva Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Kerner vendemmia tardiva Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Klausner Leitacher DOC',
-
-  'Alto Adige o dell’Alto Adige Klausner Leitacher Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Lagrein DOC',
-
-  'Alto Adige o dell’Alto Adige Lagrein rosato o Kretzer DOC',
-  'Alto Adige o dell’Alto Adige Lagrein-Merlot DOC',
-  'Alto Adige o dell’Alto Adige Malvasia DOC',
-
-  'Alto Adige o dell’Alto Adige Meranese di Collina o Meraner Hügel DOC',
-  'Alto Adige o dell’Alto Adige Merlot DOC',
-
-  'Alto Adige o dell’Alto Adige Merlot rosato o Kretzer DOC',
-  'Alto Adige o dell’Alto Adige Moscato giallo DOC',
-
-  'Alto Adige o dell’Alto Adige Moscato giallo passito DOC',
-
-  'Alto Adige o dell’Alto Adige Moscato giallo vendemmia tardiva DOC',
-  'Alto Adige o dell’Alto Adige Moscato rosa DOC',
-  'Alto Adige o dell’Alto Adige Moscato rosa passito DOC',
-
-  'Alto Adige o dell’Alto Adige Moscato rosa vendemmia tardiva DOC',
-  'Alto Adige o dell’Alto Adige Müller Thurgau DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau passito DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau passito Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau passito Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau passito Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Müller Thurgau TerlanoDOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau vendemmia tardiva Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau vendemmia tardiva Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Müller Thurgau vendemmia tardiva Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Pinot bianco DOC',
-  'Alto Adige o dell’Alto Adige Pinot bianco passito DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot bianco passito Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot bianco passito Val Venosta DOC',
-  'Alto Adige o dell’Alto Adige Pinot bianco Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot bianco Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot bianco vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot bianco vendemmia tardiva Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot bianco vendemmia tardiva Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot bianco-Pinot grigio DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot bianco-Pinot grigio passito DOC',
-  'Alto Adige o dell’Alto Adige Pinot grigio DOC',
-  'Alto Adige o dell’Alto Adige Pinot grigio passito DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio passito Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio passito Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio passito Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Pinot grigio Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio vendemmia tardiva Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio vendemmia tardiva Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot grigio vendemmia tardiva Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Pinot nero DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot nero rosato o Kretzer DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot nero rosato o Kretzer Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Pinot nero Val Venosta DOC',
-  'Alto Adige o dell’Alto Adige Riesling DOC',
-  'Alto Adige o dell’Alto Adige Riesling Italico DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling Italico passito DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling Italico passito Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling Italico Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling Italico vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling Italico vendemmia tardiva Terlano DOC',
-  'Alto Adige o dell’Alto Adige Riesling passito DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling passito Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling passito Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling passito Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Riesling Terlano DOC',
-  'Alto Adige o dell’Alto Adige Riesling Val Venosta DOC',
-  'Alto Adige o dell’Alto Adige Riesling Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling vendemmia tardiva Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling vendemmia tardiva Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Riesling vendemmia tardiva Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Santa Maddalena o St.Magdalener DOC',
-  'Alto Adige o dell’Alto Adige Sauvignon DOC',
-  'Alto Adige o dell’Alto Adige Sauvignon passito DOC',
-
-  'Alto Adige o dell’Alto Adige Sauvignon passito Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Sauvignon passito Val Venosta DOC',
-  'Alto Adige o dell’Alto Adige Sauvignon Terlano DOC',
-  'Alto Adige o dell’Alto Adige Sauvignon Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Sauvignon vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Sauvignon vendemmia tardiva Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Sauvignon vendemmia tardiva Val Venosta DOC',
-  'Alto Adige o dell’Alto Adige Schiava DOC',
-  'Alto Adige o dell’Alto Adige Schiava grigia DOC',
-  'Alto Adige o dell’Alto Adige Schiava Val Venosta DOC',
-  'Alto Adige o dell’Alto Adige Spumante Chardonnay DOC',
-  'Alto Adige o dell’Alto Adige Spumante DOC',
-  'Alto Adige o dell’Alto Adige Spumante Pinot bianco DOC',
-  'Alto Adige o dell’Alto Adige Spumante Pinot grigio DOC',
-  'Alto Adige o dell’Alto Adige Spumante Pinot nero DOC',
-  'Alto Adige o dell’Alto Adige Spumante rosé DOC',
-  'Alto Adige o dell’Alto Adige Sylvaner DOC',
-  'Alto Adige o dell’Alto Adige Sylvaner passito DOC',
-
-  'Alto Adige o dell’Alto Adige Sylvaner passito Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Sylvaner passito Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Sylvaner Terlano DOC',
-  'Alto Adige o dell’Alto Adige Sylvaner Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Sylvaner vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Sylvaner vendemmia tardiva Terlano DOC',
-
-  'Alto Adige o dell’Alto Adige Sylvaner vendemmia tardiva Valle Isarco DOC',
-  'Alto Adige o dell’Alto Adige Terlano o Terlaner DOC',
-
-  'Alto Adige o dell’Alto Adige Terlano o Terlaner passito DOC',
-  'Alto Adige o dell’Alto Adige Traminer aromatico DOC',
-
-  'Alto Adige o dell’Alto Adige Traminer aromatico passito DOC',
-
-  'Alto Adige o dell’Alto Adige Traminer aromatico passsito Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Traminer aromatico passsito Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Traminer aromatico Val Venosta DOC',
-
-  'Alto Adige o dell’Alto Adige Traminer aromatico Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Traminer aromatico vendemmia tardiva DOC',
-
-  'Alto Adige o dell’Alto Adige Traminer aromatico vendemmia tardiva Valle Isarco DOC',
-
-  'Alto Adige o dell’Alto Adige Traminer aromatico vendemmia tardiva Vel Venosta DOC',
-  'Alto Adige o dell’Alto Adige Veltliner DOC',
-
-  'Alto Adige o dell’Alto Adige Veltliner Valle Isarco DOC',
-  'Amarone della Valpolicella Classico DOCG',
-  'Amarone della Valpolicella Classico riserva DOCG',
-  'Amarone della Valpolicella DOCG',
-  'Amarone della Valpolicella riserva DOCG',
-  'Amarone della Valpolicella Valpantena DOCG',
-  'Amarone della Valpolicella Valpantena riserva DOCG',
-  'Amelia DOC bianco',
-  'Amelia DOC Ciliegiolo',
-  'Amelia DOC Ciliegiolo riserva',
-  'Amelia DOC Grechetto',
-  'Amelia DOC Malvasia',
-  'Amelia DOC Merlot',
-  'Amelia DOC Merlot riserva',
-  'Amelia DOC Novello',
-  'Amelia DOC Rosato',
-  'Amelia DOC rosso',
-  'Amelia DOC rosso riserva',
-  'Amelia DOC Sangiovese',
-  'Amelia DOC Sangiovese riserva',
-  'Amelia DOC Vin Santo',
-  'Amelia DOC Vin Santo Occhio di Pernice',
-  'Ansonica Costa dell’Argentario DOC',
-  'Arborea DOC Sangiovese',
-  'Arborea DOC Sangiovese rosato',
-  'Arborea DOC Trebbiano',
-  'Arborea DOC Trebbiano frizzante',
-  'Arcole Bianco DOC',
-  'Arcole Bianco Frizzante DOC',
-  'Arcole Bianco Passito DOC',
-  'Arcole Bianco Spumante DOC',
-  'Arcole Cabernet DOC',
-  'Arcole Cabernet riserva DOC',
-  'Arcole Cabernet sauvignon DOC',
-  'Arcole Cabernet sauvignon riserva DOC',
-  'Arcole Carmenère DOC',
-  'Arcole Carmenère riserva DOC',
-  'Arcole Chardonnay DOC',
-  'Arcole Chardonnay frizzante DOC',
-  'Arcole Garganega DOC',
-  'Arcole Garganega Vendemmia tardiva DOC',
-  'Arcole Merlot DOC',
-  'Arcole Merlot riserva DOC',
-  'Arcole Nero DOC',
-  'Arcole Pinot bianco DOC',
-  'Arcole Pinot grigio DOC',
-  'Arcole Rosato DOC',
-  'Arcole Rosato frizzante DOC',
-  'Arcole Rosso DOC',
-  'Arcole Rosso frizzante DOC',
-  'Arcole Rosso Novello DOC',
-  'Arcole Rosso riserva DOC',
-  'Arcole Sauvignon DOC',
-  'Assisi DOC bianco',
-  'Assisi DOC Cabernet sauvignon',
-  'Assisi DOC Cabernet sauvignon riserva',
-  'Assisi DOC Grechetto',
-  'Assisi DOC Merlot',
-  'Assisi DOC Merlot riserva',
-  'Assisi DOC Novello',
-  'Assisi DOC Pinot nero',
-  'Assisi DOC Pinot nero riserva',
-  'Assisi DOC rosato',
-  'Assisi DOC rosso',
-  'Asti o Asti spumante DOCG',
-  'Asti o Asti spumante metodo classico DOCG',
-  'Atina Cabernet DOC',
-  'Atina Cabernet riserva DOC',
-  'Atina rosso DOC',
-  'Atina rosso riserva DOC',
-  'Atina Semillon DOC',
-  'Aversa Asprinio DOC',
-  'Aversa Asprinio spumante DOC',
-  'Bagnoli di sopra o Bagnoli bianco classico DOC',
-  'Bagnoli di sopra o Bagnoli bianco DOC',
-  'Bagnoli di sopra o Bagnoli Cabernet classico DOC',
-
-  'Bagnoli di sopra o Bagnoli Cabernet classico riserva DOC',
-  'Bagnoli di sopra o Bagnoli Cabernet DOC',
-  'Bagnoli di sopra o Bagnoli Cabernet franc classico DOC',
-
-  'Bagnoli di sopra o Bagnoli Cabernet franc classico riserva DOC',
-  'Bagnoli di sopra o Bagnoli Cabernet franc DOC',
-  'Bagnoli di sopra o Bagnoli Cabernet franc riserva DOC',
-  'Bagnoli di sopra o Bagnoli Cabernet riserva DOC',
-
-  'Bagnoli di sopra o Bagnoli Cabernet sauvignon classico DOC',
-
-  'Bagnoli di sopra o Bagnoli Cabernet sauvignon classico riserva DOC',
-  'Bagnoli di sopra o Bagnoli Cabernet sauvignon DOC',
-
-  'Bagnoli di sopra o Bagnoli Cabernet sauvignon riserva DOC',
-  'Bagnoli di sopra o Bagnoli Cavrara classico DOC',
-  'Bagnoli di sopra o Bagnoli Cavrara DOC',
-  'Bagnoli di sopra o Bagnoli Corbina classico DOC',
-  'Bagnoli di sopra o Bagnoli Corbina DOC',
-  'Bagnoli di sopra o Bagnoli Merlot classico DOC',
-  'Bagnoli di sopra o Bagnoli Merlot classico riserva DOC',
-  'Bagnoli di sopra o Bagnoli Merlot DOC',
-  'Bagnoli di sopra o Bagnoli Merlot riserva DOC',
-  'Bagnoli di sopra o Bagnoli Refosco classico DOC',
-
-  'Bagnoli di sopra o Bagnoli Refosco classico riserva DOC',
-  'Bagnoli di sopra o Bagnoli Refosco DOC',
-  'Bagnoli di sopra o Bagnoli Refosco riserva DOC',
-  'Bagnoli di sopra o Bagnoli rosato classico DOC',
-  'Bagnoli di sopra o Bagnoli rosato DOC',
-  'Bagnoli di sopra o Bagnoli rosso classico DOC',
-  'Bagnoli di sopra o Bagnoli rosso classico riserva DOC',
-  'Bagnoli di sopra o Bagnoli rosso DOC',
-  'Bagnoli di sopra o Bagnoli rosso riserva DOC',
-
-  'Bagnoli di sopra o Bagnoli Spumante bianco classico DOC',
-
-  'Bagnoli di sopra o Bagnoli Spumante bianco classico storico DOC',
-  'Bagnoli di sopra o Bagnoli Spumante bianco DOC',
-  'Bagnoli di sopra o Bagnoli Spumante bianco storico DOC',
-
-  'Bagnoli di sopra o Bagnoli Spumante rosato o rosé classico DOC',
-
-  'Bagnoli di sopra o Bagnoli Spumante rosato o rosé classico storico DOC',
-  'Bagnoli di sopra o Bagnoli Spumante rosato o rosé DOC',
-
-  'Bagnoli di sopra o Bagnoli Spumante rosato o rosé storico DOC',
-  'Bagnoli di sopra o Bagnoli Turchetta classico DOC',
-  'Bagnoli di sopra o Bagnoli Turchetta DOC',
-  'Bagnoli di sopra o Bagnoli Vin da Viajo classico DOC',
-
-  'Bagnoli di sopra o Bagnoli Vin da Viajo classico riserva DOC',
-  'Bagnoli di sopra o Bagnoli Vin da Viajo DOC',
-  'Bagnoli di sopra o Bagnoli Vin da Viajo riserva DOC',
-  'Bagnoli di sopra o Marzemina bianca classico DOC',
-  'Bagnoli di sopra o Marzemina bianca DOC',
-  'Bagnoli Friularo classico DOCG',
-  'Bagnoli Friularo classico passito DOCG',
-  'Bagnoli Friularo classico riserva DOCG',
-  'Bagnoli Friularo DOCG',
-  'Bagnoli Friularo passito DOCG',
-  'Bagnoli Friularo riserva DOCG',
-
-  'Bagnoli Friularo vendemmia tardiva classico riserva DOCG',
-  'Bagnoli Friularo vendemmia tardiva DOCG',
-  'Barbaresco DOCG',
-  'Barbaresco riserva DOCG',
-  'Barbera d’Alba DOC',
-  'Barbera d’Alba superiore DOC',
-  'Barbera d’Asti DOCG',
-  'Barbera d’Asti superiore Colli Astiani o Astiano DOCG',
-  'Barbera d’Asti superiore DOCG',
-  'Barbera d’Asti superiore Nizza DOCG',
-  'Barbera d’Asti superiore Tinella DOCG',
-  'Barbera del Monferrato DOC',
-  'Barbera del Monferrato frizzante DOC',
-  'Barbera del Monferrato Superiore DOCG',
-  'Barco Reale di Carmignano DOC',
-  'Bardolino Chiaretto Classico DOC',
-  'Bardolino Chiaretto DOC',
-  'Bardolino Chiaretto spumante DOC',
-  'Bardolino classico DOC',
-  'Bardolino classico superiore DOCG',
-  'Bardolino DOC',
-  'Bardolino novello classico DOC',
-  'Bardolino novello DOC',
-  'Bardolino superiore DOCG',
-  'Barletta DOC bianco',
-  'Barletta DOC bianco frizzante',
-  'Barletta DOC Malvasia bianca',
-  'Barletta DOC Malvasia bianca frizzante',
-  'Barletta DOC novello',
-  'Barletta DOC rosato',
-  'Barletta DOC rosato frizzante',
-  'Barletta DOC rosso',
-  'Barletta DOC rosso riserva',
-  'Barletta DOC Uva di Troia o Nero di Troia',
-  'Barletta DOC Uva di Troia o Nero di Troia riserva',
-  'Barolo DOCG',
-  'Barolo riserva DOCG',
-  'Bianchello del Metauro DOC',
-  'Bianchello del Metauro DOC passito',
-  'Bianchello del Metauro DOC spumante',
-  'Bianchello del Metauro DOC superiore',
-  'Bianco Capena DOC',
-  'Bianco Capena superiore DOC',
-  'Bianco dell’Empolese DOC',
-  'Bianco dell’Empolese DOC Vin Santo',
-  'Bianco delle Venezie DOC',
-
-  'Bianco di Aprilia DOC',
-  'Bianco di Custoza o Custoza DOC',
-  'Bianco di Custoza o Custoza passito DOC',
-  'Bianco di Custoza o Custoza spumante DOC',
-  'Bianco di Custoza o Custoza superiore DOC',
-  'Bianco di Pitigliano DOC',
-  'Bianco di Pitigliano DOC spumante',
-  'Bianco di Pitigliano DOC superiore',
-  'Bianco di Pitigliano DOC Vin Santo',
-  'Bianco di Torgiano DOC',
-  'Biferno DOC bianco',
-  'Biferno DOC rosato',
-  'Biferno DOC rosso',
-  'Biferno DOC rosso riserva',
-  'Biferno DOC rosso superiore',
-  'Bivongi DOC bianco',
-
-  'Bivongi DOC novello',
-  'Bivongi DOC riserva',
-  'Bivongi DOC rosato',
-  'Bivongi DOC rosso',
-  'Boca DOC',
-  'Boca riserva DOC',
-  'Bolgheri DOC bianco',
-  'Bolgheri DOC rosato',
-  'Bolgheri DOC rosso',
-  'Bolgheri DOC rosso superiore',
-  'Bolgheri DOC Sauvignon',
-  'Bolgheri DOC Vermentino',
-  'Bolgheri Sassicaia DOC',
-  'Bonarda dell’Oltrepò Pavese DOC',
-  'Bonarda dell’Oltrepò Pavese frizzante DOC',
-  'Bosco Eliceo DOC Bianco',
-  'Bosco Eliceo DOC Bianco frizzante',
-  'Bosco Eliceo DOC Fortana',
-  'Bosco Eliceo DOC Fortana frizzante',
-  'Bosco Eliceo DOC Fortana vivace',
-  'Bosco Eliceo DOC Merlot',
-  'Bosco Eliceo DOC Merlot vivace',
-  'Bosco Eliceo DOC Sauvignon',
-  'Bosco Eliceo DOC Sauvignon frizzante',
-  'Bosco Eliceo DOC Sauvignon vivace',
-  'Botticino DOC',
-  'Botticino riserva DOC',
-  'Brachetto d’Acqui o Acqui DOCG',
-  'Brachetto d’Acqui o Acqui passito DOCG',
-  'Brachetto d’Acqui o Acqui spumante DOCG',
-  'Bramaterra DOC',
-  'Bramaterra riserva DOC',
-  'Breganze Bianco DOC',
-  'Breganze Cabernet DOC',
-  'Breganze Cabernet Sauvignon DOC',
-  'Breganze Chardonnay DOC',
-  'Breganze Marzemino DOC',
-  'Breganze Merlot DOC',
-  'Breganze Pinot bianco DOC',
-  'Breganze Pinot grigio DOC',
-  'Breganze Pinot nero DOC',
-  'Breganze Rosso DOC',
-  'Breganze Sauvignon DOC',
-  'Breganze Tai DOC',
-  'Breganze Torcolato DOC',
-  'Breganze Vespaiolo DOC',
-  'Breganze Vespaiolo spumante DOC',
-  'Brindisi DOC bianco',
-  'Brindisi DOC bianco spumante',
-  'Brindisi DOC Chardonnay',
-  'Brindisi DOC Chardonnay spumante',
-  'Brindisi DOC Fiano',
-  'Brindisi DOC Fiano spumante',
-  'Brindisi DOC Malvasia bianca',
-  'Brindisi DOC Malvasia bianca spumante',
-  'Brindisi DOC Negroamaro',
-  'Brindisi DOC Negroamaro riserva',
-  'Brindisi DOC Negroamaro rosato',
-  'Brindisi DOC Negroamaro rosato spumante',
-  'Brindisi DOC rosato',
-
-  'Brindisi DOC rosato spumante',
-
-  'Brindisi DOC rosso',
-
-  'Brindisi DOC rosso novello',
-
-  'Brindisi DOC rosso riserva',
-
-  'Brindisi DOC Sauvignon',
-  'Brindisi DOC Sauvignon spumante',
-  'Brindisi DOC Susumaniello',
-  'Brunello di Montalcino DOCG',
-  'Brunello di Montalcino riserva DOCG',
-  'Buttafuoco dell’Oltrepò Pavese o Buttafuoco DOC',
-
-  'Buttafuoco dell’Oltrepò Pavese o Buttafuoco frizzante DOC',
-  'Cabernet sauvignon di Torgiano DOC',
-  'Cacc’e Mmitte di Lucera DOC',
-  'Cagliari DOC Malvasia',
-  'Cagliari DOC Malvasia riserva',
-  'Cagliari DOC Malvasia spumante',
-  'Cagliari DOC Monica',
-  'Cagliari DOC Monica riserva',
-  'Cagliari DOC Moscato',
-  'Cagliari DOC Vermentino',
-  'Cagliari DOC Vermentino superiore',
-  'Calosso DOC',
-  'Calosso DOC con menzione vigna',
-  'Calosso DOC riserva',
-  'Calosso DOC riserva con menzione vigna',
-  'Calosso Passarà DOC',
-  'Calosso Passarà DOC con menzione vigna',
-  'Campi Flegrei bianco DOC',
-  'Campi Flegrei DOC Falanghina',
-  'Campi Flegrei DOC Falanghina passito',
-  'Campi Flegrei DOC Falanghina spumante',
-  'Campi Flegrei DOC Piedirosso',
-  'Campi Flegrei DOC Piedirosso passsito',
-  'Campi Flegrei DOC Piedirosso riserva',
-  'Campi Flegrei DOC Piedirosso rosato',
-  'Campi Flegrei rosso DOC',
-  'Campi Flegrei rosso novello DOC',
-  'Campidano di Terralba o Terralba DOC Bovale',
-  'Campidano di Terralba o Terralba DOC Bovale riserva',
-  'Campidano di Terralba o Terralba DOC Bovale superiore',
-  'Canavese Barbera DOC',
-  'Canavese bianco DOC',
-  'Canavese bianco spumante DOC',
-  'Canavese Nebbiolo DOC',
-  'Canavese rosato DOC',
-  'Canavese rosato spumante DOC',
-  'Canavese rosso DOC',
-  'Canavese rosso novello DOC',
-  'Candia dei Colli Apuani DOC Barsaglina o Massaretta',
-  'Candia dei Colli Apuani DOC bianco amabile',
-  'Candia dei Colli Apuani DOC bianco secco',
-  'Candia dei Colli Apuani DOC bianco vendemmia tardiva',
-  'Candia dei Colli Apuani DOC rosato',
-  'Candia dei Colli Apuani DOC rosato Vermentino nero',
-  'Candia dei Colli Apuani DOC rosso',
-  'Candia dei Colli Apuani DOC Vermentino bianco',
-  'Candia dei Colli Apuani DOC Vermentino nero',
-  'Candia dei Colli Apuani DOC Vin Santo',
-  'Canelli o Moscato di Canelli DOCG',
-  'Canelli o Moscato di Canelli Riserva DOCG',
-  'Canelli o Moscato di Canelli Riserva Vigna DOCG',
-  'Canelli o Moscato di Canelli Vigna DOCG',
-  'Cannellino di Frascati DOCG',
-  'Cannonau di Sardegna DOC classico',
-  'Cannonau di Sardegna DOC liquoroso dolce',
-  'Cannonau di Sardegna DOC liquoroso secco',
-  'Cannonau di Sardegna DOC passito',
-  'Cannonau di Sardegna DOC rosato',
-  'Cannonau di Sardegna DOC rosso',
-  'Cannonau di Sardegna DOC rosso riserva',
-  'Capalbio DOC bianco',
-  'Capalbio DOC Cabernet Sauvignon',
-  'Capalbio DOC rosato',
-  'Capalbio DOC rosso',
-  'Capalbio DOC rosso riserva',
-  'Capalbio DOC Sangiovese',
-  'Capalbio DOC Vermentino',
-  'Capalbio DOC Vin Santo',
-  'Capri bianco DOC',
-  'Capri rosso DOC',
-  'Capriano del Colle bianco DOC',
-  'Capriano del Colle bianco superiore DOC',
-  'Capriano del Colle Marzemino DOC',
-  'Capriano del Colle novello DOC',
-  'Capriano del Colle rosso DOC',
-  'Capriano del Colle rosso riserva DOC',
-  'Capriano del Colle Trebbiano DOC',
-  'Carema DOC',
-  'Carema riserva DOC',
-  'Carignano del Sulcis DOC novello',
-  'Carignano del Sulcis DOC passito',
-  'Carignano del Sulcis DOC rosato',
-  'Carignano del Sulcis DOC rosso',
-  'Carignano del Sulcis DOC rosso riserva',
-  'Carignano del Sulcis DOC rosso superiore',
-  'Carmignano DOCG',
-  'Carmignano riserva DOCG',
-
-  'Carso Cabernet Franc DOC',
-  'Carso Cabernet Sauvignon DOC',
-  'Carso Chardonnay DOC',
-  'Carso Glera DOC',
-  'Carso Malvasia DOC',
-  'Carso Merlot DOC',
-  'Carso Pinot Grigio DOC',
-  'Carso Refosco o Refosco dal peduncolo rosso DOC',
-  'Carso Rosso DOC',
-  'Carso Sauvignon DOC',
-  'Carso Terrano Classico DOC',
-  'Carso Terrano DOC',
-  'Carso Traminer DOC',
-  'Carso Vitouska DOC',
-  'Casavecchia di Pontelatone rosso DOC',
-  'Casavecchia di Pontelatone rosso riserva DOC',
-  'Casteggio DOC',
-  'Castel del Monte Bombino nero DOCG',
-  'Castel del Monte DOC Aglianico',
-  'Castel del Monte DOC Aglianico riserva',
-  'Castel del Monte DOC Aglianico rosato',
-  'Castel del Monte DOC Aglianico rosato frizzante',
-  'Castel del Monte DOC bianco',
-  'Castel del Monte DOC bianco frizzante',
-  'Castel del Monte DOC bianco spumante',
-  'Castel del Monte DOC Bombino bianco',
-  'Castel del Monte DOC Bombino bianco frizzante',
-  'Castel del Monte DOC Bombino bianco spumante',
-  'Castel del Monte DOC Cabernet',
-  'Castel del Monte DOC Cabernet riserva',
-  'Castel del Monte DOC Chardonnay',
-  'Castel del Monte DOC Chardonnay frizzante',
-  'Castel del Monte DOC Nero di Troia',
-  'Castel del Monte DOC rosato',
-  'Castel del Monte DOC rosato frizzante',
-  'Castel del Monte DOC rosato spumante',
-  'Castel del Monte DOC rosso',
-  'Castel del Monte DOC rosso novello',
-  'Castel del Monte DOC Sauvignon',
-  'Castel del Monte DOC Sauvignon frizzante',
-  'Castel del Monte Nero di Troia riserva DOCG',
-  'Castel del Monte Rosso riserva DOCG',
-  'Castel San Lorenzo DOC Aglianicone',
-  'Castel San Lorenzo DOC Barbera',
-  'Castel San Lorenzo DOC bianco',
-  'Castel San Lorenzo DOC Moscato',
-  'Castel San Lorenzo DOC Moscato lambiccato',
-  'Castel San Lorenzo DOC Moscato passito',
-  'Castel San Lorenzo DOC Moscato spumante',
-  'Castel San Lorenzo DOC rosato',
-  'Castel San Lorenzo DOC rosso',
-  'Casteller DOC',
-  'Castelli di Jesi Verdicchio classico riserva DOCG',
-  'Castelli di Jesi Verdicchio riserva DOCG',
-  'Castelli Romani DOC bianco',
-
-  'Castelli Romani DOC bianco frizzante',
-
-  'Castelli Romani DOC rosato',
-  'Castelli Romani DOC rosato frizzante',
-  'Castelli Romani DOC rosso',
-  'Castelli Romani DOC rosso frizzante',
-  'Castelli Romani DOC rosso novello',
-  'Cellatica DOC',
-  'Cellatica superiore DOC',
-  'Cerasuolo d’Abruzzo DOC',
-  'Cerasuolo d’Abruzzo superiore DOC',
-  'Cerasuolo di Vittoria classico DOCG',
-  'Cerasuolo di Vittoria DOCG',
-  'Cerveteri DOC bianco',
-  'Cerveteri DOC bianco amabile',
-  'Cerveteri DOC bianco frizzante',
-  'Cerveteri DOC rosato',
-  'Cerveteri DOC rosato frizzante',
-  'Cerveteri DOC rosso',
-  'Cerveteri DOC rosso amabile',
-  'Cerveteri DOC Trebbiano o Procanico',
-  'Cesanese del Piglio o Piglio DOCG',
-  'Cesanese del Piglio o Piglio superiore DOCG',
-  'Cesanese del Piglio o Piglio superiore riserva DOCG',
-  'Cesanese di Affile DOC',
-  'Cesanese di Affile dolce DOC',
-  'Cesanese di Affile riserva DOC',
-  'Cesanese di Olevano Romano amabile DOC',
-  'Cesanese di Olevano Romano DOC',
-  'Cesanese di Olevano Romano dolce DOC',
-  'Cesanese di Olevano Romano dolce frizzante DOC',
-  'Cesanese di Olevano Romano riserva DOC',
-  'Cesanese di Olevano Romano superiore DOC',
-  'Chardonnay di Torgiano DOC',
-  'Chianti classico DOCG',
-  'Chianti Classico Gran Selezione DOCG',
-  'Chianti classico riserva DOCG',
-  'Chianti Colli Aretini DOCG',
-  'Chianti Colli Aretini riserva DOCG',
-  'Chianti Colli Fiorentini DOCG',
-  'Chianti Colli Fiorentini riserva DOCG',
-  'Chianti Colli Senesi DOCG',
-  'Chianti Colli Senesi riserva DOCG',
-  'Chianti Colline Pisane DOCG',
-  'Chianti Colline Pisane riserva DOCG',
-  'Chianti DOCG',
-  'Chianti Montalbano DOCG',
-  'Chianti Montalbano riserva DOCG',
-  'Chianti Montespertoli DOCG',
-  'Chianti Montespertoli riserva DOCG',
-  'Chianti riserva DOCG',
-  'Chianti Rufina DOCG',
-  'Chianti Rufina riserva DOCG',
-  'Chianti superiore DOCG',
-  'Cilento DOC Aglianico',
-  'Cilento DOC bianco',
-  'Cilento DOC Fiano',
-  'Cilento DOC rosato',
-  'Cilento DOC rosso',
-  'Cinque Terre DOC',
-  'Cinque Terre DOC Costa da Posa',
-  'Cinque Terre DOC Costa de Campu',
-  'Cinque Terre DOC Costa de Sera',
-  'Cinque Terre DOC Sciacchetrà',
-  'Cinque Terre DOC Sciacchetrà riserva',
-  'Circeo DOC bianco',
-  'Circeo DOC bianco frizzante',
-  'Circeo DOC bianco spumante',
-  'Circeo DOC Merlot',
-  'Circeo DOC rosato',
-  'Circeo DOC rosato frizzante',
-  'Circeo DOC rosso',
-  'Circeo DOC rosso frizzante',
-  'Circeo DOC rosso novello',
-  'Circeo DOC Sangiovese',
-  'Circeo DOC Trebbiano',
-  'Cirò DOC bianco',
-  'Cirò DOC rosato',
-  'Cirò DOC rosso',
-  'Cirò DOC rosso classico',
-  'Cirò DOC rosso classico superiore',
-  'Cirò DOC rosso classico superiore riserva',
-  'Cirò DOC rosso superiore',
-  'Cirò DOC rosso superiore riserva',
-  'Cisterna d’Asti DOC',
-  'Cisterna d’Asti superiore DOC',
-  'Colli Albani DOC',
-
-  'Colli Albani novello DOC',
-
-  'Colli Albani spumante DOC',
-
-  'Colli Albani superiore DOC',
-
-  'Colli Altotiberini DOC bianco',
-  'Colli Altotiberini DOC bianco spumante',
-  'Colli Altotiberini DOC bianco superiore',
-  'Colli Altotiberini DOC Cabernet sauvignon',
-  'Colli Altotiberini DOC Cabernet sauvignon riserva',
-  'Colli Altotiberini DOC Grechetto',
-  'Colli Altotiberini DOC Merlot',
-  'Colli Altotiberini DOC Merlot riserva',
-  'Colli Altotiberini DOC rosato',
-  'Colli Altotiberini DOC rosso',
-  'Colli Altotiberini DOC rosso novello',
-  'Colli Altotiberini DOC rosso riserva',
-  'Colli Altotiberini DOC Sangiovese',
-  'Colli Altotiberini DOC Sangiovese riserva',
-  'Colli Altotiberini DOC Trebbiano',
-  'Colli Asolani Prosecco DOCG',
-  'Colli Asolani Prosecco frizzante DOCG',
-  'Colli Asolani Prosecco spumante superiore DOCG',
-  'Colli Berici Barbarano rosso o Barbarano DOC',
-  'Colli Berici Barbarano rosso o Barbarano riserva DOC',
-  'Colli Berici Barbarano spumante DOC',
-  'Colli Berici Bianco DOC',
-  'Colli Berici Bianco frizzante DOC',
-  'Colli Berici Bianco spumante DOC',
-  'Colli Berici Bianco spumante metodo classico DOC',
-  'Colli Berici Cabernet DOC',
-  'Colli Berici Cabernet franc DOC',
-  'Colli Berici Cabernet franc riserva DOC',
-  'Colli Berici Cabernet riserva DOC',
-  'Colli Berici Cabernet sauvignon DOC',
-  'Colli Berici Cabernet sauvignon riserva DOC',
-  'Colli Berici Carmenère DOC',
-  'Colli Berici Carmenère riserva DOC',
-  'Colli Berici Chardonnay DOC',
-  'Colli Berici Garganego DOC',
-  'Colli Berici Manzoni bianco DOC',
-  'Colli Berici Merlot DOC',
-  'Colli Berici Merlot riserva DOC',
-  'Colli Berici novello DOC',
-  'Colli Berici passito DOC',
-  'Colli Berici Pinot bianco DOC',
-  'Colli Berici Pinot grigio DOC',
-  'Colli Berici Pinot nero DOC',
-  'Colli Berici rosato o rosè metodo classico DOC',
-  'Colli Berici rosso DOC',
-  'Colli Berici rosso riserva DOC',
-  'Colli Berici Sauvignon DOC',
-  'Colli Berici Tai DOC',
-  'Colli Berici Tai Rosso DOC',
-  'Colli Berici Tai Rosso riserva DOC',
-  'Colli Berici Tai rosso spumante DOC',
-  'Colli Bolognesi classico Pignoletto DOCG',
-  'Colli Bolognesi DOC Barbera',
-  'Colli Bolognesi DOC Barbera frizzante',
-  'Colli Bolognesi DOC Barbera riserva',
-  'Colli Bolognesi DOC Bologna bianco',
-  'Colli Bolognesi DOC Bologna rosso',
-  'Colli Bolognesi DOC Bologna Spumante',
-
-  'Colli Bolognesi DOC Cabernet Sauvignon',
-  'Colli Bolognesi DOC Chardonnay',
-  'Colli Bolognesi DOC Merlot',
-  'Colli Bolognesi DOC Pignoletto frizzante',
-  'Colli Bolognesi DOC Pignoletto passito',
-  'Colli Bolognesi DOC Pignoletto spumante',
-  'Colli Bolognesi DOC Pignoletto superiore',
-  'Colli Bolognesi DOC Pinot bianco',
-  'Colli Bolognesi DOC Riesling Italico',
-  'Colli Bolognesi DOC Sauvignon',
-  'Colli d’Imola DOC Barbera',
-  'Colli d’Imola DOC bianco',
-  'Colli d’Imola DOC bianco frizzante',
-  'Colli d’Imola DOC bianco superiore',
-  'Colli d’Imola DOC Cabernet Sauvignon',
-  'Colli d’Imola DOC Cabernet Sauvignon riserva',
-  'Colli d’Imola DOC Chardonnay',
-  'Colli d’Imola DOC Chardonnay frizzante',
-  'Colli d’Imola DOC Pignoletto',
-  'Colli d’Imola DOC Pignoletto frizzante',
-  'Colli d’Imola DOC rosso',
-  'Colli d’Imola DOC rosso novello',
-  'Colli d’Imola DOC rosso riserva',
-  'Colli d’Imola DOC Sangiovese',
-  'Colli d’Imola DOC Sangiovese riserva',
-  'Colli d’Imola DOC Trebbiano',
-  'Colli d’Imola DOC Trebbiano frizzante',
-  'Colli del Trasimeno DOC bianco',
-
-  'Colli del Trasimeno DOC bianco frizzante',
-
-  'Colli del Trasimeno DOC bianco scelto',
-
-  'Colli del Trasimeno DOC bianco vino santo',
-
-  'Colli del Trasimeno DOC Cabernet sauvignon',
-  'Colli del Trasimeno DOC Cabernet sauvignon riserva',
-  'Colli del Trasimeno DOC Gamay',
-  'Colli del Trasimeno DOC Gamay riserva',
-  'Colli del Trasimeno DOC Grechetto',
-  'Colli del Trasimeno DOC Merlot',
-  'Colli del Trasimeno DOC Merlot riserva',
-  'Colli del Trasimeno DOC rosato',
-
-  'Colli del Trasimeno DOC rosso',
-
-  'Colli del Trasimeno DOC rosso frizzante',
-
-  'Colli del Trasimeno DOC rosso novello',
-
-  'Colli del Trasimeno DOC rosso riserva',
-
-  'Colli del Trasimeno DOC rosso scelto',
-
-  'Colli del Trasimeno DOC spumante metodo classico',
-  'Colli del Trasimeno DOC spumante metodo classico rosè',
-  'Colli dell’Etruria Centrale DOC bianco',
-  'Colli dell’Etruria Centrale DOC Novello',
-  'Colli dell’Etruria Centrale DOC rosato',
-  'Colli dell’Etruria Centrale DOC rosso',
-  'Colli dell’Etruria Centrale DOC Vin Santo',
-
-  'Colli dell’Etruria Centrale DOC Vin Santo Occhio di Pernice',
-
-  'Colli dell’Etruria Centrale DOC Vin Santo Occhio di Pernice riserva',
-  'Colli dell’Etruria Centrale DOC Vin Santo riserva',
-  'Colli della Sabina bianco DOC',
-  'Colli della Sabina rosso DOC',
-  'Colli di Conegliano bianco DOCG',
-  'Colli di Conegliano Refrontolo DOCG',
-  'Colli di Conegliano Refrontolo passito DOCG',
-  'Colli di Conegliano rosso DOCG',
-  'Colli di Conegliano rosso riserva DOCG',
-  'Colli di Conegliano Torchiato di Fregona DOCG',
-  'Colli di Faenza DOC bianco',
-
-  'Colli di Faenza DOC Pinot bianco',
-  'Colli di Faenza DOC rosso',
-  'Colli di Faenza DOC rosso riserva',
-  'Colli di Faenza DOC Sangiovese',
-  'Colli di Faenza DOC Sangiovese riserva',
-  'Colli di Faenza DOC Trebbiano',
-  'Colli di Luni DOC Albarola',
-  'Colli di Luni DOC bianco',
-  'Colli di Luni DOC rosso',
-  'Colli di Luni DOC rosso riserva',
-  'Colli di Luni DOC Vermentino',
-  'Colli di Luni DOC Vermentino superiore',
-  'Colli di Parma DOC Barbera',
-  'Colli di Parma DOC Bonarda',
-  'Colli di Parma DOC Cabernet franc',
-  'Colli di Parma DOC Cabernet sauvignon',
-  'Colli di Parma DOC Chardonnay',
-  'Colli di Parma DOC Chardonnay frizzante',
-  'Colli di Parma DOC Chardonnay spumante',
-  'Colli di Parma DOC Lambrusco',
-  'Colli di Parma DOC Lambrusco frizzante',
-  'Colli di Parma DOC Malvasia',
-  'Colli di Parma DOC Malvasia frizzante',
-  'Colli di Parma DOC Malvasia spumante',
-  'Colli di Parma DOC Merlot',
-  'Colli di Parma DOC Pinot bianco',
-  'Colli di Parma DOC Pinot bianco frizzante',
-  'Colli di Parma DOC Pinot bianco spumante',
-  'Colli di Parma DOC Pinot grigio',
-  'Colli di Parma DOC Pinot grigio frizzante',
-  'Colli di Parma DOC Pinot nero',
-  'Colli di Parma DOC rosso',
-  'Colli di Parma DOC rosso frizzante',
-  'Colli di Parma DOC Sauvignon',
-  'Colli di Parma DOC Sauvignon frizzante',
-  'Colli di Parma DOC Sauvignon spumante',
-  'Colli di Parma DOC Spumante',
-  'Colli di Rimini DOC Biancame',
-  'Colli di Rimini DOC bianco',
-  'Colli di Rimini DOC Cabernet Sauvignon',
-  'Colli di Rimini DOC Cabernet Sauvignon riserva',
-  'Colli di Rimini DOC Rèbola amabile',
-  'Colli di Rimini DOC Rèbola dolce',
-  'Colli di Rimini DOC Rèbola passito',
-  'Colli di Rimini DOC Rèbola secco',
-  'Colli di Rimini DOC rosso',
-  'Colli di Rimini DOC Sangiovese',
-  'Colli di Rimini DOC Sangiovese riserva',
-  'Colli di Rimini DOC Sangiovese superiore',
-  'Colli di Scandiano e Canossa DOC bianco anche classico',
-
-  'Colli di Scandiano e Canossa DOC bianco frizzante e bianco classico frizzante',
-  'Colli di Scandiano e Canossa DOC bianco spumante',
-  'Colli di Scandiano e Canossa DOC Cabernet sauvignon',
-
-  'Colli di Scandiano e Canossa DOC Cabernet sauvignon riserva',
-  'Colli di Scandiano e Canossa DOC Chardonnay',
-  'Colli di Scandiano e Canossa DOC Chardonnay frizzante',
-  'Colli di Scandiano e Canossa DOC Chardonnay spumante',
-  'Colli di Scandiano e Canossa DOC Lambrusco',
-
-  'Colli di Scandiano e Canossa DOC Lambrusco frizzante',
-
-  'Colli di Scandiano e Canossa DOC Lambrusco Grasparossa',
-
-  'Colli di Scandiano e Canossa DOC Lambrusco Grasparossa frizzante',
-
-  'Colli di Scandiano e Canossa DOC Lambrusco Montericco rosato',
-
-  'Colli di Scandiano e Canossa DOC Lambrusco Montericco rosato frizzante',
-
-  'Colli di Scandiano e Canossa DOC Lambrusco Montericco rosso',
-
-  'Colli di Scandiano e Canossa DOC Lambrusco Montericco rosso frizzante',
-  'Colli di Scandiano e Canossa DOC Malbo gentile',
-
-  'Colli di Scandiano e Canossa DOC Malbo gentile frizzante',
-  'Colli di Scandiano e Canossa DOC Malbo gentile novello',
-  'Colli di Scandiano e Canossa DOC Malbo gentile passito',
-  'Colli di Scandiano e Canossa DOC Malvasia',
-  'Colli di Scandiano e Canossa DOC Malvasia frizzante',
-  'Colli di Scandiano e Canossa DOC Malvasia passito',
-  'Colli di Scandiano e Canossa DOC Malvasia spumante',
-  'Colli di Scandiano e Canossa DOC Marzemino',
-  'Colli di Scandiano e Canossa DOC Marzemino frizzante',
-  'Colli di Scandiano e Canossa DOC Marzemino novello',
-  'Colli di Scandiano e Canossa DOC Marzemino passito',
-  'Colli di Scandiano e Canossa DOC Pinot',
-  'Colli di Scandiano e Canossa DOC Pinot frizzante',
-  'Colli di Scandiano e Canossa DOC Pinot spumante',
-  'Colli di Scandiano e Canossa DOC rosso',
-  'Colli di Scandiano e Canossa DOC rosso frizzante',
-  'Colli di Scandiano e Canossa DOC rosso novello',
-  'Colli di Scandiano e Canossa DOC Sauvignon',
-  'Colli di Scandiano e Canossa DOC Sauvignon frizzante',
-  'Colli di Scandiano e Canossa DOC Sauvignon passito',
-  'Colli di Scandiano e Canossa DOC Sauvignon riserva',
-  'Colli di Scandiano e Canossa DOC Spergola',
-  'Colli di Scandiano e Canossa DOC Spergola frizzante',
-  'Colli di Scandiano e Canossa DOC Spergola passito',
-  'Colli di Scandiano e Canossa DOC Spergola spumante',
-  'Colli Etruschi Viterbesi o Tuscia DOC bianco',
-  'Colli Etruschi Viterbesi o Tuscia DOC bianco amabile',
-  'Colli Etruschi Viterbesi o Tuscia DOC bianco frizzante',
-  'Colli Etruschi Viterbesi o Tuscia DOC Canaiolo',
-  'Colli Etruschi Viterbesi o Tuscia DOC Canaiolo amabile',
-  'Colli Etruschi Viterbesi o Tuscia DOC Grechetto',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Grechetto frizzante',
-  'Colli Etruschi Viterbesi o Tuscia DOC Greghetto',
-  'Colli Etruschi Viterbesi o Tuscia DOC Merlot',
-  'Colli Etruschi Viterbesi o Tuscia DOC Moscatello',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Moscatello amabile',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Moscatello frizzante',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Moscatello passito',
-  'Colli Etruschi Viterbesi o Tuscia DOC Procanico',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Procanico frizzante',
-  'Colli Etruschi Viterbesi o Tuscia DOC rosato',
-  'Colli Etruschi Viterbesi o Tuscia DOC rosato amabile',
-  'Colli Etruschi Viterbesi o Tuscia DOC rosato frizzante',
-  'Colli Etruschi Viterbesi o Tuscia DOC Rossetto',
-  'Colli Etruschi Viterbesi o Tuscia DOC Rossetto amabile',
-  'Colli Etruschi Viterbesi o Tuscia DOC rosso',
-  'Colli Etruschi Viterbesi o Tuscia DOC rosso amabile',
-  'Colli Etruschi Viterbesi o Tuscia DOC rosso frizzante',
-  'Colli Etruschi Viterbesi o Tuscia DOC rosso novello',
-  'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese amabile',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese frizzante',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese rosato',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese rosato amabile',
-
-  'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese rosato frizzante',
-  'Colli Etruschi Viterbesi o Tuscia DOC Violone',
-  'Colli Euganei Bianco DOC',
-
-  'Colli Euganei Bianco spumante DOC',
-  'Colli Euganei Cabernet sauvignon DOC',
-  'Colli Euganei Cabernet sauvignon riserva DOC',
-  'Colli Euganei Carmenère DOC',
-  'Colli Euganei Carmenère riserva DOC',
-  'Colli Euganei Chardonnay DOC',
-  'Colli Euganei Fior d’Arancio DOCG',
-  'Colli Euganei Fior d’Arancio passito DOCG',
-  'Colli Euganei Fior d’Arancio spumante DOCG',
-  'Colli Euganei Garganega DOC',
-  'Colli Euganei Manzoni bianco DOC',
-  'Colli Euganei Merlot DOC',
-  'Colli Euganei Merlot novello DOC',
-  'Colli Euganei Merlot riserva DOC',
-  'Colli Euganei Moscato DOC',
-  'Colli Euganei Moscato spumante DOC',
-  'Colli Euganei Pinello frizzante DOC',
-  'Colli Euganei Pinello spumante DOC',
-  'Colli Euganei Pinot bianco DOC',
-  'Colli Euganei Raboso DOC',
-  'Colli Euganei Raboso riserva DOC',
-  'Colli Euganei Rosso DOC',
-
-  'Colli Euganei Rosso riserva DOC',
-
-  'Colli Euganei Sauvignon DOC',
-  'Colli Euganei Serprino frizzante DOC',
-  'Colli Euganei Serprino spumante DOC',
-  'Colli Euganei Tai DOC',
-  'Colli Lanuvini bianco DOC',
-
-  'Colli Lanuvini bianco spumante DOC',
-
-  'Colli Lanuvini bianco superiore DOC',
-
-  'Colli Lanuvini rosso DOC',
-  'Colli Lanuvini rosso riserva DOC',
-  'Colli Lanuvini rosso superiore DOC',
-  'Colli Maceratesi DOC bianco',
-  'Colli Maceratesi DOC bianco passito',
-  'Colli Maceratesi DOC bianco spumante',
-  'Colli Maceratesi DOC Ribona',
-  'Colli Maceratesi DOC Ribona passito',
-  'Colli Maceratesi DOC Ribona spumante',
-  'Colli Maceratesi DOC rosso',
-  'Colli Maceratesi DOC rosso novello',
-  'Colli Maceratesi DOC rosso riserva',
-  'Colli Maceratesi DOC Sangiovese',
-  'Colli Martani DOC bianco',
-  'Colli Martani DOC Cabernet sauvignon',
-  'Colli Martani DOC Chardonnay',
-  'Colli Martani DOC Grechetto',
-  'Colli Martani DOC Grechetto di Todi',
-  'Colli Martani DOC Merlot',
-  'Colli Martani DOC Merlot riserva',
-  'Colli Martani DOC Riesling',
-  'Colli Martani DOC rosso',
-  'Colli Martani DOC Sangiovese',
-  'Colli Martani DOC Sangiovese riserva',
-  'Colli Martani DOC Sauvignon',
-  'Colli Martani DOC spumante',
-  'Colli Martani DOC Trebbiano',
-  'Colli Martani DOC Vernaccia (nera)',
-  'Colli Orientali del Friuli Picolit Cialla DOCG',
-  'Colli Orientali del Friuli Picolit DOCG',
-  'Colli Perugini DOC bianco',
-  'Colli Perugini DOC Cabernet sauvignon',
-  'Colli Perugini DOC Chardonnay',
-  'Colli Perugini DOC Grechetto',
-  'Colli Perugini DOC Merlot',
-  'Colli Perugini DOC novello',
-  'Colli Perugini DOC Pinot grigio',
-  'Colli Perugini DOC rosato',
-  'Colli Perugini DOC rosso',
-  'Colli Perugini DOC Sangiovese',
-  'Colli Perugini DOC spumante',
-  'Colli Perugini DOC Trebbiano',
-  'Colli Perugini DOC Vin Santo',
-  'Colli Pesaresi DOC Biancame',
-  'Colli Pesaresi DOC bianco',
-  'Colli Pesaresi DOC Focara Pinot nero',
-  'Colli Pesaresi DOC Focara Pinot nero riserva',
-  'Colli Pesaresi DOC Focara Pinot nero spumante',
-
-  'Colli Pesaresi DOC Focara Pinot nero vinificato in bianco',
-
-  'Colli Pesaresi DOC Focara Pinot nero vinificato in bianco riserva',
-  'Colli Pesaresi DOC Focara rosso',
-  'Colli Pesaresi DOC Focara rosso riserva',
-
-  'Colli Pesaresi DOC Parco naturale Monte San Bartolo Cabernet sauvignon',
-
-  'Colli Pesaresi DOC Parco naturale Monte San Bartolo Cabernet sauvignon riserva',
-
-  'Colli Pesaresi DOC Parco naturale Monte San Bartolo Sangiovese',
-
-  'Colli Pesaresi DOC Parco naturale Monte San Bartolo Sangiovese riserva',
-  'Colli Pesaresi DOC Roncaglia bianco',
-  'Colli Pesaresi DOC Roncaglia bianco riserva',
-  'Colli Pesaresi DOC Roncaglia Pinot nero',
-  'Colli Pesaresi DOC Roncaglia Pinot nero riserva',
-  'Colli Pesaresi DOC Roncaglia Pinot nero spumante',
-
-  'Colli Pesaresi DOC Roncaglia Pinot nero vinificato in bianco',
-
-  'Colli Pesaresi DOC Roncaglia Pinot nero vinificato in bianco riserva',
-  'Colli Pesaresi DOC rosato (o rosè)',
-  'Colli Pesaresi DOC rosso',
-  'Colli Pesaresi DOC Sangiovese',
-  'Colli Pesaresi DOC Sangiovese novello',
-  'Colli Pesaresi DOC Sangiovese riserva',
-  'Colli Pesaresi DOC spumante',
-  'Colli Pesaresi DOC Trebbiano',
-  'Colli Piacentini DOC Barbera',
-  'Colli Piacentini DOC Barbera frizzante',
-  'Colli Piacentini DOC Bonarda',
-  'Colli Piacentini DOC Bonarda frizzante',
-  'Colli Piacentini DOC Cabernet sauvignon',
-  'Colli Piacentini DOC Chardonnay',
-  'Colli Piacentini DOC Chardonnay frizzante',
-  'Colli Piacentini DOC Chardonnay spumante',
-  'Colli Piacentini DOC Malvasia',
-  'Colli Piacentini DOC Malvasia frizzante',
-  'Colli Piacentini DOC Malvasia passito',
-  'Colli Piacentini DOC Malvasia spumante',
-  'Colli Piacentini DOC Monterosso Val d’Arda',
-
-  'Colli Piacentini DOC Monterosso Val d’Arda frizzante',
-
-  'Colli Piacentini DOC Monterosso Val d’Arda spumante',
-
-  'Colli Piacentini DOC Novello',
-  'Colli Piacentini DOC Pinot grigio',
-  'Colli Piacentini DOC Pinot grigio frizzante',
-  'Colli Piacentini DOC Pinot grigio spumante',
-  'Colli Piacentini DOC Pinot nero',
-  'Colli Piacentini DOC Pinot nero frizzante',
-  'Colli Piacentini DOC Pinot nero spumante',
-  'Colli Piacentini DOC Sauvignon',
-  'Colli Piacentini DOC Sauvignon frizzante',
-  'Colli Piacentini DOC Trebbianino Val Trebbia',
-
-  'Colli Piacentini DOC Trebbianino Val Trebbia frizzante',
-
-  'Colli Piacentini DOC Trebbianino Val Trebbia spumante',
-
-  'Colli Piacentini DOC Valnure',
-  'Colli Piacentini DOC Valnure frizzante',
-  'Colli Piacentini DOC Valnure spumante',
-  'Colli Piacentini DOC Vin Santo',
-
-  'Colli Piacentini DOC Vin Santo di Vigoleno',
-  'Colli Romagna Centrale DOC bianco',
-
-  'Colli Romagna Centrale DOC Cabernet sauvignon',
-  'Colli Romagna Centrale DOC Cabernet sauvignon riserva',
-  'Colli Romagna Centrale DOC Chardonnay',
-  'Colli Romagna Centrale DOC Chardonnay riserva',
-  'Colli Romagna Centrale DOC rosso',
-  'Colli Romagna Centrale DOC rosso riserva',
-  'Colli Romagna Centrale DOC Sangiovese',
-  'Colli Romagna Centrale DOC Sangiovese riserva',
-  'Colli Romagna Centrale DOC Trebbiano',
-  'Colli Tortonesi Barbera DOC',
-  'Colli Tortonesi Barbera riserva DOC',
-  'Colli Tortonesi Barbera superiore DOC',
-  'Colli Tortonesi Bianco DOC',
-  'Colli Tortonesi Bianco frizzante DOC',
-  'Colli Tortonesi Chiaretto DOC',
-  'Colli Tortonesi Chiaretto frizzante DOC',
-  'Colli Tortonesi Cortese DOC',
-  'Colli Tortonesi Cortese frizzante DOC',
-  'Colli Tortonesi Cortese riserva DOC',
-  'Colli Tortonesi Cortese spumante DOC',
-  'Colli Tortonesi Croatina DOC',
-  'Colli Tortonesi Croatina riserva DOC',
-  'Colli Tortonesi Dolcetto DOC',
-  'Colli Tortonesi Dolcetto novello DOC',
-  'Colli Tortonesi Favorita DOC',
-  'Colli Tortonesi Freisa DOC',
-  'Colli Tortonesi Monleale DOC',
-  'Colli Tortonesi Moscato DOC',
-  'Colli Tortonesi Novello DOC',
-  'Colli Tortonesi Rosso DOC',
-  'Colli Tortonesi Rosso frizzante DOC',
-  'Colli Tortonesi Terre di Libarna Bianco DOC',
-  'Colli Tortonesi Terre di Libarna Rosso DOC',
-  'Colli Tortonesi Terre di Libarna Spumante DOC',
-  'Colli Tortonesi Terre di Libarna Timorasso DOC',
-  'Colli Tortonesi Timorasso DOC',
-  'Colli Tortonesi Timorasso riserva DOC',
-  'Collina Torinese Barbera DOC',
-  'Collina Torinese Bonarda DOC',
-  'Collina Torinese Malvasia DOC',
-  'Collina Torinese Pelaverga o Cari DOC',
-  'Collina Torinese rosso DOC',
-  'Collina Torinese rosso novello DOC',
-  'Colline di Levanto DOC bianco',
-  'Colline di Levanto DOC novello',
-  'Colline di Levanto DOC rosso',
-  'Colline di Levanto DOC Vermentino',
-  'Colline Joniche Tarantine DOC bianco',
-  'Colline Joniche Tarantine DOC bianco spumante',
-  'Colline Joniche Tarantine DOC novello',
-  'Colline Joniche Tarantine DOC Primitivo',
-
-  'Colline Joniche Tarantine DOC Primitivo liquoroso – Vino dolce naturale',
-
-  'Colline Joniche Tarantine DOC Primitivo liquoroso secco',
-  'Colline Joniche Tarantine DOC Primitivo superiore',
-  'Colline Joniche Tarantine DOC rosato',
-  'Colline Joniche Tarantine DOC rosso',
-  'Colline Joniche Tarantine DOC rosso superiore',
-  'Colline Joniche Tarantine DOC Verdeca',
-  'Colline Lucchesi DOC bianco',
-  'Colline Lucchesi DOC Merlot',
-  'Colline Lucchesi DOC rosso',
-  'Colline Lucchesi DOC Sangiovese',
-  'Colline Lucchesi DOC Sauvignon',
-  'Colline Lucchesi DOC Vermentino',
-  'Colline Lucchesi DOC Vin Santo',
-  'Colline Lucchesi DOC Vin Santo Occhio di Pernice',
-  'Colline Novaresi DOC Barbera',
-  'Colline Novaresi DOC bianco',
-  'Colline Novaresi DOC Croatina',
-  'Colline Novaresi DOC Nebbiolo (Spanna)',
-  'Colline Novaresi DOC novello',
-  'Colline Novaresi DOC rosato',
-  'Colline Novaresi DOC rosato novello',
-  'Colline Novaresi DOC rosso',
-  'Colline Novaresi DOC Uva rara (Bonarda Novarese)',
-  'Colline Novaresi DOC Vespolina',
-  'Colline Saluzzesi DOC (rosso)',
-  'Colline Saluzzesi DOC Barbera',
-  'Colline Saluzzesi DOC Chatus',
-  'Colline Saluzzesi DOC Pelaverga',
-  'Colline Saluzzesi DOC Pelaverga rosato',
-  'Colline Saluzzesi DOC Quagliano',
-  'Colline Saluzzesi DOC Quagliano spumante',
-  'Collio bianco DOC',
-  'Collio Cabernet DOC',
-  'Collio Cabernet franc DOC',
-  'Collio Cabernet sauvignon DOC',
-  'Collio Chardonnay DOC',
-  'Collio Friulano DOC',
-  'Collio Malvasia DOC',
-  'Collio Merlot DOC',
-  'Collio Müller-Thurgau DOC',
-  'Collio Picolit DOC',
-  'Collio Pinot bianco DOC',
-  'Collio Pinot grigio DOC',
-  'Collio Pinot nero DOC',
-  'Collio Ribolla o Ribolla gialla DOC',
-  'Collio Riesling DOC',
-  'Collio Riesling italico DOC',
-  'Collio rosso DOC',
-  'Collio Sauvignon DOC',
-  'Collio Traminer aromatico DOC',
-  'Conegliano Valdobbiadene Prosecco DOCG',
-  'Conegliano Valdobbiadene Prosecco frizzante DOCG',
-
-  'Conegliano Valdobbiadene Prosecco frizzante metodo tradizionale DOCG',
-
-  'Conegliano Valdobbiadene Prosecco spumante superiore di Cartizze DOCG',
-
-  'Conegliano Valdobbiadene Prosecco spumante superiore DOCG',
-  'Conero DOCG',
-  'Contea di Sclafani DOC Ansonica o Inzolia',
-  'Contea di Sclafani DOC Ansonica o Inzolia spumante',
-  'Contea di Sclafani DOC bianco',
-  'Contea di Sclafani DOC bianco spumante',
-  'Contea di Sclafani DOC Cabernet Sauvignon',
-  'Contea di Sclafani DOC Cabernet Sauvignon riserva',
-  'Contea di Sclafani DOC Catarratto',
-  'Contea di Sclafani DOC Catarratto spumante',
-  'Contea di Sclafani DOC Chardonnay',
-  'Contea di Sclafani DOC Chardonnay spumante',
-  'Contea di Sclafani DOC dolce',
-  'Contea di Sclafani DOC dolce vendemmia tardiva',
-  'Contea di Sclafani DOC Grecanico',
-  'Contea di Sclafani DOC Grecanico spumante',
-  'Contea di Sclafani DOC Grillo',
-  'Contea di Sclafani DOC Grillo spumante',
-  'Contea di Sclafani DOC Merlot',
-  'Contea di Sclafani DOC Merlot riserva',
-  'Contea di Sclafani DOC Nerello Mascalese',
-  'Contea di Sclafani DOC Nero d’ Avola o Calabrese',
-
-  'Contea di Sclafani DOC Nero d’ Avola o Calabrese riserva',
-  'Contea di Sclafani DOC novello',
-  'Contea di Sclafani DOC Perricone',
-  'Contea di Sclafani DOC Perricone riserva',
-  'Contea di Sclafani DOC Pinot bianco',
-  'Contea di Sclafani DOC Pinot bianco spumante',
-  'Contea di Sclafani DOC Pinot nero',
-  'Contea di Sclafani DOC Pinot nero riserva',
-  'Contea di Sclafani DOC rosato',
-  'Contea di Sclafani DOC rosato spumante',
-  'Contea di Sclafani DOC rosso',
-  'Contea di Sclafani DOC Sangiovese',
-  'Contea di Sclafani DOC Sangiovese riserva',
-  'Contea di Sclafani DOC Sauvignon',
-  'Contea di Sclafani DOC Sauvignon spumante',
-  'Contea di Sclafani DOC Syrah',
-  'Contea di Sclafani DOC Syrah riserva',
-  'Contessa Entellina DOC Ansonica',
-  'Contessa Entellina DOC bianco',
-  'Contessa Entellina DOC Cabernet sauvignon',
-  'Contessa Entellina DOC Catarratto',
-  'Contessa Entellina DOC Chardonnay',
-  'Contessa Entellina DOC Fiano',
-  'Contessa Entellina DOC Grecanico',
-  'Contessa Entellina DOC Merlot',
-  'Contessa Entellina DOC Nero d’Avola',
-  'Contessa Entellina DOC Pinot nero',
-  'Contessa Entellina DOC rosato',
-  'Contessa Entellina DOC rosso',
-  'Contessa Entellina DOC rosso riserva',
-  'Contessa Entellina DOC Sauvignon',
-  'Contessa Entellina DOC Syrah',
-  'Contessa Entellina DOC vendemmia tardiva',
-  'Contessa Entellina DOC Viognier',
-  'Controguerra DOC bianco',
-  'Controguerra DOC bianco passito',
-  'Controguerra DOC Cabernet',
-  'Controguerra DOC Chardonnay',
-  'Controguerra DOC Merlot',
-  'Controguerra DOC novello',
-  'Controguerra DOC Passerina',
-  'Controguerra DOC Pecorino',
-  'Controguerra DOC rosato',
-  'Controguerra DOC rosso',
-  'Controguerra DOC rosso passito',
-  'Controguerra DOC rosso riserva',
-  'Controguerra DOC spumante metodo classico',
-  'Copertino DOC rosato',
-
-  'Copertino DOC rosso',
-
-  'Copertino DOC rosso riserva',
-
-  'Cori DOC Bellone',
-  'Cori DOC bianco',
-  'Cori DOC Nero buono',
-  'Cori DOC Nero buono riserva',
-  'Cori DOC rosso',
-  'Cortese dell’Alto Monferrato DOC',
-  'Cortese dell’Alto Monferrato DOC frizzante',
-  'Cortese dell’Alto Monferrato DOC spumante',
-  'Corti Benedettine del Padovano Bianco DOC',
-  'Corti Benedettine del Padovano Cabernet DOC',
-  'Corti Benedettine del Padovano Cabernet riserva DOC',
-  'Corti Benedettine del Padovano Cabernet Sauvignon DOC',
-
-  'Corti Benedettine del Padovano Cabernet Sauvignon riserva DOC',
-  'Corti Benedettine del Padovano Chardonnay DOC',
-  'Corti Benedettine del Padovano Merlot DOC',
-  'Corti Benedettine del Padovano Novello DOC',
-  'Corti Benedettine del Padovano Passito DOC',
-  'Corti Benedettine del Padovano Pinot Bianco DOC',
-  'Corti Benedettine del Padovano Pinot Grigio DOC',
-  'Corti Benedettine del Padovano Raboso DOC',
-  'Corti Benedettine del Padovano Raboso passito DOC',
-  'Corti Benedettine del Padovano Raboso riserva DOC',
-
-  'Corti Benedettine del Padovano Refosco dal Peduncolo Rosso DOC',
-
-  'Corti Benedettine del Padovano Refosco dal Peduncolo Rosso riserva DOC',
-  'Corti Benedettine del Padovano Rosato DOC',
-  'Corti Benedettine del Padovano Rosso DOC',
-  'Corti Benedettine del Padovano Sauvignon DOC',
-  'Corti Benedettine del Padovano Spumante Moscato DOC',
-  'Corti Benedettine del Padovano Tai DOC',
-  'Cortona DOC Cabernet Sauvignon',
-  'Cortona DOC Cabernet Sauvignon riserva',
-  'Cortona DOC Chardonnay',
-  'Cortona DOC Grechetto',
-  'Cortona DOC Merlot',
-  'Cortona DOC Merlot riserva',
-  'Cortona DOC rosso',
-  'Cortona DOC Sangiovese',
-  'Cortona DOC Sangiovese riserva',
-  'Cortona DOC Sauvignon',
-  'Cortona DOC Syrah',
-  'Cortona DOC Syrah riserva',
-  'Cortona DOC Vin Santo',
-  'Cortona DOC Vin Santo Occhio di Pernice',
-  'Cortona DOC Vin Santo riserva',
-  'Costa d’Amalfi DOC bianco',
-  'Costa d’Amalfi DOC bianco passito',
-  'Costa d’Amalfi DOC bianco spumante',
-  'Costa d’Amalfi DOC rosato',
-  'Costa d’Amalfi DOC rosso',
-  'Costa d’Amalfi DOC rosso passito',
-  'Coste della Sesia DOC bianco',
-  'Coste della Sesia DOC Croatina',
-  'Coste della Sesia DOC Nebbiolo o Spanna',
-  'Coste della Sesia DOC rosato',
-  'Coste della Sesia DOC rosso',
-  'Coste della Sesia DOC Vespolina',
-  'Curtefranca bianco DOC',
-  'Curtefranca rosso DOC',
-  'Delia Nivolelli DOC bianco',
-  'Delia Nivolelli DOC bianco frizzante',
-  'Delia Nivolelli DOC Cabernet sauvignon',
-  'Delia Nivolelli DOC Cabernet sauvignon riserva',
-  'Delia Nivolelli DOC Chardonnay',
-  'Delia Nivolelli DOC Damaschino',
-  'Delia Nivolelli DOC Grecanico',
-  'Delia Nivolelli DOC Grillo',
-  'Delia Nivolelli DOC Inzolia',
-  'Delia Nivolelli DOC Merlot',
-  'Delia Nivolelli DOC Merlot riserva',
-  'Delia Nivolelli DOC Müller-Thrurgau',
-  'Delia Nivolelli DOC Nero d’Avola',
-  'Delia Nivolelli DOC Nero d’Avola riserva',
-  'Delia Nivolelli DOC novello',
-  'Delia Nivolelli DOC Pignatello o Perricone',
-  'Delia Nivolelli DOC Pignatello o Perricone riserva',
-  'Delia Nivolelli DOC rosso',
-  'Delia Nivolelli DOC rosso riserva',
-  'Delia Nivolelli DOC Sangiovese',
-  'Delia Nivolelli DOC Sangiovese riserva',
-  'Delia Nivolelli DOC Sauvignon',
-  'Delia Nivolelli DOC spumante',
-  'Delia Nivolelli DOC Syrah',
-  'Delia Nivolelli DOC Syrah riserva',
-  'Dogliani DOCG',
-  'Dogliani superiore DOCG',
-  'Dolcetto d’Acqui DOC',
-  'Dolcetto d’Acqui superiore DOC',
-  'Dolcetto d’Alba DOC',
-  'Dolcetto d’Alba superiore DOC',
-  'Dolcetto d’Asti DOC',
-  'Dolcetto d’Asti superiore DOC',
-  'Dolcetto di Diano d’Alba o Diano d’Alba DOCG',
-  'Dolcetto di Diano d’Alba o Diano d’Alba superiore DOCG',
-  'Dolcetto di Ovada DOC',
-  'Dolcetto di Ovada superiore o Ovada DOCG',
-
-  'Dolcetto di Ovada superiore o Ovada DOCG con menzione vigna',
-
-  'Dolcetto di Ovada superiore o Ovada DOCG con menzione vigna riserva',
-
-  'Dolcetto di Ovada superiore riserva o Ovada riserva DOCG',
-
-  'Elba Aleatico passito o Aleatico Passito dell’Elba DOCG',
-  'Elba DOC Ansonica',
-  'Elba DOC Ansonica passito',
-  'Elba DOC bianco',
-  'Elba DOC bianco passito',
-  'Elba DOC bianco spumante',
-  'Elba DOC Moscato passito',
-  'Elba DOC rosato',
-  'Elba DOC rosso',
-  'Elba DOC rosso riserva',
-  'Elba DOC Sangiovese o Sangioveto',
-  'Elba DOC Trebbiano o Procanico',
-  'Elba DOC Vermentino',
-  'Elba DOC Vin Santo',
-  'Elba DOC Vin Santo Occhio di Pernice',
-  'Eloro DOC Frappato',
-  'Eloro DOC Nero d’Avola',
-  'Eloro DOC Pachino',
-  'Eloro DOC Pignatello',
-  'Eloro DOC rosato',
-  'Eloro DOC rosso',
-  'Erbaluce di Caluso o Caluso DOCG',
-  'Erbaluce di Caluso o Caluso passito DOCG',
-  'Erbaluce di Caluso o Caluso passito riserva DOCG',
-  'Erbaluce di Caluso o Caluso spumante DOCG',
-  'Erice DOC Ansonica o Inzolia',
-  'Erice DOC bianco',
-  'Erice DOC Cabernet sauvignon',
-  'Erice DOC Calabrese o Nero d’Avola',
-  'Erice DOC Catarratto',
-  'Erice DOC Chardonnay',
-  'Erice DOC Frappato',
-  'Erice DOC Grecanico',
-  'Erice DOC Grillo',
-  'Erice DOC Merlot',
-  'Erice DOC Moscato',
-  'Erice DOC Müller-Thurgau',
-  'Erice DOC passito',
-  'Erice DOC Perricone o Pignatello',
-  'Erice DOC rosso',
-  'Erice DOC rosso riserva',
-  'Erice DOC Sauvignon',
-  'Erice DOC Sauvignon vendemmia tardiva',
-  'Erice DOC spumante brut',
-  'Erice DOC spumante dolce',
-  'Erice DOC Syrah',
-  'Erice DOC Zibibbo vendemmia tardiva',
-  'Esino DOC bianco',
-  'Esino DOC bianco frizzante',
-  'Esino DOC novello',
-  'Esino DOC rosso',
-  'Est!! Est!! Est!! di Montefiascone DOC',
-
-  'Est!! Est!! Est!! di Montefiascone DOC classico',
-
-  'Est!! Est!! Est!! di Montefiascone DOC spumante',
-
-  'Etna DOC bianco',
-  'Etna DOC bianco superiore',
-  'Etna DOC rosato',
-  'Etna DOC rosso',
-  'Etna DOC rosso riserva',
-  'Etna DOC spumante (vinificato in bianco)',
-  'Etna DOC spumante rosato',
-  'Falanghina del Sannio DOC',
-
-  'Falanghina del Sannio Guardia Sanframondi o Guardiolo DOC',
-
-  'Falanghina del Sannio Guardia Sanframondi o Guardiolo passito DOC',
-
-  'Falanghina del Sannio Guardia Sanframondi o Guardiolo spumante di qualità DOC',
-
-  'Falanghina del Sannio Guardia Sanframondi o Guardiolo spumante DOC',
-
-  'Falanghina del Sannio Guardia Sanframondi o Guardiolo vendemmia tardiva DOC',
-
-  'Falanghina del Sannio Guardia Sanframondi o Guardiolospumante di qualità metodo classico DOC',
-  'Falanghina del Sannio passito DOC',
-  'Falanghina del Sannio Sant’Agata dei Goti DOC',
-  'Falanghina del Sannio Sant’Agata dei Goti passito DOC',
-
-  'Falanghina del Sannio Sant’Agata dei Goti spumante di qualità DOC',
-
-  'Falanghina del Sannio Sant’Agata dei Goti spumante di qualità metodo classico DOC',
-  'Falanghina del Sannio Sant’Agata dei Goti spumante DOC',
-
-  'Falanghina del Sannio Sant’Agata dei Goti vendemmia tardiva DOC',
-  'Falanghina del Sannio Solopaca DOC',
-  'Falanghina del Sannio Solopaca passito DOC',
-  'Falanghina del Sannio Solopaca spumante di qualità DOC',
-
-  'Falanghina del Sannio Solopaca spumante di qualità metodo classico DOC',
-  'Falanghina del Sannio Solopaca spumante DOC',
-  'Falanghina del Sannio Solopaca vendemmia tardiva DOC',
-  'Falanghina del Sannio spumante di qualità DOC',
-
-  'Falanghina del Sannio spumante di qualità metodo classico DOC',
-  'Falanghina del Sannio spumante DOC',
-  'Falanghina del Sannio Taburno DOC',
-  'Falanghina del Sannio Taburno passito DOC',
-  'Falanghina del Sannio Taburno spumante di qualità DOC',
-
-  'Falanghina del Sannio Taburno spumante di qualità metodo classico DOC',
-  'Falanghina del Sannio Taburno spumante DOC',
-  'Falanghina del Sannio Taburno vendemmia tardiva DOC',
-  'Falanghina del Sannio vendemmia tardiva DOC',
-  'Falerio DOC',
-  'Falerio DOC Pecorino',
-  'Falerno del Massico DOC bianco',
-  'Falerno del Massico DOC Primitivo',
-  'Falerno del Massico DOC Primitivo riserva (o vecchio)',
-  'Falerno del Massico DOC rosso',
-  'Falerno del Massico DOC rosso riserva',
-  'Fara DOC',
-  'Fara DOC con menzione vigna',
-  'Faro DOC',
-  'Fiano di Avellino DOCG',
-  'Franciacorta DOCG',
-  'Franciacorta millesimato DOCG',
-  'Franciacorta riserva DOCG',
-  'Franciacorta Rosé DOCG',
-  'Franciacorta Rosé millesimato DOCG',
-  'Franciacorta Rosé riserva DOCG',
-  'Franciacorta Satèn DOCG',
-  'Franciacorta Satèn millesimato DOCG',
-  'Franciacorta Satèn riserva DOCG',
-  'Frascati DOC',
-  'Frascati spumante DOC',
-  'Frascati superiore DOCG',
-  'Frascati superiore riserva DOCG',
-  'Freisa d’Asti DOC',
-  'Freisa d’Asti DOC frizzante',
-  'Freisa d’Asti DOC spumante',
-  'Freisa d’Asti DOC superiore',
-  'Freisa di Chieri DOC dolce',
-  'Freisa di Chieri DOC frizzante',
-  'Freisa di Chieri DOC secco',
-  'Freisa di Chieri DOC spumante',
-  'Freisa di Chieri DOC superiore',
-  'Friuli Annia Bianco DOC',
-  'Friuli Annia Cabernet franc DOC',
-  'Friuli Annia Cabernet sauvignon DOC',
-  'Friuli Annia Chardonnay DOC',
-  'Friuli Annia Friulano DOC',
-  'Friuli Annia Malvasia DOC',
-  'Friuli Annia Merlot DOC',
-  'Friuli Annia Pinot grigio DOC',
-  'Friuli Annia Refosco dal peduncolo rosso DOC',
-  'Friuli Annia Rosato DOC',
-  'Friuli Annia Rosso DOC',
-  'Friuli Annia Sauvignon DOC',
-  'Friuli Annia Spumante DOC',
-  'Friuli Annia Traminer aromatico DOC',
-  'Friuli Annia Verduzzo friulano DOC',
-  'Friuli Aquileia Cabernet DOC',
-  'Friuli Aquileia Cabernet franc DOC',
-  'Friuli Aquileia Cabernet sauvignon DOC',
-  'Friuli Aquileia Chardonnay DOC',
-  'Friuli Aquileia Friulano DOC',
-  'Friuli Aquileia Malvasia istriana DOC',
-  'Friuli Aquileia Merlot DOC',
-  'Friuli Aquileia Müller Thurgau DOC',
-  'Friuli Aquileia Novello DOC',
-  'Friuli Aquileia Pinot bianco DOC',
-  'Friuli Aquileia Pinot grigio DOC',
-  'Friuli Aquileia Riesling DOC',
-  'Friuli Aquileia Rosato DOC',
-  'Friuli Aquileia Rosso DOC',
-  'Friuli Aquileia Sauvignon DOC',
-  'Friuli Aquileia Traminer aromatico DOC',
-  'Friuli Aquileia Verduzzo friulano DOC',
-  'Friuli Bianco DOC',
-
-  'Friuli Cabernet DOC',
-  'Friuli Cabernet Franc DOC',
-  'Friuli Cabernet Sauvignon DOC',
-  'Friuli Chardonnay DOC',
-  'Friuli Colli Orientali Bianco DOC',
-  'Friuli Colli Orientali Bianco DOC “Cialla”',
-  'Friuli Colli Orientali Cabernet DOC',
-  'Friuli Colli Orientali Cabernet franc DOC',
-  'Friuli Colli Orientali Cabernet sauvignon DOC',
-  'Friuli Colli Orientali Chardonnay DOC',
-  'Friuli Colli Orientali Dolce DOC',
-  'Friuli Colli Orientali Friulano DOC',
-  'Friuli Colli Orientali Malvasia DOC',
-  'Friuli Colli Orientali Merlot DOC',
-  'Friuli Colli Orientali Pignolo di Rosazzo DOC',
-  'Friuli Colli Orientali Pignolo DOC',
-  'Friuli Colli Orientali Pinot bianco DOC',
-  'Friuli Colli Orientali Pinot grigio DOC',
-  'Friuli Colli Orientali Pinot nero DOC',
-  'Friuli Colli Orientali Refosco dal peduncolo rosso DOC',
-
-  'Friuli Colli Orientali Refosco dal peduncolo rosso DOC “Cialla”',
-  'Friuli Colli Orientali Refosco di Faedis DOC',
-  'Friuli Colli Orientali Ribolla gialla di Rosazzo DOC',
-  'Friuli Colli Orientali Ribolla gialla DOC',
-  'Friuli Colli Orientali Ribolla gialla DOC “Cialla”',
-  'Friuli Colli Orientali Riesling DOC',
-  'Friuli Colli Orientali Rosso DOC',
-  'Friuli Colli Orientali Rosso DOC “Cialla”',
-  'Friuli Colli Orientali Sauvignon DOC',
-  'Friuli Colli Orientali Schioppettino di Prepotto DOC',
-  'Friuli Colli Orientali Schioppettino DOC',
-  'Friuli Colli Orientali Schioppettino DOC “Cialla”',
-  'Friuli Colli Orientali Tazzelenghe DOC',
-  'Friuli Colli Orientali Traminer aromatico DOC',
-  'Friuli Colli Orientali Verduzzo friulano DOC',
-  'Friuli Colli Orientali Verduzzo friulano DOC “Cialla”',
-  'Friuli Friulano DOC',
-  'Friuli Grave Bianco DOC',
-  'Friuli Grave Cabernet DOC',
-  'Friuli Grave Cabernet franc DOC',
-  'Friuli Grave Cabernet sauvignon DOC',
-  'Friuli Grave Chardonnay DOC',
-  'Friuli Grave Friulano DOC',
-  'Friuli Grave Merlot DOC',
-  'Friuli Grave Novello DOC',
-  'Friuli Grave Pinot bianco DOC',
-  'Friuli Grave Pinot grigio DOC',
-  'Friuli Grave Pinot nero DOC',
-  'Friuli Grave Refosco dal peduncolo rosso DOC',
-  'Friuli Grave Riesling DOC',
-  'Friuli Grave Rosato DOC',
-  'Friuli Grave Rosso DOC',
-  'Friuli Grave Sauvignon DOC',
-  'Friuli Grave Spumante DOC',
-  'Friuli Grave Traminer aromatico DOC',
-  'Friuli Grave Verduzzo friulano DOC',
-  'Friuli Isonzo Bianco DOC',
-  'Friuli Isonzo Cabernet DOC',
-  'Friuli Isonzo Cabernet franc DOC',
-  'Friuli Isonzo Cabernet sauvignon DOC',
-  'Friuli Isonzo Chardonnay DOC',
-  'Friuli Isonzo Chardonnay spumante DOC',
-  'Friuli Isonzo Franconia DOC',
-  'Friuli Isonzo Friulano DOC',
-  'Friuli Isonzo Malvasia DOC',
-  'Friuli Isonzo Merlot DOC',
-  'Friuli Isonzo Moscato giallo DOC',
-  'Friuli Isonzo Moscato giallo spumante DOC',
-  'Friuli Isonzo Moscato rosa DOC',
-  'Friuli Isonzo Moscato rosa spumante DOC',
-  'Friuli Isonzo Pignolo DOC',
-  'Friuli Isonzo Pinot bianco DOC',
-  'Friuli Isonzo Pinot grigio DOC',
-  'Friuli Isonzo Pinot nero DOC',
-  'Friuli Isonzo Pinot spumante DOC',
-  'Friuli Isonzo Refosco dal peduncolo rosso DOC',
-  'Friuli Isonzo Riesling DOC',
-  'Friuli Isonzo Riesling italico DOC',
-  'Friuli Isonzo Rosato DOC',
-  'Friuli Isonzo Rosso DOC',
-  'Friuli Isonzo Rosso spumante DOC',
-  'Friuli Isonzo Sauvignon DOC',
-  'Friuli Isonzo Schioppettino DOC',
-  'Friuli Isonzo Traminer aromatico DOC',
-  'Friuli Isonzo Vendemmia Tardiva DOC',
-
-  'Friuli Isonzo Verduzzo friulano DOC',
-  'Friuli Isonzo Verduzzo friulano spumante DOC',
-  'Friuli Latisana Bianco DOC',
-  'Friuli Latisana Cabernet DOC',
-  'Friuli Latisana Cabernet franc DOC',
-  'Friuli Latisana Cabernet franc novello DOC',
-  'Friuli Latisana Cabernet novello DOC',
-  'Friuli Latisana Cabernet sauvignon DOC',
-  'Friuli Latisana Cabernet sauvignon novello DOC',
-  'Friuli Latisana Carmenere DOC',
-  'Friuli Latisana Carmenere novello DOC',
-  'Friuli Latisana Chardonnay DOC',
-  'Friuli Latisana Chardonnay frizzante DOC',
-  'Friuli Latisana Chardonnay spumante DOC',
-  'Friuli Latisana Franconia DOC',
-  'Friuli Latisana Franconia novello DOC',
-  'Friuli Latisana Friulano DOC',
-  'Friuli Latisana Malvasia DOC',
-  'Friuli Latisana Malvasia frizzante DOC',
-  'Friuli Latisana Malvasia spumante DOC',
-  'Friuli Latisana Merlot DOC',
-  'Friuli Latisana Merlot novello DOC',
-  'Friuli Latisana Passito DOC',
-  'Friuli Latisana Pinot bianco DOC',
-  'Friuli Latisana Pinot bianco frizzante DOC',
-  'Friuli Latisana Pinot bianco spumante DOC',
-  'Friuli Latisana Pinot grigio DOC',
-  'Friuli Latisana Pinot nero DOC',
-  'Friuli Latisana Pinot nero frizzante DOC',
-  'Friuli Latisana Pinot nero spumante DOC',
-  'Friuli Latisana Refosco dal peduncolo rosso DOC',
-
-  'Friuli Latisana Refosco dal peduncolo rosso novello DOC',
-  'Friuli Latisana Riesling DOC',
-  'Friuli Latisana Rosato DOC',
-  'Friuli Latisana Rosato frizzante DOC',
-  'Friuli Latisana Rosso DOC',
-  'Friuli Latisana Sauvignon DOC',
-  'Friuli Latisana Traminer aromatico DOC',
-  'Friuli Latisana Verduzzo friulano DOC',
-  'Friuli Latisana Verduzzo friulano frizzante DOC',
-  'Friuli Malvasia DOC',
-  'Friuli Merlot DOC',
-  'Friuli Pinot bianco DOC',
-  'Friuli Pinot grigio DOC',
-  'Friuli Pinot nero DOC',
-  'Friuli Refosco dal Peduncolo Rosso DOC',
-  'Friuli Ribolla Gialla Spumante DOC',
-  'Friuli Ribolla Gialla Spumante Metodo Classico DOC',
-  'Friuli Riesling DOC',
-  'Friuli Rosso DOC',
-
-  'Friuli Sauvignon DOC',
-  'Friuli Spumante DOC',
-  'Friuli Spumante Metodo Classico DOC',
-  'Friuli Traminer aromatico DOC',
-  'Friuli Verduzzo Friulano DOC',
-  'Gabiano DOC',
-  'Galatina DOC bianco',
-  'Galatina DOC bianco frizzante',
-  'Galatina DOC Chardonnay',
-  'Galatina DOC Negroamaro',
-  'Galatina DOC Negroamaro riserva',
-  'Galatina DOC rosato',
-  'Galatina DOC rosato frizzante',
-  'Galatina DOC rosso',
-  'Galatina DOC rosso novello',
-  'Galluccio DOC bianco',
-  'Galluccio DOC rosato',
-  'Galluccio DOC rosso',
-  'Galluccio DOC rosso riserva',
-  'Gambellara classico Vin Santo DOC',
-  'Gambellara DOC',
-  'Gambellara DOC classico',
-  'Gambellara DOC superiore',
-  'Gambellara spumante DOC',
-  'Garda Colli Mantovani bianco DOC',
-  'Garda Colli Mantovani Cabernet DOC',
-  'Garda Colli Mantovani Chardonnay DOC',
-  'Garda Colli Mantovani Merlot DOC',
-  'Garda Colli Mantovani Pinot bianco DOC',
-  'Garda Colli Mantovani Pinot grigio DOC',
-  'Garda Colli Mantovani rosato DOC',
-  'Garda Colli Mantovani rosso DOC',
-  'Garda Colli Mantovani Sauvignon DOC',
-  'Garda DOC Barbera',
-  'Garda DOC Cabernet',
-  'Garda DOC Cabernet sauvignon',
-  'Garda DOC Chardonnay',
-  'Garda DOC Chardonnay spumante',
-  'Garda DOC Classico bianco',
-  'Garda DOC Classico chiaretto',
-  'Garda DOC Classico Groppello',
-  'Garda DOC Classico Groppello riserva',
-  'Garda DOC Classico rosso',
-  'Garda DOC Classico rosso novello',
-  'Garda DOC Classico rosso superiore',
-  'Garda DOC Cortese',
-  'Garda DOC Corvina',
-  'Garda DOC frizzante',
-  'Garda DOC Garganega',
-  'Garda DOC Marzemino',
-  'Garda DOC Merlot',
-  'Garda DOC Pinot bianco',
-  'Garda DOC Pinot bianco spumante',
-  'Garda DOC Pinot grigio',
-  'Garda DOC Pinot nero',
-  'Garda DOC Riesling',
-  'Garda DOC Riesling Italico',
-  'Garda DOC Riesling spumante',
-  'Garda DOC Sauvignon',
-  'Garda DOC spumante rosè',
-  'Garda DOC Tai',
-  'Gattinara DOCG',
-  'Gattinara riserva DOCG',
-  'Gavi o Cortese di Gavi frizzante DOCG',
-  'Gavi o Cortese di Gavi riserva DOCG',
-
-  'Gavi o Cortese di Gavi riserva spumante metodo classico DOCG',
-  'Gavi o Cortese di Gavi spumante DOCG',
-  'Gavi o Cortese di Gavi tranquillo DOCG',
-  'Genazzano bianco DOC',
-  'Genazzano rosso DOC',
-  'Ghemme DOCG',
-  'Ghemme riserva DOCG',
-  'Gioia del Colle DOC Aleatico dolce',
-  'Gioia del Colle DOC Aleatico liquoroso',
-  'Gioia del Colle DOC bianco',
-  'Gioia del Colle DOC Primitivo',
-  'Gioia del Colle DOC rosato',
-
-  'Gioia del Colle DOC rosso',
-
-  'Girò di Cagliari DOC',
-  'Girò di Cagliari liquoroso DOC',
-  'Girò di Cagliari liquoroso riserva DOC',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Bianchetta Genovese',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Bianchetta Genovese frizzante',
-  'Golfo del Tigullio-Portofino o Portofino DOC bianco',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC bianco frizzante',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Ciliegiolo',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Ciliegiolo frizzante',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Ciliegiolo novello',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi bianco',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi moscato',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi moscato passito',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi passito',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi rosso',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi spumante',
-  'Golfo del Tigullio-Portofino o Portofino DOC Moscato',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Moscato passito',
-  'Golfo del Tigullio-Portofino o Portofino DOC novello',
-  'Golfo del Tigullio-Portofino o Portofino DOC passito',
-  'Golfo del Tigullio-Portofino o Portofino DOC rosato',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC rosato frizzante',
-  'Golfo del Tigullio-Portofino o Portofino DOC rosso',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC rosso frizzante',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Scimscià (Cimixa)',
-  'Golfo del Tigullio-Portofino o Portofino DOC spumante',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Vermentino',
-
-  'Golfo del Tigullio-Portofino o Portofino DOC Vermentino frizzante',
-  'Grance Senesi DOC bianco',
-  'Grance Senesi DOC Cabernet Sauvignon',
-  'Grance Senesi DOC Canaiolo',
-  'Grance Senesi DOC Malvasia bianca lunga',
-  'Grance Senesi DOC Merlot',
-  'Grance Senesi DOC passito',
-  'Grance Senesi DOC rosso',
-  'Grance Senesi DOC rosso riserva',
-  'Grance Senesi DOC Sangiovese',
-  'Grance Senesi DOC vendemmia tardiva',
-  'Gravina DOC bianco',
-  'Gravina DOC passito',
-  'Gravina DOC rosato',
-
-  'Gravina DOC rosso',
-
-  'Gravina DOC spumante',
-  'Greco di Bianco DOC',
-  'Greco di Tufo DOCG',
-  'Greco di Tufo spumante DOCG',
-  'Grignolino d’Asti DOC',
-  'Grignolino del Monferrato Casalese DOC',
-  'Grottino di Roccanova DOC bianco',
-  'Grottino di Roccanova DOC rosato',
-
-  'Grottino di Roccanova DOC rosso',
-
-  'Grottino di Roccanova DOC rosso riserva',
-
-  'Gutturnio DOC classico riserva',
-  'Gutturnio DOC classico superiore',
-  'Gutturnio DOC frizzante',
-  'Gutturnio DOC riserva',
-  'Gutturnio DOC superiore',
-  'I Terreni di San Severino DOC moro',
-  'I Terreni di San Severino DOC rosso',
-  'I Terreni di San Severino DOC rosso passito',
-  'I Terreni di San Severino DOC rosso superiore',
-  'Irpinia DOC Aglianico',
-  'Irpinia DOC Aglianico liquoroso',
-  'Irpinia DOC Aglianico passito',
-  'Irpinia DOC bianco',
-  'Irpinia DOC Coda di Volpe',
-  'Irpinia DOC Falanghina',
-  'Irpinia DOC Falanghina spumante',
-  'Irpinia DOC Fiano',
-  'Irpinia DOC Fiano passito',
-  'Irpinia DOC Fiano spumante',
-  'Irpinia DOC Greco',
-  'Irpinia DOC Greco passito',
-  'Irpinia DOC Greco spumante',
-  'Irpinia DOC novello',
-  'Irpinia DOC Piedirosso',
-  'Irpinia DOC rosato',
-  'Irpinia DOC rosso',
-  'Irpinia DOC Sciascinoso',
-  'Irpinia DOC sottozona Campi Taurasini',
-  'Ischia DOC bianco',
-  'Ischia DOC bianco spumante',
-  'Ischia DOC bianco superiore',
-  'Ischia DOC Biancolella',
-  'Ischia DOC Forastera',
-  'Ischia DOC Piedirosso o Per’e Palummo',
-  'Ischia DOC Piedirosso o Per’e Palummo passito',
-  'Ischia DOC rosso',
-  'Lacrima di Morro d’Alba DOC',
-  'Lacrima di Morro d’Alba DOC passito',
-  'Lacrima di Morro d’Alba DOC superiore',
-  'Lago di Caldaro o Caldaro classico superiore DOC',
-  'Lago di Caldaro o Caldaro DOC',
-
-  'Lago di Caldaro o Caldaro scelto (Auslese) classico superiore DOC',
-  'Lago di Caldaro o Caldaro scelto (Auslese) DOC',
-  'Lago di Corbara DOC bianco',
-  'Lago di Corbara DOC bianco riserva',
-  'Lago di Corbara DOC Cabernet sauvignon',
-  'Lago di Corbara DOC Cabernet sauvignon riserva',
-  'Lago di Corbara DOC Chardonnay',
-  'Lago di Corbara DOC Chardonnay riserva',
-  'Lago di Corbara DOC Grechetto',
-  'Lago di Corbara DOC Grechetto riserva',
-  'Lago di Corbara DOC Merlot',
-  'Lago di Corbara DOC Merlot riserva',
-  'Lago di Corbara DOC passito',
-  'Lago di Corbara DOC passito riserva',
-  'Lago di Corbara DOC Pinot nero',
-  'Lago di Corbara DOC Pinot nero riserva',
-  'Lago di Corbara DOC rosso',
-  'Lago di Corbara DOC rosso riserva',
-  'Lago di Corbara DOC Sangiovese',
-  'Lago di Corbara DOC Sangiovese riserva',
-  'Lago di Corbara DOC Sauvignon',
-  'Lago di Corbara DOC Sauvignon riserva',
-  'Lago di Corbara DOC Vendemmia tardiva',
-  'Lago di Corbara DOC Vermentino',
-  'Lago di Corbara DOC Vermentino riserva',
-  'Lambrusco di Sorbara DOC rosato frizzante',
-  'Lambrusco di Sorbara DOC rosato spumante',
-  'Lambrusco di Sorbara DOC rosso frizzante',
-  'Lambrusco di Sorbara DOC rosso spumante',
-
-  'Lambrusco Grasparossa di Castelvetro DOC rosato frizzante',
-
-  'Lambrusco Grasparossa di Castelvetro DOC rosato spumante',
-
-  'Lambrusco Grasparossa di Castelvetro DOC rosso frizzante',
-
-  'Lambrusco Grasparossa di Castelvetro DOC rosso spumante',
-  'Lambrusco Mantovano Oltrepò Mantovano rosato DOC',
-  'Lambrusco Mantovano Oltrepò Mantovano rosso DOC',
-  'Lambrusco Mantovano rosato DOC',
-  'Lambrusco Mantovano rosso DOC',
-  'Lambrusco Mantovano Viadanese-Sabbionetano rosato DOC',
-  'Lambrusco Mantovano Viadanese-Sabbionetano rosso DOC',
-  'Lambrusco Salamino di Santa Croce DOC rosato frizzante',
-  'Lambrusco Salamino di Santa Croce DOC rosato spumante',
-  'Lambrusco Salamino di Santa Croce DOC rosso frizzante',
-  'Lambrusco Salamino di Santa Croce DOC rosso spumante',
-  'Lamezia DOC bianco',
-  'Lamezia DOC Gaglioppo',
-  'Lamezia DOC Greco',
-  'Lamezia DOC Greco nero',
-  'Lamezia DOC Mantonico',
-  'Lamezia DOC novello',
-  'Lamezia DOC passito',
-  'Lamezia DOC rosato',
-  'Lamezia DOC rosso',
-  'Lamezia DOC rosso riserva',
-  'Lamezia DOC spumante',
-  'Lamezia DOC spumante rosato',
-  'Langhe DOC Arneis',
-  'Langhe DOC Arneis passito',
-  'Langhe DOC Barbera',
-  'Langhe DOC bianco',
-  'Langhe DOC bianco passito',
-  'Langhe DOC Cabernet Sauvignon',
-  'Langhe DOC Chardonnay',
-  'Langhe DOC Dolcetto',
-  'Langhe DOC Dolcetto novello',
-  'Langhe DOC Favorita',
-  'Langhe DOC Freisa',
-  'Langhe DOC Freisa frizzante',
-  'Langhe DOC Merlot',
-  'Langhe DOC Nascetta',
-  'Langhe DOC Nebbiolo',
-  'Langhe DOC Pinot Nero',
-  'Langhe DOC Riesling',
-  'Langhe DOC rosato',
-  'Langhe DOC Rossese bianco',
-  'Langhe DOC rosso',
-  'Langhe DOC rosso passito',
-  'Langhe DOC Sauvignon',
-  'Lessini Durello o Durello Lessini spumante DOC',
-  'Lessini Durello o Durello Lessini spumante riserva DOC',
-  'Lessona DOC',
-  'Lessona DOC riserva',
-  'Leverano DOC bianco',
-  'Leverano DOC bianco dolce naturale',
-  'Leverano DOC bianco passito',
-  'Leverano DOC Chardonnay',
-  'Leverano DOC Fiano',
-  'Leverano DOC Malvasia bianca',
-  'Leverano DOC Negroamaro rosato',
-  'Leverano DOC Negroamaro rosso',
-  'Leverano DOC Negroamaro rosso riserva',
-  'Leverano DOC Negroamaro rosso superiore',
-  'Leverano DOC rosato',
-  'Leverano DOC rosso',
-  'Leverano DOC rosso novello',
-  'Leverano DOC rosso riserva',
-  'Lison classico DOCG',
-  'Lison DOCG',
-  'Lison e Lison classico DOCG',
-  'Lison Pramaggiore Bianco DOC',
-  'Lison Pramaggiore Cabernet DOC',
-  'Lison Pramaggiore Cabernet franc DOC',
-  'Lison Pramaggiore Cabernet sauvignon DOC',
-  'Lison Pramaggiore Carmenère DOC',
-  'Lison Pramaggiore Chardonnay DOC',
-  'Lison Pramaggiore Malbech DOC',
-  'Lison Pramaggiore Merlot DOC',
-  'Lison Pramaggiore Merlot riserva DOC',
-  'Lison Pramaggiore Pinot grigio DOC',
-  'Lison Pramaggiore Refosco dal peduncolo rosso DOC',
-
-  'Lison Pramaggiore Refosco dal peduncolo rosso passito DOC',
-
-  'Lison Pramaggiore Refosco dal peduncolo rosso riserva DOC',
-  'Lison Pramaggiore Rosso DOC',
-  'Lison Pramaggiore Rosso riserva DOC',
-  'Lison Pramaggiore Sauvignon DOC',
-  'Lison Pramaggiore Spumante DOC',
-  'Lison Pramaggiore Verduzzo DOC',
-  'Lison Pramaggiore Verduzzo passito DOC',
-  'Lizzano DOC bianco',
-
-  'Lizzano DOC bianco frizzante',
-
-  'Lizzano DOC bianco spumante',
-
-  'Lizzano DOC Malvasia nera',
-  'Lizzano DOC Negroamaro rosato',
-  'Lizzano DOC Negroamaro rosso',
-  'Lizzano DOC rosato',
-
-  'Lizzano DOC rosato frizzante',
-
-  'Lizzano DOC rosato novello',
-
-  'Lizzano DOC rosato spumante',
-
-  'Lizzano DOC rosso',
-
-  'Lizzano DOC rosso frizzante',
-
-  'Lizzano DOC rosso novello',
-
-  'Loazzolo DOC',
-  'Locorotondo DOC',
-  'Locorotondo DOC Bianco d’Alessano',
-  'Locorotondo DOC Fiano',
-  'Locorotondo DOC passito',
-  'Locorotondo DOC riserva',
-  'Locorotondo DOC spumante',
-  'Locorotondo DOC superiore',
-  'Locorotondo DOC Verdeca',
-  'Lugana DOC',
-  'Lugana riserva DOC',
-  'Lugana spumante DOC',
-  'Lugana superiore DOC',
-  'Lugana Vendemmia tardiva DOC',
-  'Malvasia delle Lipari DOC bianco o dolce naturale',
-  'Malvasia delle Lipari DOC liquoroso',
-  'Malvasia delle Lipari DOC passito',
-  'Malvasia di Bosa DOC',
-  'Malvasia di Bosa DOC passito',
-  'Malvasia di Bosa DOC riserva',
-  'Malvasia di Bosa DOC spumante',
-  'Malvasia di Casorzo o Casorzo DOC',
-  'Malvasia di Casorzo o Casorzo DOC passito',
-  'Malvasia di Casorzo o Casorzo DOC spumante',
-  'Malvasia di Castelnuovo Don Bosco DOC',
-  'Malvasia di Castelnuovo Don Bosco DOC spumante',
-  'Mamertino di Milazzo o Mamertino DOC bianco',
-  'Mamertino di Milazzo o Mamertino DOC bianco riserva',
-
-  'Mamertino di Milazzo o Mamertino DOC Calabrese o Nero d’Avola',
-
-  'Mamertino di Milazzo o Mamertino DOC Calabrese o Nero d’Avola riserva',
-
-  'Mamertino di Milazzo o Mamertino DOC Grillo-Ansonica (o Inzolia)',
-  'Mamertino di Milazzo o Mamertino DOC rosso',
-  'Mamertino di Milazzo o Mamertino DOC rosso riserva',
-  'Mandrolisai o Sardegna Mandrolisai DOC rosato',
-  'Mandrolisai o Sardegna Mandrolisai DOC rosso',
-  'Mandrolisai o Sardegna Mandrolisai DOC rosso superiore',
-  'Maremma Toscana DOC Alicante',
-  'Maremma Toscana DOC Ansonica',
-  'Maremma Toscana DOC Ansonica passito',
-  'Maremma Toscana DOC Ansonica spumante',
-  'Maremma Toscana DOC Ansonica vendemmia tardiva',
-  'Maremma Toscana DOC bianco',
-  'Maremma Toscana DOC bianco passito',
-  'Maremma Toscana DOC bianco spumante',
-  'Maremma Toscana DOC bianco vendemmia tardiva',
-  'Maremma Toscana DOC Cabernet',
-  'Maremma Toscana DOC Cabernet passito',
-  'Maremma Toscana DOC Cabernet sauvignon',
-  'Maremma Toscana DOC Cabernet sauvignon passito',
-  'Maremma Toscana DOC Canaiolo',
-  'Maremma Toscana DOC Chardonnay',
-  'Maremma Toscana DOC Chardonnay passito',
-  'Maremma Toscana DOC Chardonnay vendemmia tardiva',
-  'Maremma Toscana DOC Ciliegiolo',
-  'Maremma Toscana DOC Ciliegiolo passito',
-  'Maremma Toscana DOC Merlot',
-  'Maremma Toscana DOC rosato',
-  'Maremma Toscana DOC rosso',
-  'Maremma Toscana DOC rosso novello',
-  'Maremma Toscana DOC rosso passito',
-  'Maremma Toscana DOC Sangiovese',
-  'Maremma Toscana DOC Sangiovese passito',
-  'Maremma Toscana DOC Sauvignon',
-  'Maremma Toscana DOC Sauvignon passito',
-  'Maremma Toscana DOC Sauvignon vendemmia tardiva',
-  'Maremma Toscana DOC Syrah',
-  'Maremma Toscana DOC Trebbiano',
-  'Maremma Toscana DOC Trebbiano vendemmia tardiva',
-  'Maremma Toscana DOC Vermentino',
-  'Maremma Toscana DOC Vermentino passito',
-  'Maremma Toscana DOC Vermentino spumante',
-  'Maremma Toscana DOC Vermentino vendemmia tardiva',
-  'Maremma Toscana DOC vin santo',
-  'Maremma Toscana DOC Viognier',
-  'Maremma Toscana DOC Viognier vendemmia tardiva',
-  'Marino Bellone DOC',
-  'Marino Bombino DOC',
-  'Marino classico DOC',
-  'Marino classico passito DOC',
-  'Marino classico superiore DOC',
-  'Marino classico vendemmia tardiva DOC',
-  'Marino DOC',
-  'Marino frizzante DOC',
-  'Marino Greco DOC',
-  'Marino Malvasia del Lazio DOC',
-  'Marino passito DOC',
-  'Marino spumante DOC',
-  'Marino superiore DOC',
-  'Marino Trebbiano verde DOC',
-  'Marino vendemmia tardiva DOC',
-  'Marsala DOC ambra fine',
-
-  'Marsala DOC ambra superiore',
-
-  'Marsala DOC ambra superiore riserva',
-
-  'Marsala DOC ambra Vergine o Soleras',
-
-  'Marsala DOC ambra Vergine stravecchio o riserva',
-
-  'Marsala DOC oro fine',
-
-  'Marsala DOC oro superiore',
-
-  'Marsala DOC oro superiore riserva',
-
-  'Marsala DOC oro Vergine o Soleras',
-
-  'Marsala DOC oro Vergine stravecchio o riserva',
-
-  'Marsala DOC rubino fine',
-  'Marsala DOC rubino superiore',
-  'Marsala DOC rubino superiore riserva',
-  'Marsala DOC rubino Vergine o Soleras',
-  'Marsala DOC rubino Vergine stravecchio o riserva',
-  'Martina o Martinafranca DOC',
-
-  'Martina o Martinafranca DOC spumante',
-
-  'Matera DOC bianco',
-  'Matera DOC bianco passito',
-  'Matera DOC Greco',
-  'Matera DOC Moro',
-  'Matera DOC Moro riserva',
-  'Matera DOC Primitivo',
-  'Matera DOC Primitivo passito',
-  'Matera DOC rosato',
-  'Matera DOC rosso',
-  'Matera DOC spumante',
-  'Matera DOC spumante rosé',
-  'Matino DOC rosato',
-  'Matino DOC rosso',
-  'Melissa DOC bianco',
-  'Melissa DOC rosso',
-
-  'Melissa DOC rosso superiore',
-
-  'Menfi DOC bianco',
-  'Menfi DOC Bonera',
-  'Menfi DOC Bonera riserva',
-  'Menfi DOC Cabernet sauvignon',
-  'Menfi DOC Catarratto bianco lucido',
-  'Menfi DOC Chardonnay',
-  'Menfi DOC Feudo dei Fiori',
-  'Menfi DOC Grecanico',
-  'Menfi DOC Inzolia o Ansonica',
-  'Menfi DOC Merlot',
-  'Menfi DOC Nero d’Avola',
-  'Menfi DOC rosso',
-  'Menfi DOC rosso riserva',
-  'Menfi DOC Sangiovese',
-  'Menfi DOC Sauvignon',
-  'Menfi DOC Syrah',
-  'Menfi DOC vendemmia tardiva',
-  'Merlara Bianco DOC',
-  'Merlara Bianco frizzante DOC',
-  'Merlara Cabernet DOC',
-  'Merlara Cabernet Sauvignon DOC',
-  'Merlara Chardonnay DOC',
-  'Merlara Malvasia DOC',
-  'Merlara Marzemino frizzante DOC',
-  'Merlara Merlot DOC',
-  'Merlara Novello DOC',
-  'Merlara Pinot bianco DOC',
-  'Merlara Pinot grigio DOC',
-  'Merlara Raboso DOC',
-  'Merlara Refosco DOC',
-  'Merlara Riesling DOC',
-  'Merlara Rosso DOC',
-  'Merlara Tai DOC',
-  'Merlot di Aprilia DOC',
-  'Merlot di Torgiano DOC',
-  'Modena DOC bianco frizzante',
-  'Modena DOC bianco spumante',
-  'Modena DOC Lambrusco frizzante',
-  'Modena DOC Lambrusco novello frizzante',
-  'Modena DOC Lambrusco rosato frizzante',
-  'Modena DOC Lambrusco rosato spumante',
-  'Modena DOC Lambrusco spumante',
-  'Modena DOC Pignoletto frizzante',
-  'Modena DOC Pignoletto spumante',
-  'Modena DOC rosato frizzante',
-  'Modena DOC rosato spumante',
-  'Modena DOC rosso frizzante',
-  'Modena DOC rosso novello frizzante',
-  'Modena DOC rosso spumante',
-  'Molise o del Molise DOC Aglianico',
-  'Molise o del Molise DOC Aglianico riserva',
-  'Molise o del Molise DOC bianco spumante di qualità',
-
-  'Molise o del Molise DOC Cabernet sauvignon',
-  'Molise o del Molise DOC Chardonnay',
-  'Molise o del Molise DOC Chardonnay frizzante',
-  'Molise o del Molise DOC Chardonnay spumante',
-  'Molise o del Molise DOC Falanghina',
-  'Molise o del Molise DOC Falanghina passito',
-  'Molise o del Molise DOC Falanghina spumante di qualità',
-  'Molise o del Molise DOC Fiano',
-  'Molise o del Molise DOC Fiano frizzante',
-  'Molise o del Molise DOC Fiano spumante di qualità',
-  'Molise o del Molise DOC Greco bianco',
-  'Molise o del Molise DOC Malvasia',
-  'Molise o del Molise DOC Malvasia frizzante',
-  'Molise o del Molise DOC Malvasia spumante di qualità',
-  'Molise o del Molise DOC Merlot',
-  'Molise o del Molise DOC Merlot frizzante',
-  'Molise o del Molise DOC Merlot novello',
-  'Molise o del Molise DOC Moscato bianco',
-  'Molise o del Molise DOC Moscato bianco frizzante',
-  'Molise o del Molise DOC Moscato bianco passito',
-
-  'Molise o del Molise DOC Moscato bianco spumante di qualità',
-  'Molise o del Molise DOC novello',
-  'Molise o del Molise DOC Pinot bianco',
-  'Molise o del Molise DOC Pinot bianco frizzante',
-
-  'Molise o del Molise DOC Pinot bianco spumante di qualità',
-  'Molise o del Molise DOC Pinot grigio',
-  'Molise o del Molise DOC Pinot grigio frizzante',
-
-  'Molise o del Molise DOC Pinot grigio spumante di qualità',
-  'Molise o del Molise DOC Pinot nero',
-  'Molise o del Molise DOC rosato',
-  'Molise o del Molise DOC rosato spumante di qualità',
-
-  'Molise o del Molise DOC rosso',
-  'Molise o del Molise DOC rosso riserva',
-  'Molise o del Molise DOC rosso spumante di qualità',
-  'Molise o del Molise DOC Sangiovese',
-  'Molise o del Molise DOC Sauvignon',
-  'Molise o del Molise DOC Trebbiano',
-  'Monferrato DOC bianco',
-  'Monferrato DOC Casalese',
-  'Monferrato DOC Chiaretto o Ciaret',
-
-  'Monferrato DOC Dolcetto',
-  'Monferrato DOC Freisa',
-  'Monferrato DOC rosso',
-  'Monica di Sardegna DOC',
-  'Monica di Sardegna DOC frizzante',
-  'Monica di Sardegna DOC superiore',
-  'Monreale DOC Ansonica o Inzolia',
-  'Monreale DOC Ansonica o Inzolia superiore',
-  'Monreale DOC bianco',
-  'Monreale DOC bianco superiore',
-  'Monreale DOC Cabernet sauvignon',
-  'Monreale DOC Cabernet sauvignon riserva',
-  'Monreale DOC Calabrese o Nero d’Avola',
-  'Monreale DOC Calabrese o Nero d’Avola riserva',
-  'Monreale DOC Catarratto',
-  'Monreale DOC Catarratto superiore',
-  'Monreale DOC Chardonnay',
-  'Monreale DOC Chardonnay superiore',
-  'Monreale DOC Grillo',
-  'Monreale DOC Grillo superiore',
-  'Monreale DOC Merlot',
-  'Monreale DOC Merlot riserva',
-  'Monreale DOC Novello',
-  'Monreale DOC Perricone',
-  'Monreale DOC Perricone riserva',
-  'Monreale DOC Pinot bianco',
-  'Monreale DOC Pinot bianco superiore',
-  'Monreale DOC Pinot nero',
-  'Monreale DOC Pinot nero riserva',
-  'Monreale DOC rosato',
-  'Monreale DOC rosso',
-  'Monreale DOC rosso riserva',
-  'Monreale DOC Sangiovese',
-  'Monreale DOC Sangiovese riserva',
-  'Monreale DOC Syrah',
-  'Monreale DOC Syrah riserva',
-  'Monreale DOC vendemmia tardiva',
-  'Montecarlo DOC bianco',
-
-  'Montecarlo DOC Cabernet sauvignon',
-  'Montecarlo DOC Merlot',
-  'Montecarlo DOC rosso',
-  'Montecarlo DOC rosso riserva',
-  'Montecarlo DOC Sauvignon',
-  'Montecarlo DOC Syrah',
-  'Montecarlo DOC Vermentino',
-  'Montecarlo DOC Vin Santo',
-
-  'Montecarlo DOC Vin Santo Occhio di Pernice',
-  'Montecompatri Colonna DOC',
-  'Montecompatri Colonna frizzante DOC',
-  'Montecompatri Colonna superiore DOC',
-  'Montecucco DOC bianco',
-  'Montecucco DOC rosato',
-  'Montecucco DOC rosso',
-  'Montecucco DOC rosso riserva',
-  'Montecucco DOC Vermentino',
-  'Montecucco DOC Vin Santo',
-  'Montecucco DOC Vin Santo Occhio di Pernice',
-  'Montecucco Sangiovese DOCG',
-  'Montecucco Sangiovese riserva DOCG',
-  'Montefalco DOC bianco',
-  'Montefalco DOC rosso',
-  'Montefalco DOC rosso riserva',
-  'Montefalco Sagrantino DOCG',
-  'Montefalco Sagrantino passito DOCG',
-  'Montello e Colli Asolani Bianchetta DOC',
-  'Montello e Colli Asolani Bianco DOC',
-
-  'Montello e Colli Asolani Cabernet DOC',
-  'Montello e Colli Asolani Cabernet franc DOC',
-  'Montello e Colli Asolani Cabernet sauvignon DOC',
-  'Montello e Colli Asolani Carmenère DOC',
-  'Montello e Colli Asolani Chardonnay DOC',
-  'Montello e Colli Asolani Chardonnay spumante DOC',
-  'Montello e Colli Asolani Manzoni bianco DOC',
-  'Montello e Colli Asolani Merlot DOC',
-  'Montello e Colli Asolani Pinot Bianco DOC',
-  'Montello e Colli Asolani Pinot Bianco spumante DOC',
-  'Montello e Colli Asolani Pinot grigio DOC',
-  'Montello e Colli Asolani Recantina DOC',
-  'Montello e Colli Asolani Rosso DOC',
-  'Montello e Colli Asolani Venegazzù DOC',
-  'Montello e Colli Asolani Venegazzù superiore DOC',
-  'Montello rosso DOCG',
-  'Montello rosso superiore DOCG',
-  'Montepulciano d’Abruzzo Colline Teramane DOCG',
-  'Montepulciano d’Abruzzo Colline Teramane riserva DOCG',
-  'Montepulciano d’Abruzzo DOC',
-  'Montepulciano d’Abruzzo DOC Alto Tirino',
-  'Montepulciano d’Abruzzo DOC Alto Tirino riserva',
-  'Montepulciano d’Abruzzo DOC Casauria',
-  'Montepulciano d’Abruzzo DOC Casauria riserva',
-  'Montepulciano d’Abruzzo DOC riserva',
-  'Montepulciano d’Abruzzo DOC Teate',
-  'Montepulciano d’Abruzzo DOC Teate riserva',
-  'Montepulciano d’Abruzzo DOC Terre dei Peligni',
-  'Montepulciano d’Abruzzo DOC Terre dei Peligni riserva',
-  'Montepulciano d’Abruzzo DOC Terre dei Vestini',
-  'Montepulciano d’Abruzzo DOC Terre dei Vestini riserva',
-  'Monteregio di Massa Marittima DOC bianco',
-  'Monteregio di Massa Marittima DOC Novello',
-  'Monteregio di Massa Marittima DOC rosato',
-  'Monteregio di Massa Marittima DOC rosso',
-  'Monteregio di Massa Marittima DOC rosso riserva',
-  'Monteregio di Massa Marittima DOC Sangiovese',
-  'Monteregio di Massa Marittima DOC Sangiovese novello',
-  'Monteregio di Massa Marittima DOC Sangiovese riserva',
-  'Monteregio di Massa Marittima DOC Sangiovese rosato',
-  'Monteregio di Massa Marittima DOC Syrah',
-  'Monteregio di Massa Marittima DOC Vermentino',
-  'Monteregio di Massa Marittima DOC Vin Santo',
-
-  'Monteregio di Massa Marittima DOC Vin Santo Occhio di Pernice',
-
-  'Monteregio di Massa Marittima DOC Vin Santo Occhio di Pernice riserva',
-  'Monteregio di Massa Marittima DOC Vin Santo riserva',
-  'Monteregio di Massa Marittima DOC Viognier',
-  'Montescudaio DOC bianco',
-  'Montescudaio DOC Cabernet franc',
-  'Montescudaio DOC Cabernet franc riserva',
-  'Montescudaio DOC Cabernet sauvignon',
-  'Montescudaio DOC Cabernet sauvignon riserva',
-  'Montescudaio DOC Chardonnay',
-  'Montescudaio DOC Merlot',
-  'Montescudaio DOC Merlot riserva',
-  'Montescudaio DOC rosso',
-  'Montescudaio DOC rosso riserva',
-  'Montescudaio DOC Sangiovese',
-  'Montescudaio DOC Sangiovese riserva',
-  'Montescudaio DOC Sauvignon',
-  'Montescudaio DOC Vermentino',
-  'Montescudaio DOC Vin santo',
-  'Monti Lessini Bianco DOC',
-  'Monti Lessini Durello DOC',
-  'Monti Lessini Pinot nero DOC',
-  'Morellino di Scansano DOCG',
-  'Morellino di Scansano riserva DOCG',
-  'Moscadello di Montalcino DOC frizzante',
-  'Moscadello di Montalcino DOC tranquillo',
-  'Moscadello di Montalcino DOC vendemmia tardiva',
-  'Moscato d’Asti Canelli DOCG',
-  'Moscato d’Asti DOCG',
-  'Moscato d’Asti Santa Vittoria d’Alba DOCG',
-  'Moscato d’Asti Strevi DOCG',
-  'Moscato d’Asti vendemmia tardiva DOCG',
-
-  'Moscato d’Asti vendemmia tardiva Santa Vittoria d’Alba DOCG',
-  'Moscato di Noto DOC',
-  'Moscato di Noto DOC liquoroso',
-  'Moscato di Noto DOC spumante',
-  'Moscato di Noto passito DOC o Passito di Noto DOC',
-  'Moscato di Pantelleria DOC',
-  'Moscato di Sardegna DOC bianco',
-  'Moscato di Sardegna DOC da uve stramature',
-  'Moscato di Sardegna DOC passito',
-  'Moscato di Sardegna DOC spumante',
-  'Moscato di Sorso-Sennori DOC bianco',
-  'Moscato di Sorso-Sennori DOC liquoroso',
-  'Moscato di Sorso-Sennori DOC passito',
-  'Moscato di Sorso-Sennori DOC spumante',
-  'Moscato di Trani dolce naturaleDOC',
-  'Moscato di Trani liquoroso DOC',
-  'Nardò DOC rosato',
-
-  'Nardò DOC rosso',
-
-  'Nardò DOC rosso riserva',
-
-  'Nasco di Cagliari DOC',
-  'Nasco di Cagliari DOC liquoroso',
-  'Nasco di Cagliari DOC liquoroso riserva',
-  'Nebbiolo d’Alba DOC',
-  'Nebbiolo d’Alba DOC spumante',
-  'Nebbiolo d’Alba DOC spumante rosé',
-  'Nebbiolo d’Alba DOC superiore',
-  'Negroamaro di Terra d’Otranto rosato DOC',
-  'Negroamaro di Terra d’Otranto rosato frizzante DOC',
-  'Negroamaro di Terra d’Otranto rosato spumante DOC',
-  'Negroamaro di Terra d’Otranto rosso DOC',
-  'Negroamaro di Terra d’Otranto rosso riserva DOC',
-  'Nettuno DOC bianco',
-  'Nettuno DOC bianco Bellone',
-  'Nettuno DOC bianco Bellone frizzante',
-  'Nettuno DOC bianco frizzante',
-  'Nettuno DOC novello',
-  'Nettuno DOC rosato',
-  'Nettuno DOC rosato frizzante',
-  'Nettuno DOC rosso',
-  'Nizza DOCG',
-  'Nizza Riserva DOCG',
-  'Noto DOC Nero d’Avola',
-  'Noto DOC rosso',
-  'Nuragus di Cagliari DOC',
-  'Nuragus di Cagliari DOC frizzante',
-  'Offida Passerina DOCG',
-  'Offida Pecorino DOCG',
-  'Offida rosso DOCG',
-  'Oltrepò Pavese Barbera DOC',
-  'Oltrepò Pavese Barbera frizzante DOC',
-  'Oltrepò Pavese Barbera riserva DOC',
-  'Oltrepò Pavese bianco DOC',
-  'Oltrepò Pavese Cabernet Sauvignon DOC',
-  'Oltrepò Pavese Chardonnay DOC',
-  'Oltrepò Pavese Chardonnay frizzante DOC',
-  'Oltrepò Pavese Chardonnay spumante DOC',
-  'Oltrepò Pavese Cortese DOC',
-  'Oltrepò Pavese Cortese frizzante DOC',
-  'Oltrepò Pavese Cortese spumante DOC',
-  'Oltrepò Pavese Malvasia DOC',
-  'Oltrepò Pavese Malvasia frizzante DOC',
-  'Oltrepò Pavese Malvasia spumante DOC',
-  'Oltrepò Pavese Metodo Classico DOCG',
-  'Oltrepò Pavese Metodo Classico millesimato DOCG',
-  'Oltrepò Pavese Metodo Classico pinot-nero DOCG',
-
-  'Oltrepò Pavese Metodo Classico pinot-nero millesimato DOCG',
-  'Oltrepò Pavese Metodo Classico pinot-nero rosé DOCG',
-
-  'Oltrepò Pavese Metodo Classico pinot-nero rosé millesimato DOCG',
-  'Oltrepò Pavese Metodo Classico rosé DOCG',
-  'Oltrepò Pavese Metodo Classico rosé millesimato DOCG',
-  'Oltrepò Pavese Moscato DOC',
-  'Oltrepò Pavese Moscato frizzante DOC',
-  'Oltrepò Pavese Moscato liquoroso DOC',
-  'Oltrepò Pavese Moscato passito DOC',
-  'Oltrepò Pavese Moscato spumante dolce DOC',
-  'Oltrepò Pavese Pinot grigio DOC',
-  'Oltrepò Pavese Pinot grigio frizzante DOC',
-  'Oltrepò Pavese Pinot nero (vinificato in Bianco) DOC',
-
-  'Oltrepò Pavese Pinot nero (vinificato in Bianco) frizzante DOC',
-
-  'Oltrepò Pavese Pinot nero (vinificato in Bianco) spumante DOC',
-  'Oltrepò Pavese Pinot nero (vinificato in rosato) DOC',
-
-  'Oltrepò Pavese Pinot nero (vinificato in rosato) frizzante DOC',
-
-  'Oltrepò Pavese Pinot nero (vinificato in rosato) spumante DOC',
-  'Oltrepò Pavese Riesling DOC',
-
-  'Oltrepò Pavese Riesling frizzante DOC',
-
-  'Oltrepò Pavese Riesling riserva DOC',
-
-  'Oltrepò Pavese Riesling spumante DOC',
-
-  'Oltrepò Pavese Riesling superiore DOC',
-
-  'Oltrepò Pavese rosato DOC',
-  'Oltrepò Pavese rosato frizzante DOC',
-  'Oltrepò Pavese rosso DOC',
-  'Oltrepò Pavese rosso riserva DOC',
-  'Oltrepò Pavese Sauvignon DOC',
-  'Oltrepò Pavese Sauvignon spumante DOC',
-  'Orcia DOC',
-  'Orcia DOC bianco',
-  'Orcia DOC riserva',
-  'Orcia DOC rosato',
-  'Orcia DOC Sangiovese',
-  'Orcia DOC Sangiovese riserva',
-  'Orcia DOC Vinsanto o Vin Santo',
-  'Orta Nova rosato DOC',
-
-  'Orta Nova rosso DOC',
-
-  'Ortona DOC bianco',
-  'Ortona DOC rosso',
-  'Ortrugo dei Colli Piacentini DOC',
-  'Ortrugo dei Colli Piacentini DOC frizzante',
-  'Ortrugo dei Colli Piacentini DOC spumante',
-  'Orvieto classico DOC',
-  'Orvieto DOC',
-  'Orvieto DOC classico muffa nobile',
-  'Orvieto DOC classico superiore',
-  'Orvieto DOC classico vendemmia tardiva',
-  'Orvieto DOC muffa nobile',
-  'Orvieto DOC superiore',
-  'Orvieto DOC vendemmia tardiva',
-  'Ostuni bianco DOC',
-  'Ostuni Ottavianello o Ottavianello di Ostuni DOC',
-
-  'Pantelleria DOC Moscato spumante',
-  'Pantelleria DOC Moscato dorato',
-  'Pantelleria DOC Moscato liquoroso',
-  'Pantelleria DOC passito liquoroso',
-  'Pantelleria DOC Zibibbo bianco',
-  'Pantelleria DOC Zibibbo bianco frizzante',
-  'Pantelleria DOC Zibibbo dolce',
-  'Parrina DOC bianco',
-  'Parrina DOC Cabernet sauvignon',
-  'Parrina DOC Chardonnay',
-  'Parrina DOC Merlot',
-  'Parrina DOC rosato',
-  'Parrina DOC rosso',
-  'Parrina DOC rosso riserva',
-  'Parrina DOC Sangiovese',
-  'Parrina DOC Sangiovese riserva',
-  'Parrina DOC Sauvignon',
-  'Parrina DOC Vermentino',
-  'Parrina DOC Vin Santo',
-  'Passito di Pantelleria DOC',
-  'Penisola Sorrentina DOC bianco',
-  'Penisola Sorrentina DOC bianco Sorrento',
-  'Penisola Sorrentina DOC rosso',
-  'Penisola Sorrentina DOC rosso frizzante',
-  'Penisola Sorrentina DOC rosso frizzante Gragnano',
-  'Penisola Sorrentina DOC rosso frizzante Lettere',
-  'Penisola Sorrentina DOC rosso Sorrento',
-  'Pentro d’Isernia o Pentro DOC bianco',
-  'Pentro d’Isernia o Pentro DOC rosato',
-  'Pentro d’Isernia o Pentro DOC rosso',
-  'Pentro d’Isernia o Pentro DOC rosso riserva',
-  'Pergola DOC Aleatico',
-  'Pergola DOC Aleatico passito',
-  'Pergola DOC Aleatico riserva',
-  'Pergola DOC Aleatico spumante',
-  'Pergola DOC Aleatico superiore',
-  'Pergola DOC rosato o rosè',
-  'Pergola DOC rosato o rosè frizzante',
-  'Pergola DOC rosato o rosè spumante',
-  'Pergola DOC rosso',
-  'Pergola DOC rosso novello',
-  'Pergola DOC rosso riserva',
-  'Pergola DOC rosso superiore',
-  'Piave Cabernet DOC',
-  'Piave Cabernet riserva DOC',
-  'Piave Carmenère DOC',
-  'Piave Chardonnay DOC',
-  'Piave Malanotte DOCG',
-  'Piave Manzoni bianco DOC',
-  'Piave Merlot DOC',
-  'Piave Merlot riserva DOC',
-  'Piave Raboso DOC',
-  'Piave Raboso passito DOC',
-  'Piave Rosso DOC',
-  'Piave Rosso riserva DOC',
-  'Piave Tai DOC',
-  'Piave Verduzzo DOC',
-  'Piave Verduzzo passito DOC',
-  'Piemonte DOC Albarossa',
-  'Piemonte DOC Barbera',
-  'Piemonte DOC Barbera frizzante',
-  'Piemonte DOC bianco',
-  'Piemonte DOC bianco da due vitigni',
-  'Piemonte DOC bianco frizzante',
-  'Piemonte DOC Bonarda',
-  'Piemonte DOC Bonarda frizzante',
-  'Piemonte DOC Brachetto',
-  'Piemonte DOC brachetto passito',
-  'Piemonte DOC Brachetto spumante',
-  'Piemonte DOC Cabernet sauvignon',
-  'Piemonte DOC Chardonnay',
-  'Piemonte DOC Chardonnay frizzante',
-  'Piemonte DOC Chardonnay spumante',
-  'Piemonte DOC Chardonnay-Pinot spumante',
-  'Piemonte DOC Cortese',
-  'Piemonte DOC Cortese frizzante',
-  'Piemonte DOC Cortese spumante',
-  'Piemonte DOC Dolcetto',
-  'Piemonte DOC Dolcetto frizzante',
-  'Piemonte DOC Freisa',
-  'Piemonte DOC Grignolino',
-  'Piemonte DOC Merlot',
-  'Piemonte DOC Moscato',
-  'Piemonte DOC moscato passito',
-  'Piemonte DOC Pinot bianco spumante',
-  'Piemonte DOC Pinot grigio spumante',
-  'Piemonte DOC Pinot nero',
-  'Piemonte DOC Pinot nero spumante',
-  'Piemonte DOC Pinot spumante',
-  'Piemonte DOC rosato',
-  'Piemonte DOC rosato frizzante',
-  'Piemonte DOC rosso',
-  'Piemonte DOC rosso da due vitigni',
-
-  'Piemonte DOC rosso frizzante',
-  'Piemonte DOC Sauvignon',
-  'Piemonte DOC spumante',
-  'Piemonte DOC Syrah',
-  'Pinerolese DOC Barbera',
-  'Pinerolese DOC Bonarda',
-  'Pinerolese DOC Dolcetto',
-  'Pinerolese DOC Doux d’Henry',
-  'Pinerolese DOC Freisa',
-  'Pinerolese DOC Ramie',
-  'Pinerolese DOC rosato',
-  'Pinerolese DOC rosso',
-  'Pinot grigio delle Venezie DOC',
-  'Pinot grigio delle Venezie frizzante DOC',
-  'Pinot grigio delle Venezie spumante DOC',
-  'Pinot grigio di Torgiano DOC',
-  'Pinot nero dell’Oltrepò Pavese DOC',
-  'Pinot nero dell’Oltrepò Pavese riserva DOC',
-  'Pinot nero di Torgiano DOC',
-  'Pomino DOC bianco',
-  'Pomino DOC bianco riserva',
-  'Pomino DOC bianco vendemmia tardiva',
-  'Pomino DOC Chardonnay',
-  'Pomino DOC Merlot',
-  'Pomino DOC Pinot nero',
-  'Pomino DOC rosso',
-  'Pomino DOC rosso riserva',
-  'Pomino DOC rosso vendemmia tardiva',
-  'Pomino DOC Sauvignon',
-  'Pomino DOC spumante bianco',
-  'Pomino DOC spumante bianco riserva',
-  'Pomino DOC spumante rosato',
-  'Pomino DOC spumante rosato riserva',
-  'Pomino DOC Vin Santo',
-  'Pomino DOC Vin Santo Occhio di Pernice',
-  'Pornassio o Ormeasco di Pornassio DOC passito',
-
-  'Pornassio o Ormeasco di Pornassio DOC passito liquoroso',
-  'Pornassio o Ormeasco di Pornassio DOC rosso',
-  'Pornassio o Ormeasco di Pornassio DOC rosso superiore',
-  'Pornassio o Ormeasco di Pornassio DOC Sciactrà',
-  'Primitivo di Manduria DOC',
-  'Primitivo di Manduria dolce naturale DOCG',
-  'Primitivo di Manduria riserva DOC',
-  'Prosecco DOC',
-  'Prosecco frizzante DOC',
-  'Prosecco rosé DOC',
-  'Prosecco spumante DOC',
-  'Ramandolo DOCG',
-  'Recioto della Valpolicella Classico DOCG',
-  'Recioto della Valpolicella DOCG',
-  'Recioto della Valpolicella spumante Classico DOCG',
-  'Recioto della Valpolicella spumante DOCG',
-  'Recioto della Valpolicella spumante Valpantena DOCG',
-  'Recioto della Valpolicella Valpantena DOCG',
-  'Recioto di Gambellara classico DOCG',
-  'Recioto di Gambellara spumante DOCG',
-  'Recioto di Soave classico DOCG',
-  'Recioto di Soave DOCG',
-  'Recioto di Soave spumante classico DOCG',
-  'Recioto di Soave spumante DOCG',
-  'Reggiano DOC bianco spumante',
-  'Reggiano DOC Lambrusco',
-  'Reggiano DOC Lambrusco frizzante',
-  'Reggiano DOC Lambrusco novello',
-  'Reggiano DOC Lambrusco novello frizzante',
-  'Reggiano DOC Lambrusco Salamino',
-  'Reggiano DOC Lambrusco Salamino frizzante',
-  'Reggiano DOC Lambrusco spumante',
-  'Reggiano DOC rosso',
-  'Reggiano DOC rosso frizzante',
-  'Reggiano DOC rosso novello',
-  'Reno DOC bianco',
-  'Reno DOC bianco frizzante',
-  'Reno DOC bianco spumante',
-  'Reno DOC Montuni',
-  'Reno DOC Montuni frizzante',
-  'Reno DOC Montuni spumante',
-  'Reno DOC Pignoletto',
-  'Reno DOC Pignoletto frizzante',
-  'Reno DOC Pignoletto spumante',
-  'Riesi DOC bianco',
-  'Riesi DOC Cabernet sauvignon',
-  'Riesi DOC Chardonnay',
-  'Riesi DOC Isolia',
-  'Riesi DOC Merlot',
-  'Riesi DOC Nero d’Avola',
-  'Riesi DOC novello',
-  'Riesi DOC rosato',
-  'Riesi DOC rosso',
-  'Riesi DOC spumante',
-  'Riesi DOC superiore',
-  'Riesi DOC superiore riserva',
-  'Riesi DOC Syrah',
-  'Riesi DOC vendemmia tardiva',
-  'Riesling Italico di Torgiano DOC',
-  'Riviera del Brenta Bianco DOC',
-  'Riviera del Brenta Bianco frizzante DOC',
-  'Riviera del Brenta Cabernet DOC',
-  'Riviera del Brenta Cabernet DOC riserva',
-  'Riviera del Brenta Chardonnay DOC',
-  'Riviera del Brenta Chardonnay frizzante DOC',
-  'Riviera del Brenta Chardonnay spumante DOC',
-  'Riviera del Brenta Merlot DOC',
-  'Riviera del Brenta Novello DOC',
-  'Riviera del Brenta Pinot bianco DOC',
-  'Riviera del Brenta Pinot bianco frizzante DOC',
-  'Riviera del Brenta Pinot bianco spumante DOC',
-  'Riviera del Brenta Pinot grigio DOC',
-  'Riviera del Brenta Raboso DOC',
-  'Riviera del Brenta Raboso DOC riserva',
-  'Riviera del Brenta Refosco DOC',
-  'Riviera del Brenta Refosco DOC riserva',
-  'Riviera del Brenta Rosato DOC',
-  'Riviera del Brenta Rosso DOC',
-  'Riviera del Brenta Spumante DOC',
-  'Riviera del Brenta Tai DOC',
-  'Riviera del Garda Bresciano bianco DOC',
-  'Riviera del Garda Bresciano chiaretto DOC',
-  'Riviera del Garda Bresciano Groppello DOC',
-  'Riviera del Garda Bresciano rosé o rosato DOC',
-  'Riviera del Garda Bresciano rosso DOC',
-  'Riviera del Garda Classico bianco DOC',
-  'Riviera del Garda Classico Chiaretto DOC',
-
-  'Riviera del Garda Classico Groppello DOC',
-
-  'Riviera del Garda Classico rosso DOC',
-
-  'Riviera del Garda Classico rosso superiore DOC',
-
-  'Riviera del Garda Classico spumante rosé DOC',
-
-  'Riviera Ligure di Ponente DOC Albenganese Pigato',
-  'Riviera Ligure di Ponente DOC Albenganese Rossese',
-  'Riviera Ligure di Ponente DOC Albenganese Vermentino',
-  'Riviera Ligure di Ponente DOC Finalese Pigato',
-  'Riviera Ligure di Ponente DOC Finalese Rossese',
-  'Riviera Ligure di Ponente DOC Finalese Vermentino',
-  'Riviera Ligure di Ponente DOC Granaccia (Alicante)',
-
-  'Riviera Ligure di Ponente DOC Granaccia (Alicante) passito',
-
-  'Riviera Ligure di Ponente DOC Granaccia (Alicante) superiore',
-  'Riviera Ligure di Ponente DOC Moscato',
-  'Riviera Ligure di Ponente DOC Moscato frizzante',
-  'Riviera Ligure di Ponente DOC Moscato passito',
-
-  'Riviera Ligure di Ponente DOC Moscato vendemmia tardiva',
-  'Riviera Ligure di Ponente DOC Pigato',
-  'Riviera Ligure di Ponente DOC Pigato passito',
-  'Riviera Ligure di Ponente DOC Pigato superiore',
-  'Riviera Ligure di Ponente DOC Quiliano Granaccia',
-  'Riviera Ligure di Ponente DOC Riviera dei Fiori Pigato',
-
-  'Riviera Ligure di Ponente DOC Riviera dei Fiori Rossese',
-
-  'Riviera Ligure di Ponente DOC Riviera dei Fiori Vermentino',
-  'Riviera Ligure di Ponente DOC Rossese',
-  'Riviera Ligure di Ponente DOC Rossese passito',
-  'Riviera Ligure di Ponente DOC Taggia Moscatello',
-
-  'Riviera Ligure di Ponente DOC Taggia Moscatello frizzante',
-
-  'Riviera Ligure di Ponente DOC Taggia Moscatello passito',
-
-  'Riviera Ligure di Ponente DOC Taggia Moscatello vendemmia tardiva',
-  'Riviera Ligure di Ponente DOC Vermentino',
-  'Riviera Ligure di Ponente DOC Vermentino passito',
-  'Riviera Ligure di Ponente DOC Vermentino superiore',
-  'Roero Arneis DOCG',
-  'Roero Arneis spumante DOCG',
-  'Roero DOCG',
-  'Roero riserva DOCG',
-  'Roma DOC Bellone',
-  'Roma DOC Bellone classico',
-  'Roma DOC bianco',
-
-  'Roma DOC bianco classico',
-
-  'Roma DOC Malvasia puntinata',
-  'Roma DOC Malvasia puntinata classico',
-  'Roma DOC Romanella spumante',
-
-  'Roma DOC rosato',
-
-  'Roma DOC rosato classico',
-
-  'Roma DOC rosso',
-
-  'Roma DOC rosso classico',
-
-  'Roma DOC rosso classico riserva',
-
-  'Roma DOC rosso riserva',
-
-  'Romagna Albana amabile DOCG',
-  'Romagna Albana dolce DOCG',
-  'Romagna Albana passito DOCG',
-  'Romagna Albana passito riserva DOCG',
-  'Romagna Albana secco DOCG',
-  'Romagna DOC Albana spumante',
-  'Romagna DOC Cagnina',
-  'Romagna DOC Pagadebit',
-  'Romagna DOC Pagadebit amabile',
-  'Romagna DOC Pagadebit amabile frizzante',
-  'Romagna DOC Pagadebit Bertinoro amabile',
-  'Romagna DOC Pagadebit Bertinoro amabile frizzante',
-  'Romagna DOC Pagadebit Bertinoro secco',
-  'Romagna DOC Pagadebit Bertinoro secco frizzante',
-  'Romagna DOC Pagadebit frizzante',
-  'Romagna DOC Sangiovese',
-  'Romagna DOC Sangiovese Bertinoro riserva',
-  'Romagna DOC Sangiovese Brisighella',
-  'Romagna DOC Sangiovese Brisighella riserva',
-  'Romagna DOC Sangiovese Castrocaro-Terra del Sole',
-
-  'Romagna DOC Sangiovese Castrocaro-Terra del Sole riserva',
-  'Romagna DOC Sangiovese Cesena',
-  'Romagna DOC Sangiovese Cesena riserva',
-  'Romagna DOC Sangiovese Longiano',
-  'Romagna DOC Sangiovese Longiano riserva',
-  'Romagna DOC Sangiovese Marzeno',
-  'Romagna DOC Sangiovese Marzeno riserva',
-  'Romagna DOC Sangiovese Meldola',
-  'Romagna DOC Sangiovese Meldola riserva',
-  'Romagna DOC Sangiovese Modigliana',
-  'Romagna DOC Sangiovese Modigliana riserva',
-  'Romagna DOC Sangiovese novello',
-  'Romagna DOC Sangiovese Oriolo',
-  'Romagna DOC Sangiovese Oriolo riserva',
-  'Romagna DOC Sangiovese Predappio',
-  'Romagna DOC Sangiovese Predappio riserva',
-  'Romagna DOC Sangiovese riserva',
-  'Romagna DOC Sangiovese San Vicinio',
-  'Romagna DOC Sangiovese San Vicinio riserva',
-  'Romagna DOC Sangiovese superiore',
-  'Romagna DOC Sangiovese superiore riserva',
-  'Romagna DOC Trebbiano',
-  'Romagna DOC Trebbiano frizzante',
-  'Romagna DOC Trebbiano spumante',
-  'Rosato di Aprilia DOC',
-  'Rosato di Carmignano DOC',
-  'Rosato di Torgiano DOC',
-  'Rosazzo DOCG',
-  'Rossese di Dolceacqua o Dolceacqua DOC',
-  'Rossese di Dolceacqua o Dolceacqua DOC superiore',
-  'Rosso Conero DOC',
-  'Rosso della Val di Cornia DOCG',
-  'Rosso della Val di Cornia riserva DOCG',
-  'Rosso di Aprilia DOC',
-  'Rosso di Cerignola DOC',
-
-  'Rosso di Cerignola riserva DOC',
-
-  'Rosso di Montalcino DOC',
-  'Rosso di Montepulciano DOC',
-  'Rosso di Torgiano DOC',
-  'Rosso Orvietano o Orvietano rosso DOC',
-
-  'Rosso Orvietano o Orvietano rosso DOC Aleatico',
-  'Rosso Orvietano o Orvietano rosso DOC Cabernet',
-  'Rosso Orvietano o Orvietano rosso DOC Cabernet franc',
-
-  'Rosso Orvietano o Orvietano rosso DOC Cabernet sauvignon',
-  'Rosso Orvietano o Orvietano rosso DOC Canaiolo',
-  'Rosso Orvietano o Orvietano rosso DOC Ciliegiolo',
-  'Rosso Orvietano o Orvietano rosso DOC Merlot',
-  'Rosso Orvietano o Orvietano rosso DOC Pinot nero',
-  'Rosso Orvietano o Orvietano rosso DOC Sangiovese',
-  'Rosso Piceno DOC',
-  'Rosso Piceno DOC novello',
-  'Rosso Piceno DOC Sangiovese',
-  'Rosso Piceno DOC superiore',
-  'Rubino di Cantavenna DOC',
-  'Ruchè di Castagnole Monferrato DOCG',
-  'S.Anna Isola di Capo Rizzuto DOC bianco',
-
-  'S.Anna Isola di Capo Rizzuto DOC rosso',
-
-  'Salaparuta DOC bianco',
-  'Salaparuta DOC Cabernet sauvignon',
-  'Salaparuta DOC Cabernet sauvignon riserva',
-  'Salaparuta DOC Catarratto',
-  'Salaparuta DOC Chardonnay',
-  'Salaparuta DOC Grillo',
-  'Salaparuta DOC Inzolia',
-  'Salaparuta DOC Merlot',
-  'Salaparuta DOC Merlot riserva',
-  'Salaparuta DOC Nero d’Avola',
-  'Salaparuta DOC Nero d’Avola riserva',
-  'Salaparuta DOC novello',
-  'Salaparuta DOC rosso',
-  'Salaparuta DOC rosso riserva',
-  'Salaparuta DOC Syrah',
-  'Salaparuta DOC Syrah riserva',
-  'Salice Salentino DOC Aleatico dolce',
-  'Salice Salentino DOC Aleatico liquoroso dolce',
-  'Salice Salentino DOC bianco',
-  'Salice Salentino DOC bianco spumante',
-  'Salice Salentino DOC Chardonnay',
-  'Salice Salentino DOC Chardonnay spumante',
-  'Salice Salentino DOC Fiano',
-  'Salice Salentino DOC Fiano spumante',
-  'Salice Salentino DOC Negroamaro',
-  'Salice Salentino DOC Negroamaro riserva',
-  'Salice Salentino DOC Negroamaro rosato',
-  'Salice Salentino DOC Negroamaro rosato spumante',
-  'Salice Salentino DOC Pinot bianco',
-  'Salice Salentino DOC Pinot bianco spumante',
-  'Salice Salentino DOC rosato',
-  'Salice Salentino DOC rosato spumante',
-  'Salice Salentino DOC rosso',
-  'Salice Salentino DOC rosso riserva',
-  'Sambuca di Sicilia DOC Ansonica o Inzolia',
-  'Sambuca di Sicilia DOC bianco',
-  'Sambuca di Sicilia DOC Cabernet sauvignon',
-  'Sambuca di Sicilia DOC Cabernet sauvignon riserva',
-  'Sambuca di Sicilia DOC Chardonnay',
-  'Sambuca di Sicilia DOC Grecanico',
-  'Sambuca di Sicilia DOC Merlot',
-  'Sambuca di Sicilia DOC Merlot riserva',
-  'Sambuca di Sicilia DOC Nero d’Avola',
-  'Sambuca di Sicilia DOC Nero d’Avola riserva',
-  'Sambuca di Sicilia DOC passito',
-  'Sambuca di Sicilia DOC rosato',
-  'Sambuca di Sicilia DOC rosso',
-  'Sambuca di Sicilia DOC rosso riserva',
-  'Sambuca di Sicilia DOC Sangiovese',
-  'Sambuca di Sicilia DOC Sangiovese riserva',
-  'Sambuca di Sicilia DOC Syrah',
-  'Sambuca di Sicilia DOC Syrah riserva',
-  'San Colombano al Lambro o San Colombano bianco DOC',
-
-  'San Colombano al Lambro o San Colombano bianco frizzante DOC',
-
-  'San Colombano al Lambro o San Colombano bianco menzione vigna DOC',
-
-  'San Colombano al Lambro o San Colombano bianco menzione vigna frizzante DOC',
-
-  'San Colombano al Lambro o San Colombano rosso con menzione vigna DOC',
-  'San Colombano al Lambro o San Colombano rosso DOC',
-
-  'San Colombano al Lambro o San Colombano rosso frizzante DOC',
-
-  'San Colombano al Lambro o San Colombano rosso riserva con menzione vigna DOC',
-  'San Gimignano DOC Cabernet sauvignon',
-  'San Gimignano DOC Cabernet sauvignon riseva',
-  'San Gimignano DOC Merlot',
-  'San Gimignano DOC Merlot riserva',
-  'San Gimignano DOC Pinot nero',
-  'San Gimignano DOC Pinot nero risrva',
-  'San Gimignano DOC rosato',
-  'San Gimignano DOC rosso',
-  'San Gimignano DOC rosso riserva',
-  'San Gimignano DOC Sangiovese',
-  'San Gimignano DOC Sangiovese riserva',
-  'San Gimignano DOC Syrah',
-  'San Gimignano DOC Syrah riserva',
-  'San Gimignano DOC Vinsanto o Vin Santo',
-
-  'San Gimignano DOC Vinsanto Occhio di Pernice o Vin Santo Occhio di Pernice',
-  'San Ginesio DOC rosso',
-  'San Ginesio DOC spumante dolce',
-  'San Ginesio DOC spumante secco',
-  'San Martino della Battaglia DOC',
-  'San Martino della Battaglia liquoroso DOC',
-  'San Severo DOC bianco',
-  'San Severo DOC bianco frizzante',
-  'San Severo DOC bianco spumante',
-  'San Severo DOC Bombino bianco',
-  'San Severo DOC Bombino bianco frizzante',
-  'San Severo DOC Bombino bianco spumante',
-  'San Severo DOC Falanghina',
-  'San Severo DOC Malvasia bianca di Candia',
-  'San Severo DOC Merlot',
-  'San Severo DOC Merlot rosato',
-  'San Severo DOC rosato',
-  'San Severo DOC rosato frizzante',
-  'San Severo DOC rosso',
-  'San Severo DOC rosso novello',
-  'San Severo DOC rosso riserva',
-  'San Severo DOC Sangiovese',
-  'San Severo DOC Sangiovese rosato',
-  'San Severo DOC Trebbiano bianco',
-  'San Severo DOC Uva di Troia o Nero di Troia',
-  'San Severo DOC Uva di Troia o Nero di Troia riserva',
-  'San Severo DOC Uva di Troia o Nero di Troia rosato',
-  'San Torpè DOC bianco',
-  'San Torpè DOC Chardonnay',
-  'San Torpè DOC rosato',
-  'San Torpè DOC Sauvignon',
-  'San Torpè DOC Trebbiano',
-  'San Torpè DOC Vermentino',
-  'San Torpè DOC Vin Santo',
-  'San Torpè DOC Vin Santo riserva',
-
-  'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda DOC',
-
-  'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda frizzante DOC',
-
-  'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda spumante dolce DOC',
-  'Sannio DOC Aglianico',
-  'Sannio DOC Aglianico novello',
-  'Sannio DOC aglianico passito',
-  'Sannio DOC Aglianico riserva',
-  'Sannio DOC Aglianico rosato',
-  'Sannio DOC Aglianico spumante',
-  'Sannio DOC Aglianico spumante di qualità',
-
-  'Sannio DOC Aglianico spumante di qualità metodo classico',
-
-  'Sannio DOC Aglianico spumante di qualità metodo classico rosato o rosé',
-  'Sannio DOC Aglianico spumante di qualità rosato o rosé',
-  'Sannio DOC Aglianico spumante rosato o rosé',
-  'Sannio DOC Aglianico-Piedirosso',
-  'Sannio DOC Aglianico-Piedirosso rosato',
-  'Sannio DOC Barbera',
-  'Sannio DOC Barbera passito',
-  'Sannio DOC Barbera spumante',
-  'Sannio DOC Barbera spumante di qualità',
-  'Sannio DOC Barbera spumante di qualità metodo classico',
-  'Sannio DOC bianco',
-  'Sannio DOC bianco frizzante',
-  'Sannio DOC Coda di Volpe',
-  'Sannio DOC Coda di Volpe passito',
-  'Sannio DOC Coda di Volpe spumante',
-  'Sannio DOC Coda di Volpe spumante di qualità',
-
-  'Sannio DOC Coda di Volpe spumante di qualità metodo classico',
-  'Sannio DOC Fiano',
-  'Sannio DOC Fiano passito',
-  'Sannio DOC Fiano spumante',
-  'Sannio DOC Fiano spumante di qualità',
-  'Sannio DOC Fiano spumante di qualità metodo classico',
-  'Sannio DOC Greco',
-  'Sannio DOC Greco passito',
-  'Sannio DOC Greco spumante',
-  'Sannio DOC Greco spumante di qualità',
-  'Sannio DOC Greco spumante di qualità metodo classico',
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico novello',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo aglianico passito',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico riserva',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico rosato',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante di qualità metodo classico',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante di qualità metodo classico rosato o rosé',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante di qualità rosato o rosé',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante rosato o rosé',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico-Piedirosso',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico-Piedirosso rosato',
-  'Sannio DOC Guardia Sanframondi o Guardiolo Barbera',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Barbera passito',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Barbera spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Barbera spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Barbera spumante di qualità metodo classico',
-  'Sannio DOC Guardia Sanframondi o Guardiolo bianco',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo bianco frizzante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe passito',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe spumante di qualità metodo classico',
-  'Sannio DOC Guardia Sanframondi o Guardiolo Fiano',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Fiano passito',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Fiano spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Fiano spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Fiano spumante di qualità metodo classico',
-  'Sannio DOC Guardia Sanframondi o Guardiolo Greco',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Greco passito',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Greco spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Greco spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Greco spumante di qualità metodo classico',
-  'Sannio DOC Guardia Sanframondi o Guardiolo Moscato',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Moscato passito',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Moscato spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Moscato spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Moscato spumante di qualità metodo classico',
-  'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso passito',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso spumante di qualità metodo classico',
-  'Sannio DOC Guardia Sanframondi o Guardiolo rosato',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo rosato frizzante',
-  'Sannio DOC Guardia Sanframondi o Guardiolo rosso',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo rosso frizzante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo rosso novello',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo rosso riserva',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo rosso superiore',
-  'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso passito',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso spumante di qualità metoso classico',
-  'Sannio DOC Guardia Sanframondi o Guardiolo spumante',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo spumante spumante di qualità',
-
-  'Sannio DOC Guardia Sanframondi o Guardiolo spumante spumante di qualità metodo classico',
-  'Sannio DOC Moscato',
-  'Sannio DOC Moscato passito',
-  'Sannio DOC Moscato spumante',
-  'Sannio DOC Moscato spumante di qualità',
-  'Sannio DOC Moscato spumante di qualità metodo classico',
-  'Sannio DOC Piedirosso',
-  'Sannio DOC Piedirosso passito',
-  'Sannio DOC Piedirosso spumante',
-  'Sannio DOC Piedirosso spumante di qualità',
-
-  'Sannio DOC Piedirosso spumante di qualità metodo classico',
-  'Sannio DOC rosato',
-  'Sannio DOC rosato frizzante',
-  'Sannio DOC rosso',
-  'Sannio DOC rosso frizzante',
-  'Sannio DOC rosso novello',
-  'Sannio DOC rosso riserva',
-  'Sannio DOC rosso superiore',
-  'Sannio DOC Sant’Agata dei Goti Aglianico',
-  'Sannio DOC Sant’Agata dei Goti Aglianico novello',
-  'Sannio DOC Sant’Agata dei Goti aglianico passito',
-  'Sannio DOC Sant’Agata dei Goti Aglianico riserva',
-  'Sannio DOC Sant’Agata dei Goti Aglianico rosato',
-  'Sannio DOC Sant’Agata dei Goti Aglianico spumante',
-
-  'Sannio DOC Sant’Agata dei Goti Aglianico spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti Aglianico spumante di qualità metodo classico',
-
-  'Sannio DOC Sant’Agata dei Goti Aglianico spumante di qualità metodo classico rosato o rosé',
-
-  'Sannio DOC Sant’Agata dei Goti Aglianico spumante di qualità rosato o rosé',
-
-  'Sannio DOC Sant’Agata dei Goti Aglianico spumante rosato o rosé',
-  'Sannio DOC Sant’Agata dei Goti Aglianico-Piedirosso',
-
-  'Sannio DOC Sant’Agata dei Goti Aglianico-Piedirosso rosato',
-  'Sannio DOC Sant’Agata dei Goti Barbera',
-  'Sannio DOC Sant’Agata dei Goti Barbera passito',
-  'Sannio DOC Sant’Agata dei Goti Barbera spumante',
-
-  'Sannio DOC Sant’Agata dei Goti Barbera spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti Barbera spumante di qualità metodo classico',
-  'Sannio DOC Sant’Agata dei Goti bianco',
-  'Sannio DOC Sant’Agata dei Goti bianco frizzante',
-  'Sannio DOC Sant’Agata dei Goti Coda di Volpe',
-  'Sannio DOC Sant’Agata dei Goti Coda di Volpe passito',
-  'Sannio DOC Sant’Agata dei Goti Coda di Volpe spumante',
-
-  'Sannio DOC Sant’Agata dei Goti Coda di Volpe spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti Coda di Volpe spumante di qualità metodo classico',
-  'Sannio DOC Sant’Agata dei Goti Fiano',
-  'Sannio DOC Sant’Agata dei Goti Fiano passito',
-  'Sannio DOC Sant’Agata dei Goti Fiano spumante',
-
-  'Sannio DOC Sant’Agata dei Goti Fiano spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti Fiano spumante di qualità metodo classico',
-  'Sannio DOC Sant’Agata dei Goti Greco',
-  'Sannio DOC Sant’Agata dei Goti Greco passito',
-  'Sannio DOC Sant’Agata dei Goti Greco spumante',
-
-  'Sannio DOC Sant’Agata dei Goti Greco spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti Greco spumante di qualità metodo classico',
-  'Sannio DOC Sant’Agata dei Goti Moscato',
-  'Sannio DOC Sant’Agata dei Goti Moscato passito',
-  'Sannio DOC Sant’Agata dei Goti Moscato spumante',
-
-  'Sannio DOC Sant’Agata dei Goti Moscato spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti Moscato spumante di qualità metodo classico',
-  'Sannio DOC Sant’Agata dei Goti Piedirosso',
-  'Sannio DOC Sant’Agata dei Goti Piedirosso passito',
-  'Sannio DOC Sant’Agata dei Goti Piedirosso spumante',
-
-  'Sannio DOC Sant’Agata dei Goti Piedirosso spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti Piedirosso spumante di qualità metodo classico',
-  'Sannio DOC Sant’Agata dei Goti rosato',
-  'Sannio DOC Sant’Agata dei Goti rosato frizzante',
-  'Sannio DOC Sant’Agata dei Goti rosso',
-  'Sannio DOC Sant’Agata dei Goti rosso frizzante',
-  'Sannio DOC Sant’Agata dei Goti rosso novello',
-  'Sannio DOC Sant’Agata dei Goti rosso riserva',
-  'Sannio DOC Sant’Agata dei Goti rosso superiore',
-  'Sannio DOC Sant’Agata dei Goti Sciascinoso',
-  'Sannio DOC Sant’Agata dei Goti Sciascinoso passito',
-  'Sannio DOC Sant’Agata dei Goti Sciascinoso spumante',
-
-  'Sannio DOC Sant’Agata dei Goti Sciascinoso spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti Sciascinoso spumante di qualità metoso classico',
-  'Sannio DOC Sant’Agata dei Goti spumante',
-
-  'Sannio DOC Sant’Agata dei Goti spumante spumante di qualità',
-
-  'Sannio DOC Sant’Agata dei Goti spumante spumante di qualità metodo classico',
-  'Sannio DOC Sciascinoso',
-  'Sannio DOC Sciascinoso passito',
-  'Sannio DOC Sciascinoso spumante',
-  'Sannio DOC Sciascinoso spumante di qualità',
-
-  'Sannio DOC Sciascinoso spumante di qualità metoso classico',
-  'Sannio DOC Solopaca Aglianico',
-  'Sannio DOC Solopaca Aglianico novello',
-  'Sannio DOC Solopaca aglianico passito',
-  'Sannio DOC Solopaca Aglianico riserva',
-  'Sannio DOC Solopaca Aglianico rosato',
-  'Sannio DOC Solopaca Aglianico spumante',
-  'Sannio DOC Solopaca Aglianico spumante di qualità',
-
-  'Sannio DOC Solopaca Aglianico spumante di qualità metodo classico',
-
-  'Sannio DOC Solopaca Aglianico spumante di qualità metodo classico rosato o rosé',
-
-  'Sannio DOC Solopaca Aglianico spumante di qualità rosato o rosé',
-  'Sannio DOC Solopaca Aglianico spumante rosato o rosé',
-  'Sannio DOC Solopaca Aglianico-Piedirosso',
-  'Sannio DOC Solopaca Aglianico-Piedirosso rosato',
-  'Sannio DOC Solopaca Barbera',
-  'Sannio DOC Solopaca Barbera passito',
-  'Sannio DOC Solopaca Barbera spumante',
-  'Sannio DOC Solopaca Barbera spumante di qualità',
-
-  'Sannio DOC Solopaca Barbera spumante di qualità metodo classico',
-  'Sannio DOC Solopaca bianco',
-  'Sannio DOC Solopaca bianco frizzante',
-  'Sannio DOC Solopaca classico Aglianico',
-  'Sannio DOC Solopaca classico Aglianico novello',
-  'Sannio DOC Solopaca classico aglianico passito',
-  'Sannio DOC Solopaca classico Aglianico riserva',
-  'Sannio DOC Solopaca classico Aglianico rosato',
-  'Sannio DOC Solopaca classico Aglianico spumante',
-
-  'Sannio DOC Solopaca classico Aglianico spumante di qualità',
-
-  'Sannio DOC Solopaca classico Aglianico spumante di qualità metodo classico',
-
-  'Sannio DOC Solopaca classico Aglianico spumante di qualità metodo classico rosato o rosé',
-
-  'Sannio DOC Solopaca classico Aglianico spumante di qualità rosato o rosé',
-
-  'Sannio DOC Solopaca classico Aglianico spumante rosato o rosé',
-  'Sannio DOC Solopaca classico Aglianico-Piedirosso',
-
-  'Sannio DOC Solopaca classico Aglianico-Piedirosso rosato',
-  'Sannio DOC Solopaca classico Barbera',
-  'Sannio DOC Solopaca classico Barbera passito',
-  'Sannio DOC Solopaca classico Barbera spumante',
-
-  'Sannio DOC Solopaca classico Barbera spumante di qualità',
-
-  'Sannio DOC Solopaca classico Barbera spumante di qualità metodo classico',
-  'Sannio DOC Solopaca classico bianco',
-  'Sannio DOC Solopaca classico bianco frizzante',
-  'Sannio DOC Solopaca classico Coda di Volpe',
-  'Sannio DOC Solopaca classico Coda di Volpe passito',
-  'Sannio DOC Solopaca classico Coda di Volpe spumante',
-
-  'Sannio DOC Solopaca classico Coda di Volpe spumante di qualità',
-
-  'Sannio DOC Solopaca classico Coda di Volpe spumante di qualità metodo classico',
-  'Sannio DOC Solopaca classico Fiano',
-  'Sannio DOC Solopaca classico Fiano passito',
-  'Sannio DOC Solopaca classico Fiano spumante',
-  'Sannio DOC Solopaca classico Fiano spumante di qualità',
-
-  'Sannio DOC Solopaca classico Fiano spumante di qualità metodo classico',
-  'Sannio DOC Solopaca classico Greco',
-  'Sannio DOC Solopaca classico Greco passito',
-  'Sannio DOC Solopaca classico Greco spumante',
-  'Sannio DOC Solopaca classico Greco spumante di qualità',
-
-  'Sannio DOC Solopaca classico Greco spumante di qualità metodo classico',
-  'Sannio DOC Solopaca classico Moscato',
-  'Sannio DOC Solopaca classico Moscato passito',
-  'Sannio DOC Solopaca classico Moscato spumante',
-
-  'Sannio DOC Solopaca classico Moscato spumante di qualità',
-
-  'Sannio DOC Solopaca classico Moscato spumante di qualità metodo classico',
-  'Sannio DOC Solopaca classico Piedirosso',
-  'Sannio DOC Solopaca classico Piedirosso passito',
-  'Sannio DOC Solopaca classico Piedirosso spumante',
-
-  'Sannio DOC Solopaca classico Piedirosso spumante di qualità',
-
-  'Sannio DOC Solopaca classico Piedirosso spumante di qualità metodo classico',
-  'Sannio DOC Solopaca classico rosato',
-  'Sannio DOC Solopaca classico rosato frizzante',
-  'Sannio DOC Solopaca classico rosso',
-  'Sannio DOC Solopaca classico rosso frizzante',
-  'Sannio DOC Solopaca classico rosso novello',
-  'Sannio DOC Solopaca classico rosso riserva',
-  'Sannio DOC Solopaca classico rosso superiore',
-  'Sannio DOC Solopaca classico Sciascinoso',
-  'Sannio DOC Solopaca classico Sciascinoso passito',
-  'Sannio DOC Solopaca classico Sciascinoso spumante',
-
-  'Sannio DOC Solopaca classico Sciascinoso spumante di qualità',
-
-  'Sannio DOC Solopaca classico Sciascinoso spumante di qualità metoso classico',
-  'Sannio DOC Solopaca classico spumante',
-
-  'Sannio DOC Solopaca classico spumante spumante di qualità',
-
-  'Sannio DOC Solopaca classico spumante spumante di qualità metodo classico',
-  'Sannio DOC Solopaca Coda di Volpe',
-  'Sannio DOC Solopaca Coda di Volpe passito',
-  'Sannio DOC Solopaca Coda di Volpe spumante',
-  'Sannio DOC Solopaca Coda di Volpe spumante di qualità',
-
-  'Sannio DOC Solopaca Coda di Volpe spumante di qualità metodo classico',
-  'Sannio DOC Solopaca Fiano',
-  'Sannio DOC Solopaca Fiano passito',
-  'Sannio DOC Solopaca Fiano spumante',
-  'Sannio DOC Solopaca Fiano spumante di qualità',
-
-  'Sannio DOC Solopaca Fiano spumante di qualità metodo classico',
-  'Sannio DOC Solopaca Greco',
-  'Sannio DOC Solopaca Greco passito',
-  'Sannio DOC Solopaca Greco spumante',
-  'Sannio DOC Solopaca Greco spumante di qualità',
-
-  'Sannio DOC Solopaca Greco spumante di qualità metodo classico',
-  'Sannio DOC Solopaca Moscato',
-  'Sannio DOC Solopaca Moscato passito',
-  'Sannio DOC Solopaca Moscato spumante',
-  'Sannio DOC Solopaca Moscato spumante di qualità',
-
-  'Sannio DOC Solopaca Moscato spumante di qualità metodo classico',
-  'Sannio DOC Solopaca Piedirosso',
-  'Sannio DOC Solopaca Piedirosso passito',
-  'Sannio DOC Solopaca Piedirosso spumante',
-  'Sannio DOC Solopaca Piedirosso spumante di qualità',
-
-  'Sannio DOC Solopaca Piedirosso spumante di qualità metodo classico',
-  'Sannio DOC Solopaca rosato',
-  'Sannio DOC Solopaca rosato frizzante',
-  'Sannio DOC Solopaca rosso',
-  'Sannio DOC Solopaca rosso frizzante',
-  'Sannio DOC Solopaca rosso novello',
-  'Sannio DOC Solopaca rosso riserva',
-  'Sannio DOC Solopaca rosso superiore',
-  'Sannio DOC Solopaca Sciascinoso',
-  'Sannio DOC Solopaca Sciascinoso passito',
-  'Sannio DOC Solopaca Sciascinoso spumante',
-  'Sannio DOC Solopaca Sciascinoso spumante di qualità',
-
-  'Sannio DOC Solopaca Sciascinoso spumante di qualità metoso classico',
-  'Sannio DOC Solopaca spumante',
-  'Sannio DOC Solopaca spumante spumante di qualità',
-
-  'Sannio DOC Solopaca spumante spumante di qualità metodo classico',
-  'Sannio DOC spumante',
-  'Sannio DOC spumante spumante di qualità',
-
-  'Sannio DOC spumante spumante di qualità metodo classico',
-  'Sannio DOC Taburno Aglianico',
-  'Sannio DOC Taburno Aglianico novello',
-  'Sannio DOC Taburno aglianico passito',
-  'Sannio DOC Taburno Aglianico riserva',
-  'Sannio DOC Taburno Aglianico rosato',
-  'Sannio DOC Taburno Aglianico spumante',
-  'Sannio DOC Taburno Aglianico spumante di qualità',
-
-  'Sannio DOC Taburno Aglianico spumante di qualità metodo classico',
-
-  'Sannio DOC Taburno Aglianico spumante di qualità metodo classico rosato o rosé',
-
-  'Sannio DOC Taburno Aglianico spumante di qualità rosato o rosé',
-  'Sannio DOC Taburno Aglianico spumante rosato o rosé',
-  'Sannio DOC Taburno Aglianico-Piedirosso',
-  'Sannio DOC Taburno Aglianico-Piedirosso rosato',
-  'Sannio DOC Taburno Barbera',
-  'Sannio DOC Taburno Barbera passito',
-  'Sannio DOC Taburno Barbera spumante',
-  'Sannio DOC Taburno Barbera spumante di qualità',
-
-  'Sannio DOC Taburno Barbera spumante di qualità metodo classico',
-  'Sannio DOC Taburno bianco',
-  'Sannio DOC Taburno bianco frizzante',
-  'Sannio DOC Taburno Coda di Volpe',
-  'Sannio DOC Taburno Coda di Volpe passito',
-  'Sannio DOC Taburno Coda di Volpe spumante',
-  'Sannio DOC Taburno Coda di Volpe spumante di qualità',
-
-  'Sannio DOC Taburno Coda di Volpe spumante di qualità metodo classico',
-  'Sannio DOC Taburno Fiano',
-  'Sannio DOC Taburno Fiano passito',
-  'Sannio DOC Taburno Fiano spumante',
-  'Sannio DOC Taburno Fiano spumante di qualità',
-
-  'Sannio DOC Taburno Fiano spumante di qualità metodo classico',
-  'Sannio DOC Taburno Greco',
-  'Sannio DOC Taburno Greco passito',
-  'Sannio DOC Taburno Greco spumante',
-  'Sannio DOC Taburno Greco spumante di qualità',
-
-  'Sannio DOC Taburno Greco spumante di qualità metodo classico',
-  'Sannio DOC Taburno Moscato',
-  'Sannio DOC Taburno Moscato passito',
-  'Sannio DOC Taburno Moscato spumante',
-  'Sannio DOC Taburno Moscato spumante di qualità',
-
-  'Sannio DOC Taburno Moscato spumante di qualità metodo classico',
-  'Sannio DOC Taburno Piedirosso',
-  'Sannio DOC Taburno Piedirosso passito',
-  'Sannio DOC Taburno Piedirosso spumante',
-  'Sannio DOC Taburno Piedirosso spumante di qualità',
-
-  'Sannio DOC Taburno Piedirosso spumante di qualità metodo classico',
-  'Sannio DOC Taburno rosato',
-  'Sannio DOC Taburno rosato frizzante',
-  'Sannio DOC Taburno rosso',
-  'Sannio DOC Taburno rosso frizzante',
-  'Sannio DOC Taburno rosso novello',
-  'Sannio DOC Taburno rosso riserva',
-  'Sannio DOC Taburno rosso superiore',
-  'Sannio DOC Taburno Sciascinoso',
-  'Sannio DOC Taburno Sciascinoso passito',
-  'Sannio DOC Taburno Sciascinoso spumante',
-  'Sannio DOC Taburno Sciascinoso spumante di qualità',
-
-  'Sannio DOC Taburno Sciascinoso spumante di qualità metoso classico',
-  'Sannio DOC Taburno spumante',
-  'Sannio DOC Taburno spumante spumante di qualità',
-
-  'Sannio DOC Taburno spumante spumante di qualità metodo classico',
-  'Sant’Antimo DOC bianco',
-  'Sant’Antimo DOC Cabernet sauvignon',
-  'Sant’Antimo DOC Cahrdonnay',
-  'Sant’Antimo DOC Merlot',
-  'Sant’Antimo DOC Pinot grigio',
-  'Sant’Antimo DOC Pinot nero',
-  'Sant’Antimo DOC rosso',
-  'Sant’Antimo DOC Sauvignon',
-  'Sant’Antimo DOC Vin Santo',
-  'Sant’Antimo DOC Vin Santo Occhio di Pernice',
-  'Sant’Antimo DOC Vin Santo Occhio di Pernice riserva',
-  'Sant’Antimo DOC Vin Santo riserva',
-  'Santa Margherita di Belice DOC Ansonica',
-  'Santa Margherita di Belice DOC bianco',
-  'Santa Margherita di Belice DOC Catarratto',
-  'Santa Margherita di Belice DOC Grecanico',
-  'Santa Margherita di Belice DOC Nero d’Avola',
-  'Santa Margherita di Belice DOC rosso',
-  'Santa Margherita di Belice DOC Sangiovese',
-  'Sardegna Semidano DOC',
-  'Sardegna Semidano DOC passito',
-  'Sardegna Semidano DOC sottozona Mogoro',
-  'Sardegna Semidano DOC spumante',
-  'Sardegna Semidano DOC superiore',
-  'Savuto DOC bianco',
-  'Savuto DOC rosato',
-  'Savuto DOC rosso',
-  'Savuto DOC rosso superiore',
-  'Scanzo o Moscato di Scanzo DOCG',
-  'Scavigna DOC bianco',
-  'Scavigna DOC rosato',
-  'Scavigna DOC rosso',
-  'Sciacca DOC bianco',
-  'Sciacca DOC Cabernet sauvignon',
-  'Sciacca DOC Chardonnay',
-  'Sciacca DOC Grecanico',
-  'Sciacca DOC Inzolia',
-  'Sciacca DOC Merlot',
-  'Sciacca DOC Nero d’Avola',
-  'Sciacca DOC riserva Rayana',
-  'Sciacca DOC rosato',
-  'Sciacca DOC rosso',
-  'Sciacca DOC rosso riserva',
-  'Sciacca DOC Sangiovese',
-  'Serrapetrona DOC',
-  'Sforzato di Valtellina o Sfursat di Valtellina DOCG',
-  'Sicilia DOC Alicante',
-  'Sicilia DOC bianco',
-
-  'Sicilia DOC bianco vendemmia tardiva',
-
-  'Sicilia DOC Cabernet franc',
-  'Sicilia DOC Cabernet sauvignon',
-  'Sicilia DOC Carignano',
-  'Sicilia DOC Carignano – Alicante',
-  'Sicilia DOC Carricante',
-  'Sicilia DOC Carricante – Catarratto',
-  'Sicilia DOC Carricante – Chardonnay',
-  'Sicilia DOC Carricante – Grecanico',
-  'Sicilia DOC Catarratto',
-  'Sicilia DOC Catarratto – Chardonnay',
-  'Sicilia DOC Catarratto – Fiano',
-  'Sicilia DOC Catarratto – Grillo',
-  'Sicilia DOC Catarratto – Inzolia',
-  'Sicilia DOC Catarratto – Viogner',
-  'Sicilia DOC Chardonnay',
-  'Sicilia DOC Damaschino',
-  'Sicilia DOC Fiano',
-  'Sicilia DOC Frappato',
-  'Sicilia DOC Frappato – Cabernet sauvignon',
-  'Sicilia DOC Frappato – Syrah',
-  'Sicilia DOC Grecanico',
-  'Sicilia DOC Grecanico – Chardonnay',
-  'Sicilia DOC Grecanico – Fiano',
-  'Sicilia DOC Grecanico – Inzolia',
-  'Sicilia DOC Grecanico – Viogner',
-  'Sicilia DOC Grillo',
-  'Sicilia DOC Grillo – Chardonnay',
-  'Sicilia DOC Grillo – Grecanico',
-  'Sicilia DOC Grillo – Sauvignon',
-  'Sicilia DOC Grillo – Viognier',
-  'Sicilia DOC Inzolia',
-  'Sicilia DOC Inzolia – Chardonnay',
-  'Sicilia DOC Inzolia – Grillo',
-  'Sicilia DOC Inzolia – Sauvignon',
-  'Sicilia DOC Inzolia – Viognier',
-  'Sicilia DOC Merlot – Cabernet sauvignon',
-  'Sicilia DOC Merlot – Syrah',
-  'Sicilia DOC Mondeuse',
-  'Sicilia DOC Müller-Thurgau',
-  'Sicilia DOC Nerello cappuccio',
-  'Sicilia DOC Nerello mascalese',
-  'Sicilia DOC Nerello mascalese – Merlot',
-  'Sicilia DOC Nerello mascalese – Nerello cappuccio',
-  'Sicilia DOC Nero d’Avola',
-  'Sicilia DOC Nero d’Avola – Cabernet franc',
-  'Sicilia DOC Nero d’Avola – Cabernet sauvignon',
-  'Sicilia DOC Nero d’Avola – Frappato',
-  'Sicilia DOC Nero d’Avola – Merlot',
-  'Sicilia DOC Nero d’Avola – Nerello cappuccio',
-  'Sicilia DOC Nero d’Avola – Nerello mascalese',
-  'Sicilia DOC Nero d’Avola – Perricone',
-  'Sicilia DOC Nero d’Avola – Pinot nero',
-  'Sicilia DOC Nero d’Avola – Syrah',
-  'Sicilia DOC Nocera',
-  'Sicilia DOC Perricone',
-  'Sicilia DOC Perricone – Nerello mascalese',
-  'Sicilia DOC Pinot grigio',
-  'Sicilia DOC Pinot nero',
-  'Sicilia DOC rosato',
-  'Sicilia DOC rosso',
-  'Sicilia DOC rosso riserva',
-  'Sicilia DOC rosso vendemmia tardiva',
-  'Sicilia DOC Sauvignon',
-  'Sicilia DOC spumante bianco',
-
-  'Sicilia DOC spumante rosato',
-  'Sicilia DOC Syrah',
-  'Sicilia DOC Syrah – Alicante',
-  'Sicilia DOC Syrah – Cabernet sauvignon',
-  'Sicilia DOC Syrah – Carignano',
-  'Sicilia DOC Syrah – Merlot',
-  'Sicilia DOC Viognier',
-  'Siracusa DOC bianco',
-  'Siracusa DOC Moscato',
-  'Siracusa DOC Moscato spumante',
-  'Siracusa DOC Nero d’Avola',
-  'Siracusa DOC passito',
-  'Siracusa DOC rosso',
-  'Siracusa DOC Syrah',
-  'Sizzano DOC',
-  'Sizzano DOC riserva',
-  'Soave classico DOC',
-  'Soave Colli Scaligeri DOC',
-  'Soave DOC',
-  'Soave spumante DOC',
-  'Soave superiore classico DOCG',
-  'Soave superiore classico riserva DOCG',
-  'Soave superiore DOCG',
-  'Soave superiore riserva DOCG',
-  'Sovana DOC Aleatico passito',
-  'Sovana DOC Aleatico riserva',
-  'Sovana DOC Aleatico riserva passito',
-  'Sovana DOC Aleatico superiore',
-  'Sovana DOC Cabernet sauvignon riserva',
-  'Sovana DOC Cabernet sauvignon superiore',
-  'Sovana DOC Ciliegiolo riserva',
-  'Sovana DOC Ciliegiolo superiore',
-  'Sovana DOC Merlot riserva',
-  'Sovana DOC Merlot superiore',
-  'Sovana DOC rosato',
-  'Sovana DOC rosso',
-  'Sovana DOC rosso riserva',
-  'Sovana DOC rosso superiore',
-  'Sovana DOC Sangiovese riserva',
-  'Sovana DOC Sangiovese superiore',
-  'Spoleto DOC bianco',
-  'Spoleto DOC Trebbiano spoletino',
-  'Spoleto DOC Trebbiano spoletino passito',
-  'Spoleto DOC Trebbiano spoletino spumante',
-  'Spoleto DOC Trebbiano spoletino superiore',
-  'Squinzano DOC bianco',
-  'Squinzano DOC bianco spumante',
-  'Squinzano DOC Chardonnay',
-  'Squinzano DOC Chardonnay spumante',
-  'Squinzano DOC Fiano',
-  'Squinzano DOC Fiano spumante',
-  'Squinzano DOC Malvasia bianca',
-  'Squinzano DOC Malvasia bianca spumante',
-  'Squinzano DOC Negroamaro',
-  'Squinzano DOC Negroamaro riserva',
-  'Squinzano DOC Negroamaro rosato',
-  'Squinzano DOC Negroamaro rosato spumante',
-  'Squinzano DOC rosato',
-  'Squinzano DOC rosato spumante',
-  'Squinzano DOC rosso',
-  'Squinzano DOC rosso novello',
-  'Squinzano DOC rosso riserva',
-  'Squinzano DOC Sauvignon',
-  'Squinzano DOC Sauvignon spumante',
-  'Squinzano DOC Susumaniello',
-  'Strevi DOC',
-  'Suvereto Cabernet Sauvignon DOCG',
-  'Suvereto Cabernet Sauvignon riserva DOCG',
-  'Suvereto DOCG',
-  'Suvereto Merlot DOCG',
-  'Suvereto Merlot riserva DOCG',
-  'Suvereto riserva DOCG',
-  'Suvereto Sangiovese DOCG',
-  'Suvereto Sangiovese riserva DOCG',
-  'Tarquinia DOC bianco',
-
-  'Tarquinia DOC bianco amabile',
-
-  'Tarquinia DOC bianco frizzante',
-
-  'Tarquinia DOC rosato',
-  'Tarquinia DOC rosso',
-  'Tarquinia DOC rosso amabile',
-  'Tarquinia DOC rosso novello',
-  'Taurasi DOCG',
-  'Taurasi riserva DOCG',
-  'Tavoliere delle Puglie o Tavoliere DOC Nero di Troia',
-
-  'Tavoliere delle Puglie o Tavoliere DOC Nero di Troia riserva',
-  'Tavoliere delle Puglie o Tavoliere DOC rosato',
-  'Tavoliere delle Puglie o Tavoliere DOC rosso',
-  'Tavoliere delle Puglie o Tavoliere DOC rosso riserva',
-  'Teroldego Rotaliano DOC rosato o kretzer',
-  'Teroldego Rotaliano DOC rosso o rubino',
-  'Teroldego Rotaliano DOC superiore e superiore riserva',
-  'Terra d’Otranto DOC Aleatico',
-  'Terra d’Otranto DOC bianco',
-  'Terra d’Otranto DOC bianco spumante',
-  'Terra d’Otranto DOC Chardonnay',
-  'Terra d’Otranto DOC Chardonnay frizzante',
-  'Terra d’Otranto DOC Fiano',
-  'Terra d’Otranto DOC Fiano frizzante',
-  'Terra d’Otranto DOC Malvasia bianca',
-  'Terra d’Otranto DOC Malvasia bianca frizzante',
-  'Terra d’Otranto DOC Malvasia nera',
-
-  'Terra d’Otranto DOC Primitivo',
-
-  'Terra d’Otranto DOC rosato',
-
-  'Terra d’Otranto DOC rosato frizzante',
-  'Terra d’Otranto DOC rosato spumante',
-  'Terra d’Otranto DOC rosso',
-
-  'Terra d’Otranto DOC rosso riserva',
-
-  'Terra d’Otranto DOC Verdeca',
-  'Terra d’Otranto DOC Verdeca frizzante',
-  'Terracina o Moscato di Terracina DOC amabile',
-  'Terracina o Moscato di Terracina DOC passito',
-  'Terracina o Moscato di Terracina DOC secco',
-  'Terracina o Moscato di Terracina DOC spumante',
-  'Terratico di Bibbona DOC bianco',
-  'Terratico di Bibbona DOC Cabernet sauvignon',
-  'Terratico di Bibbona DOC Merlot',
-  'Terratico di Bibbona DOC rosato',
-  'Terratico di Bibbona DOC rosso',
-  'Terratico di Bibbona DOC rosso superiore',
-  'Terratico di Bibbona DOC Sangiovese',
-  'Terratico di Bibbona DOC Syrah',
-  'Terratico di Bibbona DOC Trebbiano',
-  'Terratico di Bibbona DOC Vermentino',
-  'Terre Alfieri DOC Arneis menzione vigna',
-  'Terre Alfieri DOC Nebbiolo',
-  'Terre Alfieri DOC Nebbiolo menzione vigna',
-  'Terre Alfieri DOCG Arneis',
-  'Terre Alfieri DOCG Arneis superiore',
-  'Terre Alfieri DOCG Nebbiolo',
-  'Terre Alfieri DOCG Nebbiolo riserva',
-  'Terre Alfieri DOCG Nebbiolo superiore',
-  'Terre del Colleoni o Colleoni Cabernet DOC',
-  'Terre del Colleoni o Colleoni Chardonnay DOC',
-  'Terre del Colleoni o Colleoni Franconia DOC',
-  'Terre del Colleoni o Colleoni Incrocio Manzoni DOC',
-  'Terre del Colleoni o Colleoni Incrocio Terzi DOC',
-  'Terre del Colleoni o Colleoni Marzemino DOC',
-  'Terre del Colleoni o Colleoni Merlot DOC',
-  'Terre del Colleoni o Colleoni Moscato giallo DOC',
-
-  'Terre del Colleoni o Colleoni Moscato giallo passito DOC',
-  'Terre del Colleoni o Colleoni Novello DOC',
-  'Terre del Colleoni o Colleoni Pinot bianco DOC',
-  'Terre del Colleoni o Colleoni Pinot grigio DOC',
-  'Terre del Colleoni o Colleoni Schiava DOC',
-  'Terre del Colleoni o Colleoni Spumante DOC',
-  'Terre dell’Alta Val d’Agri DOC rosato',
-  'Terre dell’Alta Val d’Agri DOC rosso',
-  'Terre dell’Alta Val d’Agri DOC rosso riserva',
-  'Terre di Casole DOC bianco',
-  'Terre di Casole DOC bianco riserva',
-  'Terre di Casole DOC passito',
-  'Terre di Casole DOC rosso',
-  'Terre di Casole DOC rosso superiore',
-  'Terre di Casole DOC Sangiovese',
-  'Terre di Casole DOC Sangiovese riserva',
-  'Terre di Cosenza DOC Aglianico',
-  'Terre di Cosenza DOC bianco',
-  'Terre di Cosenza DOC bianco passito',
-  'Terre di Cosenza DOC bianco spumante',
-  'Terre di Cosenza DOC bianco vendemmia tardiva',
-  'Terre di Cosenza DOC Cabernet',
-  'Terre di Cosenza DOC Calabrese',
-  'Terre di Cosenza DOC Chardonnay',
-  'Terre di Cosenza DOC Chardonnay passito',
-  'Terre di Cosenza DOC Chardonnay spumante',
-  'Terre di Cosenza DOC Colline dei Crati bianco',
-  'Terre di Cosenza DOC Colline dei Crati bianco passito',
-
-  'Terre di Cosenza DOC Colline dei Crati bianco vendemmia tardiva',
-  'Terre di Cosenza DOC Colline dei Crati Magliocco',
-
-  'Terre di Cosenza DOC Colline dei Crati Magliocco riserva',
-  'Terre di Cosenza DOC Colline dei Crati rosato',
-  'Terre di Cosenza DOC Colline dei Crati rosso',
-  'Terre di Cosenza DOC Colline dei Crati rosso passito',
-  'Terre di Cosenza DOC Colline dei Crati rosso riserva',
-
-  'Terre di Cosenza DOC Colline dei Crati rosso vendemmia tardiva',
-  'Terre di Cosenza DOC Condoleo bianco',
-  'Terre di Cosenza DOC Condoleo bianco passito',
-  'Terre di Cosenza DOC Condoleo bianco vendemmia tardiva',
-  'Terre di Cosenza DOC Condoleo Greco nero',
-  'Terre di Cosenza DOC Condoleo Greco nero riserva',
-  'Terre di Cosenza DOC Condoleo rosato',
-  'Terre di Cosenza DOC Condoleo rosso',
-  'Terre di Cosenza DOC Condoleo rosso novello',
-  'Terre di Cosenza DOC Condoleo rosso passito',
-  'Terre di Cosenza DOC Condoleo rosso riserva',
-  'Terre di Cosenza DOC Condoleo rosso vendemmia tardiva',
-  'Terre di Cosenza DOC Donnici bianco',
-  'Terre di Cosenza DOC Donnici bianco passito',
-  'Terre di Cosenza DOC Donnici bianco vendemmia tardiva',
-  'Terre di Cosenza DOC Donnici Magliocco',
-  'Terre di Cosenza DOC Donnici Magliocco riserva',
-  'Terre di Cosenza DOC Donnici rosato',
-  'Terre di Cosenza DOC Donnici rosso',
-  'Terre di Cosenza DOC Donnici rosso novello',
-  'Terre di Cosenza DOC Donnici rosso passito',
-  'Terre di Cosenza DOC Donnici rosso riserva',
-  'Terre di Cosenza DOC Donnici rosso vendemmia tardiva',
-  'Terre di Cosenza DOC Esaro bianco',
-  'Terre di Cosenza DOC Esaro bianco passito',
-  'Terre di Cosenza DOC Esaro bianco vendemmia tardiva',
-  'Terre di Cosenza DOC Esaro Magliocco',
-  'Terre di Cosenza DOC Esaro Magliocco riserva',
-  'Terre di Cosenza DOC Esaro rosato',
-  'Terre di Cosenza DOC Esaro rosso',
-  'Terre di Cosenza DOC Esaro rosso passito',
-  'Terre di Cosenza DOC Esaro rosso riserva',
-  'Terre di Cosenza DOC Esaro rosso vendemmia tardiva',
-  'Terre di Cosenza DOC Gaglioppo',
-  'Terre di Cosenza DOC Greco bianco',
-  'Terre di Cosenza DOC Greco bianco passito',
-  'Terre di Cosenza DOC Greco bianco spumante',
-  'Terre di Cosenza DOC Greco nero',
-  'Terre di Cosenza DOC Guarnaccia bianca',
-  'Terre di Cosenza DOC Guarnaccia bianca passito',
-  'Terre di Cosenza DOC Guarnaccia bianca spumante',
-  'Terre di Cosenza DOC Magliocco',
-  'Terre di Cosenza DOC Magliocco passito',
-  'Terre di Cosenza DOC Magliocco spumante rosè',
-  'Terre di Cosenza DOC Malvasia bianca',
-  'Terre di Cosenza DOC Malvasia bianca passito',
-  'Terre di Cosenza DOC Malvasia bianca spumante',
-  'Terre di Cosenza DOC Merlot',
-  'Terre di Cosenza DOC Montonico bianco',
-  'Terre di Cosenza DOC Montonico bianco passito',
-  'Terre di Cosenza DOC Montonico bianco spumante',
-  'Terre di Cosenza DOC Pecorello',
-  'Terre di Cosenza DOC Pecorello passito',
-  'Terre di Cosenza DOC Pecorello spumante',
-  'Terre di Cosenza DOC Pollino bianco',
-  'Terre di Cosenza DOC Pollino bianco passito',
-  'Terre di Cosenza DOC Pollino bianco vendemmia tardiva',
-  'Terre di Cosenza DOC Pollino Magliocco',
-  'Terre di Cosenza DOC Pollino Magliocco riserva',
-  'Terre di Cosenza DOC Pollino Moscato passito',
-  'Terre di Cosenza DOC Pollino rosato',
-  'Terre di Cosenza DOC Pollino rosso',
-  'Terre di Cosenza DOC Pollino rosso novello',
-  'Terre di Cosenza DOC Pollino rosso passito',
-  'Terre di Cosenza DOC Pollino rosso riserva',
-  'Terre di Cosenza DOC Pollino rosso superiore',
-  'Terre di Cosenza DOC Pollino rosso superiore riserva',
-  'Terre di Cosenza DOC Pollino rosso vendemmia tardiva',
-  'Terre di Cosenza DOC rosato',
-  'Terre di Cosenza DOC rosato spumante',
-  'Terre di Cosenza DOC rosso',
-  'Terre di Cosenza DOC rosso novello',
-  'Terre di Cosenza DOC rosso passito',
-  'Terre di Cosenza DOC rosso riserva',
-  'Terre di Cosenza DOC rosso vendemmia tardiva',
-  'Terre di Cosenza DOC San Vito di Luzzi bianco',
-  'Terre di Cosenza DOC San Vito di Luzzi bianco passito',
-
-  'Terre di Cosenza DOC San Vito di Luzzi bianco vendemmia tardiva',
-  'Terre di Cosenza DOC San Vito di Luzzi Magliocco',
-
-  'Terre di Cosenza DOC San Vito di Luzzi Magliocco riserva',
-  'Terre di Cosenza DOC San Vito di Luzzi rosato',
-  'Terre di Cosenza DOC San Vito di Luzzi rosso',
-  'Terre di Cosenza DOC San Vito di Luzzi rosso novello',
-  'Terre di Cosenza DOC San Vito di Luzzi rosso passito',
-  'Terre di Cosenza DOC San Vito di Luzzi rosso riserva',
-
-  'Terre di Cosenza DOC San Vito di Luzzi rosso vendemmia tardiva',
-  'Terre di Cosenza DOC Sangiovese',
-  'Terre di Cosenza DOC Verbicaro bianco',
-  'Terre di Cosenza DOC Verbicaro bianco passito',
-
-  'Terre di Cosenza DOC Verbicaro bianco vendemmia tardiva',
-  'Terre di Cosenza DOC Verbicaro Magliocco',
-  'Terre di Cosenza DOC Verbicaro Magliocco riserva',
-  'Terre di Cosenza DOC Verbicaro Moscato passito',
-  'Terre di Cosenza DOC Verbicaro rosato',
-  'Terre di Cosenza DOC Verbicaro rosso',
-  'Terre di Cosenza DOC Verbicaro rosso novello',
-  'Terre di Cosenza DOC Verbicaro rosso passito',
-  'Terre di Cosenza DOC Verbicaro rosso riserva',
-  'Terre di Cosenza DOC Verbicaro rosso vendemmia tardiva',
-  'Terre di Offida DOC passito',
-  'Terre di Offida DOC spumante',
-  'Terre di Offida DOC Vino santo',
-  'Terre di Pisa DOC rosso',
-  'Terre di Pisa DOC Sangiovese',
-  'Terre Tollesi o Tullum DOC bianco',
-  'Terre Tollesi o Tullum DOC bianco superiore',
-  'Terre Tollesi o Tullum DOC Cabernet sauvignon',
-  'Terre Tollesi o Tullum DOC Falanghina',
-  'Terre Tollesi o Tullum DOC Merlot',
-  'Terre Tollesi o Tullum DOC novello',
-  'Terre Tollesi o Tullum DOC Passerina',
-  'Terre Tollesi o Tullum DOC passito bianco',
-  'Terre Tollesi o Tullum DOC passito rosso',
-  'Terre Tollesi o Tullum DOC Pecorino',
-  'Terre Tollesi o Tullum DOC rosso',
-  'Terre Tollesi o Tullum DOC rosso riserva',
-  'Terre Tollesi o Tullum DOC Sangiovese',
-  'Terre Tollesi o Tullum DOC spumante',
-  'Terre Tollesi o Tullum DOCG Passerina',
-  'Terre Tollesi o Tullum DOCG Pecorino',
-  'Terre Tollesi o Tullum DOCG rosso',
-  'Terre Tollesi o Tullum DOCG rosso riserva',
-  'Terre Tollesi o Tullum DOCG spumante',
-  'Tintilia del Molise DOC rosato',
-  'Tintilia del Molise DOC rosso',
-  'Tintilia del Molise DOC rosso riserva',
-  'Todi DOC bianco',
-  'Todi DOC Grechetto',
-  'Todi DOC Grechetto passito',
-  'Todi DOC Grechetto superiore',
-  'Todi DOC Merlot',
-  'Todi DOC Merlot superiore',
-  'Todi DOC rosso',
-  'Todi DOC rosso superiore',
-  'Todi DOC Sangiovese',
-  'Todi DOC Sangiovese superiore',
-  'Torgiano rosso riserva DOCG',
-  'Torgiano spumante DOC',
-  'Torgiano vendemmia tardiva DOC',
-  'Torgiano Vin Santo DOC',
-  'Trebbiano d’Abruzzo DOC',
-  'Trebbiano d’Abruzzo riserva DOC',
-  'Trebbiano d’Abruzzo superiore DOC',
-  'Trentino bianco da due varietà di vite DOC',
-  'Trentino bianco DOC',
-  'Trentino bianco riserva DOC',
-  'Trentino bianco superiore DOC',
-  'Trentino bianco vendemmia tardiva DOC',
-  'Trentino Cabernet DOC',
-  'Trentino Cabernet franc DOC',
-  'Trentino Cabernet franc riserva DOC',
-  'Trentino Cabernet franc superiore DOC',
-  'Trentino Cabernet riserva DOC',
-  'Trentino Cabernet sauvignon DOC',
-  'Trentino Cabernet sauvignon riserva DOC',
-  'Trentino Cabernet sauvignon superiore DOC',
-  'Trentino Cabernet superiore DOC',
-  'Trentino Chardonnay DOC',
-  'Trentino Chardonnay riserva DOC',
-  'Trentino Chardonnay superiore DOC',
-  'Trentino Chardonnay Vendemmia tardiva DOC',
-  'Trentino kretzer o rosato DOC',
-  'Trentino Lagrein DOC',
-  'Trentino Lagrein riserva DOC',
-  'Trentino Lagrein riserva rosato o kretzer DOC',
-  'Trentino Lagrein riserva rubino o dunkel DOC',
-  'Trentino Lagrein rosato o kretzer DOC',
-  'Trentino Lagrein rubino o dunkel DOC',
-  'Trentino Lagrein superiore DOC',
-  'Trentino Marzemino DOC',
-  'Trentino Marzemino riserva DOC',
-  'Trentino Marzemino superiore DOC',
-  'Trentino Merlot DOC',
-  'Trentino Merlot riserva DOC',
-  'Trentino Merlot superiore DOC',
-  'Trentino Moscato giallo DOC',
-  'Trentino Moscato giallo liquoroso DOC',
-  'Trentino Moscato giallo superiore DOC',
-  'Trentino Moscato giallo Vendemmia tardiva DOC',
-  'Trentino Moscato rosa o delle rose DOC',
-  'Trentino Moscato rosa o delle rose liquoroso DOC',
-  'Trentino Moscato rosa o delle rose superiore DOC',
-
-  'Trentino Moscato rosa o delle rose Vendemmia tardiva DOC',
-  'Trentino Müller Thurgau DOC',
-  'Trentino Müller Thurgau superiore DOC',
-  'Trentino Müller Thurgau Vendemmia tardiva DOC',
-  'Trentino Nosiola DOC',
-  'Trentino Nosiola superiore DOC',
-  'Trentino Nosiola Vendemmia tardiva DOC',
-  'Trentino Pinot bianco DOC',
-  'Trentino Pinot bianco riserva DOC',
-  'Trentino Pinot bianco superiore DOC',
-  'Trentino Pinot bianco Vendemmia tardiva DOC',
-  'Trentino Pinot grigio DOC',
-  'Trentino Pinot grigio riserva DOC',
-  'Trentino Pinot grigio superiore DOC',
-  'Trentino Pinot grigio Vendemmia tardiva DOC',
-  'Trentino Pinot nero DOC',
-  'Trentino Pinot nero riserva DOC',
-  'Trentino Pinot nero superiore DOC',
-  'Trentino Rebo DOC',
-  'Trentino Rebo superiore DOC',
-  'Trentino Riesling italico DOC',
-  'Trentino Riesling renano DOC',
-  'Trentino Riesling renano riserva DOC',
-  'Trentino Riesling renano superiore DOC',
-  'Trentino Riesling renano Vendemmia tardiva DOC',
-  'Trentino rosso da due varietà di vite DOC',
-  'Trentino rosso DOC',
-  'Trentino rosso riserva DOC',
-  'Trentino rosso superiore DOC',
-  'Trentino rosso Vendemmia tardiva DOC',
-  'Trentino Sauvignon DOC',
-  'Trentino Sauvignon riserva DOC',
-  'Trentino Sauvignon superiore DOC',
-  'Trentino Sauvignon Vendemmia tardiva DOC',
-  'Trentino Sorni bianco DOC',
-
-  'Trentino Sorni rosso DOC',
-  'Trentino superiore bianco DOC Vendemmina tardiva',
-  'Trentino superiore Castel Beseno DOC',
-  'Trentino superiore Castel Beseno passito DOC',
-  'Trentino superiore Castel Beseno Vendemmia tardiva DOC',
-  'Trentino superiore Marzemino d’Isera DOC',
-  'Trentino superiore Marzemino Ziresi DOC',
-  'Trentino Traminer aromatico DOC',
-  'Trentino Traminer aromatico superiore DOC',
-  'Trentino Traminer aromatico Vendemmia tardiva DOC',
-  'Trentino Vino santo DOC',
-  'Trentino Vino santo superiore DOC',
-  'Trento DOC (tipo bianco)',
-  'Trento DOC (tipo rosato o rosé)',
-  'Trento riserva DOC',
-  'Val d’Arbia DOC bianco',
-  'Val d’Arbia DOC Chardonnay',
-  'Val d’Arbia DOC Grechetto',
-  'Val d’Arbia DOC Pinot bianco',
-  'Val d’Arbia DOC rosato',
-  'Val d’Arbia DOC Sauvignon',
-  'Val d’Arbia DOC Trebbiano',
-  'Val d’Arbia DOC Vermentino',
-  'Val d’Arbia DOC Vin Santo',
-  'Val d’Arbia DOC Vin Santo riserva',
-  'Val d’Arno di sopra DOC bianco',
-  'Val d’Arno di sopra DOC bianco spumante di qualità',
-  'Val d’Arno di sopra DOC Cabernet franc',
-  'Val d’Arno di sopra DOC Cabernet sauvignon',
-  'Val d’Arno di sopra DOC Cabernet sauvignon riserva',
-  'Val d’Arno di sopra DOC Chardonnay',
-  'Val d’Arno di sopra DOC Merlot',
-  'Val d’Arno di sopra DOC Merlot riserva',
-  'Val d’Arno di sopra DOC Passito',
-  'Val d’Arno di sopra DOC Pietraviva bianco',
-  'Val d’Arno di sopra DOC Pietraviva Canaiolo nero',
-  'Val d’Arno di sopra DOC Pietraviva Ciliegiolo',
-
-  'Val d’Arno di sopra DOC Pietraviva Malvasia bianca lunga',
-  'Val d’Arno di sopra DOC Pietraviva Malvasia nera',
-  'Val d’Arno di sopra DOC Pietraviva Pugnitello',
-  'Val d’Arno di sopra DOC Pietraviva rosso',
-  'Val d’Arno di sopra DOC Pietraviva rosso riserva',
-  'Val d’Arno di sopra DOC Pietraviva Sangiovese',
-  'Val d’Arno di sopra DOC Pietraviva vendemmia tardiva',
-  'Val d’Arno di sopra DOC Pratomagno bianco',
-  'Val d’Arno di sopra DOC Pratomagno Canaiolo nero',
-  'Val d’Arno di sopra DOC Pratomagno Ciliegiolo',
-
-  'Val d’Arno di sopra DOC Pratomagno Malvasia bianca lunga',
-  'Val d’Arno di sopra DOC Pratomagno Malvasia nera',
-  'Val d’Arno di sopra DOC Pratomagno Pugnitello',
-  'Val d’Arno di sopra DOC Pratomagno rosso',
-  'Val d’Arno di sopra DOC Pratomagno rosso riserva',
-  'Val d’Arno di sopra DOC Pratomagno Sangiovese',
-  'Val d’Arno di sopra DOC Pratomagno vendemmia tardiva',
-  'Val d’Arno di sopra DOC rosato',
-  'Val d’Arno di sopra DOC rosato spumante di qualità',
-  'Val d’Arno di sopra DOC rosso',
-  'Val d’Arno di sopra DOC rosso riserva',
-  'Val d’Arno di sopra DOC Sangiovese',
-  'Val d’Arno di sopra DOC Sangiovese riserva',
-  'Val d’Arno di sopra DOC Sauvignon',
-  'Val d’Arno di sopra DOC Syrah',
-  'Val di Cornia DOC Aleatico passito',
-  'Val di Cornia DOC Ansonica',
-  'Val di Cornia DOC Ansonica passito',
-  'Val di Cornia DOC bianco',
-
-  'Val di Cornia DOC Cabernet sauvignon',
-  'Val di Cornia DOC Ciliegiolo',
-  'Val di Cornia DOC Merlot',
-  'Val di Cornia DOC rosato',
-  'Val di Cornia DOC Sangiovese',
-  'Val di Cornia DOC Vermentino',
-  'Val Polcevera DOC Bianchetta Genovese',
-  'Val Polcevera DOC Bianchetta Genovese frizzante',
-  'Val Polcevera DOC bianco',
-  'Val Polcevera DOC bianco frizzante',
-  'Val Polcevera DOC Coronata',
-  'Val Polcevera DOC passito',
-  'Val Polcevera DOC rosato',
-  'Val Polcevera DOC rosato frizzante',
-  'Val Polcevera DOC rosso',
-  'Val Polcevera DOC rosso frizzante',
-  'Val Polcevera DOC rosso novello',
-  'Val Polcevera DOC spumante di qualità',
-  'Val Polcevera DOC Vermentino',
-  'Val Polcevera DOC Vermentino frizzante',
-  'Valcalepio bianco DOC',
-  'Valcalepio Moscato passito DOC',
-  'Valcalepio rosso DOC',
-  'Valcalepio rosso riserva DOC',
-  'Valdadige bianco DOC',
-
-  'Valdadige Chardonnay DOC',
-  'Valdadige Chardonnay frizzante DOC',
-  'Valdadige Pinot bianco DOC',
-  'Valdadige Pinot bianco frizzante DOC',
-  'Valdadige Pinot grigio DOC',
-  'Valdadige rosato DOC',
-  'Valdadige rosso DOC',
-  'Valdadige Schiava DOC',
-  'Valdadige Terra dei Forti Casetta DOC',
-  'Valdadige Terra dei Forti Casetta riserva DOC',
-  'Valdadige Terra dei Forti Enantio DOC',
-  'Valdadige Terra dei Forti Enantio riserva DOC',
-  'Valdadige Terra dei Forti Pinot grigio DOC',
-  'Valdadige Terra dei Forti Pinot grigio superiore DOC',
-  'Valdichiana Toscana DOC bianco',
-
-  'Valdichiana Toscana DOC bianco vergine',
-
-  'Valdichiana Toscana DOC Chardonnay',
-  'Valdichiana Toscana DOC frizzante',
-
-  'Valdichiana Toscana DOC Grechetto',
-  'Valdichiana Toscana DOC rosato',
-  'Valdichiana Toscana DOC rosso',
-  'Valdichiana Toscana DOC Sangiovese',
-  'Valdichiana Toscana DOC spumante',
-
-  'Valdichiana Toscana DOC Vin Santo',
-  'Valdichiana Toscana DOC Vin Santo riserva',
-  'Valdinievole DOC bianco',
-  'Valdinievole DOC bianco superiore',
-  'Valdinievole DOC rosso',
-  'Valdinievole DOC rosso superiore',
-  'Valdinievole DOC Sangiovese',
-  'Valdinievole DOC Vin Santo',
-  'Valle d’Aosta o Vallée d’Aoste DOC Arnad-Montjovet',
-  'Valle d’Aosta o Vallée d’Aoste DOC bianco o blanc',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Blanc de Morgex et de La Salle',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Blanc de Morgex et de La Salle spumante o mousseux',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Blanc de Morgex et de La Salle vendemmia tardiva o vendange tardive',
-  'Valle d’Aosta o Vallée d’Aoste DOC Chambave',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Chambave Moscato o Muscat',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Chambave Moscato passito o Muscat flétri',
-  'Valle d’Aosta o Vallée d’Aoste DOC Chardonnay',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Chardonnay vendemmia tardiva o vendange tardive',
-  'Valle d’Aosta o Vallée d’Aoste DOC Cornalin',
-  'Valle d’Aosta o Vallée d’Aoste DOC Donnas',
-  'Valle d’Aosta o Vallée d’Aoste DOC Enfer d’Arvier',
-  'Valle d’Aosta o Vallée d’Aoste DOC Fumin',
-  'Valle d’Aosta o Vallée d’Aoste DOC Gamaret',
-  'Valle d’Aosta o Vallée d’Aoste DOC Gamay',
-  'Valle d’Aosta o Vallée d’Aoste DOC Mayolet',
-  'Valle d’Aosta o Vallée d’Aoste DOC Merlot',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Moscato bianco o Muscat petit grain',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Moscato bianco o Muscat petit grain vendemmia tardiva o vendange tardive',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Moscato bianco passito o Muscat petit grain flétri',
-  'Valle d’Aosta o Vallée d’Aoste DOC Müller-Thurgau',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Müller-Thurgau vendemmia tardiva o vendange tardive',
-  'Valle d’Aosta o Vallée d’Aoste DOC Nebbiolo',
-  'Valle d’Aosta o Vallée d’Aoste DOC Novello o Nouveau',
-  'Valle d’Aosta o Vallée d’Aoste DOC Nus',
-  'Valle d’Aosta o Vallée d’Aoste DOC Nus Malvoisie',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Nus Malvoisie passito o flétri',
-  'Valle d’Aosta o Vallée d’Aoste DOC Passito o Flétri',
-  'Valle d’Aosta o Vallée d’Aoste DOC Petit rouge',
-  'Valle d’Aosta o Vallée d’Aoste DOC Petite Arvine',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Petite Arvine vendemmia tardiva o vendange tardive',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Pinot bianco o Pinot blanc',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Pinot bianco o Pinot blanc vendemmia tardiva o vendange tardive',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Pinot grigio o Pinot gris',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Pinot grigio o Pinot gris vendemmia tardiva o vendange tardive',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Pinot nero o Pinot noir (vinificazione in rosso)',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Pinot noir (vinificazione in bianco)',
-  'Valle d’Aosta o Vallée d’Aoste DOC Prëmetta',
-  'Valle d’Aosta o Vallée d’Aoste DOC rosato o rosé',
-  'Valle d’Aosta o Vallée d’Aoste DOC rosso o rouge',
-  'Valle d’Aosta o Vallée d’Aoste DOC Syrah',
-  'Valle d’Aosta o Vallée d’Aoste DOC Torrette',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Traminer aromatico o Gewürztraminer',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Traminer aromatico o Gewürztraminer vendemmia tardiva o vendange tardive',
-
-  'Valle d’Aosta o Vallée d’Aoste DOC Traminer aromatico passito o Gewüztraminer flétri',
-  'Valle d’Aosta o Vallée d’Aoste DOC Vuillermin',
-  'Valli Ossolane DOC bianco',
-  'Valli Ossolane DOC Nebbiolo',
-  'Valli Ossolane DOC Nebbiolo superiore',
-  'Valli Ossolane DOC rosso',
-  'Valpolicella DOC',
-  'Valpolicella DOC Classico',
-  'Valpolicella DOC Classico superiore',
-  'Valpolicella DOC superiore',
-  'Valpolicella DOC Valpantena',
-  'Valpolicella DOC Valpantena superiore',
-  'Valpolicella Ripasso DOC',
-  'Valpolicella Ripasso DOC Classico',
-  'Valpolicella Ripasso DOC Classico superiore',
-  'Valpolicella Ripasso DOC superiore',
-  'Valpolicella Ripasso DOC Valpantena',
-  'Valpolicella Ripasso DOC Valpantena superiore',
-  'Valsusa DOC',
-  'Valtellina rosso DOC',
-  'Valtellina superiore DOCG',
-  'Valtellina superiore Grumello DOCG',
-  'Valtellina superiore Inferno DOCG',
-  'Valtellina superiore Maroggia DOCG',
-  'Valtellina superiore riserva DOCG',
-  'Valtellina superiore Sassella DOCG',
-  'Valtellina superiore Valgella DOCG',
-  'Valtenesi Chiaretto DOC',
-  'Valtenesi DOC',
-  'Velletri DOC bianco',
-
-  'Velletri DOC riserva',
-  'Velletri DOC rosso',
-  'Velletri DOC spumante',
-
-  'Velletri DOC superiore',
-
-  'Venezia Bianco frizzante DOC',
-  'Venezia Bianco spumante DOC',
-  'Venezia Cabernet franc DOC',
-  'Venezia Cabernet sauvignon DOC',
-  'Venezia Chardonnay DOC',
-  'Venezia Merlot DOC',
-  'Venezia Pinot grigio DOC',
-  'Venezia Rosato o Rosè DOC',
-  'Venezia Rosato o rosè frizzante DOC',
-  'Venezia Rosato o rosè spumante DOC',
-  'Venezia Rosso DOC',
-  'Verdicchio dei Castelli di Jesi DOC',
-  'Verdicchio dei Castelli di Jesi DOC Classico',
-  'Verdicchio dei Castelli di Jesi DOC Classico superiore',
-  'Verdicchio dei Castelli di Jesi DOC passito',
-  'Verdicchio dei Castelli di Jesi DOC spumante',
-  'Verdicchio di Matelica DOC',
-  'Verdicchio di Matelica DOC passito',
-  'Verdicchio di Matelica DOC spumante',
-  'Verdicchio di Matelica riserva DOCG',
-  'Verduno Pelaverga o Verduno DOC',
-  'Vermentino di Gallura DOCG',
-  'Vermentino di Gallura frizzante DOCG',
-  'Vermentino di Gallura passito DOCG',
-  'Vermentino di Gallura spumante DOCG',
-  'Vermentino di Gallura superiore DOCG',
-  'Vermentino di Gallura vendemmia tardiva DOCG',
-  'Vermentino di Sardegna DOC',
-  'Vermentino di Sardegna DOC frizzante',
-  'Vermentino di Sardegna DOC spumante',
-  'Vernaccia di Oristano DOC',
-  'Vernaccia di Oristano DOC liquoroso',
-  'Vernaccia di Oristano DOC riserva',
-  'Vernaccia di Oristano DOC superiore',
-  'Vernaccia di San Gimignano DOCG',
-  'Vernaccia di San Gimignano riserva DOCG',
-  'Vernaccia di Serrapetrona DOCG',
-  'Vesuvio DOC bianco',
-  'Vesuvio DOC Lacryma Christi bianco',
-  'Vesuvio DOC Lacryma Christi bianco liquoroso',
-  'Vesuvio DOC Lacryma Christi bianco spumante',
-  'Vesuvio DOC Lacryma Christi rosato',
-  'Vesuvio DOC Lacryma Christi rosso',
-  'Vesuvio DOC rosato',
-  'Vesuvio DOC rosso',
-  'Vicenza Bianco DOC',
-  'Vicenza Bianco frizzante DOC',
-  'Vicenza Bianco spumante DOC',
-  'Vicenza Cabernet DOC',
-  'Vicenza Cabernet riserva DOC',
-  'Vicenza Cabernet sauvignon DOC',
-  'Vicenza Cabernet sauvignon riserva DOC',
-  'Vicenza Chardonnay DOC',
-  'Vicenza Chardonnay Spumante DOC',
-  'Vicenza Garganego DOC',
-  'Vicenza Garganego spumante DOC',
-  'Vicenza Manzoni bianco DOC',
-  'Vicenza Merlot DOC',
-  'Vicenza Merlot riserva DOC',
-  'Vicenza Moscato DOC',
-  'Vicenza Moscato spumante DOC',
-  'Vicenza Novello DOC',
-  'Vicenza Passito DOC',
-  'Vicenza Pinot bianco DOC',
-  'Vicenza Pinot bianco spumante DOC',
-  'Vicenza Pinot grigio DOC',
-  'Vicenza Pinot nero DOC',
-  'Vicenza Pinot nero riserva DOC',
-  'Vicenza Raboso DOC',
-  'Vicenza Raboso riserva DOC',
-  'Vicenza Riesling DOC',
-  'Vicenza Rosato DOC',
-  'Vicenza Rosato frizzante DOC',
-  'Vicenza Rosso DOC',
-  'Vicenza Rosso riserva DOC',
-  'Vicenza Sauvignon DOC',
-  'Viganello DOC bianco',
-
-  'Viganello DOC bianco superiore',
-
-  'Viganello DOC bianco vendemmia tardiva',
-
-  'Viganello DOC Greco',
-  'Viganello DOC Greco spumante',
-  'Viganello DOC Greco vendemmia tardiva',
-  'Viganello DOC rosso',
-  'Viganello DOC rosso novello',
-  'Viganello DOC rosso riserva',
-  'Vigneti della Serenissima o Serenissima DOC',
-
-  'Vigneti della Serenissima o Serenissima Millesimato DOC',
-  'Vigneti della Serenissima o Serenissima Riserva DOC',
-  'Vigneti della Serenissima o Serenissima rosè DOC',
-  'Villamagna DOC rosso',
-  'Villamagna DOC rosso riserva',
-  'Vin Santo del Chianti classico DOC',
-  'Vin Santo del Chianti classico DOC Occhio di Pernice',
-  'Vin Santo del Chianti DOC',
-  'Vin Santo del Chianti DOC Colli Aretini',
-  'Vin Santo del Chianti DOC Colli Aretini riserva',
-  'Vin Santo del Chianti DOC Colli Fiorentini',
-  'Vin Santo del Chianti DOC Colli Fiorentini riserva',
-  'Vin Santo del Chianti DOC Colli Senesi',
-  'Vin Santo del Chianti DOC Colli Senesi riserva',
-  'Vin Santo del Chianti DOC Colline Pisane',
-  'Vin Santo del Chianti DOC Colline Pisane riserva',
-  'Vin Santo del Chianti DOC Montalbano',
-  'Vin Santo del Chianti DOC Montalbano riserva',
-  'Vin Santo del Chianti DOC Montespertoli',
-  'Vin Santo del Chianti DOC Montespertoli riserva',
-  'Vin Santo del Chianti DOC Occhio di Pernice',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Colli Aretini',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Colli Aretini riserva',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Colli Fiorentini',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Colli Fiorentini riserva',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Colli Senesi',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Colli Senesi riserva',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Colline Pisane',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Colline Pisane riserva',
-  'Vin Santo del Chianti DOC Occhio di Pernice Montalbano',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Montalbano riserva',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Montespertoli',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Montespertoli riserva',
-  'Vin Santo del Chianti DOC Occhio di Pernice riserva',
-  'Vin Santo del Chianti DOC Occhio di Pernice Rufina',
-
-  'Vin Santo del Chianti DOC Occhio di Pernice Rufina riserva',
-  'Vin Santo del Chianti DOC Rufina',
-  'Vin Santo del Chianti DOC Rufina riserva',
-  'Vin Santo del Chianti riserva DOC',
-  'Vin Santo di Carmignano DOC',
-  'Vin Santo di Carmignano DOC Occhio di Pernice',
-  'Vin Santo di Montepulciano DOC',
-  'Vin Santo di Montepulciano DOC Occhio di Pernice',
-  'Vin Santo di Montepulciano DOC riserva',
-  'Vino nobile di Montepulciano DOCG',
-  'Vino nobile di Montepulciano riserva DOCG',
-  'Vittoria DOC Ansonica o Inzolia o Insolia',
-  'Vittoria DOC Calabrese o Nero d’Avola',
-  'Vittoria DOC Frappato',
-  'Vittoria DOC Novello',
-  'Vittoria DOC rosso',
-  'Zagarolo DOC',
-
-  'Zagarolo DOC superiore',
+export interface WineOption {
+  d: string;
+  v: string[];
+}
+
+export const wines: WineOption[] = [
+  {
+    d: 'Abruzzo DOC bianco',
+
+    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+  },
+  {
+    d: 'Abruzzo DOC Cococciola',
+
+    v: ['Cococciola'],
+  },
+  {
+    d: 'Abruzzo DOC Cococciola superiore',
+
+    v: ['Cococciola'],
+  },
+  {
+    d: 'Abruzzo DOC Malvasia',
+
+    v: ['Malvasia'],
+  },
+  {
+    d: 'Abruzzo DOC Malvasia superiore',
+
+    v: ['Malvasia'],
+  },
+  {
+    d: 'Abruzzo DOC Montonico',
+
+    v: ['Montonico bianco'],
+  },
+  {
+    d: 'Abruzzo DOC Montonico superiore',
+
+    v: ['Montonico bianco'],
+  },
+  {
+    d: 'Abruzzo DOC Passerina',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Abruzzo DOC Passerina superiore',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Abruzzo DOC passito bianco',
+
+    v: [
+      'Moscato bianco, Passerina, Pecorino, Riesling Italico, Sauvignon, Gewürztraminer',
+    ],
+  },
+  {
+    d: 'Abruzzo DOC passito rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Abruzzo DOC Pecorino',
+
+    v: ['Pecorino'],
+  },
+  {
+    d: 'Abruzzo DOC Pecorino superiore',
+
+    v: ['Pecorino'],
+  },
+  {
+    d: 'Abruzzo DOC rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Abruzzo DOC spumante bianco charmat',
+
+    v: [
+      'Chardonnay, Cococciola, Montonico bianco, Passerina, Pecorino, Pinot nero',
+    ],
+  },
+  {
+    d: 'Abruzzo DOC spumante bianco metodo classico',
+
+    v: [
+      'Chardonnay, Cococciola, Montonico bianco, Passerina, Pecorino, Pinot nero',
+    ],
+  },
+  {
+    d: 'Abruzzo DOC spumante rosé charmat',
+
+    v: ['Montepulciano, Pinot nero'],
+  },
+  {
+    d: 'Abruzzo DOC spumante rosé metodo classico',
+
+    v: ['Montepulciano, Pinot nero'],
+  },
+  {
+    d: 'Aglianico del Taburno o Taburno rosato DOCG',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Aglianico del Taburno o Taburno rosso DOCG',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Aglianico del Taburno riserva o Taburno rosso riserva DOCG',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Aglianico del Vulture DOC',
+
+    v: ['Aglianico del Vulture, Aglianico'],
+  },
+  {
+    d: 'Aglianico del Vulture spumante DOC',
+
+    v: ['Aglianico del Vulture, Aglianico'],
+  },
+  {
+    d: 'Aglianico del Vulture Superiore DOCG',
+
+    v: ['Aglianico del Vulture, Aglianico'],
+  },
+  {
+    d: 'Aglianico del Vulture Superiore riserva DOCG',
+
+    v: ['Aglianico del Vulture, Aglianico'],
+  },
+  {
+    d: 'Alba DOC',
+
+    v: ['Nebbiolo, Barbera'],
+  },
+  {
+    d: 'Alba riserva DOC',
+
+    v: ['Nebbiolo, Barbera'],
+  },
+  {
+    d: 'Albugnano DOC',
+
+    v: ['Nebbiolo, Freisa, Barbera, Bonarda'],
+  },
+  {
+    d: 'Alcamo DOC Ansonica o Inzolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Alcamo DOC bianco',
+
+    v: [
+      'Catarratto bianco lucido, Catarratto bianco comune, Ansonica, Chardonnay, Müller-Thurgau, Sauvignon',
+    ],
+  },
+  {
+    d: 'Alcamo DOC bianco classico',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+  },
+  {
+    d: 'Alcamo DOC bianco spumante',
+
+    v: [
+      'Catarratto bianco lucido, Catarratto bianco comune, Ansonica, Chardonnay, Müller-Thurgau, Sauvignon',
+    ],
+  },
+  {
+    d: 'Alcamo DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Alcamo DOC Calabrese o nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Alcamo DOC Catarratto',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+  },
+  {
+    d: 'Alcamo DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alcamo DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Alcamo DOC Grillo',
+
+    v: ['Grillo'],
+  },
+  {
+    d: 'Alcamo DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Alcamo DOC Müller-Thurgau',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alcamo DOC rosato',
+
+    v: [
+      'Nerello Mascalese, Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+    ],
+  },
+  {
+    d: 'Alcamo DOC rosato spumante',
+
+    v: [
+      'Nerello Mascalese, Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+    ],
+  },
+  {
+    d: 'Alcamo DOC rosso',
+
+    v: [
+      'Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+    ],
+  },
+  {
+    d: 'Alcamo DOC rosso novello',
+
+    v: [
+      'Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+    ],
+  },
+  {
+    d: 'Alcamo DOC rosso riserva',
+
+    v: [
+      'Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+    ],
+  },
+  {
+    d: 'Alcamo DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alcamo DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Alcamo DOC vendemmia tardiva',
+
+    v: [
+      'Catarratto bianco lucido, Catarratto bianco comune, Ansonica, Chardonnay, Müller-Thurgau, Sauvignon',
+    ],
+  },
+  {
+    d: 'Aleatico di Gradoli DOC',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Aleatico di Gradoli DOC liquoroso',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Aleatico di Gradoli DOC liquoroso riserva',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Aleatico di Gradoli DOC passito',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Aleatico di Puglia DOC',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Alezio rosato DOC',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese, Montepulciano'],
+  },
+  {
+    d: 'Alezio rosso DOC',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese, Montepulciano'],
+  },
+  {
+    d: 'Alezio rosso riserva DOC',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese, Montepulciano'],
+  },
+  {
+    d: 'Alghero DOC bianco',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC bianco frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC bianco passito',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC bianco spumante',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC Cabernet',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Alghero DOC Cabernet riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Alghero DOC Cagnulari',
+
+    v: ['Cagnulari'],
+  },
+  {
+    d: 'Alghero DOC Cagnulari riserva',
+
+    v: ['Cagnulari'],
+  },
+  {
+    d: 'Alghero DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alghero DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alghero DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Alghero DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Alghero DOC rosato',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC rosato frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC rosso',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC rosso liquoroso',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC rosso novello',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC rosso riserva',
+
+    v: [],
+  },
+  {
+    d: 'Alghero DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Alghero DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alghero DOC Torbato',
+
+    v: ['Torbato'],
+  },
+  {
+    d: 'Alghero DOC Torbato spumante',
+
+    v: ['Torbato'],
+  },
+  {
+    d: 'Alghero DOC Vermentino frizzante',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Alta Langa spumante DOCG',
+
+    v: ['Pinot nero, Chardonnay'],
+  },
+  {
+    d: 'Alta Langa spumante riserva DOCG',
+
+    v: ['Pinot nero, Chardonnay'],
+  },
+  {
+    d: 'Alta Langa spumante rosato DOCG',
+
+    v: ['Pinot nero, Chardonnay'],
+  },
+  {
+    d: 'Alta Langa spumante rosato riserva DOCG',
+
+    v: ['Pinot nero, Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige bianco DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige bianco passito DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige bianco vendemmia tardiva DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Cabernet-Lagrein DOC',
+
+    v: ['Lagrein, Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Cabernet-Merlot DOC',
+
+    v: ['Merlot, Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay passito DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay passito Terlano DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay passito Val Venosta DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay Terlano DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay Val Venosta DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay vendemmia tardiva DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay vendemmia tardiva Terlano DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay vendemmia tardiva Val Venosta DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay-Pinot bianco DOC',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay-Pinot bianco passito DOC',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay-Pinot grigio DOC',
+
+    v: ['Chardonnay, Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Chardonnay-Pinot grigio passito DOC',
+
+    v: ['Chardonnay, Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Colli di Bolzano o Bozner Leiten DOC',
+
+    v: ['Schiava'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner passito DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner passito Val Venosta DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner passito Valle Isarco DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner Val Venosta DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner Valle Isarco DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner vendemmia tardiva DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner vendemmia tardiva Val Venosta DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Kerner vendemmia tardiva Valle Isarco DOC',
+
+    v: ['Kerner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Klausner Leitacher DOC',
+
+    v: ['Schiava, Portoghese, Lagrein'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Klausner Leitacher Valle Isarco DOC',
+
+    v: ['Schiava, Portoghese, Lagrein'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Lagrein DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Lagrein rosato o Kretzer DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Lagrein-Merlot DOC',
+
+    v: ['Lagrein, Merlot'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Malvasia DOC',
+
+    v: ['Malvasia nera'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Meranese di Collina o Meraner Hügel DOC',
+
+    v: ['Schiava'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Merlot rosato o Kretzer DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Moscato giallo DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Moscato giallo passito DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Moscato giallo vendemmia tardiva DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Moscato rosa DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Moscato rosa passito DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Moscato rosa vendemmia tardiva DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau passito DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau passito Terlano DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau passito Val Venosta DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau passito Valle Isarco DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau TerlanoDOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau Val Venosta DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau Valle Isarco DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau vendemmia tardiva DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau vendemmia tardiva Terlano DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau vendemmia tardiva Val Venosta DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Müller Thurgau vendemmia tardiva Valle Isarco DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco passito DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco passito Terlano DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco passito Val Venosta DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco Terlano DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco Val Venosta DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco vendemmia tardiva DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco vendemmia tardiva Terlano DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco vendemmia tardiva Val Venosta DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco-Pinot grigio DOC',
+
+    v: ['Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot bianco-Pinot grigio passito DOC',
+
+    v: ['Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio passito DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio passito Terlano DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio passito Val Venosta DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio passito Valle Isarco DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio Terlano DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio Val Venosta DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio Valle Isarco DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio vendemmia tardiva DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio vendemmia tardiva Terlano DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio vendemmia tardiva Val Venosta DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot grigio vendemmia tardiva Valle Isarco DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot nero rosato o Kretzer DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot nero rosato o Kretzer Val Venosta DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Pinot nero Val Venosta DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Italico DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Italico passito DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Italico passito Terlano DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Italico Terlano DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Italico vendemmia tardiva DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Italico vendemmia tardiva Terlano DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling passito DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling passito Terlano DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling passito Val Venosta DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling passito Valle Isarco DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Terlano DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Val Venosta DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling Valle Isarco DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling vendemmia tardiva DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling vendemmia tardiva Terlano DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling vendemmia tardiva Val Venosta DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Riesling vendemmia tardiva Valle Isarco DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Santa Maddalena o St.Magdalener DOC',
+
+    v: ['Schiava'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon passito DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon passito Terlano DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon passito Val Venosta DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon Terlano DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon Val Venosta DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon vendemmia tardiva DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon vendemmia tardiva Terlano DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sauvignon vendemmia tardiva Val Venosta DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Schiava DOC',
+
+    v: ['Schiava'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Schiava grigia DOC',
+
+    v: ['Schiava grigia'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Schiava Val Venosta DOC',
+
+    v: ['Schiava'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Spumante Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Spumante DOC',
+
+    v: ['Pinot bianco, Pinot nero, Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Spumante Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Spumante Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Spumante Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Spumante rosé DOC',
+
+    v: ['Pinot bianco, Pinot nero, Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner passito DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner passito Terlano DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner passito Valle Isarco DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner Terlano DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner Valle Isarco DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner vendemmia tardiva DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner vendemmia tardiva Terlano DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Sylvaner vendemmia tardiva Valle Isarco DOC',
+
+    v: ['Sylvaner verde'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Terlano o Terlaner DOC',
+
+    v: ['Pinot bianco, Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Terlano o Terlaner passito DOC',
+
+    v: ['Pinot bianco, Chardonnay'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico passito DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico passsito Val Venosta DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico passsito Valle Isarco DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico Val Venosta DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico Valle Isarco DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico vendemmia tardiva DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico vendemmia tardiva Valle Isarco DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Traminer aromatico vendemmia tardiva Vel Venosta DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Veltliner DOC',
+
+    v: ['Veltliner'],
+  },
+  {
+    d: 'Alto Adige o dell’Alto Adige Veltliner Valle Isarco DOC',
+
+    v: ['Veltliner'],
+  },
+  {
+    d: 'Amarone della Valpolicella Classico DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Amarone della Valpolicella Classico riserva DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Amarone della Valpolicella DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Amarone della Valpolicella riserva DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Amarone della Valpolicella Valpantena DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Amarone della Valpolicella Valpantena riserva DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Amelia DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Amelia DOC Ciliegiolo',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Amelia DOC Ciliegiolo riserva',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Amelia DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Amelia DOC Malvasia',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Amelia DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Amelia DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Amelia DOC Novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Amelia DOC Rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Amelia DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Amelia DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Amelia DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Amelia DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Amelia DOC Vin Santo',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Amelia DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Ansonica Costa dell’Argentario DOC',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Arborea DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Arborea DOC Sangiovese rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Arborea DOC Trebbiano',
+
+    v: ['Trebbiano Romagnolo, Trebbiano Toscano'],
+  },
+  {
+    d: 'Arborea DOC Trebbiano frizzante',
+
+    v: ['Trebbiano Romagnolo, Trebbiano Toscano'],
+  },
+  {
+    d: 'Arcole Bianco DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Arcole Bianco Frizzante DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Arcole Bianco Passito DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Arcole Bianco Spumante DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Arcole Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Arcole Cabernet riserva DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Arcole Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Arcole Cabernet sauvignon riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Arcole Carmenère DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Arcole Carmenère riserva DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Arcole Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Arcole Chardonnay frizzante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Arcole Garganega DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Arcole Garganega Vendemmia tardiva DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Arcole Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Merlot riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Nero DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Arcole Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Arcole Rosato DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Rosato frizzante DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Rosso frizzante DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Rosso Novello DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Rosso riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Arcole Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Assisi DOC bianco',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Assisi DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Assisi DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Assisi DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Assisi DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Assisi DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Assisi DOC Novello',
+
+    v: ['Sangiovese, Merlot'],
+  },
+  {
+    d: 'Assisi DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Assisi DOC Pinot nero riserva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Assisi DOC rosato',
+
+    v: ['Sangiovese, Merlot'],
+  },
+  {
+    d: 'Assisi DOC rosso',
+
+    v: ['Sangiovese, Merlot'],
+  },
+  {
+    d: 'Asti o Asti spumante DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Asti o Asti spumante metodo classico DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Atina Cabernet DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc'],
+  },
+  {
+    d: 'Atina Cabernet riserva DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc'],
+  },
+  {
+    d: 'Atina rosso DOC',
+
+    v: ['Cabernet Sauvignon, Syrah, Merlot, Cabernet Franc'],
+  },
+  {
+    d: 'Atina rosso riserva DOC',
+
+    v: ['Cabernet Sauvignon, Syrah, Merlot, Cabernet Franc'],
+  },
+  {
+    d: 'Atina Semillon DOC',
+
+    v: ['Sémillon'],
+  },
+  {
+    d: 'Aversa Asprinio DOC',
+
+    v: ['Asprinio'],
+  },
+  {
+    d: 'Aversa Asprinio spumante DOC',
+
+    v: ['Asprinio'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli bianco classico DOC',
+
+    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli bianco DOC',
+
+    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet classico DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet classico riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet franc classico DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet franc classico riserva DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet franc riserva DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet sauvignon classico DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet sauvignon classico riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cabernet sauvignon riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cavrara classico DOC',
+
+    v: ['Cavrara'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Cavrara DOC',
+
+    v: ['Cavrara'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Corbina classico DOC',
+
+    v: ['Corbina'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Corbina DOC',
+
+    v: ['Corbina'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Merlot classico DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Merlot classico riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Merlot riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Refosco classico DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Refosco classico riserva DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Refosco DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Refosco riserva DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli rosato classico DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli rosato DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli rosso classico DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli rosso classico riserva DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli rosso DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli rosso riserva DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Spumante bianco classico DOC',
+
+    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Spumante bianco classico storico DOC',
+
+    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Spumante bianco DOC',
+
+    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Spumante bianco storico DOC',
+
+    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Spumante rosato o rosé classico DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Spumante rosato o rosé classico storico DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Spumante rosato o rosé DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Spumante rosato o rosé storico DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Turchetta classico DOC',
+
+    v: ['Turchetta'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Turchetta DOC',
+
+    v: ['Turchetta'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Vin da Viajo classico DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Vin da Viajo classico riserva DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Vin da Viajo DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Bagnoli Vin da Viajo riserva DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli di sopra o Marzemina bianca classico DOC',
+
+    v: ['Marzemina bianca'],
+  },
+  {
+    d: 'Bagnoli di sopra o Marzemina bianca DOC',
+
+    v: ['Marzemina bianca'],
+  },
+  {
+    d: 'Bagnoli Friularo classico DOCG',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli Friularo classico passito DOCG',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli Friularo classico riserva DOCG',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli Friularo DOCG',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli Friularo passito DOCG',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli Friularo riserva DOCG',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli Friularo vendemmia tardiva classico riserva DOCG',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Bagnoli Friularo vendemmia tardiva DOCG',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Barbaresco DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Barbaresco riserva DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Barbera d’Alba DOC',
+
+    v: ['Barbera, Nebbiolo'],
+  },
+  {
+    d: 'Barbera d’Alba superiore DOC',
+
+    v: ['Barbera, Nebbiolo'],
+  },
+  {
+    d: 'Barbera d’Asti DOCG',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Barbera d’Asti superiore Colli Astiani o Astiano DOCG',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Barbera d’Asti superiore DOCG',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Barbera d’Asti superiore Nizza DOCG',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Barbera d’Asti superiore Tinella DOCG',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Barbera del Monferrato DOC',
+
+    v: ['Barbera, Freisa, Grignolino, Dolcetto'],
+  },
+  {
+    d: 'Barbera del Monferrato frizzante DOC',
+
+    v: ['Barbera, Freisa, Grignolino, Dolcetto'],
+  },
+  {
+    d: 'Barbera del Monferrato Superiore DOCG',
+
+    v: ['Barbera, Freisa, Grignolino, Dolcetto'],
+  },
+  {
+    d: 'Barco Reale di Carmignano DOC',
+
+    v: ['Sangiovese, Canaiolo nero, Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bardolino Chiaretto Classico DOC',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Bardolino Chiaretto DOC',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Bardolino Chiaretto spumante DOC',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Bardolino classico DOC',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Bardolino classico superiore DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Bardolino DOC',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Bardolino novello classico DOC',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Bardolino novello DOC',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Bardolino superiore DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+  },
+  {
+    d: 'Barletta DOC bianco',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Barletta DOC bianco frizzante',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Barletta DOC Malvasia bianca',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Barletta DOC Malvasia bianca frizzante',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Barletta DOC novello',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Barletta DOC rosato',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Barletta DOC rosato frizzante',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Barletta DOC rosso',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Barletta DOC rosso riserva',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Barletta DOC Uva di Troia o Nero di Troia',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Barletta DOC Uva di Troia o Nero di Troia riserva',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Barolo DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Barolo riserva DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Bianchello del Metauro DOC',
+
+    v: ['Biancame, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Bianchello del Metauro DOC passito',
+
+    v: ['Biancame, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Bianchello del Metauro DOC spumante',
+
+    v: ['Biancame, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Bianchello del Metauro DOC superiore',
+
+    v: ['Biancame, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Bianco Capena DOC',
+
+    v: [],
+  },
+  {
+    d: 'Bianco Capena superiore DOC',
+
+    v: [],
+  },
+  {
+    d: 'Bianco dell’Empolese DOC',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Bianco dell’Empolese DOC Vin Santo',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Bianco delle Venezie DOC',
+
+    v: [
+      'Pinot bianco, Chardonnay, Müller-Thurgau, Garganega, Verduzzo Friulano, Verduzzo Trevigiano, Tocai Friulano',
+    ],
+  },
+  {
+    d: 'Bianco di Aprilia DOC',
+
+    v: ['Trebbiano Toscano, Chardonnay'],
+  },
+  {
+    d: 'Bianco di Custoza o Custoza DOC',
+
+    v: ['Trebbiano Toscano, Garganega, Tocai Friulano, Cortese'],
+  },
+  {
+    d: 'Bianco di Custoza o Custoza passito DOC',
+
+    v: ['Trebbiano Toscano, Garganega, Tocai Friulano, Cortese'],
+  },
+  {
+    d: 'Bianco di Custoza o Custoza spumante DOC',
+
+    v: ['Trebbiano Toscano, Garganega, Tocai Friulano, Cortese'],
+  },
+  {
+    d: 'Bianco di Custoza o Custoza superiore DOC',
+
+    v: ['Trebbiano Toscano, Garganega, Tocai Friulano, Cortese'],
+  },
+  {
+    d: 'Bianco di Pitigliano DOC',
+
+    v: ['Trebbiano Toscano, Greco, Malvasia bianca lunga, Verdello'],
+  },
+  {
+    d: 'Bianco di Pitigliano DOC spumante',
+
+    v: ['Trebbiano Toscano, Greco, Malvasia bianca lunga, Verdello'],
+  },
+  {
+    d: 'Bianco di Pitigliano DOC superiore',
+
+    v: ['Trebbiano Toscano, Greco, Malvasia bianca lunga, Verdello'],
+  },
+  {
+    d: 'Bianco di Pitigliano DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Greco, Malvasia bianca lunga, Verdello'],
+  },
+  {
+    d: 'Bianco di Torgiano DOC',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Biferno DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Biferno DOC rosato',
+
+    v: ['Montepulciano, Aglianico'],
+  },
+  {
+    d: 'Biferno DOC rosso',
+
+    v: ['Montepulciano, Aglianico'],
+  },
+  {
+    d: 'Biferno DOC rosso riserva',
+
+    v: ['Montepulciano, Aglianico'],
+  },
+  {
+    d: 'Biferno DOC rosso superiore',
+
+    v: ['Montepulciano, Aglianico'],
+  },
+  {
+    d: 'Bivongi DOC bianco',
+
+    v: [
+      'Greco Bianco, Guardavalle, Montonico bianco, Malvasia bianca, Ansonica',
+    ],
+  },
+  {
+    d: 'Bivongi DOC novello',
+
+    v: ['Gaglioppo, Greco Nero, Nocera, Calabrese, Castiglione'],
+  },
+  {
+    d: 'Bivongi DOC riserva',
+
+    v: ['Gaglioppo, Greco Nero, Nocera, Calabrese, Castiglione'],
+  },
+  {
+    d: 'Bivongi DOC rosato',
+
+    v: ['Gaglioppo, Greco Nero, Nocera, Calabrese, Castiglione'],
+  },
+  {
+    d: 'Bivongi DOC rosso',
+
+    v: ['Gaglioppo, Greco Nero, Nocera, Calabrese, Castiglione'],
+  },
+  {
+    d: 'Boca DOC',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Boca riserva DOC',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Bolgheri DOC bianco',
+
+    v: ['Vermentino, Sauvignon, Trebbiano Toscano'],
+  },
+  {
+    d: 'Bolgheri DOC rosato',
+
+    v: ['Cabernet Sauvignon, Merlot, Cabernet Franc, Syrah, Sangiovese'],
+  },
+  {
+    d: 'Bolgheri DOC rosso',
+
+    v: ['Cabernet Sauvignon, Merlot, Cabernet Franc, Syrah, Sangiovese'],
+  },
+  {
+    d: 'Bolgheri DOC rosso superiore',
+
+    v: ['Cabernet Sauvignon, Merlot, Cabernet Franc, Syrah, Sangiovese'],
+  },
+  {
+    d: 'Bolgheri DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Bolgheri DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Bolgheri Sassicaia DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Bonarda dell’Oltrepò Pavese DOC',
+
+    v: ['Croatina, Barbera, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Bonarda dell’Oltrepò Pavese frizzante DOC',
+
+    v: ['Croatina, Barbera, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Bianco',
+
+    v: ['Trebbiano Romagnolo, Sauvignon, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Bianco frizzante',
+
+    v: ['Trebbiano Romagnolo, Sauvignon, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Fortana',
+
+    v: ['Fortana'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Fortana frizzante',
+
+    v: ['Fortana'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Fortana vivace',
+
+    v: ['Fortana'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Merlot vivace',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Sauvignon frizzante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Bosco Eliceo DOC Sauvignon vivace',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Botticino DOC',
+
+    v: ['Barbera, Schiava gentile, Marzemino, Sangiovese'],
+  },
+  {
+    d: 'Botticino riserva DOC',
+
+    v: ['Barbera, Schiava gentile, Marzemino, Sangiovese'],
+  },
+  {
+    d: 'Brachetto d’Acqui o Acqui DOCG',
+
+    v: ['Brachetto'],
+  },
+  {
+    d: 'Brachetto d’Acqui o Acqui passito DOCG',
+
+    v: ['Brachetto'],
+  },
+  {
+    d: 'Brachetto d’Acqui o Acqui spumante DOCG',
+
+    v: ['Brachetto'],
+  },
+  {
+    d: 'Bramaterra DOC',
+
+    v: ['Nebbiolo, Croatina, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Bramaterra riserva DOC',
+
+    v: ['Nebbiolo, Croatina, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Breganze Bianco DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Breganze Cabernet DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Breganze Cabernet Sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Breganze Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Breganze Marzemino DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Breganze Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Breganze Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Breganze Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Breganze Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Breganze Rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Breganze Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Breganze Tai DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Breganze Torcolato DOC',
+
+    v: ['Vespaiola'],
+  },
+  {
+    d: 'Breganze Vespaiolo DOC',
+
+    v: ['Vespaiola'],
+  },
+  {
+    d: 'Breganze Vespaiolo spumante DOC',
+
+    v: ['Vespaiola'],
+  },
+  {
+    d: 'Brindisi DOC bianco',
+
+    v: ['Chardonnay, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Brindisi DOC bianco spumante',
+
+    v: ['Chardonnay, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Brindisi DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Brindisi DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Brindisi DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Brindisi DOC Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Brindisi DOC Malvasia bianca',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Brindisi DOC Malvasia bianca spumante',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Brindisi DOC Negroamaro',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Brindisi DOC Negroamaro riserva',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Brindisi DOC Negroamaro rosato',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Brindisi DOC Negroamaro rosato spumante',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Brindisi DOC rosato',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+    ],
+  },
+  {
+    d: 'Brindisi DOC rosato spumante',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+    ],
+  },
+  {
+    d: 'Brindisi DOC rosso',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+    ],
+  },
+  {
+    d: 'Brindisi DOC rosso novello',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+    ],
+  },
+  {
+    d: 'Brindisi DOC rosso riserva',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+    ],
+  },
+  {
+    d: 'Brindisi DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Brindisi DOC Sauvignon spumante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Brindisi DOC Susumaniello',
+
+    v: ['Susumaniello'],
+  },
+  {
+    d: 'Brunello di Montalcino DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Brunello di Montalcino riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Buttafuoco dell’Oltrepò Pavese o Buttafuoco DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Buttafuoco dell’Oltrepò Pavese o Buttafuoco frizzante DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Cabernet sauvignon di Torgiano DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Cacc’e Mmitte di Lucera DOC',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Cagliari DOC Malvasia',
+
+    v: ['Malvasia di Sardegna'],
+  },
+  {
+    d: 'Cagliari DOC Malvasia riserva',
+
+    v: ['Malvasia di Sardegna'],
+  },
+  {
+    d: 'Cagliari DOC Malvasia spumante',
+
+    v: ['Malvasia di Sardegna'],
+  },
+  {
+    d: 'Cagliari DOC Monica',
+
+    v: ['Monica'],
+  },
+  {
+    d: 'Cagliari DOC Monica riserva',
+
+    v: ['Monica'],
+  },
+  {
+    d: 'Cagliari DOC Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Cagliari DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Cagliari DOC Vermentino superiore',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Calosso DOC',
+
+    v: ['Gamba rossa'],
+  },
+  {
+    d: 'Calosso DOC con menzione vigna',
+
+    v: ['Gamba rossa'],
+  },
+  {
+    d: 'Calosso DOC riserva',
+
+    v: ['Gamba rossa'],
+  },
+  {
+    d: 'Calosso DOC riserva con menzione vigna',
+
+    v: ['Gamba rossa'],
+  },
+  {
+    d: 'Calosso Passarà DOC',
+
+    v: ['Gamba rossa'],
+  },
+  {
+    d: 'Calosso Passarà DOC con menzione vigna',
+
+    v: ['Gamba rossa'],
+  },
+  {
+    d: 'Campi Flegrei bianco DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Campi Flegrei DOC Falanghina',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Campi Flegrei DOC Falanghina passito',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Campi Flegrei DOC Falanghina spumante',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Campi Flegrei DOC Piedirosso',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Campi Flegrei DOC Piedirosso passsito',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Campi Flegrei DOC Piedirosso riserva',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Campi Flegrei DOC Piedirosso rosato',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Campi Flegrei rosso DOC',
+
+    v: ['Piedirosso, Aglianico'],
+  },
+  {
+    d: 'Campi Flegrei rosso novello DOC',
+
+    v: ['Piedirosso, Aglianico'],
+  },
+  {
+    d: 'Campidano di Terralba o Terralba DOC Bovale',
+
+    v: ['Bovale, Bovale grande'],
+  },
+  {
+    d: 'Campidano di Terralba o Terralba DOC Bovale riserva',
+
+    v: ['Bovale, Bovale grande'],
+  },
+  {
+    d: 'Campidano di Terralba o Terralba DOC Bovale superiore',
+
+    v: ['Bovale, Bovale grande'],
+  },
+  {
+    d: 'Canavese Barbera DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Canavese bianco DOC',
+
+    v: ['Erbaluce'],
+  },
+  {
+    d: 'Canavese bianco spumante DOC',
+
+    v: ['Erbaluce'],
+  },
+  {
+    d: 'Canavese Nebbiolo DOC',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Canavese rosato DOC',
+
+    v: ['Nebbiolo, Barbera, Uva rara, Bonarda'],
+  },
+  {
+    d: 'Canavese rosato spumante DOC',
+
+    v: ['Nebbiolo, Barbera, Uva rara, Bonarda'],
+  },
+  {
+    d: 'Canavese rosso DOC',
+
+    v: ['Nebbiolo, Barbera, Uva rara, Bonarda'],
+  },
+  {
+    d: 'Canavese rosso novello DOC',
+
+    v: ['Nebbiolo, Barbera, Uva rara, Bonarda'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC Barsaglina o Massaretta',
+
+    v: ['Barsaglina'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC bianco amabile',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC bianco secco',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC bianco vendemmia tardiva',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC rosato',
+
+    v: ['Sangiovese, Merlot'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC rosato Vermentino nero',
+
+    v: ['Vermentino nero'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC rosso',
+
+    v: ['Sangiovese, Merlot'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC Vermentino bianco',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC Vermentino nero',
+
+    v: ['Vermentino nero'],
+  },
+  {
+    d: 'Candia dei Colli Apuani DOC Vin Santo',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Canelli o Moscato di Canelli DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Canelli o Moscato di Canelli Riserva DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Canelli o Moscato di Canelli Riserva Vigna DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Canelli o Moscato di Canelli Vigna DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Cannellino di Frascati DOCG',
+
+    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+  },
+  {
+    d: 'Cannonau di Sardegna DOC classico',
+
+    v: ['Cannonau'],
+  },
+  {
+    d: 'Cannonau di Sardegna DOC liquoroso dolce',
+
+    v: ['Cannonau'],
+  },
+  {
+    d: 'Cannonau di Sardegna DOC liquoroso secco',
+
+    v: ['Cannonau'],
+  },
+  {
+    d: 'Cannonau di Sardegna DOC passito',
+
+    v: ['Cannonau'],
+  },
+  {
+    d: 'Cannonau di Sardegna DOC rosato',
+
+    v: ['Cannonau'],
+  },
+  {
+    d: 'Cannonau di Sardegna DOC rosso',
+
+    v: ['Cannonau'],
+  },
+  {
+    d: 'Cannonau di Sardegna DOC rosso riserva',
+
+    v: ['Cannonau'],
+  },
+  {
+    d: 'Capalbio DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Capalbio DOC Cabernet Sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Capalbio DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Capalbio DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Capalbio DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Capalbio DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Capalbio DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Capalbio DOC Vin Santo',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Capri bianco DOC',
+
+    v: ['Falanghina, Greco, Biancolella'],
+  },
+  {
+    d: 'Capri rosso DOC',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Capriano del Colle bianco DOC',
+
+    v: ['Trebbiano di Soave, Trebbiano Toscano'],
+  },
+  {
+    d: 'Capriano del Colle bianco superiore DOC',
+
+    v: ['Trebbiano di Soave, Trebbiano Toscano'],
+  },
+  {
+    d: 'Capriano del Colle Marzemino DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Capriano del Colle novello DOC',
+
+    v: ['Marzemino, Merlot, Sangiovese'],
+  },
+  {
+    d: 'Capriano del Colle rosso DOC',
+
+    v: ['Marzemino, Merlot, Sangiovese'],
+  },
+  {
+    d: 'Capriano del Colle rosso riserva DOC',
+
+    v: ['Marzemino, Merlot, Sangiovese'],
+  },
+  {
+    d: 'Capriano del Colle Trebbiano DOC',
+
+    v: ['Trebbiano di Soave, Trebbiano Toscano'],
+  },
+  {
+    d: 'Carema DOC',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Carema riserva DOC',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Carignano del Sulcis DOC novello',
+
+    v: ['Carignano'],
+  },
+  {
+    d: 'Carignano del Sulcis DOC passito',
+
+    v: ['Carignano'],
+  },
+  {
+    d: 'Carignano del Sulcis DOC rosato',
+
+    v: ['Carignano'],
+  },
+  {
+    d: 'Carignano del Sulcis DOC rosso',
+
+    v: ['Carignano'],
+  },
+  {
+    d: 'Carignano del Sulcis DOC rosso riserva',
+
+    v: ['Carignano'],
+  },
+  {
+    d: 'Carignano del Sulcis DOC rosso superiore',
+
+    v: ['Carignano'],
+  },
+  {
+    d: 'Carmignano DOCG',
+
+    v: ['Sangiovese, Canaiolo nero, Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Carmignano riserva DOCG',
+
+    v: [
+      'Sangiovese, Canaiolo bianco, Canaiolo nero, Cabernet Franc, Cabernet Sauvignon, Trebbiano Toscano, Malvasia del Chianti',
+    ],
+  },
+  {
+    d: 'Carso Cabernet Franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Carso Cabernet Sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Carso Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Carso Glera DOC',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Carso Malvasia DOC',
+
+    v: ['Malvasia Istriana'],
+  },
+  {
+    d: 'Carso Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Carso Pinot Grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Carso Refosco o Refosco dal peduncolo rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Carso Rosso DOC',
+
+    v: ['Terrano'],
+  },
+  {
+    d: 'Carso Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Carso Terrano Classico DOC',
+
+    v: ['Terrano'],
+  },
+  {
+    d: 'Carso Terrano DOC',
+
+    v: ['Terrano'],
+  },
+  {
+    d: 'Carso Traminer DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Carso Vitouska DOC',
+
+    v: ['Vitouska'],
+  },
+  {
+    d: 'Casavecchia di Pontelatone rosso DOC',
+
+    v: ['Casavecchia'],
+  },
+  {
+    d: 'Casavecchia di Pontelatone rosso riserva DOC',
+
+    v: ['Casavecchia'],
+  },
+  {
+    d: 'Casteggio DOC',
+
+    v: ['Barbera, Croatina, Uva rara, Vespolina, Pinot nero'],
+  },
+  {
+    d: 'Castel del Monte Bombino nero DOCG',
+
+    v: ['Nero di Troia'],
+  },
+  {
+    d: 'Castel del Monte DOC Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Castel del Monte DOC Aglianico riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Castel del Monte DOC Aglianico rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Castel del Monte DOC Aglianico rosato frizzante',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Castel del Monte DOC bianco',
+
+    v: ['Pampanuto, Chardonnay, Bombino bianco'],
+  },
+  {
+    d: 'Castel del Monte DOC bianco frizzante',
+
+    v: ['Pampanuto, Chardonnay, Bombino bianco'],
+  },
+  {
+    d: 'Castel del Monte DOC bianco spumante',
+
+    v: ['Pampanuto, Chardonnay, Bombino bianco'],
+  },
+  {
+    d: 'Castel del Monte DOC Bombino bianco',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Castel del Monte DOC Bombino bianco frizzante',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Castel del Monte DOC Bombino bianco spumante',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Castel del Monte DOC Cabernet',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Castel del Monte DOC Cabernet riserva',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Castel del Monte DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Castel del Monte DOC Chardonnay frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Castel del Monte DOC Nero di Troia',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Castel del Monte DOC rosato',
+
+    v: ['Uva di Troia, Aglianico, Bombino nero'],
+  },
+  {
+    d: 'Castel del Monte DOC rosato frizzante',
+
+    v: ['Uva di Troia, Aglianico, Bombino nero'],
+  },
+  {
+    d: 'Castel del Monte DOC rosato spumante',
+
+    v: ['Uva di Troia, Aglianico, Bombino nero'],
+  },
+  {
+    d: 'Castel del Monte DOC rosso',
+
+    v: ['Uva di Troia, Aglianico, Montepulciano'],
+  },
+  {
+    d: 'Castel del Monte DOC rosso novello',
+
+    v: ['Uva di Troia, Aglianico, Montepulciano'],
+  },
+  {
+    d: 'Castel del Monte DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Castel del Monte DOC Sauvignon frizzante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Castel del Monte Nero di Troia riserva DOCG',
+
+    v: ['Nero di Troia'],
+  },
+  {
+    d: 'Castel del Monte Rosso riserva DOCG',
+
+    v: ['Nero di Troia'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC Aglianicone',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC Moscato lambiccato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC Moscato spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC rosato',
+
+    v: ['Barbera, Sangiovese'],
+  },
+  {
+    d: 'Castel San Lorenzo DOC rosso',
+
+    v: ['Barbera, Sangiovese'],
+  },
+  {
+    d: 'Casteller DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Castelli di Jesi Verdicchio classico riserva DOCG',
+
+    v: ['Verdicchio'],
+  },
+  {
+    d: 'Castelli di Jesi Verdicchio riserva DOCG',
+
+    v: ['Verdicchio'],
+  },
+  {
+    d: 'Castelli Romani DOC bianco',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+    ],
+  },
+  {
+    d: 'Castelli Romani DOC bianco frizzante',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+    ],
+  },
+  {
+    d: 'Castelli Romani DOC rosato',
+
+    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+  },
+  {
+    d: 'Castelli Romani DOC rosato frizzante',
+
+    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+  },
+  {
+    d: 'Castelli Romani DOC rosso',
+
+    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+  },
+  {
+    d: 'Castelli Romani DOC rosso frizzante',
+
+    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+  },
+  {
+    d: 'Castelli Romani DOC rosso novello',
+
+    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+  },
+  {
+    d: 'Cellatica DOC',
+
+    v: ['Marzemino, Barbera, Incrocio Terzi n.1'],
+  },
+  {
+    d: 'Cellatica superiore DOC',
+
+    v: ['Marzemino, Barbera, Incrocio Terzi n.1'],
+  },
+  {
+    d: 'Cerasuolo d’Abruzzo DOC',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Cerasuolo d’Abruzzo superiore DOC',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Cerasuolo di Vittoria classico DOCG',
+
+    v: ['Nero d’Avola, Frappato'],
+  },
+  {
+    d: 'Cerasuolo di Vittoria DOCG',
+
+    v: ['Nero d’Avola, Frappato'],
+  },
+  {
+    d: 'Cerveteri DOC bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Cerveteri DOC bianco amabile',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Cerveteri DOC bianco frizzante',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Cerveteri DOC rosato',
+
+    v: ['Sangiovese, Montepulciano, Merlot'],
+  },
+  {
+    d: 'Cerveteri DOC rosato frizzante',
+
+    v: ['Sangiovese, Montepulciano, Merlot'],
+  },
+  {
+    d: 'Cerveteri DOC rosso',
+
+    v: ['Sangiovese, Montepulciano, Merlot'],
+  },
+  {
+    d: 'Cerveteri DOC rosso amabile',
+
+    v: ['Sangiovese, Montepulciano, Merlot'],
+  },
+  {
+    d: 'Cerveteri DOC Trebbiano o Procanico',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Cesanese del Piglio o Piglio DOCG',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Cesanese del Piglio o Piglio superiore DOCG',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Cesanese del Piglio o Piglio superiore riserva DOCG',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Cesanese di Affile DOC',
+
+    v: ['Cesanese di Affile'],
+  },
+  {
+    d: 'Cesanese di Affile dolce DOC',
+
+    v: ['Cesanese di Affile'],
+  },
+  {
+    d: 'Cesanese di Affile riserva DOC',
+
+    v: ['Cesanese di Affile'],
+  },
+  {
+    d: 'Cesanese di Olevano Romano amabile DOC',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Cesanese di Olevano Romano DOC',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Cesanese di Olevano Romano dolce DOC',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Cesanese di Olevano Romano dolce frizzante DOC',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Cesanese di Olevano Romano riserva DOC',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Cesanese di Olevano Romano superiore DOC',
+
+    v: ['Cesanese di Affile, Cesanese comune'],
+  },
+  {
+    d: 'Chardonnay di Torgiano DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Chianti classico DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Classico Gran Selezione DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti classico riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Colli Aretini DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Colli Aretini riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Colli Fiorentini DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Colli Fiorentini riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Colli Senesi DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Colli Senesi riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Colline Pisane DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Colline Pisane riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Montalbano DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Montalbano riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Montespertoli DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Montespertoli riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Rufina DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti Rufina riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Chianti superiore DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Cilento DOC Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Cilento DOC bianco',
+
+    v: ['Fiano, Trebbiano Toscano, Greco, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Cilento DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Cilento DOC rosato',
+
+    v: ['Sangiovese, Aglianico, Primitivo, Piedirosso'],
+  },
+  {
+    d: 'Cilento DOC rosso',
+
+    v: ['Aglianico, Piedirosso, Primitivo'],
+  },
+  {
+    d: 'Cinque Terre DOC',
+
+    v: ['Bosco, Albarola, Vermentino'],
+  },
+  {
+    d: 'Cinque Terre DOC Costa da Posa',
+
+    v: ['Bosco, Albarola, Vermentino'],
+  },
+  {
+    d: 'Cinque Terre DOC Costa de Campu',
+
+    v: ['Bosco, Albarola, Vermentino'],
+  },
+  {
+    d: 'Cinque Terre DOC Costa de Sera',
+
+    v: ['Bosco, Albarola, Vermentino'],
+  },
+  {
+    d: 'Cinque Terre DOC Sciacchetrà',
+
+    v: ['Bosco, Albarola, Vermentino'],
+  },
+  {
+    d: 'Cinque Terre DOC Sciacchetrà riserva',
+
+    v: ['Bosco, Albarola, Vermentino'],
+  },
+  {
+    d: 'Circeo DOC bianco',
+
+    v: ['Trebbiano Toscano, Chardonnay, Malvasia del Lazio'],
+  },
+  {
+    d: 'Circeo DOC bianco frizzante',
+
+    v: ['Trebbiano Toscano, Chardonnay, Malvasia del Lazio'],
+  },
+  {
+    d: 'Circeo DOC bianco spumante',
+
+    v: ['Trebbiano Toscano, Chardonnay, Malvasia del Lazio'],
+  },
+  {
+    d: 'Circeo DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Circeo DOC rosato',
+
+    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Circeo DOC rosato frizzante',
+
+    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Circeo DOC rosso',
+
+    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Circeo DOC rosso frizzante',
+
+    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Circeo DOC rosso novello',
+
+    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Circeo DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Circeo DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Cirò DOC bianco',
+
+    v: ['Greco Bianco'],
+  },
+  {
+    d: 'Cirò DOC rosato',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Cirò DOC rosso',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Cirò DOC rosso classico',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Cirò DOC rosso classico superiore',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Cirò DOC rosso classico superiore riserva',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Cirò DOC rosso superiore',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Cirò DOC rosso superiore riserva',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Cisterna d’Asti DOC',
+
+    v: ['Croatina'],
+  },
+  {
+    d: 'Cisterna d’Asti superiore DOC',
+
+    v: ['Croatina'],
+  },
+  {
+    d: 'Colli Albani DOC',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+    ],
+  },
+  {
+    d: 'Colli Albani novello DOC',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+    ],
+  },
+  {
+    d: 'Colli Albani spumante DOC',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+    ],
+  },
+  {
+    d: 'Colli Albani superiore DOC',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+    ],
+  },
+  {
+    d: 'Colli Altotiberini DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Altotiberini DOC bianco spumante',
+
+    v: ['Grechetto, Chardonnay, Pinot bianco, Pinot nero, Pinot grigio'],
+  },
+  {
+    d: 'Colli Altotiberini DOC bianco superiore',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Altotiberini DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Altotiberini DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Altotiberini DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Colli Altotiberini DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Altotiberini DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Altotiberini DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Altotiberini DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Altotiberini DOC rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Altotiberini DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Altotiberini DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Altotiberini DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Altotiberini DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Asolani Prosecco DOCG',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Colli Asolani Prosecco frizzante DOCG',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Colli Asolani Prosecco spumante superiore DOCG',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Colli Berici Barbarano rosso o Barbarano DOC',
+
+    v: ['Tocai rosso'],
+  },
+  {
+    d: 'Colli Berici Barbarano rosso o Barbarano riserva DOC',
+
+    v: ['Tocai rosso'],
+  },
+  {
+    d: 'Colli Berici Barbarano spumante DOC',
+
+    v: ['Tocai rosso'],
+  },
+  {
+    d: 'Colli Berici Bianco DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Colli Berici Bianco frizzante DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Colli Berici Bianco spumante DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Colli Berici Bianco spumante metodo classico DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Colli Berici Cabernet DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Colli Berici Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Colli Berici Cabernet franc riserva DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Colli Berici Cabernet riserva DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Colli Berici Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Berici Cabernet sauvignon riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Berici Carmenère DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Colli Berici Carmenère riserva DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Colli Berici Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Berici Garganego DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Colli Berici Manzoni bianco DOC',
+
+    v: ['Manzoni bianco'],
+  },
+  {
+    d: 'Colli Berici Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Berici Merlot riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Berici novello DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Berici passito DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Colli Berici Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Colli Berici Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Colli Berici Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Berici rosato o rosè metodo classico DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Berici rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Berici rosso riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Berici Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli Berici Tai DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Colli Berici Tai Rosso DOC',
+
+    v: ['Tocai rosso'],
+  },
+  {
+    d: 'Colli Berici Tai Rosso riserva DOC',
+
+    v: ['Tocai rosso'],
+  },
+  {
+    d: 'Colli Berici Tai rosso spumante DOC',
+
+    v: ['Tocai rosso'],
+  },
+  {
+    d: 'Colli Bolognesi classico Pignoletto DOCG',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Barbera frizzante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Barbera riserva',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Bologna bianco',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Bologna rosso',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Bologna Spumante',
+
+    v: [
+      'Chardonnay, Pinot bianco, Sauvignon, Riesling Italico, Pinot nero, Pignoletto',
+    ],
+  },
+  {
+    d: 'Colli Bolognesi DOC Cabernet Sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Pignoletto frizzante',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Pignoletto passito',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Pignoletto spumante',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Pignoletto superiore',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Riesling Italico',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Colli Bolognesi DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli d’Imola DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli d’Imola DOC bianco',
+
+    v: [],
+  },
+  {
+    d: 'Colli d’Imola DOC bianco frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Colli d’Imola DOC bianco superiore',
+
+    v: [],
+  },
+  {
+    d: 'Colli d’Imola DOC Cabernet Sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli d’Imola DOC Cabernet Sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli d’Imola DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli d’Imola DOC Chardonnay frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli d’Imola DOC Pignoletto',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli d’Imola DOC Pignoletto frizzante',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli d’Imola DOC rosso',
+
+    v: [],
+  },
+  {
+    d: 'Colli d’Imola DOC rosso novello',
+
+    v: [],
+  },
+  {
+    d: 'Colli d’Imola DOC rosso riserva',
+
+    v: [],
+  },
+  {
+    d: 'Colli d’Imola DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli d’Imola DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli d’Imola DOC Trebbiano',
+
+    v: ['Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Colli d’Imola DOC Trebbiano frizzante',
+
+    v: ['Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC bianco',
+
+    v: ['Trebbiano Toscano, Grechetto, Chardonnay, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC bianco frizzante',
+
+    v: ['Trebbiano Toscano, Grechetto, Chardonnay, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC bianco scelto',
+
+    v: ['Trebbiano Toscano, Grechetto, Chardonnay, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC bianco vino santo',
+
+    v: ['Trebbiano Toscano, Grechetto, Chardonnay, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC Gamay',
+
+    v: ['Gamay del Trasimeno'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC Gamay riserva',
+
+    v: ['Gamay del Trasimeno'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC rosato',
+
+    v: [
+      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+    ],
+  },
+  {
+    d: 'Colli del Trasimeno DOC rosso',
+
+    v: [
+      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+    ],
+  },
+  {
+    d: 'Colli del Trasimeno DOC rosso frizzante',
+
+    v: [
+      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+    ],
+  },
+  {
+    d: 'Colli del Trasimeno DOC rosso novello',
+
+    v: [
+      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+    ],
+  },
+  {
+    d: 'Colli del Trasimeno DOC rosso riserva',
+
+    v: [
+      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+    ],
+  },
+  {
+    d: 'Colli del Trasimeno DOC rosso scelto',
+
+    v: [
+      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+    ],
+  },
+  {
+    d: 'Colli del Trasimeno DOC spumante metodo classico',
+
+    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero, Grechetto'],
+  },
+  {
+    d: 'Colli del Trasimeno DOC spumante metodo classico rosè',
+
+    v: ['Pinot nero, Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Colli dell’Etruria Centrale DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli dell’Etruria Centrale DOC Novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli dell’Etruria Centrale DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli dell’Etruria Centrale DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli dell’Etruria Centrale DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Colli dell’Etruria Centrale DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli dell’Etruria Centrale DOC Vin Santo Occhio di Pernice riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli dell’Etruria Centrale DOC Vin Santo riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Colli della Sabina bianco DOC',
+
+    v: ['Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo'],
+  },
+  {
+    d: 'Colli della Sabina rosso DOC',
+
+    v: ['Sangiovese, Montepulciano'],
+  },
+  {
+    d: 'Colli di Conegliano bianco DOCG',
+
+    v: ['Manzoni bianco, Pinot bianco, Chardonnay, Riesling, Sauvignon'],
+  },
+  {
+    d: 'Colli di Conegliano Refrontolo DOCG',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Colli di Conegliano Refrontolo passito DOCG',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Colli di Conegliano rosso DOCG',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Marzemino, Merlot'],
+  },
+  {
+    d: 'Colli di Conegliano rosso riserva DOCG',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Marzemino, Merlot'],
+  },
+  {
+    d: 'Colli di Conegliano Torchiato di Fregona DOCG',
+
+    v: ['Glera, Verdiso, Boschera'],
+  },
+  {
+    d: 'Colli di Faenza DOC bianco',
+
+    v: ['Chardonnay, Pignoletto, Pinot bianco, Sauvignon, Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Colli di Faenza DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Colli di Faenza DOC rosso',
+
+    v: ['Cabernet Sauvignon, Ancellotta, Ciliegiolo, Merlot, Sangiovese'],
+  },
+  {
+    d: 'Colli di Faenza DOC rosso riserva',
+
+    v: ['Cabernet Sauvignon, Ancellotta, Ciliegiolo, Merlot, Sangiovese'],
+  },
+  {
+    d: 'Colli di Faenza DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli di Faenza DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli di Faenza DOC Trebbiano',
+
+    v: ['Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Colli di Luni DOC Albarola',
+
+    v: ['Albarola'],
+  },
+  {
+    d: 'Colli di Luni DOC bianco',
+
+    v: ['Vermentino, Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli di Luni DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli di Luni DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli di Luni DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Colli di Luni DOC Vermentino superiore',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Colli di Parma DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli di Parma DOC Bonarda',
+
+    v: ['Bonarda'],
+  },
+  {
+    d: 'Colli di Parma DOC Cabernet franc',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Colli di Parma DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli di Parma DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli di Parma DOC Chardonnay frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli di Parma DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli di Parma DOC Lambrusco',
+
+    v: ['Lambrusco Maestri'],
+  },
+  {
+    d: 'Colli di Parma DOC Lambrusco frizzante',
+
+    v: ['Lambrusco Maestri'],
+  },
+  {
+    d: 'Colli di Parma DOC Malvasia',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli di Parma DOC Malvasia frizzante',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli di Parma DOC Malvasia spumante',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli di Parma DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli di Parma DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Colli di Parma DOC Pinot bianco frizzante',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Colli di Parma DOC Pinot bianco spumante',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Colli di Parma DOC Pinot grigio',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Colli di Parma DOC Pinot grigio frizzante',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Colli di Parma DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli di Parma DOC rosso',
+
+    v: ['Barbera, Bonarda, Croatina'],
+  },
+  {
+    d: 'Colli di Parma DOC rosso frizzante',
+
+    v: ['Barbera, Bonarda, Croatina'],
+  },
+  {
+    d: 'Colli di Parma DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli di Parma DOC Sauvignon frizzante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli di Parma DOC Sauvignon spumante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli di Parma DOC Spumante',
+
+    v: ['Pinot nero, Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Colli di Rimini DOC Biancame',
+
+    v: ['Biancame'],
+  },
+  {
+    d: 'Colli di Rimini DOC bianco',
+
+    v: ['Trebbiano Romagnolo, Biancame, Mostosa'],
+  },
+  {
+    d: 'Colli di Rimini DOC Cabernet Sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli di Rimini DOC Cabernet Sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli di Rimini DOC Rèbola amabile',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli di Rimini DOC Rèbola dolce',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli di Rimini DOC Rèbola passito',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli di Rimini DOC Rèbola secco',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Colli di Rimini DOC rosso',
+
+    v: ['Sangiovese, Merlot, Barbera'],
+  },
+  {
+    d: 'Colli di Rimini DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli di Rimini DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli di Rimini DOC Sangiovese superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC bianco anche classico',
+
+    v: ['Spergola'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC bianco frizzante e bianco classico frizzante',
+
+    v: ['Spergola'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC bianco spumante',
+
+    v: ['Spergola'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Chardonnay frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Lambrusco',
+
+    v: [
+      'Lambrusco Maestri, Lambrusco Barghi, Lambrusco Marani, Lambrusco Salamino',
+    ],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Lambrusco frizzante',
+
+    v: [
+      'Lambrusco Maestri, Lambrusco Barghi, Lambrusco Marani, Lambrusco Salamino',
+    ],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Lambrusco Grasparossa',
+
+    v: ['Lambrusco Grasparossa'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Lambrusco Grasparossa frizzante',
+
+    v: ['Lambrusco Grasparossa'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Lambrusco Montericco rosato',
+
+    v: ['Lambrusco Montericco'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Lambrusco Montericco rosato frizzante',
+
+    v: ['Lambrusco Montericco'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Lambrusco Montericco rosso',
+
+    v: ['Lambrusco Montericco'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Lambrusco Montericco rosso frizzante',
+
+    v: ['Lambrusco Montericco'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Malbo gentile',
+
+    v: ['Malbo gentile'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Malbo gentile frizzante',
+
+    v: ['Malbo gentile'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Malbo gentile novello',
+
+    v: ['Malbo gentile'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Malbo gentile passito',
+
+    v: ['Malbo gentile'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Malvasia',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Malvasia frizzante',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Malvasia passito',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Malvasia spumante',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Marzemino',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Marzemino frizzante',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Marzemino novello',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Marzemino passito',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Pinot',
+
+    v: ['Pinot bianco, Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Pinot frizzante',
+
+    v: ['Pinot bianco, Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Pinot spumante',
+
+    v: ['Pinot bianco, Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC rosso',
+
+    v: ['Marzemino, Cabernet Sauvignon, Malbo gentile'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC rosso frizzante',
+
+    v: ['Marzemino, Cabernet Sauvignon, Malbo gentile'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC rosso novello',
+
+    v: ['Marzemino, Cabernet Sauvignon, Malbo gentile'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Sauvignon frizzante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Sauvignon passito',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Sauvignon riserva',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Spergola',
+
+    v: ['Spergola'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Spergola frizzante',
+
+    v: ['Spergola'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Spergola passito',
+
+    v: ['Spergola'],
+  },
+  {
+    d: 'Colli di Scandiano e Canossa DOC Spergola spumante',
+
+    v: ['Spergola'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC bianco',
+
+    v: ['Trebbiano Toscano, Malvasia del Lazio, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC bianco amabile',
+
+    v: ['Trebbiano Toscano, Malvasia del Lazio, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC bianco frizzante',
+
+    v: ['Trebbiano Toscano, Malvasia del Lazio, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Canaiolo',
+
+    v: ['Canaiolo nero'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Canaiolo amabile',
+
+    v: ['Canaiolo nero'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Grechetto frizzante',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Greghetto',
+
+    v: ['Grechetto rosso'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Moscatello',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Moscatello amabile',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Moscatello frizzante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Moscatello passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Procanico',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Procanico frizzante',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC rosato',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC rosato amabile',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC rosato frizzante',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Rossetto',
+
+    v: ['Trebbiano giallo'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Rossetto amabile',
+
+    v: ['Trebbiano giallo'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC rosso',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC rosso amabile',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC rosso frizzante',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC rosso novello',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese amabile',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese rosato amabile',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese rosato frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Etruschi Viterbesi o Tuscia DOC Violone',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Colli Euganei Bianco DOC',
+
+    v: ['Garganega, Tocai Friulano, Sauvignon, Moscato bianco, Moscato giallo'],
+  },
+  {
+    d: 'Colli Euganei Bianco spumante DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Euganei Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Euganei Cabernet sauvignon riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Euganei Carmenère DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Colli Euganei Carmenère riserva DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Colli Euganei Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Euganei Fior d’Arancio DOCG',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Colli Euganei Fior d’Arancio passito DOCG',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Colli Euganei Fior d’Arancio spumante DOCG',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Colli Euganei Garganega DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Colli Euganei Manzoni bianco DOC',
+
+    v: ['Manzoni bianco'],
+  },
+  {
+    d: 'Colli Euganei Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Euganei Merlot novello DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Euganei Merlot riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Euganei Moscato DOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Colli Euganei Moscato spumante DOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Colli Euganei Pinello frizzante DOC',
+
+    v: ['Pinella'],
+  },
+  {
+    d: 'Colli Euganei Pinello spumante DOC',
+
+    v: ['Pinella'],
+  },
+  {
+    d: 'Colli Euganei Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Colli Euganei Raboso DOC',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Colli Euganei Raboso riserva DOC',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Colli Euganei Rosso DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Carmènere, Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Colli Euganei Rosso riserva DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Carmènere, Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Colli Euganei Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli Euganei Serprino frizzante DOC',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Colli Euganei Serprino spumante DOC',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Colli Euganei Tai DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Colli Lanuvini bianco DOC',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+    ],
+  },
+  {
+    d: 'Colli Lanuvini bianco spumante DOC',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+    ],
+  },
+  {
+    d: 'Colli Lanuvini bianco superiore DOC',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+    ],
+  },
+  {
+    d: 'Colli Lanuvini rosso DOC',
+
+    v: ['Merlot, Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Lanuvini rosso riserva DOC',
+
+    v: ['Merlot, Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Lanuvini rosso superiore DOC',
+
+    v: ['Merlot, Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Colli Maceratesi DOC bianco',
+
+    v: ['Maceratino'],
+  },
+  {
+    d: 'Colli Maceratesi DOC bianco passito',
+
+    v: ['Maceratino'],
+  },
+  {
+    d: 'Colli Maceratesi DOC bianco spumante',
+
+    v: ['Maceratino'],
+  },
+  {
+    d: 'Colli Maceratesi DOC Ribona',
+
+    v: ['Maceratino'],
+  },
+  {
+    d: 'Colli Maceratesi DOC Ribona passito',
+
+    v: ['Maceratino'],
+  },
+  {
+    d: 'Colli Maceratesi DOC Ribona spumante',
+
+    v: ['Maceratino'],
+  },
+  {
+    d: 'Colli Maceratesi DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Maceratesi DOC rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Maceratesi DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Maceratesi DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Martani DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Martani DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Martani DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Martani DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Colli Martani DOC Grechetto di Todi',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Colli Martani DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Martani DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Martani DOC Riesling',
+
+    v: ['Riesling, Riesling Italico'],
+  },
+  {
+    d: 'Colli Martani DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Martani DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Martani DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Martani DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli Martani DOC spumante',
+
+    v: ['Grechetto, Chardonnay, Pinot nero'],
+  },
+  {
+    d: 'Colli Martani DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Martani DOC Vernaccia (nera)',
+
+    v: ['Vernaccia nera'],
+  },
+  {
+    d: 'Colli Orientali del Friuli Picolit Cialla DOCG',
+
+    v: ['Picolit'],
+  },
+  {
+    d: 'Colli Orientali del Friuli Picolit DOCG',
+
+    v: ['Picolit'],
+  },
+  {
+    d: 'Colli Perugini DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Perugini DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Perugini DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Perugini DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Colli Perugini DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colli Perugini DOC novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Perugini DOC Pinot grigio',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Colli Perugini DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Perugini DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Perugini DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Perugini DOC spumante',
+
+    v: ['Grechetto, Chardonnay, Pinot bianco, Pinot nero, Pinot grigio'],
+  },
+  {
+    d: 'Colli Perugini DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Perugini DOC Vin Santo',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Biancame',
+
+    v: ['Biancame'],
+  },
+  {
+    d: 'Colli Pesaresi DOC bianco',
+
+    v: ['Trebbiano Toscano, Verdicchio, Biancame'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Focara Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Focara Pinot nero riserva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Focara Pinot nero spumante',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Focara Pinot nero vinificato in bianco',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Focara Pinot nero vinificato in bianco riserva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Focara rosso',
+
+    v: ['Pinot nero, Cabernet Franc, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Focara rosso riserva',
+
+    v: ['Pinot nero, Cabernet Franc, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Parco naturale Monte San Bartolo Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Parco naturale Monte San Bartolo Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Parco naturale Monte San Bartolo Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Parco naturale Monte San Bartolo Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Roncaglia bianco',
+
+    v: ['Pinot nero, Trebbiano Toscano, Chardonnay'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Roncaglia bianco riserva',
+
+    v: ['Pinot nero, Trebbiano Toscano, Chardonnay'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Roncaglia Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Roncaglia Pinot nero riserva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Roncaglia Pinot nero spumante',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Roncaglia Pinot nero vinificato in bianco',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Roncaglia Pinot nero vinificato in bianco riserva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Pesaresi DOC rosato (o rosè)',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Pesaresi DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Sangiovese novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Pesaresi DOC spumante',
+
+    v: ['Trebbiano Toscano, Verdicchio, Biancame'],
+  },
+  {
+    d: 'Colli Pesaresi DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Colli Piacentini DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Piacentini DOC Barbera frizzante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Piacentini DOC Bonarda',
+
+    v: ['Croatina'],
+  },
+  {
+    d: 'Colli Piacentini DOC Bonarda frizzante',
+
+    v: ['Croatina'],
+  },
+  {
+    d: 'Colli Piacentini DOC Cabernet sauvignon',
+
+    v: ['Cabernet sauvignon'],
+  },
+  {
+    d: 'Colli Piacentini DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Piacentini DOC Chardonnay frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Piacentini DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Piacentini DOC Malvasia',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli Piacentini DOC Malvasia frizzante',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli Piacentini DOC Malvasia passito',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli Piacentini DOC Malvasia spumante',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Colli Piacentini DOC Monterosso Val d’Arda',
+
+    v: [
+      'Malvasia di Candia aromatica, Moscato bianco, Trebbiano Romagnolo, Ortrugo',
+    ],
+  },
+  {
+    d: 'Colli Piacentini DOC Monterosso Val d’Arda frizzante',
+
+    v: [
+      'Malvasia di Candia aromatica, Moscato bianco, Trebbiano Romagnolo, Ortrugo',
+    ],
+  },
+  {
+    d: 'Colli Piacentini DOC Monterosso Val d’Arda spumante',
+
+    v: [
+      'Malvasia di Candia aromatica, Moscato bianco, Trebbiano Romagnolo, Ortrugo',
+    ],
+  },
+  {
+    d: 'Colli Piacentini DOC Novello',
+
+    v: ['Pinot nero, Barbera, Croatina'],
+  },
+  {
+    d: 'Colli Piacentini DOC Pinot grigio',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Colli Piacentini DOC Pinot grigio frizzante',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Colli Piacentini DOC Pinot grigio spumante',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Colli Piacentini DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Piacentini DOC Pinot nero frizzante',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Piacentini DOC Pinot nero spumante',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Colli Piacentini DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli Piacentini DOC Sauvignon frizzante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colli Piacentini DOC Trebbianino Val Trebbia',
+
+    v: [
+      'Ortrugo, Malvasia di Candia aromatica, Moscato bianco, Sauvignon, Trebbiano Romagnolo',
+    ],
+  },
+  {
+    d: 'Colli Piacentini DOC Trebbianino Val Trebbia frizzante',
+
+    v: [
+      'Ortrugo, Malvasia di Candia aromatica, Moscato bianco, Sauvignon, Trebbiano Romagnolo',
+    ],
+  },
+  {
+    d: 'Colli Piacentini DOC Trebbianino Val Trebbia spumante',
+
+    v: [
+      'Ortrugo, Malvasia di Candia aromatica, Moscato bianco, Sauvignon, Trebbiano Romagnolo',
+    ],
+  },
+  {
+    d: 'Colli Piacentini DOC Valnure',
+
+    v: ['Malvasia di Candia aromatica, Trebbiano Romagnolo, Ortrugo'],
+  },
+  {
+    d: 'Colli Piacentini DOC Valnure frizzante',
+
+    v: ['Malvasia di Candia aromatica, Trebbiano Romagnolo, Ortrugo'],
+  },
+  {
+    d: 'Colli Piacentini DOC Valnure spumante',
+
+    v: ['Malvasia di Candia aromatica, Trebbiano Romagnolo, Ortrugo'],
+  },
+  {
+    d: 'Colli Piacentini DOC Vin Santo',
+
+    v: [
+      'Malvasia di Candia aromatica, Ortrugo, Sauvignon, Marsanne, Trebbiano Romagnolo',
+    ],
+  },
+  {
+    d: 'Colli Piacentini DOC Vin Santo di Vigoleno',
+
+    v: ['Santa Maria, Melara, Bervedino, Ortrugo, Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC bianco',
+
+    v: [
+      'Chardonnay, Bombino bianco, Sauvignon, Trebbiano Romagnolo, Pinot bianco',
+    ],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC Chardonnay riserva',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC rosso',
+
+    v: ['Cabernet Sauvignon, Sangiovese, Barbera, Merlot, Montepulciano'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC rosso riserva',
+
+    v: ['Cabernet Sauvignon, Sangiovese, Barbera, Merlot, Montepulciano'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colli Romagna Centrale DOC Trebbiano',
+
+    v: ['Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Colli Tortonesi Barbera DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Tortonesi Barbera riserva DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Tortonesi Barbera superiore DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Tortonesi Bianco DOC',
+
+    v: ['Cortese, Favorita, Müller-Thurgau, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Colli Tortonesi Bianco frizzante DOC',
+
+    v: ['Cortese, Favorita, Müller-Thurgau, Pinot bianco, Pinot grigio'],
+  },
+  {
+    d: 'Colli Tortonesi Chiaretto DOC',
+
+    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+  },
+  {
+    d: 'Colli Tortonesi Chiaretto frizzante DOC',
+
+    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+  },
+  {
+    d: 'Colli Tortonesi Cortese DOC',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Colli Tortonesi Cortese frizzante DOC',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Colli Tortonesi Cortese riserva DOC',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Colli Tortonesi Cortese spumante DOC',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Colli Tortonesi Croatina DOC',
+
+    v: ['Croatina'],
+  },
+  {
+    d: 'Colli Tortonesi Croatina riserva DOC',
+
+    v: ['Croatina'],
+  },
+  {
+    d: 'Colli Tortonesi Dolcetto DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Colli Tortonesi Dolcetto novello DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Colli Tortonesi Favorita DOC',
+
+    v: ['Favorita'],
+  },
+  {
+    d: 'Colli Tortonesi Freisa DOC',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Colli Tortonesi Monleale DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Tortonesi Moscato DOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Colli Tortonesi Novello DOC',
+
+    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+  },
+  {
+    d: 'Colli Tortonesi Rosso DOC',
+
+    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+  },
+  {
+    d: 'Colli Tortonesi Rosso frizzante DOC',
+
+    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+  },
+  {
+    d: 'Colli Tortonesi Terre di Libarna Bianco DOC',
+
+    v: ['Timorasso'],
+  },
+  {
+    d: 'Colli Tortonesi Terre di Libarna Rosso DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colli Tortonesi Terre di Libarna Spumante DOC',
+
+    v: ['Timorasso'],
+  },
+  {
+    d: 'Colli Tortonesi Terre di Libarna Timorasso DOC',
+
+    v: ['Timorasso'],
+  },
+  {
+    d: 'Colli Tortonesi Timorasso DOC',
+
+    v: ['Timorasso'],
+  },
+  {
+    d: 'Colli Tortonesi Timorasso riserva DOC',
+
+    v: ['Timorasso'],
+  },
+  {
+    d: 'Collina Torinese Barbera DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Collina Torinese Bonarda DOC',
+
+    v: ['Bonarda'],
+  },
+  {
+    d: 'Collina Torinese Malvasia DOC',
+
+    v: ['Malvasia di Schierano, Malvasia nera lunga'],
+  },
+  {
+    d: 'Collina Torinese Pelaverga o Cari DOC',
+
+    v: ['Pelaverga'],
+  },
+  {
+    d: 'Collina Torinese rosso DOC',
+
+    v: ['Barbera, Freisa'],
+  },
+  {
+    d: 'Collina Torinese rosso novello DOC',
+
+    v: ['Barbera, Freisa'],
+  },
+  {
+    d: 'Colline di Levanto DOC bianco',
+
+    v: ['Vermentino, Albarola, Bosco'],
+  },
+  {
+    d: 'Colline di Levanto DOC novello',
+
+    v: ['Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Colline di Levanto DOC rosso',
+
+    v: ['Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Colline di Levanto DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC bianco',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC bianco spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC novello',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC Primitivo',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC Primitivo liquoroso – Vino dolce naturale',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC Primitivo liquoroso secco',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC Primitivo superiore',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC rosato',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC rosso',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC rosso superiore',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Colline Joniche Tarantine DOC Verdeca',
+
+    v: ['Verdeca'],
+  },
+  {
+    d: 'Colline Lucchesi DOC bianco',
+
+    v: ['Trebbiano Toscano, Chardonnay, Greco'],
+  },
+  {
+    d: 'Colline Lucchesi DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Colline Lucchesi DOC rosso',
+
+    v: ['Sangiovese, Canaiolo nero, Ciliegiolo, Merlot, Syrah'],
+  },
+  {
+    d: 'Colline Lucchesi DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Colline Lucchesi DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Colline Lucchesi DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Colline Lucchesi DOC Vin Santo',
+
+    v: [],
+  },
+  {
+    d: 'Colline Lucchesi DOC Vin Santo Occhio di Pernice',
+
+    v: [],
+  },
+  {
+    d: 'Colline Novaresi DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colline Novaresi DOC bianco',
+
+    v: ['Erbaluce'],
+  },
+  {
+    d: 'Colline Novaresi DOC Croatina',
+
+    v: ['Croatina'],
+  },
+  {
+    d: 'Colline Novaresi DOC Nebbiolo (Spanna)',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Colline Novaresi DOC novello',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Colline Novaresi DOC rosato',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Colline Novaresi DOC rosato novello',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Colline Novaresi DOC rosso',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Colline Novaresi DOC Uva rara (Bonarda Novarese)',
+
+    v: ['Uva rara'],
+  },
+  {
+    d: 'Colline Novaresi DOC Vespolina',
+
+    v: ['Vespolina'],
+  },
+  {
+    d: 'Colline Saluzzesi DOC (rosso)',
+
+    v: ['Barbera, Nebbiolo, Pelaverga, Chatus'],
+  },
+  {
+    d: 'Colline Saluzzesi DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Colline Saluzzesi DOC Chatus',
+
+    v: ['Chatus'],
+  },
+  {
+    d: 'Colline Saluzzesi DOC Pelaverga',
+
+    v: ['Pelaverga'],
+  },
+  {
+    d: 'Colline Saluzzesi DOC Pelaverga rosato',
+
+    v: ['Pelaverga'],
+  },
+  {
+    d: 'Colline Saluzzesi DOC Quagliano',
+
+    v: ['Quagliano'],
+  },
+  {
+    d: 'Colline Saluzzesi DOC Quagliano spumante',
+
+    v: ['Quagliano'],
+  },
+  {
+    d: 'Collio bianco DOC',
+
+    v: [],
+  },
+  {
+    d: 'Collio Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Collio Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Collio Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Collio Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Collio Friulano DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Collio Malvasia DOC',
+
+    v: ['Malvasia Istriana'],
+  },
+  {
+    d: 'Collio Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Collio Müller-Thurgau DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Collio Picolit DOC',
+
+    v: ['Picolit'],
+  },
+  {
+    d: 'Collio Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Collio Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Collio Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Collio Ribolla o Ribolla gialla DOC',
+
+    v: ['Ribolla gialla'],
+  },
+  {
+    d: 'Collio Riesling DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Collio Riesling italico DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Collio rosso DOC',
+
+    v: [],
+  },
+  {
+    d: 'Collio Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Collio Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Conegliano Valdobbiadene Prosecco DOCG',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Conegliano Valdobbiadene Prosecco frizzante DOCG',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Conegliano Valdobbiadene Prosecco frizzante metodo tradizionale DOCG',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Conegliano Valdobbiadene Prosecco spumante superiore di Cartizze DOCG',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Conegliano Valdobbiadene Prosecco spumante superiore DOCG',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Conero DOCG',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Ansonica o Inzolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Ansonica o Inzolia spumante',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Contea di Sclafani DOC bianco',
+
+    v: ['Catarratto bianco comune, Inzolia'],
+  },
+  {
+    d: 'Contea di Sclafani DOC bianco spumante',
+
+    v: ['Catarratto bianco comune, Inzolia'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Cabernet Sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Cabernet Sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Catarratto',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Catarratto spumante',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Contea di Sclafani DOC dolce',
+
+    v: ['Calabrese, Perricone'],
+  },
+  {
+    d: 'Contea di Sclafani DOC dolce vendemmia tardiva',
+
+    v: ['Calabrese, Perricone'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Grecanico spumante',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Grillo',
+
+    v: ['Grillo'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Grillo spumante',
+
+    v: ['Grillo'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Nerello Mascalese',
+
+    v: ['Nerello Mascalese'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Nero d’ Avola o Calabrese',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Nero d’ Avola o Calabrese riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Contea di Sclafani DOC novello',
+
+    v: ['Calabrese, Perricone'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Perricone',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Perricone riserva',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Pinot bianco spumante',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Pinot nero riserva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Contea di Sclafani DOC rosato',
+
+    v: ['Nerello Mascalese'],
+  },
+  {
+    d: 'Contea di Sclafani DOC rosato spumante',
+
+    v: ['Nerello Mascalese'],
+  },
+  {
+    d: 'Contea di Sclafani DOC rosso',
+
+    v: ['Calabrese, Perricone'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Sauvignon spumante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Contea di Sclafani DOC Syrah riserva',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Contessa Entellina DOC Ansonica',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Contessa Entellina DOC bianco',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Contessa Entellina DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Contessa Entellina DOC Catarratto',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+  },
+  {
+    d: 'Contessa Entellina DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Contessa Entellina DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Contessa Entellina DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Contessa Entellina DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Contessa Entellina DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Contessa Entellina DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Contessa Entellina DOC rosato',
+
+    v: ['Calabrese, Syrah'],
+  },
+  {
+    d: 'Contessa Entellina DOC rosso',
+
+    v: ['Calabrese, Syrah'],
+  },
+  {
+    d: 'Contessa Entellina DOC rosso riserva',
+
+    v: ['Calabrese, Syrah'],
+  },
+  {
+    d: 'Contessa Entellina DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Contessa Entellina DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Contessa Entellina DOC vendemmia tardiva',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Contessa Entellina DOC Viognier',
+
+    v: ['Viognier'],
+  },
+  {
+    d: 'Controguerra DOC bianco',
+
+    v: ['Trebbiano Toscano, Trebbiano Abruzzese, Passerina'],
+  },
+  {
+    d: 'Controguerra DOC bianco passito',
+
+    v: ['Trebbiano Toscano, Trebbiano Abruzzese, Passerina'],
+  },
+  {
+    d: 'Controguerra DOC Cabernet',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Controguerra DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Controguerra DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Controguerra DOC novello',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Controguerra DOC Passerina',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Controguerra DOC Pecorino',
+
+    v: ['Pecorino'],
+  },
+  {
+    d: 'Controguerra DOC rosato',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Controguerra DOC rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Controguerra DOC rosso passito',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Controguerra DOC rosso riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Controguerra DOC spumante metodo classico',
+
+    v: ['Trebbiano Toscano, Trebbiano Abruzzese, Chardonnay, Pecorino'],
+  },
+  {
+    d: 'Copertino DOC rosato',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Sangiovese, Montepulciano',
+    ],
+  },
+  {
+    d: 'Copertino DOC rosso',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Sangiovese, Montepulciano',
+    ],
+  },
+  {
+    d: 'Copertino DOC rosso riserva',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Sangiovese, Montepulciano',
+    ],
+  },
+  {
+    d: 'Cori DOC Bellone',
+
+    v: ['Bellone'],
+  },
+  {
+    d: 'Cori DOC bianco',
+
+    v: ['Bellone, Malvasia del Lazio, Greco'],
+  },
+  {
+    d: 'Cori DOC Nero buono',
+
+    v: ['Nero buono'],
+  },
+  {
+    d: 'Cori DOC Nero buono riserva',
+
+    v: ['Nero buono'],
+  },
+  {
+    d: 'Cori DOC rosso',
+
+    v: ['Nero buono, Montepulciano, Cesanese comune, Cesanese di Affile'],
+  },
+  {
+    d: 'Cortese dell’Alto Monferrato DOC',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Cortese dell’Alto Monferrato DOC frizzante',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Cortese dell’Alto Monferrato DOC spumante',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Bianco DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Cabernet DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Cabernet riserva DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Cabernet Sauvignon DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Cabernet Sauvignon riserva DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Novello DOC',
+
+    v: ['Merlot, Raboso Piave'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Passito DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Pinot Bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Pinot Grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Raboso DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Raboso passito DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Raboso riserva DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Refosco dal Peduncolo Rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Refosco dal Peduncolo Rosso riserva DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Rosato DOC',
+
+    v: ['Merlot, Raboso Piave'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Rosso DOC',
+
+    v: ['Merlot, Raboso Piave'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Spumante Moscato DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Corti Benedettine del Padovano Tai DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Cortona DOC Cabernet Sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Cortona DOC Cabernet Sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Cortona DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Cortona DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Cortona DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Cortona DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Cortona DOC rosso',
+
+    v: ['Syrah, Merlot'],
+  },
+  {
+    d: 'Cortona DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Cortona DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Cortona DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Cortona DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Cortona DOC Syrah riserva',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Cortona DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Grechetto, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Cortona DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese, Malvasia nera'],
+  },
+  {
+    d: 'Cortona DOC Vin Santo riserva',
+
+    v: ['Trebbiano Toscano, Grechetto, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Costa d’Amalfi DOC bianco',
+
+    v: ['Falanghina, Biancolella'],
+  },
+  {
+    d: 'Costa d’Amalfi DOC bianco passito',
+
+    v: ['Falanghina, Biancolella'],
+  },
+  {
+    d: 'Costa d’Amalfi DOC bianco spumante',
+
+    v: ['Falanghina, Biancolella'],
+  },
+  {
+    d: 'Costa d’Amalfi DOC rosato',
+
+    v: ['Piedirosso, Sciascinoso, Aglianico'],
+  },
+  {
+    d: 'Costa d’Amalfi DOC rosso',
+
+    v: ['Piedirosso, Sciascinoso, Aglianico'],
+  },
+  {
+    d: 'Costa d’Amalfi DOC rosso passito',
+
+    v: ['Piedirosso, Sciascinoso, Aglianico'],
+  },
+  {
+    d: 'Coste della Sesia DOC bianco',
+
+    v: ['Erbaluce'],
+  },
+  {
+    d: 'Coste della Sesia DOC Croatina',
+
+    v: ['Croatina'],
+  },
+  {
+    d: 'Coste della Sesia DOC Nebbiolo o Spanna',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Coste della Sesia DOC rosato',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Coste della Sesia DOC rosso',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Coste della Sesia DOC Vespolina',
+
+    v: ['Vespolina'],
+  },
+  {
+    d: 'Curtefranca bianco DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Curtefranca rosso DOC',
+
+    v: ['Cabernet Franc, Carmènere, Merlot, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Delia Nivolelli DOC bianco',
+
+    v: ['Grecanico dorato, Ansonica'],
+  },
+  {
+    d: 'Delia Nivolelli DOC bianco frizzante',
+
+    v: ['Grecanico dorato, Ansonica'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Damaschino',
+
+    v: ['Damaschino'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Grillo',
+
+    v: ['Grillo'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Inzolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Müller-Thrurgau',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Nero d’Avola riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Delia Nivolelli DOC novello',
+
+    v: ['Calabrese, Perricone, Cabernet Sauvignon, Syrah, Sangiovese'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Pignatello o Perricone',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Pignatello o Perricone riserva',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Delia Nivolelli DOC rosso',
+
+    v: ['Calabrese, Perricone, Cabernet Sauvignon, Syrah, Sangiovese'],
+  },
+  {
+    d: 'Delia Nivolelli DOC rosso riserva',
+
+    v: ['Calabrese, Perricone, Cabernet Sauvignon, Syrah, Sangiovese'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Delia Nivolelli DOC spumante',
+
+    v: ['Ansonica, Damaschino, Chardonnay'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Delia Nivolelli DOC Syrah riserva',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Dogliani DOCG',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dogliani superiore DOCG',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto d’Acqui DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto d’Acqui superiore DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto d’Alba DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto d’Alba superiore DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto d’Asti DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto d’Asti superiore DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto di Diano d’Alba o Diano d’Alba DOCG',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto di Diano d’Alba o Diano d’Alba superiore DOCG',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto di Ovada DOC',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto di Ovada superiore o Ovada DOCG',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto di Ovada superiore o Ovada DOCG con menzione vigna',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto di Ovada superiore o Ovada DOCG con menzione vigna riserva',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Dolcetto di Ovada superiore riserva o Ovada riserva DOCG',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Elba Aleatico passito o Aleatico Passito dell’Elba DOCG',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Elba DOC Ansonica',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Elba DOC Ansonica passito',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Elba DOC bianco',
+
+    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+  },
+  {
+    d: 'Elba DOC bianco passito',
+
+    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+  },
+  {
+    d: 'Elba DOC bianco spumante',
+
+    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+  },
+  {
+    d: 'Elba DOC Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Elba DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Elba DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Elba DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Elba DOC Sangiovese o Sangioveto',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Elba DOC Trebbiano o Procanico',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Elba DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Elba DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+  },
+  {
+    d: 'Elba DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Eloro DOC Frappato',
+
+    v: ['Frappato'],
+  },
+  {
+    d: 'Eloro DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Eloro DOC Pachino',
+
+    v: ['Frappato, Perricone'],
+  },
+  {
+    d: 'Eloro DOC Pignatello',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Eloro DOC rosato',
+
+    v: ['Calabrese, Frappato, Perricone'],
+  },
+  {
+    d: 'Eloro DOC rosso',
+
+    v: ['Calabrese, Frappato, Perricone'],
+  },
+  {
+    d: 'Erbaluce di Caluso o Caluso DOCG',
+
+    v: ['Erbaluce'],
+  },
+  {
+    d: 'Erbaluce di Caluso o Caluso passito DOCG',
+
+    v: ['Erbaluce'],
+  },
+  {
+    d: 'Erbaluce di Caluso o Caluso passito riserva DOCG',
+
+    v: ['Erbaluce'],
+  },
+  {
+    d: 'Erbaluce di Caluso o Caluso spumante DOCG',
+
+    v: ['Erbaluce'],
+  },
+  {
+    d: 'Erice DOC Ansonica o Inzolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Erice DOC bianco',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Erice DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Erice DOC Calabrese o Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Erice DOC Catarratto',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Erice DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Erice DOC Frappato',
+
+    v: ['Frappato'],
+  },
+  {
+    d: 'Erice DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Erice DOC Grillo',
+
+    v: ['Grillo'],
+  },
+  {
+    d: 'Erice DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Erice DOC Moscato',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Erice DOC Müller-Thurgau',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Erice DOC passito',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Erice DOC Perricone o Pignatello',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Erice DOC rosso',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Erice DOC rosso riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Erice DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Erice DOC Sauvignon vendemmia tardiva',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Erice DOC spumante brut',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Erice DOC spumante dolce',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Erice DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Erice DOC Zibibbo vendemmia tardiva',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Esino DOC bianco',
+
+    v: ['Verdicchio'],
+  },
+  {
+    d: 'Esino DOC bianco frizzante',
+
+    v: ['Verdicchio'],
+  },
+  {
+    d: 'Esino DOC novello',
+
+    v: ['Sangiovese, Montepulciano'],
+  },
+  {
+    d: 'Esino DOC rosso',
+
+    v: ['Sangiovese, Montepulciano'],
+  },
+  {
+    d: 'Est!! Est!! Est!! di Montefiascone DOC',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca lunga, Malvasia del Lazio',
+    ],
+  },
+  {
+    d: 'Est!! Est!! Est!! di Montefiascone DOC classico',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca lunga, Malvasia del Lazio',
+    ],
+  },
+  {
+    d: 'Est!! Est!! Est!! di Montefiascone DOC spumante',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca lunga, Malvasia del Lazio',
+    ],
+  },
+  {
+    d: 'Etna DOC bianco',
+
+    v: ['Carricante, Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Etna DOC bianco superiore',
+
+    v: ['Carricante, Trebbiano Toscano, Minnella bianca'],
+  },
+  {
+    d: 'Etna DOC rosato',
+
+    v: ['Nerello Mascalese, Nerello Cappuccio'],
+  },
+  {
+    d: 'Etna DOC rosso',
+
+    v: ['Nerello Mascalese, Nerello Cappuccio'],
+  },
+  {
+    d: 'Etna DOC rosso riserva',
+
+    v: ['Nerello Mascalese, Nerello Cappuccio'],
+  },
+  {
+    d: 'Etna DOC spumante (vinificato in bianco)',
+
+    v: ['Nerello Mascalese'],
+  },
+  {
+    d: 'Etna DOC spumante rosato',
+
+    v: ['Nerello Mascalese'],
+  },
+  {
+    d: 'Falanghina del Sannio DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Guardia Sanframondi o Guardiolo DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Guardia Sanframondi o Guardiolo passito DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Guardia Sanframondi o Guardiolo spumante di qualità DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Guardia Sanframondi o Guardiolo spumante DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Guardia Sanframondi o Guardiolo vendemmia tardiva DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Guardia Sanframondi o Guardiolospumante di qualità metodo classico DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio passito DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Sant’Agata dei Goti DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Sant’Agata dei Goti passito DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Sant’Agata dei Goti spumante di qualità DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Sant’Agata dei Goti spumante di qualità metodo classico DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Sant’Agata dei Goti spumante DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Sant’Agata dei Goti vendemmia tardiva DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Solopaca DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Solopaca passito DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Solopaca spumante di qualità DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Solopaca spumante di qualità metodo classico DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Solopaca spumante DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Solopaca vendemmia tardiva DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio spumante di qualità DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio spumante di qualità metodo classico DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio spumante DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Taburno DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Taburno passito DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Taburno spumante di qualità DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Taburno spumante di qualità metodo classico DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Taburno spumante DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio Taburno vendemmia tardiva DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falanghina del Sannio vendemmia tardiva DOC',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falerio DOC',
+
+    v: ['Trebbiano Toscano, Passerina, Pecorino'],
+  },
+  {
+    d: 'Falerio DOC Pecorino',
+
+    v: ['Trebbiano Toscano, Passerina, Pecorino'],
+  },
+  {
+    d: 'Falerno del Massico DOC bianco',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Falerno del Massico DOC Primitivo',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Falerno del Massico DOC Primitivo riserva (o vecchio)',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Falerno del Massico DOC rosso',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Falerno del Massico DOC rosso riserva',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Fara DOC',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Fara DOC con menzione vigna',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Faro DOC',
+
+    v: ['Nerello Mascalese, Nocera, Nerello Cappuccio'],
+  },
+  {
+    d: 'Fiano di Avellino DOCG',
+
+    v: ['Fiano, Greco, Coda di Volpe, Trebbiano Toscano'],
+  },
+  {
+    d: 'Franciacorta DOCG',
+
+    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+  },
+  {
+    d: 'Franciacorta millesimato DOCG',
+
+    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+  },
+  {
+    d: 'Franciacorta riserva DOCG',
+
+    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+  },
+  {
+    d: 'Franciacorta Rosé DOCG',
+
+    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+  },
+  {
+    d: 'Franciacorta Rosé millesimato DOCG',
+
+    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+  },
+  {
+    d: 'Franciacorta Rosé riserva DOCG',
+
+    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+  },
+  {
+    d: 'Franciacorta Satèn DOCG',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Franciacorta Satèn millesimato DOCG',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Franciacorta Satèn riserva DOCG',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Frascati DOC',
+
+    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+  },
+  {
+    d: 'Frascati spumante DOC',
+
+    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+  },
+  {
+    d: 'Frascati superiore DOCG',
+
+    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+  },
+  {
+    d: 'Frascati superiore riserva DOCG',
+
+    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+  },
+  {
+    d: 'Freisa d’Asti DOC',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Freisa d’Asti DOC frizzante',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Freisa d’Asti DOC spumante',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Freisa d’Asti DOC superiore',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Freisa di Chieri DOC dolce',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Freisa di Chieri DOC frizzante',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Freisa di Chieri DOC secco',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Freisa di Chieri DOC spumante',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Freisa di Chieri DOC superiore',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Friuli Annia Bianco DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Annia Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Friuli Annia Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Annia Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Annia Friulano DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Friuli Annia Malvasia DOC',
+
+    v: ['Malvasia Istriana'],
+  },
+  {
+    d: 'Friuli Annia Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Friuli Annia Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Friuli Annia Refosco dal peduncolo rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Annia Rosato DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Annia Rosso DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Annia Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Friuli Annia Spumante DOC',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Friuli Annia Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Friuli Annia Verduzzo friulano DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Aquileia Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Aquileia Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Friuli Aquileia Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Aquileia Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Aquileia Friulano DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Friuli Aquileia Malvasia istriana DOC',
+
+    v: ['Malvasia Istriana'],
+  },
+  {
+    d: 'Friuli Aquileia Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Friuli Aquileia Müller Thurgau DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Friuli Aquileia Novello DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Aquileia Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Aquileia Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Friuli Aquileia Riesling DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Friuli Aquileia Rosato DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Aquileia Rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Aquileia Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Friuli Aquileia Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Friuli Aquileia Verduzzo friulano DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Bianco DOC',
+
+    v: [
+      'Chardonnay, Tocai Friulano, Malvasia Istriana, Pinot bianco, Pinot grigio, Riesling Renano, Sauvignon, Traminer aromatico, Verduzzo Friulano, Ribolla gialla',
+    ],
+  },
+  {
+    d: 'Friuli Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Friuli Cabernet Franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Friuli Cabernet Sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Colli Orientali Bianco DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Colli Orientali Bianco DOC “Cialla”',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Colli Orientali Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Friuli Colli Orientali Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Friuli Colli Orientali Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Colli Orientali Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Colli Orientali Dolce DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Colli Orientali Friulano DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Friuli Colli Orientali Malvasia DOC',
+
+    v: ['Malvasia Istriana'],
+  },
+  {
+    d: 'Friuli Colli Orientali Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Friuli Colli Orientali Pignolo di Rosazzo DOC',
+
+    v: ['Pignolo'],
+  },
+  {
+    d: 'Friuli Colli Orientali Pignolo DOC',
+
+    v: ['Pignolo'],
+  },
+  {
+    d: 'Friuli Colli Orientali Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Colli Orientali Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Friuli Colli Orientali Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Friuli Colli Orientali Refosco dal peduncolo rosso DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Friuli Colli Orientali Refosco dal peduncolo rosso DOC “Cialla”',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Colli Orientali Refosco di Faedis DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Colli Orientali Ribolla gialla di Rosazzo DOC',
+
+    v: ['Ribolla gialla'],
+  },
+  {
+    d: 'Friuli Colli Orientali Ribolla gialla DOC',
+
+    v: ['Ribolla gialla'],
+  },
+  {
+    d: 'Friuli Colli Orientali Ribolla gialla DOC “Cialla”',
+
+    v: ['Ribolla gialla'],
+  },
+  {
+    d: 'Friuli Colli Orientali Riesling DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Friuli Colli Orientali Rosso DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Colli Orientali Rosso DOC “Cialla”',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Colli Orientali Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Friuli Colli Orientali Schioppettino di Prepotto DOC',
+
+    v: ['Schioppettino'],
+  },
+  {
+    d: 'Friuli Colli Orientali Schioppettino DOC',
+
+    v: ['Schioppettino'],
+  },
+  {
+    d: 'Friuli Colli Orientali Schioppettino DOC “Cialla”',
+
+    v: ['Schioppettino'],
+  },
+  {
+    d: 'Friuli Colli Orientali Tazzelenghe DOC',
+
+    v: ['Tazzelenghe'],
+  },
+  {
+    d: 'Friuli Colli Orientali Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Friuli Colli Orientali Verduzzo friulano DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Colli Orientali Verduzzo friulano DOC “Cialla”',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Friulano DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Friuli Grave Bianco DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Grave Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Friuli Grave Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Friuli Grave Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Grave Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Grave Friulano DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Friuli Grave Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Friuli Grave Novello DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Grave Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Grave Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Friuli Grave Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Friuli Grave Refosco dal peduncolo rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Grave Riesling DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Friuli Grave Rosato DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Grave Rosso DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Grave Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Friuli Grave Spumante DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Grave Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Friuli Grave Verduzzo friulano DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Isonzo Bianco DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Isonzo Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Isonzo Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Friuli Isonzo Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Isonzo Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Isonzo Chardonnay spumante DOC',
+
+    v: ['Chardonnay, Pinot nero'],
+  },
+  {
+    d: 'Friuli Isonzo Franconia DOC',
+
+    v: ['Franconia'],
+  },
+  {
+    d: 'Friuli Isonzo Friulano DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Friuli Isonzo Malvasia DOC',
+
+    v: ['Malvasia Istriana'],
+  },
+  {
+    d: 'Friuli Isonzo Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Friuli Isonzo Moscato giallo DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Friuli Isonzo Moscato giallo spumante DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Friuli Isonzo Moscato rosa DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Friuli Isonzo Moscato rosa spumante DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Friuli Isonzo Pignolo DOC',
+
+    v: ['Pignolo'],
+  },
+  {
+    d: 'Friuli Isonzo Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Isonzo Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Friuli Isonzo Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Friuli Isonzo Pinot spumante DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Isonzo Refosco dal peduncolo rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Isonzo Riesling DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Friuli Isonzo Riesling italico DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Friuli Isonzo Rosato DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Isonzo Rosso DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Isonzo Rosso spumante DOC',
+
+    v: [],
+  },
+  {
+    d: 'Friuli Isonzo Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Friuli Isonzo Schioppettino DOC',
+
+    v: ['Schioppettino'],
+  },
+  {
+    d: 'Friuli Isonzo Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Friuli Isonzo Vendemmia Tardiva DOC',
+
+    v: [
+      'Tocai Friulano, Sauvignon, Verduzzo Friulano, Pinot bianco, Chardonnay, Malvasia Istriana',
+    ],
+  },
+  {
+    d: 'Friuli Isonzo Verduzzo friulano DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Isonzo Verduzzo friulano spumante DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Latisana Bianco DOC',
+
+    v: ['Tocai Friulano, Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Friuli Latisana Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Friuli Latisana Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Friuli Latisana Cabernet franc novello DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Friuli Latisana Cabernet novello DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Friuli Latisana Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Latisana Cabernet sauvignon novello DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Friuli Latisana Carmenere DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Friuli Latisana Carmenere novello DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Friuli Latisana Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Latisana Chardonnay frizzante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Latisana Chardonnay spumante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Friuli Latisana Franconia DOC',
+
+    v: ['Franconia'],
+  },
+  {
+    d: 'Friuli Latisana Franconia novello DOC',
+
+    v: ['Franconia'],
+  },
+  {
+    d: 'Friuli Latisana Friulano DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Friuli Latisana Malvasia DOC',
+
+    v: ['Malvasia'],
+  },
+  {
+    d: 'Friuli Latisana Malvasia frizzante DOC',
+
+    v: ['Malvasia'],
+  },
+  {
+    d: 'Friuli Latisana Malvasia spumante DOC',
+
+    v: ['Malvasia'],
+  },
+  {
+    d: 'Friuli Latisana Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Friuli Latisana Merlot novello DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Friuli Latisana Passito DOC',
+
+    v: ['Tocai Friulano, Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Friuli Latisana Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Latisana Pinot bianco frizzante DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Latisana Pinot bianco spumante DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Latisana Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Friuli Latisana Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Friuli Latisana Pinot nero frizzante DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Friuli Latisana Pinot nero spumante DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Friuli Latisana Refosco dal peduncolo rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Latisana Refosco dal peduncolo rosso novello DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Latisana Riesling DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Friuli Latisana Rosato DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Friuli Latisana Rosato frizzante DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Friuli Latisana Rosso DOC',
+
+    v: ['Merlot, Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Friuli Latisana Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Friuli Latisana Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Friuli Latisana Verduzzo friulano DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Latisana Verduzzo friulano frizzante DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Friuli Malvasia DOC',
+
+    v: ['Malvasia Istriana'],
+  },
+  {
+    d: 'Friuli Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Friuli Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Friuli Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Friuli Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Friuli Refosco dal Peduncolo Rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Friuli Ribolla Gialla Spumante DOC',
+
+    v: ['Ribolla gialla'],
+  },
+  {
+    d: 'Friuli Ribolla Gialla Spumante Metodo Classico DOC',
+
+    v: ['Ribolla gialla'],
+  },
+  {
+    d: 'Friuli Riesling DOC',
+
+    v: ['Riesling Italico, Riesling Renano'],
+  },
+  {
+    d: 'Friuli Rosso DOC',
+
+    v: [
+      'Merlot, Cabernet Franc, Cabernet Sauvignon, Carmènere, Pinot nero, Refosco dal peduncolo rosso',
+    ],
+  },
+  {
+    d: 'Friuli Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Friuli Spumante DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Friuli Spumante Metodo Classico DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Friuli Traminer aromatico DOC',
+
+    v: ['Traminer aromatico'],
+  },
+  {
+    d: 'Friuli Verduzzo Friulano DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Gabiano DOC',
+
+    v: ['Barbera, Freisa, Grignolino'],
+  },
+  {
+    d: 'Galatina DOC bianco',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Galatina DOC bianco frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Galatina DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Galatina DOC Negroamaro',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Galatina DOC Negroamaro riserva',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Galatina DOC rosato',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Galatina DOC rosato frizzante',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Galatina DOC rosso',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Galatina DOC rosso novello',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Galluccio DOC bianco',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Galluccio DOC rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Galluccio DOC rosso',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Galluccio DOC rosso riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Gambellara classico Vin Santo DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Gambellara DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Gambellara DOC classico',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Gambellara DOC superiore',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Gambellara spumante DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Garda Colli Mantovani bianco DOC',
+
+    v: ['Garganega, Trebbiano Toscano, Chardonnay'],
+  },
+  {
+    d: 'Garda Colli Mantovani Cabernet DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Garda Colli Mantovani Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Garda Colli Mantovani Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Garda Colli Mantovani Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Garda Colli Mantovani Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Garda Colli Mantovani rosato DOC',
+
+    v: ['Merlot, Rondinella, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Garda Colli Mantovani rosso DOC',
+
+    v: ['Merlot, Rondinella, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Garda Colli Mantovani Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Garda DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Garda DOC Cabernet',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Garda DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Garda DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Garda DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Garda DOC Classico bianco',
+
+    v: ['Riesling Italico, Riesling'],
+  },
+  {
+    d: 'Garda DOC Classico chiaretto',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Garda DOC Classico Groppello',
+
+    v: [],
+  },
+  {
+    d: 'Garda DOC Classico Groppello riserva',
+
+    v: [],
+  },
+  {
+    d: 'Garda DOC Classico rosso',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Garda DOC Classico rosso novello',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Garda DOC Classico rosso superiore',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Garda DOC Cortese',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Garda DOC Corvina',
+
+    v: ['Corvina'],
+  },
+  {
+    d: 'Garda DOC frizzante',
+
+    v: ['Riesling Italico, Riesling'],
+  },
+  {
+    d: 'Garda DOC Garganega',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Garda DOC Marzemino',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Garda DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Garda DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Garda DOC Pinot bianco spumante',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Garda DOC Pinot grigio',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Garda DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Garda DOC Riesling',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Garda DOC Riesling Italico',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Garda DOC Riesling spumante',
+
+    v: ['Riesling Italico, Riesling'],
+  },
+  {
+    d: 'Garda DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Garda DOC spumante rosè',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Garda DOC Tai',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Gattinara DOCG',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Gattinara riserva DOCG',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Gavi o Cortese di Gavi frizzante DOCG',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Gavi o Cortese di Gavi riserva DOCG',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Gavi o Cortese di Gavi riserva spumante metodo classico DOCG',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Gavi o Cortese di Gavi spumante DOCG',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Gavi o Cortese di Gavi tranquillo DOCG',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Genazzano bianco DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Genazzano rosso DOC',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Ghemme DOCG',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Ghemme riserva DOCG',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Gioia del Colle DOC Aleatico dolce',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Gioia del Colle DOC Aleatico liquoroso',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Gioia del Colle DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Gioia del Colle DOC Primitivo',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Gioia del Colle DOC rosato',
+
+    v: [
+      'Primitivo, Montepulciano, Sangiovese, Negro Amaro, Malvasia nera di Lecce',
+    ],
+  },
+  {
+    d: 'Gioia del Colle DOC rosso',
+
+    v: [
+      'Primitivo, Montepulciano, Sangiovese, Negro Amaro, Malvasia nera di Lecce',
+    ],
+  },
+  {
+    d: 'Girò di Cagliari DOC',
+
+    v: ['Girò'],
+  },
+  {
+    d: 'Girò di Cagliari liquoroso DOC',
+
+    v: ['Girò'],
+  },
+  {
+    d: 'Girò di Cagliari liquoroso riserva DOC',
+
+    v: ['Girò'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Bianchetta Genovese',
+
+    v: ['Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Bianchetta Genovese frizzante',
+
+    v: ['Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC bianco',
+
+    v: ['Vermentino, Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC bianco frizzante',
+
+    v: ['Vermentino, Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Ciliegiolo',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Ciliegiolo frizzante',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Ciliegiolo novello',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi bianco',
+
+    v: ['Vermentino, Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi passito',
+
+    v: ['Vermentino, Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi rosso',
+
+    v: ['Ciliegiolo, Dolcetto'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi spumante',
+
+    v: ['Vermentino, Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC novello',
+
+    v: ['Ciliegiolo, Dolcetto'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC passito',
+
+    v: ['Vermentino, Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC rosato',
+
+    v: ['Ciliegiolo, Dolcetto'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC rosato frizzante',
+
+    v: ['Ciliegiolo, Dolcetto'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC rosso',
+
+    v: ['Ciliegiolo, Dolcetto'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC rosso frizzante',
+
+    v: ['Ciliegiolo, Dolcetto'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Scimscià (Cimixa)',
+
+    v: ['Scimiscià'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC spumante',
+
+    v: ['Vermentino, Bianchetta Genovese'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Golfo del Tigullio-Portofino o Portofino DOC Vermentino frizzante',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Grance Senesi DOC bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Grance Senesi DOC Cabernet Sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Grance Senesi DOC Canaiolo',
+
+    v: ['Canaiolo nero'],
+  },
+  {
+    d: 'Grance Senesi DOC Malvasia bianca lunga',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Grance Senesi DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Grance Senesi DOC passito',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Grance Senesi DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Grance Senesi DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Grance Senesi DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Grance Senesi DOC vendemmia tardiva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Gravina DOC bianco',
+
+    v: ['Greco, Malvasia bianca, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Gravina DOC passito',
+
+    v: ['Malvasia bianca, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Gravina DOC rosato',
+
+    v: [
+      'Primitivo, Montepulciano, Aglianico, Uva di Troia, Cabernet Sauvignon, Cabernet Sauvignon',
+    ],
+  },
+  {
+    d: 'Gravina DOC rosso',
+
+    v: [
+      'Primitivo, Montepulciano, Aglianico, Uva di Troia, Cabernet Sauvignon, Cabernet Sauvignon',
+    ],
+  },
+  {
+    d: 'Gravina DOC spumante',
+
+    v: ['Greco, Malvasia bianca, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Greco di Bianco DOC',
+
+    v: ['Greco Bianco'],
+  },
+  {
+    d: 'Greco di Tufo DOCG',
+
+    v: ['Greco, Coda di Volpe'],
+  },
+  {
+    d: 'Greco di Tufo spumante DOCG',
+
+    v: ['Greco, Coda di Volpe'],
+  },
+  {
+    d: 'Grignolino d’Asti DOC',
+
+    v: ['Grignolino, Freisa'],
+  },
+  {
+    d: 'Grignolino del Monferrato Casalese DOC',
+
+    v: ['Grignolino, Freisa'],
+  },
+  {
+    d: 'Grottino di Roccanova DOC bianco',
+
+    v: ['Malvasia nera di Basilicata'],
+  },
+  {
+    d: 'Grottino di Roccanova DOC rosato',
+
+    v: [
+      'Sangiovese, Cabernet Sauvignon, Malvasia nera di Basilicata, Montepulciano',
+    ],
+  },
+  {
+    d: 'Grottino di Roccanova DOC rosso',
+
+    v: [
+      'Sangiovese, Cabernet Sauvignon, Malvasia nera di Basilicata, Montepulciano',
+    ],
+  },
+  {
+    d: 'Grottino di Roccanova DOC rosso riserva',
+
+    v: [
+      'Sangiovese, Cabernet Sauvignon, Malvasia nera di Basilicata, Montepulciano',
+    ],
+  },
+  {
+    d: 'Gutturnio DOC classico riserva',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Gutturnio DOC classico superiore',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Gutturnio DOC frizzante',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Gutturnio DOC riserva',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Gutturnio DOC superiore',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'I Terreni di San Severino DOC moro',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'I Terreni di San Severino DOC rosso',
+
+    v: ['Vernaccia nera'],
+  },
+  {
+    d: 'I Terreni di San Severino DOC rosso passito',
+
+    v: ['Vernaccia nera'],
+  },
+  {
+    d: 'I Terreni di San Severino DOC rosso superiore',
+
+    v: ['Vernaccia nera'],
+  },
+  {
+    d: 'Irpinia DOC Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Irpinia DOC Aglianico liquoroso',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Irpinia DOC Aglianico passito',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Irpinia DOC bianco',
+
+    v: ['Greco, Fiano'],
+  },
+  {
+    d: 'Irpinia DOC Coda di Volpe',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Irpinia DOC Falanghina',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Irpinia DOC Falanghina spumante',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Irpinia DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Irpinia DOC Fiano passito',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Irpinia DOC Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Irpinia DOC Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Irpinia DOC Greco passito',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Irpinia DOC Greco spumante',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Irpinia DOC novello',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Irpinia DOC Piedirosso',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Irpinia DOC rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Irpinia DOC rosso',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Irpinia DOC Sciascinoso',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Irpinia DOC sottozona Campi Taurasini',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Ischia DOC bianco',
+
+    v: ['Forastera, Biancolella'],
+  },
+  {
+    d: 'Ischia DOC bianco spumante',
+
+    v: ['Forastera, Biancolella'],
+  },
+  {
+    d: 'Ischia DOC bianco superiore',
+
+    v: ['Forastera, Biancolella'],
+  },
+  {
+    d: 'Ischia DOC Biancolella',
+
+    v: ['Biancolella'],
+  },
+  {
+    d: 'Ischia DOC Forastera',
+
+    v: ['Forastera'],
+  },
+  {
+    d: 'Ischia DOC Piedirosso o Per’e Palummo',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Ischia DOC Piedirosso o Per’e Palummo passito',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Ischia DOC rosso',
+
+    v: ['Guarnaccia, Piedirosso'],
+  },
+  {
+    d: 'Lacrima di Morro d’Alba DOC',
+
+    v: ['Lacrima'],
+  },
+  {
+    d: 'Lacrima di Morro d’Alba DOC passito',
+
+    v: ['Lacrima'],
+  },
+  {
+    d: 'Lacrima di Morro d’Alba DOC superiore',
+
+    v: ['Lacrima'],
+  },
+  {
+    d: 'Lago di Caldaro o Caldaro classico superiore DOC',
+
+    v: ['Schiava grossa, Schiava gentile, Schiava grigia'],
+  },
+  {
+    d: 'Lago di Caldaro o Caldaro DOC',
+
+    v: ['Schiava grossa, Schiava gentile, Schiava grigia'],
+  },
+  {
+    d: 'Lago di Caldaro o Caldaro scelto (Auslese) classico superiore DOC',
+
+    v: ['Schiava grossa, Schiava gentile, Schiava grigia'],
+  },
+  {
+    d: 'Lago di Caldaro o Caldaro scelto (Auslese) DOC',
+
+    v: ['Schiava grossa, Schiava gentile, Schiava grigia'],
+  },
+  {
+    d: 'Lago di Corbara DOC bianco',
+
+    v: ['Grechetto, Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC bianco riserva',
+
+    v: ['Grechetto, Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Lago di Corbara DOC Chardonnay riserva',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Lago di Corbara DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Lago di Corbara DOC Grechetto riserva',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Lago di Corbara DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Lago di Corbara DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Lago di Corbara DOC passito',
+
+    v: ['Grechetto, Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC passito riserva',
+
+    v: ['Grechetto, Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Lago di Corbara DOC Pinot nero riserva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Lago di Corbara DOC rosso',
+
+    v: ['Cabernet Sauvignon, Merlot, Pinot nero, Sangiovese'],
+  },
+  {
+    d: 'Lago di Corbara DOC rosso riserva',
+
+    v: ['Cabernet Sauvignon, Merlot, Pinot nero, Sangiovese'],
+  },
+  {
+    d: 'Lago di Corbara DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Lago di Corbara DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Lago di Corbara DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC Sauvignon riserva',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC Vendemmia tardiva',
+
+    v: ['Grechetto, Sauvignon'],
+  },
+  {
+    d: 'Lago di Corbara DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Lago di Corbara DOC Vermentino riserva',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Lambrusco di Sorbara DOC rosato frizzante',
+
+    v: ['Lambrusco di Sorbara, Lambrusco Salamino'],
+  },
+  {
+    d: 'Lambrusco di Sorbara DOC rosato spumante',
+
+    v: ['Lambrusco di Sorbara, Lambrusco Salamino'],
+  },
+  {
+    d: 'Lambrusco di Sorbara DOC rosso frizzante',
+
+    v: ['Lambrusco di Sorbara, Lambrusco Salamino'],
+  },
+  {
+    d: 'Lambrusco di Sorbara DOC rosso spumante',
+
+    v: ['Lambrusco di Sorbara, Lambrusco Salamino'],
+  },
+  {
+    d: 'Lambrusco Grasparossa di Castelvetro DOC rosato frizzante',
+
+    v: ['Lambrusco Grasparossa'],
+  },
+  {
+    d: 'Lambrusco Grasparossa di Castelvetro DOC rosato spumante',
+
+    v: ['Lambrusco Grasparossa'],
+  },
+  {
+    d: 'Lambrusco Grasparossa di Castelvetro DOC rosso frizzante',
+
+    v: ['Lambrusco Grasparossa'],
+  },
+  {
+    d: 'Lambrusco Grasparossa di Castelvetro DOC rosso spumante',
+
+    v: ['Lambrusco Grasparossa'],
+  },
+  {
+    d: 'Lambrusco Mantovano Oltrepò Mantovano rosato DOC',
+
+    v: [],
+  },
+  {
+    d: 'Lambrusco Mantovano Oltrepò Mantovano rosso DOC',
+
+    v: [],
+  },
+  {
+    d: 'Lambrusco Mantovano rosato DOC',
+
+    v: [],
+  },
+  {
+    d: 'Lambrusco Mantovano rosso DOC',
+
+    v: [],
+  },
+  {
+    d: 'Lambrusco Mantovano Viadanese-Sabbionetano rosato DOC',
+
+    v: [],
+  },
+  {
+    d: 'Lambrusco Mantovano Viadanese-Sabbionetano rosso DOC',
+
+    v: [],
+  },
+  {
+    d: 'Lambrusco Salamino di Santa Croce DOC rosato frizzante',
+
+    v: ['Lambrusco Salamino'],
+  },
+  {
+    d: 'Lambrusco Salamino di Santa Croce DOC rosato spumante',
+
+    v: ['Lambrusco Salamino'],
+  },
+  {
+    d: 'Lambrusco Salamino di Santa Croce DOC rosso frizzante',
+
+    v: ['Lambrusco Salamino'],
+  },
+  {
+    d: 'Lambrusco Salamino di Santa Croce DOC rosso spumante',
+
+    v: ['Lambrusco Salamino'],
+  },
+  {
+    d: 'Lamezia DOC bianco',
+
+    v: ['Greco Bianco'],
+  },
+  {
+    d: 'Lamezia DOC Gaglioppo',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Lamezia DOC Greco',
+
+    v: ['Greco Bianco'],
+  },
+  {
+    d: 'Lamezia DOC Greco nero',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Lamezia DOC Mantonico',
+
+    v: ['Montonico bianco'],
+  },
+  {
+    d: 'Lamezia DOC novello',
+
+    v: ['Gaglioppo, Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Lamezia DOC passito',
+
+    v: ['Greco, Montonico bianco'],
+  },
+  {
+    d: 'Lamezia DOC rosato',
+
+    v: ['Gaglioppo, Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Lamezia DOC rosso',
+
+    v: ['Gaglioppo, Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Lamezia DOC rosso riserva',
+
+    v: ['Gaglioppo, Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Lamezia DOC spumante',
+
+    v: ['Greco, Montonico bianco'],
+  },
+  {
+    d: 'Lamezia DOC spumante rosato',
+
+    v: ['Greco, Montonico bianco, Gaglioppo'],
+  },
+  {
+    d: 'Langhe DOC Arneis',
+
+    v: ['Arneis'],
+  },
+  {
+    d: 'Langhe DOC Arneis passito',
+
+    v: ['Arneis'],
+  },
+  {
+    d: 'Langhe DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Langhe DOC bianco',
+
+    v: [],
+  },
+  {
+    d: 'Langhe DOC bianco passito',
+
+    v: ['Arneis, Chardonnay, Nascetta, Riesling Italico'],
+  },
+  {
+    d: 'Langhe DOC Cabernet Sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Langhe DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Langhe DOC Dolcetto',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Langhe DOC Dolcetto novello',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Langhe DOC Favorita',
+
+    v: ['Favorita'],
+  },
+  {
+    d: 'Langhe DOC Freisa',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Langhe DOC Freisa frizzante',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Langhe DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Langhe DOC Nascetta',
+
+    v: ['Nascetta'],
+  },
+  {
+    d: 'Langhe DOC Nebbiolo',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Langhe DOC Pinot Nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Langhe DOC Riesling',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Langhe DOC rosato',
+
+    v: ['Barbera, Dolcetto, Nebbiolo'],
+  },
+  {
+    d: 'Langhe DOC Rossese bianco',
+
+    v: ['Rossese bianco'],
+  },
+  {
+    d: 'Langhe DOC rosso',
+
+    v: [],
+  },
+  {
+    d: 'Langhe DOC rosso passito',
+
+    v: ['Barbera, Dolcetto, Nebbiolo'],
+  },
+  {
+    d: 'Langhe DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Lessini Durello o Durello Lessini spumante DOC',
+
+    v: ['Durella'],
+  },
+  {
+    d: 'Lessini Durello o Durello Lessini spumante riserva DOC',
+
+    v: ['Durella'],
+  },
+  {
+    d: 'Lessona DOC',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Lessona DOC riserva',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Leverano DOC bianco',
+
+    v: ['Malvasia bianca, Vermentino'],
+  },
+  {
+    d: 'Leverano DOC bianco dolce naturale',
+
+    v: ['Malvasia bianca, Vermentino'],
+  },
+  {
+    d: 'Leverano DOC bianco passito',
+
+    v: ['Malvasia bianca, Vermentino'],
+  },
+  {
+    d: 'Leverano DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Leverano DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Leverano DOC Malvasia bianca',
+
+    v: ['Malvasia bianca'],
+  },
+  {
+    d: 'Leverano DOC Negroamaro rosato',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Leverano DOC Negroamaro rosso',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Leverano DOC Negroamaro rosso riserva',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Leverano DOC Negroamaro rosso superiore',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Leverano DOC rosato',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Leverano DOC rosso',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Leverano DOC rosso novello',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Leverano DOC rosso riserva',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Lison classico DOCG',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Lison DOCG',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Lison e Lison classico DOCG',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Lison Pramaggiore Bianco DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Lison Pramaggiore Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Lison Pramaggiore Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Lison Pramaggiore Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Lison Pramaggiore Carmenère DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Lison Pramaggiore Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Lison Pramaggiore Malbech DOC',
+
+    v: ['Malbech'],
+  },
+  {
+    d: 'Lison Pramaggiore Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Lison Pramaggiore Merlot riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Lison Pramaggiore Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Lison Pramaggiore Refosco dal peduncolo rosso DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Lison Pramaggiore Refosco dal peduncolo rosso passito DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Lison Pramaggiore Refosco dal peduncolo rosso riserva DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Lison Pramaggiore Rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Lison Pramaggiore Rosso riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Lison Pramaggiore Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Lison Pramaggiore Spumante DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Lison Pramaggiore Verduzzo DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Lison Pramaggiore Verduzzo passito DOC',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Lizzano DOC bianco',
+
+    v: [
+      'Trebbiano Toscano, Chardonnay, Pinot bianco, Malvasia bianca lunga, Bianco d’Alessano, Sauvignon',
+    ],
+  },
+  {
+    d: 'Lizzano DOC bianco frizzante',
+
+    v: [
+      'Trebbiano Toscano, Chardonnay, Pinot bianco, Malvasia bianca lunga, Bianco d’Alessano, Sauvignon',
+    ],
+  },
+  {
+    d: 'Lizzano DOC bianco spumante',
+
+    v: [
+      'Trebbiano Toscano, Chardonnay, Pinot bianco, Malvasia bianca lunga, Bianco d’Alessano, Sauvignon',
+    ],
+  },
+  {
+    d: 'Lizzano DOC Malvasia nera',
+
+    v: ['Malvasia nera di Brindisi, Malvasia nera di Lecce'],
+  },
+  {
+    d: 'Lizzano DOC Negroamaro rosato',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Lizzano DOC Negroamaro rosso',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Lizzano DOC rosato',
+
+    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+  },
+  {
+    d: 'Lizzano DOC rosato frizzante',
+
+    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+  },
+  {
+    d: 'Lizzano DOC rosato novello',
+
+    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+  },
+  {
+    d: 'Lizzano DOC rosato spumante',
+
+    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+  },
+  {
+    d: 'Lizzano DOC rosso',
+
+    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+  },
+  {
+    d: 'Lizzano DOC rosso frizzante',
+
+    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+  },
+  {
+    d: 'Lizzano DOC rosso novello',
+
+    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+  },
+  {
+    d: 'Loazzolo DOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Locorotondo DOC',
+
+    v: ['Verdeca, Bianco d’Alessano'],
+  },
+  {
+    d: 'Locorotondo DOC Bianco d’Alessano',
+
+    v: ['Bianco d’Alessano'],
+  },
+  {
+    d: 'Locorotondo DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Locorotondo DOC passito',
+
+    v: ['Verdeca, Bianco d’Alessano'],
+  },
+  {
+    d: 'Locorotondo DOC riserva',
+
+    v: ['Verdeca, Bianco d’Alessano'],
+  },
+  {
+    d: 'Locorotondo DOC spumante',
+
+    v: ['Verdeca, Bianco d’Alessano'],
+  },
+  {
+    d: 'Locorotondo DOC superiore',
+
+    v: ['Verdeca, Bianco d’Alessano'],
+  },
+  {
+    d: 'Locorotondo DOC Verdeca',
+
+    v: ['Verdeca'],
+  },
+  {
+    d: 'Lugana DOC',
+
+    v: ['Trebbiano di Soave'],
+  },
+  {
+    d: 'Lugana riserva DOC',
+
+    v: ['Trebbiano di Soave'],
+  },
+  {
+    d: 'Lugana spumante DOC',
+
+    v: ['Trebbiano di Soave'],
+  },
+  {
+    d: 'Lugana superiore DOC',
+
+    v: ['Trebbiano di Soave'],
+  },
+  {
+    d: 'Lugana Vendemmia tardiva DOC',
+
+    v: ['Trebbiano di Soave'],
+  },
+  {
+    d: 'Malvasia delle Lipari DOC bianco o dolce naturale',
+
+    v: ['Malvasia di Lipari, Corinto nero'],
+  },
+  {
+    d: 'Malvasia delle Lipari DOC liquoroso',
+
+    v: ['Malvasia di Lipari, Corinto nero'],
+  },
+  {
+    d: 'Malvasia delle Lipari DOC passito',
+
+    v: ['Malvasia di Lipari, Corinto nero'],
+  },
+  {
+    d: 'Malvasia di Bosa DOC',
+
+    v: ['Malvasia di Sardegna'],
+  },
+  {
+    d: 'Malvasia di Bosa DOC passito',
+
+    v: ['Malvasia di Sardegna'],
+  },
+  {
+    d: 'Malvasia di Bosa DOC riserva',
+
+    v: ['Malvasia di Sardegna'],
+  },
+  {
+    d: 'Malvasia di Bosa DOC spumante',
+
+    v: ['Malvasia di Sardegna'],
+  },
+  {
+    d: 'Malvasia di Casorzo o Casorzo DOC',
+
+    v: ['Malvasia di Casorzo, Freisa, Grignolino, Barbera'],
+  },
+  {
+    d: 'Malvasia di Casorzo o Casorzo DOC passito',
+
+    v: ['Malvasia di Casorzo, Freisa, Grignolino, Barbera'],
+  },
+  {
+    d: 'Malvasia di Casorzo o Casorzo DOC spumante',
+
+    v: ['Malvasia di Casorzo, Freisa, Grignolino, Barbera'],
+  },
+  {
+    d: 'Malvasia di Castelnuovo Don Bosco DOC',
+
+    v: ['Malvasia di Schierano, Malvasia nera lunga, Freisa'],
+  },
+  {
+    d: 'Malvasia di Castelnuovo Don Bosco DOC spumante',
+
+    v: ['Malvasia di Schierano, Malvasia nera lunga, Freisa'],
+  },
+  {
+    d: 'Mamertino di Milazzo o Mamertino DOC bianco',
+
+    v: ['Ansonica, Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Mamertino di Milazzo o Mamertino DOC bianco riserva',
+
+    v: ['Ansonica, Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Mamertino di Milazzo o Mamertino DOC Calabrese o Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Mamertino di Milazzo o Mamertino DOC Calabrese o Nero d’Avola riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Mamertino di Milazzo o Mamertino DOC Grillo-Ansonica (o Inzolia)',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Mamertino di Milazzo o Mamertino DOC rosso',
+
+    v: ['Calabrese, Nocera'],
+  },
+  {
+    d: 'Mamertino di Milazzo o Mamertino DOC rosso riserva',
+
+    v: ['Calabrese, Nocera'],
+  },
+  {
+    d: 'Mandrolisai o Sardegna Mandrolisai DOC rosato',
+
+    v: ['Bovale, Cannonau, Monica'],
+  },
+  {
+    d: 'Mandrolisai o Sardegna Mandrolisai DOC rosso',
+
+    v: ['Bovale, Cannonau, Monica'],
+  },
+  {
+    d: 'Mandrolisai o Sardegna Mandrolisai DOC rosso superiore',
+
+    v: ['Bovale, Cannonau, Monica'],
+  },
+  {
+    d: 'Maremma Toscana DOC Alicante',
+
+    v: ['Alicante'],
+  },
+  {
+    d: 'Maremma Toscana DOC Ansonica',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Maremma Toscana DOC Ansonica passito',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Maremma Toscana DOC Ansonica spumante',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Maremma Toscana DOC Ansonica vendemmia tardiva',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Maremma Toscana DOC bianco',
+
+    v: ['Trebbiano Toscano, Vermentino'],
+  },
+  {
+    d: 'Maremma Toscana DOC bianco passito',
+
+    v: ['Trebbiano Toscano, Vermentino'],
+  },
+  {
+    d: 'Maremma Toscana DOC bianco spumante',
+
+    v: ['Trebbiano Toscano, Vermentino'],
+  },
+  {
+    d: 'Maremma Toscana DOC bianco vendemmia tardiva',
+
+    v: ['Trebbiano Toscano, Vermentino'],
+  },
+  {
+    d: 'Maremma Toscana DOC Cabernet',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc'],
+  },
+  {
+    d: 'Maremma Toscana DOC Cabernet passito',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc'],
+  },
+  {
+    d: 'Maremma Toscana DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Maremma Toscana DOC Cabernet sauvignon passito',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Maremma Toscana DOC Canaiolo',
+
+    v: ['Canaiolo nero'],
+  },
+  {
+    d: 'Maremma Toscana DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Maremma Toscana DOC Chardonnay passito',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Maremma Toscana DOC Chardonnay vendemmia tardiva',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Maremma Toscana DOC Ciliegiolo',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Maremma Toscana DOC Ciliegiolo passito',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Maremma Toscana DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Maremma Toscana DOC rosato',
+
+    v: ['Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Maremma Toscana DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Maremma Toscana DOC rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Maremma Toscana DOC rosso passito',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Maremma Toscana DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Maremma Toscana DOC Sangiovese passito',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Maremma Toscana DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Maremma Toscana DOC Sauvignon passito',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Maremma Toscana DOC Sauvignon vendemmia tardiva',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Maremma Toscana DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Maremma Toscana DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Maremma Toscana DOC Trebbiano vendemmia tardiva',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Maremma Toscana DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Maremma Toscana DOC Vermentino passito',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Maremma Toscana DOC Vermentino spumante',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Maremma Toscana DOC Vermentino vendemmia tardiva',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Maremma Toscana DOC vin santo',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Maremma Toscana DOC Viognier',
+
+    v: ['Viognier'],
+  },
+  {
+    d: 'Maremma Toscana DOC Viognier vendemmia tardiva',
+
+    v: ['Viognier'],
+  },
+  {
+    d: 'Marino Bellone DOC',
+
+    v: ['Bellone'],
+  },
+  {
+    d: 'Marino Bombino DOC',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Marino classico DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino classico passito DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino classico superiore DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino classico vendemmia tardiva DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino frizzante DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino Greco DOC',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Marino Malvasia del Lazio DOC',
+
+    v: ['Malvasia del Lazio'],
+  },
+  {
+    d: 'Marino passito DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino spumante DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino superiore DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marino Trebbiano verde DOC',
+
+    v: [],
+  },
+  {
+    d: 'Marino vendemmia tardiva DOC',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Marsala DOC ambra fine',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC ambra superiore',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC ambra superiore riserva',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC ambra Vergine o Soleras',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC ambra Vergine stravecchio o riserva',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC oro fine',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC oro superiore',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC oro superiore riserva',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC oro Vergine o Soleras',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC oro Vergine stravecchio o riserva',
+
+    v: [
+      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+    ],
+  },
+  {
+    d: 'Marsala DOC rubino fine',
+
+    v: ['Perricone, Calabrese, Nerello Mascalese'],
+  },
+  {
+    d: 'Marsala DOC rubino superiore',
+
+    v: ['Perricone, Calabrese, Nerello Mascalese'],
+  },
+  {
+    d: 'Marsala DOC rubino superiore riserva',
+
+    v: ['Perricone, Calabrese, Nerello Mascalese'],
+  },
+  {
+    d: 'Marsala DOC rubino Vergine o Soleras',
+
+    v: ['Perricone, Calabrese, Nerello Mascalese'],
+  },
+  {
+    d: 'Marsala DOC rubino Vergine stravecchio o riserva',
+
+    v: ['Perricone, Calabrese, Nerello Mascalese'],
+  },
+  {
+    d: 'Martina o Martinafranca DOC',
+
+    v: ['Verdeca, Bianco d’Alessano, Fiano, Bombino bianco, Malvasia bianca'],
+  },
+  {
+    d: 'Martina o Martinafranca DOC spumante',
+
+    v: ['Verdeca, Bianco d’Alessano, Fiano, Bombino bianco, Malvasia bianca'],
+  },
+  {
+    d: 'Matera DOC bianco',
+
+    v: ['Malvasia bianca di Basilicata'],
+  },
+  {
+    d: 'Matera DOC bianco passito',
+
+    v: ['Malvasia bianca di Basilicata'],
+  },
+  {
+    d: 'Matera DOC Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Matera DOC Moro',
+
+    v: ['Cabernet Sauvignon, Primitivo, Merlot'],
+  },
+  {
+    d: 'Matera DOC Moro riserva',
+
+    v: ['Cabernet Sauvignon, Primitivo, Merlot'],
+  },
+  {
+    d: 'Matera DOC Primitivo',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Matera DOC Primitivo passito',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Matera DOC rosato',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Matera DOC rosso',
+
+    v: ['Sangiovese, Primitivo'],
+  },
+  {
+    d: 'Matera DOC spumante',
+
+    v: ['Malvasia bianca di Basilicata'],
+  },
+  {
+    d: 'Matera DOC spumante rosé',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Matino DOC rosato',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese'],
+  },
+  {
+    d: 'Matino DOC rosso',
+
+    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese'],
+  },
+  {
+    d: 'Melissa DOC bianco',
+
+    v: ['Greco Bianco, Trebbiano Toscano, Malvasia bianca'],
+  },
+  {
+    d: 'Melissa DOC rosso',
+
+    v: [
+      'Gaglioppo, Greco Nero, Greco Bianco, Trebbiano Toscano, Malvasia bianca',
+    ],
+  },
+  {
+    d: 'Melissa DOC rosso superiore',
+
+    v: [
+      'Gaglioppo, Greco Nero, Greco Bianco, Trebbiano Toscano, Malvasia bianca',
+    ],
+  },
+  {
+    d: 'Menfi DOC bianco',
+
+    v: ['Ansonica, Chardonnay, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Menfi DOC Bonera',
+
+    v: ['Calabrese, Sangiovese, Cabernet Sauvignon, Syrah, Syrah'],
+  },
+  {
+    d: 'Menfi DOC Bonera riserva',
+
+    v: ['Calabrese, Sangiovese, Cabernet Sauvignon, Syrah, Syrah'],
+  },
+  {
+    d: 'Menfi DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Menfi DOC Catarratto bianco lucido',
+
+    v: ['Catarratto bianco lucido'],
+  },
+  {
+    d: 'Menfi DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Menfi DOC Feudo dei Fiori',
+
+    v: ['Chardonnay, Ansonica'],
+  },
+  {
+    d: 'Menfi DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Menfi DOC Inzolia o Ansonica',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Menfi DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Menfi DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Menfi DOC rosso',
+
+    v: ['Calabrese, Sangiovese, Cabernet Sauvignon, Syrah, Syrah'],
+  },
+  {
+    d: 'Menfi DOC rosso riserva',
+
+    v: ['Calabrese, Sangiovese, Cabernet Sauvignon, Syrah, Syrah'],
+  },
+  {
+    d: 'Menfi DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Menfi DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Menfi DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Menfi DOC vendemmia tardiva',
+
+    v: ['Chardonnay, Catarratto bianco lucido, Ansonica, Sauvignon'],
+  },
+  {
+    d: 'Merlara Bianco DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Merlara Bianco frizzante DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Merlara Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Merlara Cabernet Sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Merlara Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Merlara Malvasia DOC',
+
+    v: ['Malvasia Istriana'],
+  },
+  {
+    d: 'Merlara Marzemino frizzante DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Merlara Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Merlara Novello DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Merlara Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Merlara Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Merlara Raboso DOC',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Merlara Refosco DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Merlara Riesling DOC',
+
+    v: ['Riesling Italico, Riesling'],
+  },
+  {
+    d: 'Merlara Rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Merlara Tai DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Merlot di Aprilia DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Merlot di Torgiano DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Modena DOC bianco frizzante',
+
+    v: ['Montù, Pignoletto, Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Modena DOC bianco spumante',
+
+    v: ['Montù, Pignoletto, Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Modena DOC Lambrusco frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC Lambrusco novello frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC Lambrusco rosato frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC Lambrusco rosato spumante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC Lambrusco spumante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC Pignoletto frizzante',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Modena DOC Pignoletto spumante',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Modena DOC rosato frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC rosato spumante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC rosso frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC rosso novello frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Modena DOC rosso spumante',
+
+    v: [],
+  },
+  {
+    d: 'Molise o del Molise DOC Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Molise o del Molise DOC Aglianico riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Molise o del Molise DOC bianco spumante di qualità',
+
+    v: [
+      'Chardonnay, Pinot bianco, Pinot grigio, Moscato bianco, Falanghina, Montepulciano, Fiano, Malvasia bianca lunga',
+    ],
+  },
+  {
+    d: 'Molise o del Molise DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Molise o del Molise DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Molise o del Molise DOC Chardonnay frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Molise o del Molise DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Molise o del Molise DOC Falanghina',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Molise o del Molise DOC Falanghina passito',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Molise o del Molise DOC Falanghina spumante di qualità',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Molise o del Molise DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Molise o del Molise DOC Fiano frizzante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Molise o del Molise DOC Fiano spumante di qualità',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Molise o del Molise DOC Greco bianco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Molise o del Molise DOC Malvasia',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Molise o del Molise DOC Malvasia frizzante',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Molise o del Molise DOC Malvasia spumante di qualità',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Molise o del Molise DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Molise o del Molise DOC Merlot frizzante',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Molise o del Molise DOC Merlot novello',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Molise o del Molise DOC Moscato bianco',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Molise o del Molise DOC Moscato bianco frizzante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Molise o del Molise DOC Moscato bianco passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Molise o del Molise DOC Moscato bianco spumante di qualità',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Molise o del Molise DOC novello',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Molise o del Molise DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Molise o del Molise DOC Pinot bianco frizzante',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Molise o del Molise DOC Pinot bianco spumante di qualità',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Molise o del Molise DOC Pinot grigio',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Molise o del Molise DOC Pinot grigio frizzante',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Molise o del Molise DOC Pinot grigio spumante di qualità',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Molise o del Molise DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Molise o del Molise DOC rosato',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Molise o del Molise DOC rosato spumante di qualità',
+
+    v: [
+      'Chardonnay, Pinot bianco, Pinot grigio, Moscato bianco, Falanghina, Montepulciano, Fiano, Malvasia bianca lunga',
+    ],
+  },
+  {
+    d: 'Molise o del Molise DOC rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Molise o del Molise DOC rosso riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Molise o del Molise DOC rosso spumante di qualità',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Molise o del Molise DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Molise o del Molise DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Molise o del Molise DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Monferrato DOC bianco',
+
+    v: [],
+  },
+  {
+    d: 'Monferrato DOC Casalese',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Monferrato DOC Chiaretto o Ciaret',
+
+    v: [
+      'Barbera, Bonarda, Cabernet Franc, Cabernet Sauvignon, Dolcetto, Freisa, Grignolino, Pinot nero, Nebbiolo',
+    ],
+  },
+  {
+    d: 'Monferrato DOC Dolcetto',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Monferrato DOC Freisa',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Monferrato DOC rosso',
+
+    v: [],
+  },
+  {
+    d: 'Monica di Sardegna DOC',
+
+    v: ['Monica'],
+  },
+  {
+    d: 'Monica di Sardegna DOC frizzante',
+
+    v: ['Monica'],
+  },
+  {
+    d: 'Monica di Sardegna DOC superiore',
+
+    v: ['Monica'],
+  },
+  {
+    d: 'Monreale DOC Ansonica o Inzolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Monreale DOC Ansonica o Inzolia superiore',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Monreale DOC bianco',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido, Ansonica'],
+  },
+  {
+    d: 'Monreale DOC bianco superiore',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido, Ansonica'],
+  },
+  {
+    d: 'Monreale DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Monreale DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Monreale DOC Calabrese o Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Monreale DOC Calabrese o Nero d’Avola riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Monreale DOC Catarratto',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Monreale DOC Catarratto superiore',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Monreale DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Monreale DOC Chardonnay superiore',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Monreale DOC Grillo',
+
+    v: [],
+  },
+  {
+    d: 'Monreale DOC Grillo superiore',
+
+    v: [],
+  },
+  {
+    d: 'Monreale DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Monreale DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Monreale DOC Novello',
+
+    v: ['Calabrese, Perricone'],
+  },
+  {
+    d: 'Monreale DOC Perricone',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Monreale DOC Perricone riserva',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Monreale DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Monreale DOC Pinot bianco superiore',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Monreale DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Monreale DOC Pinot nero riserva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Monreale DOC rosato',
+
+    v: ['Nerello Mascalese, Perricone, Sangiovese'],
+  },
+  {
+    d: 'Monreale DOC rosso',
+
+    v: ['Calabrese, Perricone'],
+  },
+  {
+    d: 'Monreale DOC rosso riserva',
+
+    v: ['Calabrese, Perricone'],
+  },
+  {
+    d: 'Monreale DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monreale DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monreale DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Monreale DOC Syrah riserva',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Monreale DOC vendemmia tardiva',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido, Ansonica'],
+  },
+  {
+    d: 'Montecarlo DOC bianco',
+
+    v: [
+      'Trebbiano Toscano, Sémillon, Pinot grigio, Pinot bianco, Vermentino, Sauvignon, Roussanne',
+    ],
+  },
+  {
+    d: 'Montecarlo DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Montecarlo DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Montecarlo DOC rosso',
+
+    v: ['Sangiovese, Canaiolo nero, Merlot, Syrah'],
+  },
+  {
+    d: 'Montecarlo DOC rosso riserva',
+
+    v: ['Sangiovese, Canaiolo nero, Merlot, Syrah'],
+  },
+  {
+    d: 'Montecarlo DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Montecarlo DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Montecarlo DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Montecarlo DOC Vin Santo',
+
+    v: [
+      'Trebbiano Toscano, Sémillon, Pinot grigio, Pinot bianco, Vermentino, Sauvignon, Roussanne',
+    ],
+  },
+  {
+    d: 'Montecarlo DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese, Canaiolo nero, Merlot, Syrah'],
+  },
+  {
+    d: 'Montecompatri Colonna DOC',
+
+    v: ['Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo'],
+  },
+  {
+    d: 'Montecompatri Colonna frizzante DOC',
+
+    v: ['Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo'],
+  },
+  {
+    d: 'Montecompatri Colonna superiore DOC',
+
+    v: ['Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo'],
+  },
+  {
+    d: 'Montecucco DOC bianco',
+
+    v: ['Trebbiano Toscano, Vermentino'],
+  },
+  {
+    d: 'Montecucco DOC rosato',
+
+    v: ['Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Montecucco DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montecucco DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montecucco DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Montecucco DOC Vin Santo',
+
+    v: ['Malvasia bianca lunga, Grechetto, Trebbiano Toscano'],
+  },
+  {
+    d: 'Montecucco DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montecucco Sangiovese DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montecucco Sangiovese riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montefalco DOC bianco',
+
+    v: ['Grechetto, Trebbiano Toscano'],
+  },
+  {
+    d: 'Montefalco DOC rosso',
+
+    v: ['Sangiovese, Sagrantino'],
+  },
+  {
+    d: 'Montefalco DOC rosso riserva',
+
+    v: ['Sangiovese, Sagrantino'],
+  },
+  {
+    d: 'Montefalco Sagrantino DOCG',
+
+    v: ['Sagrantino'],
+  },
+  {
+    d: 'Montefalco Sagrantino passito DOCG',
+
+    v: ['Sagrantino'],
+  },
+  {
+    d: 'Montello e Colli Asolani Bianchetta DOC',
+
+    v: ['Bianchetta Trevigiana'],
+  },
+  {
+    d: 'Montello e Colli Asolani Bianco DOC',
+
+    v: [
+      'Chardonnay, Manzoni bianco, Bianchetta Trevigiana, Bianchetta Trevigiana',
+    ],
+  },
+  {
+    d: 'Montello e Colli Asolani Cabernet DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+  },
+  {
+    d: 'Montello e Colli Asolani Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Montello e Colli Asolani Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Montello e Colli Asolani Carmenère DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Montello e Colli Asolani Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Montello e Colli Asolani Chardonnay spumante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Montello e Colli Asolani Manzoni bianco DOC',
+
+    v: ['Manzoni bianco'],
+  },
+  {
+    d: 'Montello e Colli Asolani Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Montello e Colli Asolani Pinot Bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Montello e Colli Asolani Pinot Bianco spumante DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Montello e Colli Asolani Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Montello e Colli Asolani Recantina DOC',
+
+    v: ['Recantina'],
+  },
+  {
+    d: 'Montello e Colli Asolani Rosso DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+  },
+  {
+    d: 'Montello e Colli Asolani Venegazzù DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+  },
+  {
+    d: 'Montello e Colli Asolani Venegazzù superiore DOC',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+  },
+  {
+    d: 'Montello rosso DOCG',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+  },
+  {
+    d: 'Montello rosso superiore DOCG',
+
+    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo Colline Teramane DOCG',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo Colline Teramane riserva DOCG',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Alto Tirino',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Alto Tirino riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Casauria',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Casauria riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Teate',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Teate riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Terre dei Peligni',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Terre dei Peligni riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Terre dei Vestini',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Montepulciano d’Abruzzo DOC Terre dei Vestini riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC bianco',
+
+    v: ['Trebbiano Toscano, Vermentino'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Sangiovese novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Sangiovese rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Vermentino'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Vin Santo Occhio di Pernice riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Vin Santo riserva',
+
+    v: ['Trebbiano Toscano, Vermentino'],
+  },
+  {
+    d: 'Monteregio di Massa Marittima DOC Viognier',
+
+    v: ['Viognier'],
+  },
+  {
+    d: 'Montescudaio DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Montescudaio DOC Cabernet franc',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Montescudaio DOC Cabernet franc riserva',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Montescudaio DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Montescudaio DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Montescudaio DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Montescudaio DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Montescudaio DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Montescudaio DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montescudaio DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montescudaio DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montescudaio DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Montescudaio DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Montescudaio DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Montescudaio DOC Vin santo',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Monti Lessini Bianco DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Monti Lessini Durello DOC',
+
+    v: ['Durella'],
+  },
+  {
+    d: 'Monti Lessini Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Morellino di Scansano DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Morellino di Scansano riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Moscadello di Montalcino DOC frizzante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscadello di Montalcino DOC tranquillo',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscadello di Montalcino DOC vendemmia tardiva',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato d’Asti Canelli DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato d’Asti DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato d’Asti Santa Vittoria d’Alba DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato d’Asti Strevi DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato d’Asti vendemmia tardiva DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato d’Asti vendemmia tardiva Santa Vittoria d’Alba DOCG',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Noto DOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Noto DOC liquoroso',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Noto DOC spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Noto passito DOC o Passito di Noto DOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Pantelleria DOC',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Moscato di Sardegna DOC bianco',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Sardegna DOC da uve stramature',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Sardegna DOC passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Sardegna DOC spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Sorso-Sennori DOC bianco',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Sorso-Sennori DOC liquoroso',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Sorso-Sennori DOC passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Sorso-Sennori DOC spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Trani dolce naturaleDOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Moscato di Trani liquoroso DOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Nardò DOC rosato',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Montepulciano',
+    ],
+  },
+  {
+    d: 'Nardò DOC rosso',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Montepulciano',
+    ],
+  },
+  {
+    d: 'Nardò DOC rosso riserva',
+
+    v: [
+      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Montepulciano',
+    ],
+  },
+  {
+    d: 'Nasco di Cagliari DOC',
+
+    v: ['Nasco'],
+  },
+  {
+    d: 'Nasco di Cagliari DOC liquoroso',
+
+    v: ['Nasco'],
+  },
+  {
+    d: 'Nasco di Cagliari DOC liquoroso riserva',
+
+    v: ['Nasco'],
+  },
+  {
+    d: 'Nebbiolo d’Alba DOC',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Nebbiolo d’Alba DOC spumante',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Nebbiolo d’Alba DOC spumante rosé',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Nebbiolo d’Alba DOC superiore',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Negroamaro di Terra d’Otranto rosato DOC',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Negroamaro di Terra d’Otranto rosato frizzante DOC',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Negroamaro di Terra d’Otranto rosato spumante DOC',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Negroamaro di Terra d’Otranto rosso DOC',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Negroamaro di Terra d’Otranto rosso riserva DOC',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Nettuno DOC bianco',
+
+    v: ['Bellone, Trebbiano Toscano'],
+  },
+  {
+    d: 'Nettuno DOC bianco Bellone',
+
+    v: ['Bellone'],
+  },
+  {
+    d: 'Nettuno DOC bianco Bellone frizzante',
+
+    v: ['Bellone'],
+  },
+  {
+    d: 'Nettuno DOC bianco frizzante',
+
+    v: ['Bellone, Trebbiano Toscano'],
+  },
+  {
+    d: 'Nettuno DOC novello',
+
+    v: ['Merlot, Sangiovese'],
+  },
+  {
+    d: 'Nettuno DOC rosato',
+
+    v: ['Sangiovese, Trebbiano Toscano'],
+  },
+  {
+    d: 'Nettuno DOC rosato frizzante',
+
+    v: ['Sangiovese, Trebbiano Toscano'],
+  },
+  {
+    d: 'Nettuno DOC rosso',
+
+    v: ['Merlot, Sangiovese'],
+  },
+  {
+    d: 'Nizza DOCG',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Nizza Riserva DOCG',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Noto DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Noto DOC rosso',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Nuragus di Cagliari DOC',
+
+    v: ['Nuragus'],
+  },
+  {
+    d: 'Nuragus di Cagliari DOC frizzante',
+
+    v: ['Nuragus'],
+  },
+  {
+    d: 'Offida Passerina DOCG',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Offida Pecorino DOCG',
+
+    v: ['Pecorino'],
+  },
+  {
+    d: 'Offida rosso DOCG',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Oltrepò Pavese Barbera DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Oltrepò Pavese Barbera frizzante DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Oltrepò Pavese Barbera riserva DOC',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Oltrepò Pavese bianco DOC',
+
+    v: ['Riesling, Riesling Italico, Pinot nero'],
+  },
+  {
+    d: 'Oltrepò Pavese Cabernet Sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Oltrepò Pavese Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Oltrepò Pavese Chardonnay frizzante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Oltrepò Pavese Chardonnay spumante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Oltrepò Pavese Cortese DOC',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Oltrepò Pavese Cortese frizzante DOC',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Oltrepò Pavese Cortese spumante DOC',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Oltrepò Pavese Malvasia DOC',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Oltrepò Pavese Malvasia frizzante DOC',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Oltrepò Pavese Malvasia spumante DOC',
+
+    v: ['Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Oltrepò Pavese Metodo Classico DOCG',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Metodo Classico millesimato DOCG',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Metodo Classico pinot-nero DOCG',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Metodo Classico pinot-nero millesimato DOCG',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Metodo Classico pinot-nero rosé DOCG',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Metodo Classico pinot-nero rosé millesimato DOCG',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Metodo Classico rosé DOCG',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Metodo Classico rosé millesimato DOCG',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Moscato DOC',
+
+    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Oltrepò Pavese Moscato frizzante DOC',
+
+    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Oltrepò Pavese Moscato liquoroso DOC',
+
+    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Oltrepò Pavese Moscato passito DOC',
+
+    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Oltrepò Pavese Moscato spumante dolce DOC',
+
+    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+  },
+  {
+    d: 'Oltrepò Pavese Pinot grigio DOC',
+
+    v: ['Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Oltrepò Pavese Pinot grigio frizzante DOC',
+
+    v: ['Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Oltrepò Pavese Pinot nero (vinificato in Bianco) DOC',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Pinot nero (vinificato in Bianco) frizzante DOC',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Pinot nero (vinificato in Bianco) spumante DOC',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Pinot nero (vinificato in rosato) DOC',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Pinot nero (vinificato in rosato) frizzante DOC',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Pinot nero (vinificato in rosato) spumante DOC',
+
+    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Riesling DOC',
+
+    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Riesling frizzante DOC',
+
+    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Riesling riserva DOC',
+
+    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Riesling spumante DOC',
+
+    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese Riesling superiore DOC',
+
+    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+  },
+  {
+    d: 'Oltrepò Pavese rosato DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Oltrepò Pavese rosato frizzante DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Oltrepò Pavese rosso DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Oltrepò Pavese rosso riserva DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Oltrepò Pavese Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Oltrepò Pavese Sauvignon spumante DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Orcia DOC',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Orcia DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Orcia DOC riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Orcia DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Orcia DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Orcia DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Orcia DOC Vinsanto o Vin Santo',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Orta Nova rosato DOC',
+
+    v: [
+      'Sangiovese, Uva di Troia, Montepulciano, Lambrusco Maestri, Trebbiano Toscano',
+    ],
+  },
+  {
+    d: 'Orta Nova rosso DOC',
+
+    v: [
+      'Sangiovese, Uva di Troia, Montepulciano, Lambrusco Maestri, Trebbiano Toscano',
+    ],
+  },
+  {
+    d: 'Ortona DOC bianco',
+
+    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+  },
+  {
+    d: 'Ortona DOC rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Ortrugo dei Colli Piacentini DOC',
+
+    v: ['Ortrugo'],
+  },
+  {
+    d: 'Ortrugo dei Colli Piacentini DOC frizzante',
+
+    v: ['Ortrugo'],
+  },
+  {
+    d: 'Ortrugo dei Colli Piacentini DOC spumante',
+
+    v: ['Ortrugo'],
+  },
+  {
+    d: 'Orvieto classico DOC',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Orvieto DOC',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Orvieto DOC classico muffa nobile',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Orvieto DOC classico superiore',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Orvieto DOC classico vendemmia tardiva',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Orvieto DOC muffa nobile',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Orvieto DOC superiore',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Orvieto DOC vendemmia tardiva',
+
+    v: ['Trebbiano Toscano, Grechetto'],
+  },
+  {
+    d: 'Ostuni bianco DOC',
+
+    v: ['Impigno, Bianco d’Alessano, Verdeca'],
+  },
+  {
+    d: 'Ostuni Ottavianello o Ottavianello di Ostuni DOC',
+
+    v: [
+      'Ottavianello, Negro Amaro, Malvasia nera di Brindisi, Notardomenico, Susumaniello',
+    ],
+  },
+  {
+    d: 'Pantelleria DOC Moscato spumante',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Pantelleria DOC Moscato dorato',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Pantelleria DOC Moscato liquoroso',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Pantelleria DOC passito liquoroso',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Pantelleria DOC Zibibbo bianco',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Pantelleria DOC Zibibbo bianco frizzante',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Pantelleria DOC Zibibbo dolce',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Parrina DOC bianco',
+
+    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+  },
+  {
+    d: 'Parrina DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Parrina DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Parrina DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Parrina DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Parrina DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Parrina DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Parrina DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Parrina DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Parrina DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Parrina DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Parrina DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+  },
+  {
+    d: 'Passito di Pantelleria DOC',
+
+    v: ['Zibibbo'],
+  },
+  {
+    d: 'Penisola Sorrentina DOC bianco',
+
+    v: ['Falanghina, Biancolella, Greco'],
+  },
+  {
+    d: 'Penisola Sorrentina DOC bianco Sorrento',
+
+    v: ['Falanghina, Biancolella, Greco'],
+  },
+  {
+    d: 'Penisola Sorrentina DOC rosso',
+
+    v: ['Piedirosso, Sciascinoso, Aglianico'],
+  },
+  {
+    d: 'Penisola Sorrentina DOC rosso frizzante',
+
+    v: ['Piedirosso, Sciascinoso, Aglianico'],
+  },
+  {
+    d: 'Penisola Sorrentina DOC rosso frizzante Gragnano',
+
+    v: ['Piedirosso, Sciascinoso, Aglianico'],
+  },
+  {
+    d: 'Penisola Sorrentina DOC rosso frizzante Lettere',
+
+    v: ['Piedirosso, Sciascinoso, Aglianico'],
+  },
+  {
+    d: 'Penisola Sorrentina DOC rosso Sorrento',
+
+    v: ['Piedirosso, Sciascinoso, Aglianico'],
+  },
+  {
+    d: 'Pentro d’Isernia o Pentro DOC bianco',
+
+    v: ['Trebbiano Toscano, Bombino bianco'],
+  },
+  {
+    d: 'Pentro d’Isernia o Pentro DOC rosato',
+
+    v: ['Montepulciano, Tintilia'],
+  },
+  {
+    d: 'Pentro d’Isernia o Pentro DOC rosso',
+
+    v: ['Montepulciano, Tintilia'],
+  },
+  {
+    d: 'Pentro d’Isernia o Pentro DOC rosso riserva',
+
+    v: ['Montepulciano, Tintilia'],
+  },
+  {
+    d: 'Pergola DOC Aleatico',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC Aleatico passito',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC Aleatico riserva',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC Aleatico spumante',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC Aleatico superiore',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC rosato o rosè',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC rosato o rosè frizzante',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC rosato o rosè spumante',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC rosso',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC rosso novello',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC rosso riserva',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Pergola DOC rosso superiore',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Piave Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Piave Cabernet riserva DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Piave Carmenère DOC',
+
+    v: ['Carmènere'],
+  },
+  {
+    d: 'Piave Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Piave Malanotte DOCG',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Piave Manzoni bianco DOC',
+
+    v: ['Manzoni bianco'],
+  },
+  {
+    d: 'Piave Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Piave Merlot riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Piave Raboso DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Piave Raboso passito DOC',
+
+    v: ['Raboso Piave'],
+  },
+  {
+    d: 'Piave Rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Piave Rosso riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Piave Tai DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Piave Verduzzo DOC',
+
+    v: ['Verduzzo Friulano, Verduzzo Trevigiano'],
+  },
+  {
+    d: 'Piave Verduzzo passito DOC',
+
+    v: ['Verduzzo Friulano, Verduzzo Trevigiano'],
+  },
+  {
+    d: 'Piemonte DOC Albarossa',
+
+    v: ['Albarossa'],
+  },
+  {
+    d: 'Piemonte DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Piemonte DOC Barbera frizzante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Piemonte DOC bianco',
+
+    v: ['Cortese, Chardonnay, Favorita, Erbaluce'],
+  },
+  {
+    d: 'Piemonte DOC bianco da due v',
+
+    v: ['Cortese, Chardonnay, Sauvignon'],
+  },
+  {
+    d: 'Piemonte DOC bianco frizzante',
+
+    v: ['Cortese, Chardonnay, Favorita, Erbaluce'],
+  },
+  {
+    d: 'Piemonte DOC Bonarda',
+
+    v: ['Bonarda'],
+  },
+  {
+    d: 'Piemonte DOC Bonarda frizzante',
+
+    v: ['Bonarda'],
+  },
+  {
+    d: 'Piemonte DOC Brachetto',
+
+    v: ['Brachetto'],
+  },
+  {
+    d: 'Piemonte DOC brachetto passito',
+
+    v: ['Brachetto'],
+  },
+  {
+    d: 'Piemonte DOC Brachetto spumante',
+
+    v: ['Brachetto'],
+  },
+  {
+    d: 'Piemonte DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Piemonte DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Piemonte DOC Chardonnay frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Piemonte DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Piemonte DOC Chardonnay-Pinot spumante',
+
+    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Piemonte DOC Cortese',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Piemonte DOC Cortese frizzante',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Piemonte DOC Cortese spumante',
+
+    v: ['Cortese'],
+  },
+  {
+    d: 'Piemonte DOC Dolcetto',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Piemonte DOC Dolcetto frizzante',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Piemonte DOC Freisa',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Piemonte DOC Grignolino',
+
+    v: ['Grignolino'],
+  },
+  {
+    d: 'Piemonte DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Piemonte DOC Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Piemonte DOC moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Piemonte DOC Pinot bianco spumante',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Piemonte DOC Pinot grigio spumante',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Piemonte DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Piemonte DOC Pinot nero spumante',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Piemonte DOC Pinot spumante',
+
+    v: ['Pinot bianco, Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Piemonte DOC rosato',
+
+    v: ['Barbera, Nebbiolo, Dolcetto, Freisa, Croatina'],
+  },
+  {
+    d: 'Piemonte DOC rosato frizzante',
+
+    v: ['Barbera, Nebbiolo, Dolcetto, Freisa, Croatina'],
+  },
+  {
+    d: 'Piemonte DOC rosso',
+
+    v: ['Barbera, Nebbiolo, Dolcetto, Freisa, Croatina'],
+  },
+  {
+    d: 'Piemonte DOC rosso da due v',
+
+    v: [
+      'Barbera, Dolcetto, Freisa, Bonarda, Cabernet Sauvignon, Merlot, Syrah, Pinot nero',
+    ],
+  },
+  {
+    d: 'Piemonte DOC rosso frizzante',
+
+    v: ['Barbera, Nebbiolo, Dolcetto, Freisa, Croatina'],
+  },
+  {
+    d: 'Piemonte DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Piemonte DOC spumante',
+
+    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero'],
+  },
+  {
+    d: 'Piemonte DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Pinerolese DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Pinerolese DOC Bonarda',
+
+    v: ['Bonarda'],
+  },
+  {
+    d: 'Pinerolese DOC Dolcetto',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Pinerolese DOC Doux d’Henry',
+
+    v: ['Doux d’Henry'],
+  },
+  {
+    d: 'Pinerolese DOC Freisa',
+
+    v: ['Freisa'],
+  },
+  {
+    d: 'Pinerolese DOC Ramie',
+
+    v: ['Avanà, Avarengo, Neretto di Bairo'],
+  },
+  {
+    d: 'Pinerolese DOC rosato',
+
+    v: ['Barbera, Bonarda, Nebbiolo, Neretto di Bairo'],
+  },
+  {
+    d: 'Pinerolese DOC rosso',
+
+    v: ['Barbera, Bonarda, Nebbiolo, Neretto di Bairo'],
+  },
+  {
+    d: 'Pinot grigio delle Venezie DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Pinot grigio delle Venezie frizzante DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Pinot grigio delle Venezie spumante DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Pinot grigio di Torgiano DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Pinot nero dell’Oltrepò Pavese DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Pinot nero dell’Oltrepò Pavese riserva DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Pinot nero di Torgiano DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Pomino DOC bianco',
+
+    v: ['Pinot bianco, Pinot grigio, Chardonnay'],
+  },
+  {
+    d: 'Pomino DOC bianco riserva',
+
+    v: ['Pinot bianco, Pinot grigio, Chardonnay'],
+  },
+  {
+    d: 'Pomino DOC bianco vendemmia tardiva',
+
+    v: ['Pinot bianco, Pinot grigio, Chardonnay'],
+  },
+  {
+    d: 'Pomino DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Pomino DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Pomino DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Pomino DOC rosso',
+
+    v: ['Sangiovese, Pinot nero, Merlot'],
+  },
+  {
+    d: 'Pomino DOC rosso riserva',
+
+    v: ['Sangiovese, Pinot nero, Merlot'],
+  },
+  {
+    d: 'Pomino DOC rosso vendemmia tardiva',
+
+    v: ['Sangiovese, Pinot nero, Merlot'],
+  },
+  {
+    d: 'Pomino DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Pomino DOC spumante bianco',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Pomino DOC spumante bianco riserva',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Pomino DOC spumante rosato',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Pomino DOC spumante rosato riserva',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Pomino DOC Vin Santo',
+
+    v: ['Pinot bianco, Pinot grigio, Chardonnay, Trebbiano Toscano'],
+  },
+  {
+    d: 'Pomino DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese, Pinot nero, Merlot'],
+  },
+  {
+    d: 'Pornassio o Ormeasco di Pornassio DOC passito',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Pornassio o Ormeasco di Pornassio DOC passito liquoroso',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Pornassio o Ormeasco di Pornassio DOC rosso',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Pornassio o Ormeasco di Pornassio DOC rosso superiore',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Pornassio o Ormeasco di Pornassio DOC Sciactrà',
+
+    v: ['Dolcetto'],
+  },
+  {
+    d: 'Primitivo di Manduria DOC',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Primitivo di Manduria dolce naturale DOCG',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Primitivo di Manduria riserva DOC',
+
+    v: ['Primitivo'],
+  },
+  {
+    d: 'Prosecco DOC',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Prosecco frizzante DOC',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Prosecco rosé DOC',
+
+    v: ['Glera, Pinot nero'],
+  },
+  {
+    d: 'Prosecco spumante DOC',
+
+    v: ['Glera'],
+  },
+  {
+    d: 'Ramandolo DOCG',
+
+    v: ['Verduzzo Friulano'],
+  },
+  {
+    d: 'Recioto della Valpolicella Classico DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Recioto della Valpolicella DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Recioto della Valpolicella spumante Classico DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Recioto della Valpolicella spumante DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Recioto della Valpolicella spumante Valpantena DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Recioto della Valpolicella Valpantena DOCG',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Recioto di Gambellara classico DOCG',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Recioto di Gambellara spumante DOCG',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Recioto di Soave classico DOCG',
+
+    v: ['Garganega, Trebbiano di Soave'],
+  },
+  {
+    d: 'Recioto di Soave DOCG',
+
+    v: ['Garganega, Trebbiano di Soave'],
+  },
+  {
+    d: 'Recioto di Soave spumante classico DOCG',
+
+    v: ['Garganega, Trebbiano di Soave'],
+  },
+  {
+    d: 'Recioto di Soave spumante DOCG',
+
+    v: ['Garganega, Trebbiano di Soave'],
+  },
+  {
+    d: 'Reggiano DOC bianco spumante',
+
+    v: [],
+  },
+  {
+    d: 'Reggiano DOC Lambrusco',
+
+    v: [],
+  },
+  {
+    d: 'Reggiano DOC Lambrusco frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Reggiano DOC Lambrusco novello',
+
+    v: [],
+  },
+  {
+    d: 'Reggiano DOC Lambrusco novello frizzante',
+
+    v: [],
+  },
+  {
+    d: 'Reggiano DOC Lambrusco Salamino',
+
+    v: ['Lambrusco Salamino'],
+  },
+  {
+    d: 'Reggiano DOC Lambrusco Salamino frizzante',
+
+    v: ['Lambrusco Salamino'],
+  },
+  {
+    d: 'Reggiano DOC Lambrusco spumante',
+
+    v: [],
+  },
+  {
+    d: 'Reggiano DOC rosso',
+
+    v: ['Ancellotta'],
+  },
+  {
+    d: 'Reggiano DOC rosso frizzante',
+
+    v: ['Ancellotta'],
+  },
+  {
+    d: 'Reggiano DOC rosso novello',
+
+    v: ['Ancellotta'],
+  },
+  {
+    d: 'Reno DOC bianco',
+
+    v: ['Albana, Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Reno DOC bianco frizzante',
+
+    v: ['Albana, Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Reno DOC bianco spumante',
+
+    v: ['Albana, Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Reno DOC Montuni',
+
+    v: ['Montù'],
+  },
+  {
+    d: 'Reno DOC Montuni frizzante',
+
+    v: ['Montù'],
+  },
+  {
+    d: 'Reno DOC Montuni spumante',
+
+    v: ['Montù'],
+  },
+  {
+    d: 'Reno DOC Pignoletto',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Reno DOC Pignoletto frizzante',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Reno DOC Pignoletto spumante',
+
+    v: ['Pignoletto'],
+  },
+  {
+    d: 'Riesi DOC bianco',
+
+    v: ['Ansonica, Chardonnay'],
+  },
+  {
+    d: 'Riesi DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Riesi DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Riesi DOC Isolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Riesi DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Riesi DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Riesi DOC novello',
+
+    v: ['Calabrese, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Riesi DOC rosato',
+
+    v: ['Calabrese, Cabernet Sauvignon, Nerello Mascalese'],
+  },
+  {
+    d: 'Riesi DOC rosso',
+
+    v: ['Calabrese, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Riesi DOC spumante',
+
+    v: ['Ansonica, Chardonnay'],
+  },
+  {
+    d: 'Riesi DOC superiore',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Riesi DOC superiore riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Riesi DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Riesi DOC vendemmia tardiva',
+
+    v: ['Ansonica, Chardonnay'],
+  },
+  {
+    d: 'Riesling Italico di Torgiano DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Riviera del Brenta Bianco DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Riviera del Brenta Bianco frizzante DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Riviera del Brenta Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Riviera del Brenta Cabernet DOC riserva',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Riviera del Brenta Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Riviera del Brenta Chardonnay frizzante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Riviera del Brenta Chardonnay spumante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Riviera del Brenta Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Riviera del Brenta Novello DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Riviera del Brenta Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Riviera del Brenta Pinot bianco frizzante DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Riviera del Brenta Pinot bianco spumante DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Riviera del Brenta Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Riviera del Brenta Raboso DOC',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Riviera del Brenta Raboso DOC riserva',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Riviera del Brenta Refosco DOC',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Riviera del Brenta Refosco DOC riserva',
+
+    v: ['Refosco dal peduncolo rosso'],
+  },
+  {
+    d: 'Riviera del Brenta Rosato DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Riviera del Brenta Rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Riviera del Brenta Spumante DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Riviera del Brenta Tai DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'Riviera del Garda Bresciano bianco DOC',
+
+    v: ['Riesling Italico, Riesling'],
+  },
+  {
+    d: 'Riviera del Garda Bresciano chiaretto DOC',
+
+    v: ['Sangiovese, Marzemino, Barbera'],
+  },
+  {
+    d: 'Riviera del Garda Bresciano Groppello DOC',
+
+    v: [],
+  },
+  {
+    d: 'Riviera del Garda Bresciano rosé o rosato DOC',
+
+    v: ['Sangiovese, Marzemino, Barbera'],
+  },
+  {
+    d: 'Riviera del Garda Bresciano rosso DOC',
+
+    v: ['Sangiovese, Marzemino, Barbera'],
+  },
+  {
+    d: 'Riviera del Garda Classico bianco DOC',
+
+    v: ['Riesling Italico, Riesling'],
+  },
+  {
+    d: 'Riviera del Garda Classico Chiaretto DOC',
+
+    v: [
+      'Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano, Barbera, Sangiovese, Marzemino',
+    ],
+  },
+  {
+    d: 'Riviera del Garda Classico Groppello DOC',
+
+    v: ['Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano'],
+  },
+  {
+    d: 'Riviera del Garda Classico rosso DOC',
+
+    v: [
+      'Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano, Sangiovese, Marzemino, Barbera',
+    ],
+  },
+  {
+    d: 'Riviera del Garda Classico rosso superiore DOC',
+
+    v: [
+      'Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano, Sangiovese, Marzemino, Barbera',
+    ],
+  },
+  {
+    d: 'Riviera del Garda Classico spumante rosé DOC',
+
+    v: [
+      'Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano, Sangiovese, Marzemino, Barbera',
+    ],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Albenganese Pigato',
+
+    v: ['Pigato'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Albenganese Rossese',
+
+    v: ['Rossese'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Albenganese Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Finalese Pigato',
+
+    v: ['Pigato'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Finalese Rossese',
+
+    v: ['Rossese'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Finalese Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Granaccia (Alicante)',
+
+    v: ['Alicante'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Granaccia (Alicante) passito',
+
+    v: ['Alicante'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Granaccia (Alicante) superiore',
+
+    v: ['Alicante'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Moscato frizzante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Moscato vendemmia tardiva',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Pigato',
+
+    v: ['Pigato'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Pigato passito',
+
+    v: ['Pigato'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Pigato superiore',
+
+    v: ['Pigato'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Quiliano Granaccia',
+
+    v: ['Alicante'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Riviera dei Fiori Pigato',
+
+    v: ['Pigato'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Riviera dei Fiori Rossese',
+
+    v: ['Rossese'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Riviera dei Fiori Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Rossese',
+
+    v: ['Rossese'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Rossese passito',
+
+    v: ['Rossese'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Taggia Moscatello',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Taggia Moscatello frizzante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Taggia Moscatello passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Taggia Moscatello vendemmia tardiva',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Vermentino passito',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Riviera Ligure di Ponente DOC Vermentino superiore',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Roero Arneis DOCG',
+
+    v: ['Arneis'],
+  },
+  {
+    d: 'Roero Arneis spumante DOCG',
+
+    v: ['Arneis'],
+  },
+  {
+    d: 'Roero DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Roero riserva DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Roma DOC Bellone',
+
+    v: ['Bellone'],
+  },
+  {
+    d: 'Roma DOC Bellone classico',
+
+    v: ['Bellone'],
+  },
+  {
+    d: 'Roma DOC bianco',
+
+    v: ['Malvasia del Lazio, Bellone, Bombino bianco, Greco, Trebbiano giallo'],
+  },
+  {
+    d: 'Roma DOC bianco classico',
+
+    v: ['Malvasia del Lazio, Bellone, Bombino bianco, Greco, Trebbiano giallo'],
+  },
+  {
+    d: 'Roma DOC Malvasia puntinata',
+
+    v: ['Malvasia del Lazio'],
+  },
+  {
+    d: 'Roma DOC Malvasia puntinata classico',
+
+    v: ['Malvasia del Lazio'],
+  },
+  {
+    d: 'Roma DOC Romanella spumante',
+
+    v: ['Malvasia del Lazio, Bellone, Bombino bianco, Greco, Trebbiano giallo'],
+  },
+  {
+    d: 'Roma DOC rosato',
+
+    v: [
+      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+    ],
+  },
+  {
+    d: 'Roma DOC rosato classico',
+
+    v: [
+      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+    ],
+  },
+  {
+    d: 'Roma DOC rosso',
+
+    v: [
+      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+    ],
+  },
+  {
+    d: 'Roma DOC rosso classico',
+
+    v: [
+      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+    ],
+  },
+  {
+    d: 'Roma DOC rosso classico riserva',
+
+    v: [
+      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+    ],
+  },
+  {
+    d: 'Roma DOC rosso riserva',
+
+    v: [
+      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+    ],
+  },
+  {
+    d: 'Romagna Albana amabile DOCG',
+
+    v: ['Albana'],
+  },
+  {
+    d: 'Romagna Albana dolce DOCG',
+
+    v: ['Albana'],
+  },
+  {
+    d: 'Romagna Albana passito DOCG',
+
+    v: ['Albana'],
+  },
+  {
+    d: 'Romagna Albana passito riserva DOCG',
+
+    v: ['Albana'],
+  },
+  {
+    d: 'Romagna Albana secco DOCG',
+
+    v: ['Albana'],
+  },
+  {
+    d: 'Romagna DOC Albana spumante',
+
+    v: ['Albana'],
+  },
+  {
+    d: 'Romagna DOC Cagnina',
+
+    v: ['Terrano'],
+  },
+  {
+    d: 'Romagna DOC Pagadebit',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Romagna DOC Pagadebit amabile',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Romagna DOC Pagadebit amabile frizzante',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Romagna DOC Pagadebit Bertinoro amabile',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Romagna DOC Pagadebit Bertinoro amabile frizzante',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Romagna DOC Pagadebit Bertinoro secco',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Romagna DOC Pagadebit Bertinoro secco frizzante',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Romagna DOC Pagadebit frizzante',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Bertinoro riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Brisighella',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Brisighella riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Castrocaro-Terra del Sole',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Castrocaro-Terra del Sole riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Cesena',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Cesena riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Longiano',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Longiano riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Marzeno',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Marzeno riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Meldola',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Meldola riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Modigliana',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Modigliana riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Oriolo',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Oriolo riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Predappio',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese Predappio riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese San Vicinio',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese San Vicinio riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Sangiovese superiore riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Romagna DOC Trebbiano',
+
+    v: ['Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Romagna DOC Trebbiano frizzante',
+
+    v: ['Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Romagna DOC Trebbiano spumante',
+
+    v: ['Trebbiano Romagnolo'],
+  },
+  {
+    d: 'Rosato di Aprilia DOC',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Rosato di Carmignano DOC',
+
+    v: ['Sangiovese, Canaiolo nero, Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Rosato di Torgiano DOC',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Rosazzo DOCG',
+
+    v: ['Tocai Friulano, Sauvignon, Ribolla gialla'],
+  },
+  {
+    d: 'Rossese di Dolceacqua o Dolceacqua DOC',
+
+    v: ['Rossese'],
+  },
+  {
+    d: 'Rossese di Dolceacqua o Dolceacqua DOC superiore',
+
+    v: ['Rossese'],
+  },
+  {
+    d: 'Rosso Conero DOC',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Rosso della Val di Cornia DOCG',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Rosso della Val di Cornia riserva DOCG',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Rosso di Aprilia DOC',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Rosso di Cerignola DOC',
+
+    v: [
+      'Uva di Troia, Negro Amaro, Sangiovese, Barbera, Montepulciano, Malbech, Trebbiano Toscano',
+    ],
+  },
+  {
+    d: 'Rosso di Cerignola riserva DOC',
+
+    v: [
+      'Uva di Troia, Negro Amaro, Sangiovese, Barbera, Montepulciano, Malbech, Trebbiano Toscano',
+    ],
+  },
+  {
+    d: 'Rosso di Montalcino DOC',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Rosso di Montepulciano DOC',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Rosso di Torgiano DOC',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC',
+
+    v: [
+      'Aleatico, Cabernet Franc, Cabernet Sauvignon, Canaiolo nero, Ciliegiolo, Merlot, Montepulciano, Pinot nero, Sangiovese',
+    ],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Aleatico',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Cabernet',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Cabernet franc',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Canaiolo',
+
+    v: ['Canaiolo nero'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Ciliegiolo',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Rosso Orvietano o Orvietano rosso DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Rosso Piceno DOC',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Rosso Piceno DOC novello',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Rosso Piceno DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Rosso Piceno DOC superiore',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'Rubino di Cantavenna DOC',
+
+    v: ['Barbera, Grignolino, Freisa'],
+  },
+  {
+    d: 'Ruchè di Castagnole Monferrato DOCG',
+
+    v: ['Ruchè, Barbera, Brachetto'],
+  },
+  {
+    d: 'S.Anna Isola di Capo Rizzuto DOC bianco',
+
+    v: [
+      'Gaglioppo, Nocera, Nerello Mascalese, Nerello Cappuccio, Malvasia nera di Basilicata, Malvasia bianca, Greco Bianco',
+    ],
+  },
+  {
+    d: 'S.Anna Isola di Capo Rizzuto DOC rosso',
+
+    v: [
+      'Gaglioppo, Nocera, Nerello Mascalese, Nerello Cappuccio, Malvasia nera di Basilicata, Malvasia bianca, Greco Bianco',
+    ],
+  },
+  {
+    d: 'Salaparuta DOC bianco',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Salaparuta DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Salaparuta DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Salaparuta DOC Catarratto',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Salaparuta DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Salaparuta DOC Grillo',
+
+    v: [],
+  },
+  {
+    d: 'Salaparuta DOC Inzolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Salaparuta DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Salaparuta DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Salaparuta DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Salaparuta DOC Nero d’Avola riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Salaparuta DOC novello',
+
+    v: ['Calabrese, Merlot'],
+  },
+  {
+    d: 'Salaparuta DOC rosso',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Salaparuta DOC rosso riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Salaparuta DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Salaparuta DOC Syrah riserva',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Salice Salentino DOC Aleatico dolce',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Salice Salentino DOC Aleatico liquoroso dolce',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Salice Salentino DOC bianco',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Salice Salentino DOC bianco spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Salice Salentino DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Salice Salentino DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Salice Salentino DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Salice Salentino DOC Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Salice Salentino DOC Negroamaro',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Salice Salentino DOC Negroamaro riserva',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Salice Salentino DOC Negroamaro rosato',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Salice Salentino DOC Negroamaro rosato spumante',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Salice Salentino DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Salice Salentino DOC Pinot bianco spumante',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Salice Salentino DOC rosato',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Salice Salentino DOC rosato spumante',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Salice Salentino DOC rosso',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Salice Salentino DOC rosso riserva',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Ansonica o Inzolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC bianco',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Nero d’Avola riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC passito',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC rosato',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC rosso',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC rosso riserva',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Sambuca di Sicilia DOC Syrah riserva',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'San Colombano al Lambro o San Colombano bianco DOC',
+
+    v: ['Chardonnay, Pinot nero'],
+  },
+  {
+    d: 'San Colombano al Lambro o San Colombano bianco frizzante DOC',
+
+    v: ['Chardonnay, Pinot nero'],
+  },
+  {
+    d: 'San Colombano al Lambro o San Colombano bianco menzione vigna DOC',
+
+    v: ['Chardonnay, Pinot nero'],
+  },
+  {
+    d: 'San Colombano al Lambro o San Colombano bianco menzione vigna frizzante DOC',
+
+    v: ['Chardonnay, Pinot nero'],
+  },
+  {
+    d: 'San Colombano al Lambro o San Colombano rosso con menzione vigna DOC',
+
+    v: ['Croatina, Barbera, Uva rara'],
+  },
+  {
+    d: 'San Colombano al Lambro o San Colombano rosso DOC',
+
+    v: ['Croatina, Barbera, Uva rara'],
+  },
+  {
+    d: 'San Colombano al Lambro o San Colombano rosso frizzante DOC',
+
+    v: ['Croatina, Barbera, Uva rara'],
+  },
+  {
+    d: 'San Colombano al Lambro o San Colombano rosso riserva con menzione vigna DOC',
+
+    v: ['Croatina, Barbera, Uva rara'],
+  },
+  {
+    d: 'San Gimignano DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'San Gimignano DOC Cabernet sauvignon riseva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'San Gimignano DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'San Gimignano DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'San Gimignano DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'San Gimignano DOC Pinot nero risrva',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'San Gimignano DOC rosato',
+
+    v: ['Sangiovese, Merlot, Syrah, Pinot nero'],
+  },
+  {
+    d: 'San Gimignano DOC rosso',
+
+    v: ['Sangiovese, Merlot, Syrah, Pinot nero'],
+  },
+  {
+    d: 'San Gimignano DOC rosso riserva',
+
+    v: ['Sangiovese, Merlot, Syrah, Pinot nero'],
+  },
+  {
+    d: 'San Gimignano DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'San Gimignano DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'San Gimignano DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'San Gimignano DOC Syrah riserva',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'San Gimignano DOC Vinsanto o Vin Santo',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'San Gimignano DOC Vinsanto Occhio di Pernice o Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'San Ginesio DOC rosso',
+
+    v: ['Sangiovese, Vernaccia nera'],
+  },
+  {
+    d: 'San Ginesio DOC spumante dolce',
+
+    v: ['Vernaccia nera'],
+  },
+  {
+    d: 'San Ginesio DOC spumante secco',
+
+    v: ['Vernaccia nera'],
+  },
+  {
+    d: 'San Martino della Battaglia DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'San Martino della Battaglia liquoroso DOC',
+
+    v: ['Tocai Friulano'],
+  },
+  {
+    d: 'San Severo DOC bianco',
+
+    v: ['Bombino bianco, Trebbiano Toscano'],
+  },
+  {
+    d: 'San Severo DOC bianco frizzante',
+
+    v: ['Bombino bianco, Trebbiano Toscano'],
+  },
+  {
+    d: 'San Severo DOC bianco spumante',
+
+    v: ['Bombino bianco, Trebbiano Toscano'],
+  },
+  {
+    d: 'San Severo DOC Bombino bianco',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'San Severo DOC Bombino bianco frizzante',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'San Severo DOC Bombino bianco spumante',
+
+    v: ['Bombino bianco'],
+  },
+  {
+    d: 'San Severo DOC Falanghina',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'San Severo DOC Malvasia bianca di Candia',
+
+    v: ['Malvasia bianca di Candia'],
+  },
+  {
+    d: 'San Severo DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'San Severo DOC Merlot rosato',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'San Severo DOC rosato',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'San Severo DOC rosato frizzante',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'San Severo DOC rosso',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'San Severo DOC rosso novello',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'San Severo DOC rosso riserva',
+
+    v: ['Montepulciano, Sangiovese'],
+  },
+  {
+    d: 'San Severo DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'San Severo DOC Sangiovese rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'San Severo DOC Trebbiano bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'San Severo DOC Uva di Troia o Nero di Troia',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'San Severo DOC Uva di Troia o Nero di Troia riserva',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'San Severo DOC Uva di Troia o Nero di Troia rosato',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'San Torpè DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'San Torpè DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'San Torpè DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'San Torpè DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'San Torpè DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'San Torpè DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'San Torpè DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'San Torpè DOC Vin Santo riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda frizzante DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda spumante dolce DOC',
+
+    v: ['Barbera, Croatina'],
+  },
+  {
+    d: 'Sannio DOC Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico novello',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC aglianico passito',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico spumante',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico spumante di qualità',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico spumante di qualità metodo classico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico spumante di qualità metodo classico rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico spumante di qualità rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico spumante rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Aglianico-Piedirosso',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Aglianico-Piedirosso rosato',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Barbera passito',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Barbera spumante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Barbera spumante di qualità',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Barbera spumante di qualità metodo classico',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC bianco frizzante',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Coda di Volpe',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Coda di Volpe passito',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Coda di Volpe spumante',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Coda di Volpe spumante di qualità',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Coda di Volpe spumante di qualità metodo classico',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Fiano passito',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Fiano spumante di qualità',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Fiano spumante di qualità metodo classico',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Greco passito',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Greco spumante',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Greco spumante di qualità',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Greco spumante di qualità metodo classico',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico novello',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo aglianico passito',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante di qualità',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante di qualità metodo classico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante di qualità metodo classico rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante di qualità rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico spumante rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico-Piedirosso',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico-Piedirosso rosato',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Barbera passito',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Barbera spumante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Barbera spumante di qualità',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Barbera spumante di qualità metodo classico',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo bianco frizzante',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe passito',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe spumante',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe spumante di qualità',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe spumante di qualità metodo classico',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Fiano passito',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Fiano spumante di qualità',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Fiano spumante di qualità metodo classico',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Greco passito',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Greco spumante',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Greco spumante di qualità',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Greco spumante di qualità metodo classico',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Moscato spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Moscato spumante di qualità',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Moscato spumante di qualità metodo classico',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso passito',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso spumante',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso spumante di qualità',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Piedirosso spumante di qualità metodo classico',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo rosato frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo rosso frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso passito',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso spumante',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso spumante di qualità',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo Sciascinoso spumante di qualità metoso classico',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo spumante',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo spumante spumante di qualità',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Guardia Sanframondi o Guardiolo spumante spumante di qualità metodo classico',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Moscato spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Moscato spumante di qualità',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Moscato spumante di qualità metodo classico',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Piedirosso',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Piedirosso passito',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Piedirosso spumante',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Piedirosso spumante di qualità',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Piedirosso spumante di qualità metodo classico',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC rosato frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC rosso frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico novello',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti aglianico passito',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico spumante',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico spumante di qualità',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico spumante di qualità metodo classico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico spumante di qualità metodo classico rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico spumante di qualità rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico spumante rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico-Piedirosso',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Aglianico-Piedirosso rosato',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Barbera passito',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Barbera spumante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Barbera spumante di qualità',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Barbera spumante di qualità metodo classico',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti bianco frizzante',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Coda di Volpe',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Coda di Volpe passito',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Coda di Volpe spumante',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Coda di Volpe spumante di qualità',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Coda di Volpe spumante di qualità metodo classico',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Fiano passito',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Fiano spumante di qualità',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Fiano spumante di qualità metodo classico',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Greco passito',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Greco spumante',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Greco spumante di qualità',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Greco spumante di qualità metodo classico',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Moscato spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Moscato spumante di qualità',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Moscato spumante di qualità metodo classico',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Piedirosso',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Piedirosso passito',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Piedirosso spumante',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Piedirosso spumante di qualità',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Piedirosso spumante di qualità metodo classico',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti rosato frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti rosso frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Sciascinoso',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Sciascinoso passito',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Sciascinoso spumante',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Sciascinoso spumante di qualità',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti Sciascinoso spumante di qualità metoso classico',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti spumante',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti spumante spumante di qualità',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Sant’Agata dei Goti spumante spumante di qualità metodo classico',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Sciascinoso',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sciascinoso passito',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sciascinoso spumante',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sciascinoso spumante di qualità',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Sciascinoso spumante di qualità metoso classico',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico novello',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca aglianico passito',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico spumante',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico spumante di qualità',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico spumante di qualità metodo classico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico spumante di qualità metodo classico rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico spumante di qualità rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico spumante rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico-Piedirosso',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Aglianico-Piedirosso rosato',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Barbera passito',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Barbera spumante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Barbera spumante di qualità',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Barbera spumante di qualità metodo classico',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Solopaca bianco frizzante',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico novello',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico aglianico passito',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico spumante',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico spumante di qualità',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico spumante di qualità metodo classico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico spumante di qualità metodo classico rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico spumante di qualità rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico spumante rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico-Piedirosso',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Aglianico-Piedirosso rosato',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Barbera passito',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Barbera spumante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Barbera spumante di qualità',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Barbera spumante di qualità metodo classico',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico bianco frizzante',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Coda di Volpe',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Coda di Volpe passito',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Coda di Volpe spumante',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Coda di Volpe spumante di qualità',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Coda di Volpe spumante di qualità metodo classico',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Fiano passito',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Fiano spumante di qualità',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Fiano spumante di qualità metodo classico',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Greco passito',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Greco spumante',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Greco spumante di qualità',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Greco spumante di qualità metodo classico',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Moscato spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Moscato spumante di qualità',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Moscato spumante di qualità metodo classico',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Piedirosso',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Piedirosso passito',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Piedirosso spumante',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Piedirosso spumante di qualità',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Piedirosso spumante di qualità metodo classico',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico rosato frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico rosso frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Sciascinoso',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Sciascinoso passito',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Sciascinoso spumante',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Sciascinoso spumante di qualità',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico Sciascinoso spumante di qualità metoso classico',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico spumante',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico spumante spumante di qualità',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Solopaca classico spumante spumante di qualità metodo classico',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Coda di Volpe',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Coda di Volpe passito',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Coda di Volpe spumante',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Coda di Volpe spumante di qualità',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Coda di Volpe spumante di qualità metodo classico',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Fiano passito',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Fiano spumante di qualità',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Fiano spumante di qualità metodo classico',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Greco passito',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Greco spumante',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Greco spumante di qualità',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Greco spumante di qualità metodo classico',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Moscato spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Moscato spumante di qualità',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Moscato spumante di qualità metodo classico',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Piedirosso',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Piedirosso passito',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Piedirosso spumante',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Piedirosso spumante di qualità',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Piedirosso spumante di qualità metodo classico',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca rosato frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca rosso frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Sciascinoso',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Sciascinoso passito',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Sciascinoso spumante',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Sciascinoso spumante di qualità',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca Sciascinoso spumante di qualità metoso classico',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Solopaca spumante',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Solopaca spumante spumante di qualità',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Solopaca spumante spumante di qualità metodo classico',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC spumante',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC spumante spumante di qualità',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC spumante spumante di qualità metodo classico',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico novello',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno aglianico passito',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico riserva',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico rosato',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico spumante',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico spumante di qualità',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico spumante di qualità metodo classico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico spumante di qualità metodo classico rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico spumante di qualità rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico spumante rosato o rosé',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico-Piedirosso',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Aglianico-Piedirosso rosato',
+
+    v: ['Aglianico, Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Barbera',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Taburno Barbera passito',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Taburno Barbera spumante',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Taburno Barbera spumante di qualità',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Taburno Barbera spumante di qualità metodo classico',
+
+    v: ['Barbera'],
+  },
+  {
+    d: 'Sannio DOC Taburno bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Taburno bianco frizzante',
+
+    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+  },
+  {
+    d: 'Sannio DOC Taburno Coda di Volpe',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Taburno Coda di Volpe passito',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Taburno Coda di Volpe spumante',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Taburno Coda di Volpe spumante di qualità',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Taburno Coda di Volpe spumante di qualità metodo classico',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Sannio DOC Taburno Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Taburno Fiano passito',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Taburno Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Taburno Fiano spumante di qualità',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Taburno Fiano spumante di qualità metodo classico',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sannio DOC Taburno Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Greco passito',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Greco spumante',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Greco spumante di qualità',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Greco spumante di qualità metodo classico',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Moscato spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Moscato spumante di qualità',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Moscato spumante di qualità metodo classico',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Sannio DOC Taburno Piedirosso',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Piedirosso passito',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Piedirosso spumante',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Piedirosso spumante di qualità',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Piedirosso spumante di qualità metodo classico',
+
+    v: ['Piedirosso'],
+  },
+  {
+    d: 'Sannio DOC Taburno rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Taburno rosato frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Taburno rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Taburno rosso frizzante',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Taburno rosso novello',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Taburno rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Taburno rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sannio DOC Taburno Sciascinoso',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Sciascinoso passito',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Sciascinoso spumante',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Sciascinoso spumante di qualità',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Taburno Sciascinoso spumante di qualità metoso classico',
+
+    v: ['Sciascinoso'],
+  },
+  {
+    d: 'Sannio DOC Taburno spumante',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Taburno spumante spumante di qualità',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sannio DOC Taburno spumante spumante di qualità metodo classico',
+
+    v: ['Aglianico, Falanghina'],
+  },
+  {
+    d: 'Sant’Antimo DOC bianco',
+
+    v: [],
+  },
+  {
+    d: 'Sant’Antimo DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sant’Antimo DOC Cahrdonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Sant’Antimo DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Sant’Antimo DOC Pinot grigio',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Sant’Antimo DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Sant’Antimo DOC rosso',
+
+    v: [],
+  },
+  {
+    d: 'Sant’Antimo DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Sant’Antimo DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Sant’Antimo DOC Vin Santo Occhio di Pernice',
+
+    v: ['Sangiovese, Malvasia nera'],
+  },
+  {
+    d: 'Sant’Antimo DOC Vin Santo Occhio di Pernice riserva',
+
+    v: ['Sangiovese, Malvasia nera'],
+  },
+  {
+    d: 'Sant’Antimo DOC Vin Santo riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Santa Margherita di Belice DOC Ansonica',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Santa Margherita di Belice DOC bianco',
+
+    v: ['Ansonica, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Santa Margherita di Belice DOC Catarratto',
+
+    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Santa Margherita di Belice DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Santa Margherita di Belice DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Santa Margherita di Belice DOC rosso',
+
+    v: ['Calabrese, Sangiovese, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Santa Margherita di Belice DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sardegna Semidano DOC',
+
+    v: ['Semidano'],
+  },
+  {
+    d: 'Sardegna Semidano DOC passito',
+
+    v: ['Semidano'],
+  },
+  {
+    d: 'Sardegna Semidano DOC sottozona Mogoro',
+
+    v: ['Semidano'],
+  },
+  {
+    d: 'Sardegna Semidano DOC spumante',
+
+    v: ['Semidano'],
+  },
+  {
+    d: 'Sardegna Semidano DOC superiore',
+
+    v: ['Semidano'],
+  },
+  {
+    d: 'Savuto DOC bianco',
+
+    v: ['Chardonnay, Greco Bianco, Malvasia bianca'],
+  },
+  {
+    d: 'Savuto DOC rosato',
+
+    v: ['Gaglioppo, Aglianico, Greco Nero, Nerello Cappuccio'],
+  },
+  {
+    d: 'Savuto DOC rosso',
+
+    v: ['Gaglioppo, Aglianico, Greco Nero, Nerello Cappuccio'],
+  },
+  {
+    d: 'Savuto DOC rosso superiore',
+
+    v: ['Gaglioppo, Aglianico, Greco Nero, Nerello Cappuccio'],
+  },
+  {
+    d: 'Scanzo o Moscato di Scanzo DOCG',
+
+    v: ['Moscato di Scanzo'],
+  },
+  {
+    d: 'Scavigna DOC bianco',
+
+    v: ['Gewürztraminer, Chardonnay, Pinot bianco, Riesling Italico'],
+  },
+  {
+    d: 'Scavigna DOC rosato',
+
+    v: ['Aglianico, Magliocco canino, Marsigliana nera'],
+  },
+  {
+    d: 'Scavigna DOC rosso',
+
+    v: ['Aglianico, Magliocco canino, Marsigliana nera'],
+  },
+  {
+    d: 'Sciacca DOC bianco',
+
+    v: ['Ansonica, Chardonnay, Catarratto bianco lucido'],
+  },
+  {
+    d: 'Sciacca DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sciacca DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Sciacca DOC Grecanico',
+
+    v: ['Grecanico dorato'],
+  },
+  {
+    d: 'Sciacca DOC Inzolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Sciacca DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Sciacca DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Sciacca DOC riserva Rayana',
+
+    v: ['Catarratto bianco lucido, Ansonica'],
+  },
+  {
+    d: 'Sciacca DOC rosato',
+
+    v: ['Merlot, Cabernet Sauvignon, Nero d’Avola, Sangiovese'],
+  },
+  {
+    d: 'Sciacca DOC rosso',
+
+    v: ['Merlot, Cabernet Sauvignon, Nero d’Avola, Sangiovese'],
+  },
+  {
+    d: 'Sciacca DOC rosso riserva',
+
+    v: ['Merlot, Cabernet Sauvignon, Nero d’Avola, Sangiovese'],
+  },
+  {
+    d: 'Sciacca DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Serrapetrona DOC',
+
+    v: ['Vernaccia nera'],
+  },
+  {
+    d: 'Sforzato di Valtellina o Sfursat di Valtellina DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Sicilia DOC Alicante',
+
+    v: ['Alicante'],
+  },
+  {
+    d: 'Sicilia DOC bianco',
+
+    v: [
+      'Inzolia, Catarratto bianco comune, Catarratto bianco lucido, Grecanico dorato',
+    ],
+  },
+  {
+    d: 'Sicilia DOC bianco vendemmia tardiva',
+
+    v: [
+      'Inzolia, Catarratto bianco comune, Catarratto bianco lucido, Grecanico dorato',
+    ],
+  },
+  {
+    d: 'Sicilia DOC Cabernet franc',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Sicilia DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sicilia DOC Carignano',
+
+    v: ['Carignano'],
+  },
+  {
+    d: 'Sicilia DOC Carignano – Alicante',
+
+    v: ['Carignano, Alicante'],
+  },
+  {
+    d: 'Sicilia DOC Carricante',
+
+    v: ['Carricante'],
+  },
+  {
+    d: 'Sicilia DOC Carricante – Catarratto',
+
+    v: ['Carricante, Catarratto bianco lucido, Catarratto bianco comune'],
+  },
+  {
+    d: 'Sicilia DOC Carricante – Chardonnay',
+
+    v: ['Carricante, Chardonnay'],
+  },
+  {
+    d: 'Sicilia DOC Carricante – Grecanico',
+
+    v: ['Carricante'],
+  },
+  {
+    d: 'Sicilia DOC Catarratto',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+  },
+  {
+    d: 'Sicilia DOC Catarratto – Chardonnay',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune, Chardonnay'],
+  },
+  {
+    d: 'Sicilia DOC Catarratto – Fiano',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune, Fiano'],
+  },
+  {
+    d: 'Sicilia DOC Catarratto – Grillo',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+  },
+  {
+    d: 'Sicilia DOC Catarratto – Inzolia',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune, Inzolia'],
+  },
+  {
+    d: 'Sicilia DOC Catarratto – Viogner',
+
+    v: ['Catarratto bianco lucido, Catarratto bianco comune, Viognier'],
+  },
+  {
+    d: 'Sicilia DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Sicilia DOC Damaschino',
+
+    v: ['Damaschino'],
+  },
+  {
+    d: 'Sicilia DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sicilia DOC Frappato',
+
+    v: ['Frappato'],
+  },
+  {
+    d: 'Sicilia DOC Frappato – Cabernet sauvignon',
+
+    v: ['Frappato, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sicilia DOC Frappato – Syrah',
+
+    v: ['Frappato, Syrah'],
+  },
+  {
+    d: 'Sicilia DOC Grecanico',
+
+    v: [],
+  },
+  {
+    d: 'Sicilia DOC Grecanico – Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Sicilia DOC Grecanico – Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Sicilia DOC Grecanico – Inzolia',
+
+    v: ['Inzolia'],
+  },
+  {
+    d: 'Sicilia DOC Grecanico – Viogner',
+
+    v: ['Viognier'],
+  },
+  {
+    d: 'Sicilia DOC Grillo',
+
+    v: [],
+  },
+  {
+    d: 'Sicilia DOC Grillo – Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Sicilia DOC Grillo – Grecanico',
+
+    v: [],
+  },
+  {
+    d: 'Sicilia DOC Grillo – Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Sicilia DOC Grillo – Viognier',
+
+    v: ['Viognier'],
+  },
+  {
+    d: 'Sicilia DOC Inzolia',
+
+    v: ['Inzolia'],
+  },
+  {
+    d: 'Sicilia DOC Inzolia – Chardonnay',
+
+    v: ['Inzolia, Chardonnay'],
+  },
+  {
+    d: 'Sicilia DOC Inzolia – Grillo',
+
+    v: ['Inzolia'],
+  },
+  {
+    d: 'Sicilia DOC Inzolia – Sauvignon',
+
+    v: ['Inzolia, Sauvignon'],
+  },
+  {
+    d: 'Sicilia DOC Inzolia – Viognier',
+
+    v: ['Inzolia, Viognier'],
+  },
+  {
+    d: 'Sicilia DOC Merlot – Cabernet sauvignon',
+
+    v: ['Merlot, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sicilia DOC Merlot – Syrah',
+
+    v: ['Merlot, Syrah'],
+  },
+  {
+    d: 'Sicilia DOC Mondeuse',
+
+    v: ['Mondeuse'],
+  },
+  {
+    d: 'Sicilia DOC Müller-Thurgau',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Sicilia DOC Nerello cappuccio',
+
+    v: ['Nerello Cappuccio'],
+  },
+  {
+    d: 'Sicilia DOC Nerello mascalese',
+
+    v: ['Nerello Mascalese'],
+  },
+  {
+    d: 'Sicilia DOC Nerello mascalese – Merlot',
+
+    v: ['Nerello Mascalese, Merlot'],
+  },
+  {
+    d: 'Sicilia DOC Nerello mascalese – Nerello cappuccio',
+
+    v: ['Nerello Mascalese, Nerello Cappuccio'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola',
+
+    v: ['Nero d’Avola'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Cabernet franc',
+
+    v: ['Nero d’Avola, Cabernet Franc'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Cabernet sauvignon',
+
+    v: ['Nero d’Avola, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Frappato',
+
+    v: ['Nero d’Avola, Frappato'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Merlot',
+
+    v: ['Nero d’Avola, Merlot'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Nerello cappuccio',
+
+    v: ['Nero d’Avola, Nerello Cappuccio'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Nerello mascalese',
+
+    v: ['Nero d’Avola, Nerello Mascalese'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Perricone',
+
+    v: ['Nero d’Avola, Perricone'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Pinot nero',
+
+    v: ['Nero d’Avola, Pinot nero'],
+  },
+  {
+    d: 'Sicilia DOC Nero d’Avola – Syrah',
+
+    v: ['Nero d’Avola, Syrah'],
+  },
+  {
+    d: 'Sicilia DOC Nocera',
+
+    v: ['Nocera'],
+  },
+  {
+    d: 'Sicilia DOC Perricone',
+
+    v: ['Perricone'],
+  },
+  {
+    d: 'Sicilia DOC Perricone – Nerello mascalese',
+
+    v: ['Perricone, Nerello Mascalese'],
+  },
+  {
+    d: 'Sicilia DOC Pinot grigio',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Sicilia DOC Pinot nero',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Sicilia DOC rosato',
+
+    v: ['Calabrese, Frappato, Nerello Mascalese, Perricone'],
+  },
+  {
+    d: 'Sicilia DOC rosso',
+
+    v: ['Calabrese, Frappato, Nerello Mascalese, Perricone'],
+  },
+  {
+    d: 'Sicilia DOC rosso riserva',
+
+    v: ['Calabrese, Frappato, Nerello Mascalese, Perricone'],
+  },
+  {
+    d: 'Sicilia DOC rosso vendemmia tardiva',
+
+    v: ['Calabrese, Frappato, Nerello Mascalese, Perricone'],
+  },
+  {
+    d: 'Sicilia DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Sicilia DOC spumante bianco',
+
+    v: [
+      'Inzolia, Catarratto bianco comune, Catarratto bianco lucido, Grecanico dorato, Carricante, Pinot nero, Moscato bianco, Zibibbo',
+    ],
+  },
+  {
+    d: 'Sicilia DOC spumante rosato',
+
+    v: ['Calabrese, Frappato, Nerello Mascalese, Pinot nero'],
+  },
+  {
+    d: 'Sicilia DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Sicilia DOC Syrah – Alicante',
+
+    v: ['Syrah, Alicante'],
+  },
+  {
+    d: 'Sicilia DOC Syrah – Cabernet sauvignon',
+
+    v: ['Syrah, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sicilia DOC Syrah – Carignano',
+
+    v: ['Syrah, Carignano'],
+  },
+  {
+    d: 'Sicilia DOC Syrah – Merlot',
+
+    v: ['Syrah, Merlot'],
+  },
+  {
+    d: 'Sicilia DOC Viognier',
+
+    v: ['Viognier'],
+  },
+  {
+    d: 'Siracusa DOC bianco',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Siracusa DOC Moscato',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Siracusa DOC Moscato spumante',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Siracusa DOC Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Siracusa DOC passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Siracusa DOC rosso',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Siracusa DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Sizzano DOC',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Sizzano DOC riserva',
+
+    v: ['Nebbiolo, Vespolina, Uva rara'],
+  },
+  {
+    d: 'Soave classico DOC',
+
+    v: ['Garganega, Trebbiano di Soave, Chardonnay'],
+  },
+  {
+    d: 'Soave Colli Scaligeri DOC',
+
+    v: ['Garganega, Trebbiano di Soave, Chardonnay'],
+  },
+  {
+    d: 'Soave DOC',
+
+    v: ['Garganega, Trebbiano di Soave, Chardonnay'],
+  },
+  {
+    d: 'Soave spumante DOC',
+
+    v: ['Garganega, Trebbiano di Soave, Chardonnay'],
+  },
+  {
+    d: 'Soave superiore classico DOCG',
+
+    v: ['Garganega, Trebbiano di Soave'],
+  },
+  {
+    d: 'Soave superiore classico riserva DOCG',
+
+    v: ['Garganega, Trebbiano di Soave'],
+  },
+  {
+    d: 'Soave superiore DOCG',
+
+    v: ['Garganega, Trebbiano di Soave'],
+  },
+  {
+    d: 'Soave superiore riserva DOCG',
+
+    v: ['Garganega, Trebbiano di Soave'],
+  },
+  {
+    d: 'Sovana DOC Aleatico passito',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Sovana DOC Aleatico riserva',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Sovana DOC Aleatico riserva passito',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Sovana DOC Aleatico superiore',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Sovana DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sovana DOC Cabernet sauvignon superiore',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Sovana DOC Ciliegiolo riserva',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Sovana DOC Ciliegiolo superiore',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Sovana DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Sovana DOC Merlot superiore',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Sovana DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sovana DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sovana DOC rosso riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sovana DOC rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sovana DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Sovana DOC Sangiovese superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Spoleto DOC bianco',
+
+    v: ['Trebbiano Spoletino'],
+  },
+  {
+    d: 'Spoleto DOC Trebbiano spoletino',
+
+    v: ['Trebbiano Spoletino'],
+  },
+  {
+    d: 'Spoleto DOC Trebbiano spoletino passito',
+
+    v: ['Trebbiano Spoletino'],
+  },
+  {
+    d: 'Spoleto DOC Trebbiano spoletino spumante',
+
+    v: ['Trebbiano Spoletino'],
+  },
+  {
+    d: 'Spoleto DOC Trebbiano spoletino superiore',
+
+    v: ['Trebbiano Spoletino'],
+  },
+  {
+    d: 'Squinzano DOC bianco',
+
+    v: ['Chardonnay, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Squinzano DOC bianco spumante',
+
+    v: ['Chardonnay, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Squinzano DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Squinzano DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Squinzano DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Squinzano DOC Fiano spumante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Squinzano DOC Malvasia bianca',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Squinzano DOC Malvasia bianca spumante',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Squinzano DOC Negroamaro',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC Negroamaro riserva',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC Negroamaro rosato',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC Negroamaro rosato spumante',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC rosato',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC rosato spumante',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC rosso',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC rosso novello',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC rosso riserva',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Squinzano DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Squinzano DOC Sauvignon spumante',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Squinzano DOC Susumaniello',
+
+    v: ['Susumaniello'],
+  },
+  {
+    d: 'Strevi DOC',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Suvereto Cabernet Sauvignon DOCG',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Suvereto Cabernet Sauvignon riserva DOCG',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Suvereto DOCG',
+
+    v: ['Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Suvereto Merlot DOCG',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Suvereto Merlot riserva DOCG',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Suvereto riserva DOCG',
+
+    v: ['Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Suvereto Sangiovese DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Suvereto Sangiovese riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Tarquinia DOC bianco',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia del Lazio',
+    ],
+  },
+  {
+    d: 'Tarquinia DOC bianco amabile',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia del Lazio',
+    ],
+  },
+  {
+    d: 'Tarquinia DOC bianco frizzante',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia del Lazio',
+    ],
+  },
+  {
+    d: 'Tarquinia DOC rosato',
+
+    v: ['Sangiovese, Montepulciano, Cesanese comune'],
+  },
+  {
+    d: 'Tarquinia DOC rosso',
+
+    v: ['Sangiovese, Montepulciano, Cesanese comune'],
+  },
+  {
+    d: 'Tarquinia DOC rosso amabile',
+
+    v: ['Sangiovese, Montepulciano, Cesanese comune'],
+  },
+  {
+    d: 'Tarquinia DOC rosso novello',
+
+    v: ['Sangiovese, Montepulciano, Cesanese comune'],
+  },
+  {
+    d: 'Taurasi DOCG',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Taurasi riserva DOCG',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Tavoliere delle Puglie o Tavoliere DOC Nero di Troia',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Tavoliere delle Puglie o Tavoliere DOC Nero di Troia riserva',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Tavoliere delle Puglie o Tavoliere DOC rosato',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Tavoliere delle Puglie o Tavoliere DOC rosso',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Tavoliere delle Puglie o Tavoliere DOC rosso riserva',
+
+    v: ['Uva di Troia'],
+  },
+  {
+    d: 'Teroldego Rotaliano DOC rosato o kretzer',
+
+    v: ['Teroldego'],
+  },
+  {
+    d: 'Teroldego Rotaliano DOC rosso o rubino',
+
+    v: ['Teroldego'],
+  },
+  {
+    d: 'Teroldego Rotaliano DOC superiore e superiore riserva',
+
+    v: ['Teroldego'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Aleatico',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Terra d’Otranto DOC bianco',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terra d’Otranto DOC bianco spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Chardonnay frizzante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Fiano',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Fiano frizzante',
+
+    v: ['Fiano'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Malvasia bianca',
+
+    v: ['Malvasia bianca di Candia, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Malvasia bianca frizzante',
+
+    v: ['Malvasia bianca di Candia, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Malvasia nera',
+
+    v: [
+      'Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+    ],
+  },
+  {
+    d: 'Terra d’Otranto DOC Primitivo',
+
+    v: [
+      'Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+    ],
+  },
+  {
+    d: 'Terra d’Otranto DOC rosato',
+
+    v: [
+      'Negro Amaro, Primitivo, Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+    ],
+  },
+  {
+    d: 'Terra d’Otranto DOC rosato frizzante',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Terra d’Otranto DOC rosato spumante',
+
+    v: ['Negro Amaro'],
+  },
+  {
+    d: 'Terra d’Otranto DOC rosso',
+
+    v: [
+      'Negro Amaro, Primitivo, Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+    ],
+  },
+  {
+    d: 'Terra d’Otranto DOC rosso riserva',
+
+    v: [
+      'Negro Amaro, Primitivo, Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+    ],
+  },
+  {
+    d: 'Terra d’Otranto DOC Verdeca',
+
+    v: ['Verdeca'],
+  },
+  {
+    d: 'Terra d’Otranto DOC Verdeca frizzante',
+
+    v: ['Verdeca'],
+  },
+  {
+    d: 'Terracina o Moscato di Terracina DOC amabile',
+
+    v: ['Moscato di Terracina'],
+  },
+  {
+    d: 'Terracina o Moscato di Terracina DOC passito',
+
+    v: ['Moscato di Terracina'],
+  },
+  {
+    d: 'Terracina o Moscato di Terracina DOC secco',
+
+    v: ['Moscato di Terracina'],
+  },
+  {
+    d: 'Terracina o Moscato di Terracina DOC spumante',
+
+    v: ['Moscato di Terracina'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC bianco',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC rosato',
+
+    v: ['Sangiovese, Merlot'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC rosso',
+
+    v: ['Sangiovese, Merlot'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC rosso superiore',
+
+    v: ['Sangiovese, Merlot'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Terratico di Bibbona DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Terre Alfieri DOC Arneis menzione vigna',
+
+    v: ['Arneis'],
+  },
+  {
+    d: 'Terre Alfieri DOC Nebbiolo',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Terre Alfieri DOC Nebbiolo menzione vigna',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Terre Alfieri DOCG Arneis',
+
+    v: ['Arneis'],
+  },
+  {
+    d: 'Terre Alfieri DOCG Arneis superiore',
+
+    v: ['Arneis'],
+  },
+  {
+    d: 'Terre Alfieri DOCG Nebbiolo',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Terre Alfieri DOCG Nebbiolo riserva',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Terre Alfieri DOCG Nebbiolo superiore',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Cabernet DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Franconia DOC',
+
+    v: ['Franconia'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Incrocio Manzoni DOC',
+
+    v: ['Manzoni bianco'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Incrocio Terzi DOC',
+
+    v: ['Incrocio Terzi n.1'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Marzemino DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Moscato giallo DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Moscato giallo passito DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Novello DOC',
+
+    v: ['Cabernet Sauvignon, Franconia, Incrocio Terzi n.1'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Schiava DOC',
+
+    v: ['Schiava'],
+  },
+  {
+    d: 'Terre del Colleoni o Colleoni Spumante DOC',
+
+    v: ['Pinot grigio, Chardonnay, Manzoni bianco'],
+  },
+  {
+    d: 'Terre dell’Alta Val d’Agri DOC rosato',
+
+    v: ['Merlot, Malvasia nera di Basilicata'],
+  },
+  {
+    d: 'Terre dell’Alta Val d’Agri DOC rosso',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Terre dell’Alta Val d’Agri DOC rosso riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Terre di Casole DOC bianco',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terre di Casole DOC bianco riserva',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terre di Casole DOC passito',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terre di Casole DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Terre di Casole DOC rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Terre di Casole DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Terre di Casole DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Aglianico',
+
+    v: ['Aglianico'],
+  },
+  {
+    d: 'Terre di Cosenza DOC bianco',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC bianco passito',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC bianco spumante',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC bianco vendemmia tardiva',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Cabernet',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Calabrese',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Chardonnay passito',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Chardonnay spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati bianco',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati bianco passito',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati bianco vendemmia tardiva',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati Magliocco',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati Magliocco riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati rosato',
+
+    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati rosso',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati rosso passito',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati rosso riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Colline dei Crati rosso vendemmia tardiva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo bianco',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo bianco passito',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo bianco vendemmia tardiva',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo Greco nero',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo Greco nero riserva',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo rosato',
+
+    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo rosso',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo rosso novello',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo rosso passito',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo rosso riserva',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Condoleo rosso vendemmia tardiva',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici bianco',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici bianco passito',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici bianco vendemmia tardiva',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici Magliocco',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici Magliocco riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici rosato',
+
+    v: ['Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici rosso',
+
+    v: ['Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici rosso novello',
+
+    v: ['Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici rosso passito',
+
+    v: ['Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici rosso riserva',
+
+    v: ['Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Donnici rosso vendemmia tardiva',
+
+    v: ['Magliocco canino, Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro bianco',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro bianco passito',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro bianco vendemmia tardiva',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro Magliocco',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro Magliocco riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro rosato',
+
+    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro rosso',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro rosso passito',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro rosso riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Esaro rosso vendemmia tardiva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Gaglioppo',
+
+    v: ['Gaglioppo'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Greco bianco',
+
+    v: ['Greco Bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Greco bianco passito',
+
+    v: ['Greco Bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Greco bianco spumante',
+
+    v: ['Greco Bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Greco nero',
+
+    v: ['Greco Nero'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Guarnaccia bianca',
+
+    v: ['Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Guarnaccia bianca passito',
+
+    v: ['Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Guarnaccia bianca spumante',
+
+    v: ['Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Magliocco',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Magliocco passito',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Magliocco spumante rosè',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Malvasia bianca',
+
+    v: ['Malvasia bianca'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Malvasia bianca passito',
+
+    v: ['Malvasia bianca'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Malvasia bianca spumante',
+
+    v: ['Malvasia bianca'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Montonico bianco',
+
+    v: ['Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Montonico bianco passito',
+
+    v: ['Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Montonico bianco spumante',
+
+    v: ['Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pecorello',
+
+    v: ['Pecorello'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pecorello passito',
+
+    v: ['Pecorello'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pecorello spumante',
+
+    v: ['Pecorello'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino bianco',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino bianco passito',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino bianco vendemmia tardiva',
+
+    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino Magliocco',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino Magliocco riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino rosato',
+
+    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino rosso',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino rosso novello',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino rosso passito',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino rosso riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino rosso superiore',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino rosso superiore riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Pollino rosso vendemmia tardiva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC rosato',
+
+    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC rosato spumante',
+
+    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC rosso',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC rosso novello',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC rosso passito',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC rosso riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC rosso vendemmia tardiva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi bianco',
+
+    v: ['Malvasia bianca, Greco Bianco, Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi bianco passito',
+
+    v: ['Malvasia bianca, Greco Bianco, Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi bianco vendemmia tardiva',
+
+    v: ['Malvasia bianca, Greco Bianco, Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi Magliocco',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi Magliocco riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi rosato',
+
+    v: ['Gaglioppo, Magliocco canino, Malvasia bianca'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi rosso',
+
+    v: ['Gaglioppo, Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi rosso novello',
+
+    v: ['Gaglioppo, Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi rosso passito',
+
+    v: ['Gaglioppo, Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi rosso riserva',
+
+    v: ['Gaglioppo, Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC San Vito di Luzzi rosso vendemmia tardiva',
+
+    v: ['Gaglioppo, Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro bianco',
+
+    v: ['Greco Bianco, Malvasia bianca, Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro bianco passito',
+
+    v: ['Greco Bianco, Malvasia bianca, Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro bianco vendemmia tardiva',
+
+    v: ['Greco Bianco, Malvasia bianca, Guarnaccia'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro Magliocco',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro Magliocco riserva',
+
+    v: ['Magliocco canino'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro Moscato passito',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro rosato',
+
+    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro rosso',
+
+    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro rosso novello',
+
+    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro rosso passito',
+
+    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro rosso riserva',
+
+    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+  },
+  {
+    d: 'Terre di Cosenza DOC Verbicaro rosso vendemmia tardiva',
+
+    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+  },
+  {
+    d: 'Terre di Offida DOC passito',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Terre di Offida DOC spumante',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Terre di Offida DOC Vino santo',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Terre di Pisa DOC rosso',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot, Syrah'],
+  },
+  {
+    d: 'Terre di Pisa DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC bianco',
+
+    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC bianco superiore',
+
+    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC Falanghina',
+
+    v: ['Falanghina'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC novello',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC Passerina',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC passito bianco',
+
+    v: ['Malvasia bianca lunga, Moscato bianco'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC passito rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC Pecorino',
+
+    v: ['Pecorino'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC rosso riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOC spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOCG Passerina',
+
+    v: ['Passerina'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOCG Pecorino',
+
+    v: ['Pecorino'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOCG rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOCG rosso riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Terre Tollesi o Tullum DOCG spumante',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Tintilia del Molise DOC rosato',
+
+    v: ['Tintilia'],
+  },
+  {
+    d: 'Tintilia del Molise DOC rosso',
+
+    v: ['Tintilia'],
+  },
+  {
+    d: 'Tintilia del Molise DOC rosso riserva',
+
+    v: ['Tintilia'],
+  },
+  {
+    d: 'Todi DOC bianco',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Todi DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Todi DOC Grechetto passito',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Todi DOC Grechetto superiore',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Todi DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Todi DOC Merlot superiore',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Todi DOC rosso',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Todi DOC rosso superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Todi DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Todi DOC Sangiovese superiore',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Torgiano rosso riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Torgiano spumante DOC',
+
+    v: ['Chardonnay, Pinot nero'],
+  },
+  {
+    d: 'Torgiano vendemmia tardiva DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Torgiano Vin Santo DOC',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Trebbiano d’Abruzzo DOC',
+
+    v: ['Trebbiano Abruzzese, Trebbiano Toscano, Bombino bianco'],
+  },
+  {
+    d: 'Trebbiano d’Abruzzo riserva DOC',
+
+    v: ['Trebbiano Abruzzese, Trebbiano Toscano, Bombino bianco'],
+  },
+  {
+    d: 'Trebbiano d’Abruzzo superiore DOC',
+
+    v: ['Trebbiano Abruzzese, Trebbiano Toscano, Bombino bianco'],
+  },
+  {
+    d: 'Trentino bianco da due varietà di vite DOC',
+
+    v: [],
+  },
+  {
+    d: 'Trentino bianco DOC',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Trentino bianco riserva DOC',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Trentino bianco superiore DOC',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Trentino bianco vendemmia tardiva DOC',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Trentino Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Trentino Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Trentino Cabernet franc riserva DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Trentino Cabernet franc superiore DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Trentino Cabernet riserva DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Trentino Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Trentino Cabernet sauvignon riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Trentino Cabernet sauvignon superiore DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Trentino Cabernet superiore DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Trentino Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Trentino Chardonnay riserva DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Trentino Chardonnay superiore DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Trentino Chardonnay Vendemmia tardiva DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Trentino kretzer o rosato DOC',
+
+    v: ['Schiava, Teroldego, Lagrein'],
+  },
+  {
+    d: 'Trentino Lagrein DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Trentino Lagrein riserva DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Trentino Lagrein riserva rosato o kretzer DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Trentino Lagrein riserva rubino o dunkel DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Trentino Lagrein rosato o kretzer DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Trentino Lagrein rubino o dunkel DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Trentino Lagrein superiore DOC',
+
+    v: ['Lagrein'],
+  },
+  {
+    d: 'Trentino Marzemino DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Trentino Marzemino riserva DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Trentino Marzemino superiore DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Trentino Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Trentino Merlot riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Trentino Merlot superiore DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Trentino Moscato giallo DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Trentino Moscato giallo liquoroso DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Trentino Moscato giallo superiore DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Trentino Moscato giallo Vendemmia tardiva DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Trentino Moscato rosa o delle rose DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Trentino Moscato rosa o delle rose liquoroso DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Trentino Moscato rosa o delle rose superiore DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Trentino Moscato rosa o delle rose Vendemmia tardiva DOC',
+
+    v: ['Moscato rosa'],
+  },
+  {
+    d: 'Trentino Müller Thurgau DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Trentino Müller Thurgau superiore DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Trentino Müller Thurgau Vendemmia tardiva DOC',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Trentino Nosiola DOC',
+
+    v: ['Nosiola'],
+  },
+  {
+    d: 'Trentino Nosiola superiore DOC',
+
+    v: ['Nosiola'],
+  },
+  {
+    d: 'Trentino Nosiola Vendemmia tardiva DOC',
+
+    v: ['Nosiola'],
+  },
+  {
+    d: 'Trentino Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Trentino Pinot bianco riserva DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Trentino Pinot bianco superiore DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Trentino Pinot bianco Vendemmia tardiva DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Trentino Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Trentino Pinot grigio riserva DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Trentino Pinot grigio superiore DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Trentino Pinot grigio Vendemmia tardiva DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Trentino Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Trentino Pinot nero riserva DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Trentino Pinot nero superiore DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Trentino Rebo DOC',
+
+    v: ['Rebo'],
+  },
+  {
+    d: 'Trentino Rebo superiore DOC',
+
+    v: ['Rebo'],
+  },
+  {
+    d: 'Trentino Riesling italico DOC',
+
+    v: ['Riesling Italico'],
+  },
+  {
+    d: 'Trentino Riesling renano DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Trentino Riesling renano riserva DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Trentino Riesling renano superiore DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Trentino Riesling renano Vendemmia tardiva DOC',
+
+    v: ['Riesling'],
+  },
+  {
+    d: 'Trentino rosso da due varietà di vite DOC',
+
+    v: [],
+  },
+  {
+    d: 'Trentino rosso DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere, Merlot'],
+  },
+  {
+    d: 'Trentino rosso riserva DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere, Merlot'],
+  },
+  {
+    d: 'Trentino rosso superiore DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere, Merlot'],
+  },
+  {
+    d: 'Trentino rosso Vendemmia tardiva DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere, Merlot'],
+  },
+  {
+    d: 'Trentino Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Trentino Sauvignon riserva DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Trentino Sauvignon superiore DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Trentino Sauvignon Vendemmia tardiva DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Trentino Sorni bianco DOC',
+
+    v: [
+      'Nosiola, Müller-Thurgau, Sylvaner verde, Pinot bianco, Pinot grigio, Chardonnay',
+    ],
+  },
+  {
+    d: 'Trentino Sorni rosso DOC',
+
+    v: ['Teroldego, Schiava, Lagrein'],
+  },
+  {
+    d: 'Trentino superiore bianco DOC Vendemmina tardiva',
+
+    v: ['Chardonnay, Pinot bianco'],
+  },
+  {
+    d: 'Trentino superiore Castel Beseno DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Trentino superiore Castel Beseno passito DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Trentino superiore Castel Beseno Vendemmia tardiva DOC',
+
+    v: ['Moscato giallo'],
+  },
+  {
+    d: 'Trentino superiore Marzemino d’Isera DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Trentino superiore Marzemino Ziresi DOC',
+
+    v: ['Marzemino'],
+  },
+  {
+    d: 'Trentino Traminer aromatico DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Trentino Traminer aromatico superiore DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Trentino Traminer aromatico Vendemmia tardiva DOC',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Trentino Vino santo DOC',
+
+    v: ['Nosiola'],
+  },
+  {
+    d: 'Trentino Vino santo superiore DOC',
+
+    v: ['Nosiola'],
+  },
+  {
+    d: 'Trento DOC (tipo bianco)',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero, Pinot Meunier'],
+  },
+  {
+    d: 'Trento DOC (tipo rosato o rosé)',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero, Pinot Meunier'],
+  },
+  {
+    d: 'Trento riserva DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero, Pinot Meunier'],
+  },
+  {
+    d: 'Val d’Arbia DOC bianco',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Val d’Arbia DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Val d’Arbia DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Val d’Arbia DOC Pinot bianco',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Val d’Arbia DOC rosato',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Val d’Arbia DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Val d’Arbia DOC Trebbiano',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Val d’Arbia DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Val d’Arbia DOC Vin Santo',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Val d’Arbia DOC Vin Santo riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC bianco',
+
+    v: ['Chardonnay, Malvasia bianca lunga, Trebbiano Toscano'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC bianco spumante di qualità',
+
+    v: ['Chardonnay, Malvasia bianca lunga, Trebbiano Toscano'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Cabernet franc',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Cabernet sauvignon riserva',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Merlot riserva',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Passito',
+
+    v: ['Malvasia bianca lunga, Chardonnay'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva bianco',
+
+    v: ['Sauvignon, Chardonnay'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva Canaiolo nero',
+
+    v: ['Canaiolo nero'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva Ciliegiolo',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva Malvasia bianca lunga',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva Malvasia nera',
+
+    v: ['Malvasia nera'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva Pugnitello',
+
+    v: ['Pugnitello'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva rosso',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva rosso riserva',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pietraviva vendemmia tardiva',
+
+    v: ['Malvasia bianca lunga, Chardonnay'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno bianco',
+
+    v: ['Sauvignon, Chardonnay'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno Canaiolo nero',
+
+    v: ['Canaiolo nero'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno Ciliegiolo',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno Malvasia bianca lunga',
+
+    v: ['Malvasia bianca lunga'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno Malvasia nera',
+
+    v: ['Malvasia nera'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno Pugnitello',
+
+    v: ['Pugnitello'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno rosso',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno rosso riserva',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Pratomagno vendemmia tardiva',
+
+    v: ['Malvasia bianca lunga, Chardonnay'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC rosato',
+
+    v: ['Merlot, Cabernet Sauvignon, Syrah'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC rosato spumante di qualità',
+
+    v: ['Merlot, Cabernet Sauvignon, Syrah'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC rosso',
+
+    v: ['Merlot, Cabernet Sauvignon, Syrah'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC rosso riserva',
+
+    v: ['Merlot, Cabernet Sauvignon, Syrah'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Sangiovese riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Sauvignon',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Val d’Arno di sopra DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Val di Cornia DOC Aleatico passito',
+
+    v: ['Aleatico'],
+  },
+  {
+    d: 'Val di Cornia DOC Ansonica',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Val di Cornia DOC Ansonica passito',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Val di Cornia DOC bianco',
+
+    v: [
+      'Vermentino, Trebbiano Toscano, Ansonica, Viognier, Malvasia bianca lunga',
+    ],
+  },
+  {
+    d: 'Val di Cornia DOC Cabernet sauvignon',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Val di Cornia DOC Ciliegiolo',
+
+    v: ['Ciliegiolo'],
+  },
+  {
+    d: 'Val di Cornia DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Val di Cornia DOC rosato',
+
+    v: ['Merlot, Cabernet Sauvignon'],
+  },
+  {
+    d: 'Val di Cornia DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Val di Cornia DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Val Polcevera DOC Bianchetta Genovese',
+
+    v: ['Bianchetta Genovese'],
+  },
+  {
+    d: 'Val Polcevera DOC Bianchetta Genovese frizzante',
+
+    v: ['Bianchetta Genovese'],
+  },
+  {
+    d: 'Val Polcevera DOC bianco',
+
+    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+  },
+  {
+    d: 'Val Polcevera DOC bianco frizzante',
+
+    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+  },
+  {
+    d: 'Val Polcevera DOC Coronata',
+
+    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+  },
+  {
+    d: 'Val Polcevera DOC passito',
+
+    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+  },
+  {
+    d: 'Val Polcevera DOC rosato',
+
+    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Val Polcevera DOC rosato frizzante',
+
+    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Val Polcevera DOC rosso',
+
+    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Val Polcevera DOC rosso frizzante',
+
+    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Val Polcevera DOC rosso novello',
+
+    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Val Polcevera DOC spumante di qualità',
+
+    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+  },
+  {
+    d: 'Val Polcevera DOC Vermentino',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Val Polcevera DOC Vermentino frizzante',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Valcalepio bianco DOC',
+
+    v: ['Pinot bianco, Chardonnay, Pinot grigio'],
+  },
+  {
+    d: 'Valcalepio Moscato passito DOC',
+
+    v: ['Moscato di Scanzo, Moscato bianco'],
+  },
+  {
+    d: 'Valcalepio rosso DOC',
+
+    v: ['Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Valcalepio rosso riserva DOC',
+
+    v: ['Cabernet Sauvignon, Merlot'],
+  },
+  {
+    d: 'Valdadige bianco DOC',
+
+    v: [
+      'Pinot bianco, Pinot grigio, Riesling Italico, Müller-Thurgau, Chardonnay',
+    ],
+  },
+  {
+    d: 'Valdadige Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Valdadige Chardonnay frizzante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Valdadige Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Valdadige Pinot bianco frizzante DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Valdadige Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Valdadige rosato DOC',
+
+    v: ['Lagrein, Teroldego'],
+  },
+  {
+    d: 'Valdadige rosso DOC',
+
+    v: ['Lagrein, Teroldego'],
+  },
+  {
+    d: 'Valdadige Schiava DOC',
+
+    v: [],
+  },
+  {
+    d: 'Valdadige Terra dei Forti Casetta DOC',
+
+    v: ['Casetta'],
+  },
+  {
+    d: 'Valdadige Terra dei Forti Casetta riserva DOC',
+
+    v: ['Casetta'],
+  },
+  {
+    d: 'Valdadige Terra dei Forti Enantio DOC',
+
+    v: [],
+  },
+  {
+    d: 'Valdadige Terra dei Forti Enantio riserva DOC',
+
+    v: [],
+  },
+  {
+    d: 'Valdadige Terra dei Forti Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Valdadige Terra dei Forti Pinot grigio superiore DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC bianco',
+
+    v: ['Trebbiano Toscano, Chardonnay, Pinot bianco, Grechetto, Pinot grigio'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC bianco vergine',
+
+    v: ['Trebbiano Toscano, Chardonnay, Pinot bianco, Grechetto, Pinot grigio'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC frizzante',
+
+    v: ['Trebbiano Toscano, Chardonnay, Pinot bianco, Grechetto, Pinot grigio'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC Grechetto',
+
+    v: ['Grechetto'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC rosato',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Cabernet Franc, Merlot, Syrah'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC rosso',
+
+    v: ['Sangiovese, Cabernet Sauvignon, Cabernet Franc, Merlot, Syrah'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC spumante',
+
+    v: ['Trebbiano Toscano, Chardonnay, Pinot bianco, Grechetto, Pinot grigio'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC Vin Santo',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Valdichiana Toscana DOC Vin Santo riserva',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Valdinievole DOC bianco',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Valdinievole DOC bianco superiore',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Valdinievole DOC rosso',
+
+    v: ['Sangiovese, Canaiolo nero'],
+  },
+  {
+    d: 'Valdinievole DOC rosso superiore',
+
+    v: ['Sangiovese, Canaiolo nero'],
+  },
+  {
+    d: 'Valdinievole DOC Sangiovese',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Valdinievole DOC Vin Santo',
+
+    v: ['Trebbiano Toscano'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Arnad-Montjovet',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC bianco o blanc',
+
+    v: [],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Blanc de Morgex et de La Salle',
+
+    v: ['Prié blanc'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Blanc de Morgex et de La Salle spumante o mousseux',
+
+    v: ['Prié blanc'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Blanc de Morgex et de La Salle vendemmia tardiva o vendange tardive',
+
+    v: ['Prié blanc'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Chambave',
+
+    v: ['Petit Rouge'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Chambave Moscato o Muscat',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Chambave Moscato passito o Muscat flétri',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Chardonnay',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Chardonnay vendemmia tardiva o vendange tardive',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Cornalin',
+
+    v: [],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Donnas',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Enfer d’Arvier',
+
+    v: ['Petit Rouge'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Fumin',
+
+    v: ['Fumin'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Gamaret',
+
+    v: ['Gamaret'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Gamay',
+
+    v: ['Gamay'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Mayolet',
+
+    v: ['Mayolet'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Merlot',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Moscato bianco o Muscat petit grain',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Moscato bianco o Muscat petit grain vendemmia tardiva o vendange tardive',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Moscato bianco passito o Muscat petit grain flétri',
+
+    v: ['Moscato bianco'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Müller-Thurgau',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Müller-Thurgau vendemmia tardiva o vendange tardive',
+
+    v: ['Müller-Thurgau'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Nebbiolo',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Novello o Nouveau',
+
+    v: [],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Nus',
+
+    v: ['Vien de Nus, Petit Rouge'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Nus Malvoisie',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Nus Malvoisie passito o flétri',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Passito o Flétri',
+
+    v: [],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Petit rouge',
+
+    v: ['Petit Rouge'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Petite Arvine',
+
+    v: ['Petite Arvine'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Petite Arvine vendemmia tardiva o vendange tardive',
+
+    v: ['Petite Arvine'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Pinot bianco o Pinot blanc',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Pinot bianco o Pinot blanc vendemmia tardiva o vendange tardive',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Pinot grigio o Pinot gris',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Pinot grigio o Pinot gris vendemmia tardiva o vendange tardive',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Pinot nero o Pinot noir (vinificazione in rosso)',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Pinot noir (vinificazione in bianco)',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Prëmetta',
+
+    v: ['Prié blanc'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC rosato o rosé',
+
+    v: [],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC rosso o rouge',
+
+    v: [],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Syrah',
+
+    v: ['Syrah'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Torrette',
+
+    v: ['Petit Rouge'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Traminer aromatico o Gewürztraminer',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Traminer aromatico o Gewürztraminer vendemmia tardiva o vendange tardive',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Traminer aromatico passito o Gewüztraminer flétri',
+
+    v: ['Gewürztraminer'],
+  },
+  {
+    d: 'Valle d’Aosta o Vallée d’Aoste DOC Vuillermin',
+
+    v: ['Vuillermin'],
+  },
+  {
+    d: 'Valli Ossolane DOC bianco',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Valli Ossolane DOC Nebbiolo',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valli Ossolane DOC Nebbiolo superiore',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valli Ossolane DOC rosso',
+
+    v: ['Nebbiolo, Croatina, Merlot'],
+  },
+  {
+    d: 'Valpolicella DOC',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella DOC Classico',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella DOC Classico superiore',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella DOC superiore',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella DOC Valpantena',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella DOC Valpantena superiore',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella Ripasso DOC',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella Ripasso DOC Classico',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella Ripasso DOC Classico superiore',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella Ripasso DOC superiore',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella Ripasso DOC Valpantena',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valpolicella Ripasso DOC Valpantena superiore',
+
+    v: ['Corvina, Corvinone, Rondinella'],
+  },
+  {
+    d: 'Valsusa DOC',
+
+    v: ['Avanà, Barbera, Dolcetto, Neretta Cuneese'],
+  },
+  {
+    d: 'Valtellina rosso DOC',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valtellina superiore DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valtellina superiore Grumello DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valtellina superiore Inferno DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valtellina superiore Maroggia DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valtellina superiore riserva DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valtellina superiore Sassella DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valtellina superiore Valgella DOCG',
+
+    v: ['Nebbiolo'],
+  },
+  {
+    d: 'Valtenesi Chiaretto DOC',
+
+    v: [],
+  },
+  {
+    d: 'Valtenesi DOC',
+
+    v: [],
+  },
+  {
+    d: 'Velletri DOC bianco',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+    ],
+  },
+  {
+    d: 'Velletri DOC riserva',
+
+    v: ['Sangiovese, Montepulciano, Cesanese comune, Cesanese di Affile'],
+  },
+  {
+    d: 'Velletri DOC rosso',
+
+    v: ['Sangiovese, Montepulciano, Cesanese comune, Cesanese di Affile'],
+  },
+  {
+    d: 'Velletri DOC spumante',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+    ],
+  },
+  {
+    d: 'Velletri DOC superiore',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+    ],
+  },
+  {
+    d: 'Venezia Bianco frizzante DOC',
+
+    v: ['Verduzzo Friulano, Verduzzo Trevigiano, Glera'],
+  },
+  {
+    d: 'Venezia Bianco spumante DOC',
+
+    v: ['Verduzzo Friulano, Verduzzo Trevigiano, Glera'],
+  },
+  {
+    d: 'Venezia Cabernet franc DOC',
+
+    v: ['Cabernet Franc'],
+  },
+  {
+    d: 'Venezia Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Venezia Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Venezia Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Venezia Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Venezia Rosato o Rosè DOC',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Venezia Rosato o rosè frizzante DOC',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Venezia Rosato o rosè spumante DOC',
+
+    v: ['Raboso Piave, Raboso Veronese'],
+  },
+  {
+    d: 'Venezia Rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Verdicchio dei Castelli di Jesi DOC',
+
+    v: [],
+  },
+  {
+    d: 'Verdicchio dei Castelli di Jesi DOC Classico',
+
+    v: [],
+  },
+  {
+    d: 'Verdicchio dei Castelli di Jesi DOC Classico superiore',
+
+    v: [],
+  },
+  {
+    d: 'Verdicchio dei Castelli di Jesi DOC passito',
+
+    v: [],
+  },
+  {
+    d: 'Verdicchio dei Castelli di Jesi DOC spumante',
+
+    v: [],
+  },
+  {
+    d: 'Verdicchio di Matelica DOC',
+
+    v: [],
+  },
+  {
+    d: 'Verdicchio di Matelica DOC passito',
+
+    v: ['Verdicchio'],
+  },
+  {
+    d: 'Verdicchio di Matelica DOC spumante',
+
+    v: ['Verdicchio'],
+  },
+  {
+    d: 'Verdicchio di Matelica riserva DOCG',
+
+    v: ['Verdicchio'],
+  },
+  {
+    d: 'Verduno Pelaverga o Verduno DOC',
+
+    v: ['Pelaverga piccolo'],
+  },
+  {
+    d: 'Vermentino di Gallura DOCG',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vermentino di Gallura frizzante DOCG',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vermentino di Gallura passito DOCG',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vermentino di Gallura spumante DOCG',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vermentino di Gallura superiore DOCG',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vermentino di Gallura vendemmia tardiva DOCG',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vermentino di Sardegna DOC',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vermentino di Sardegna DOC frizzante',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vermentino di Sardegna DOC spumante',
+
+    v: ['Vermentino'],
+  },
+  {
+    d: 'Vernaccia di Oristano DOC',
+
+    v: ['Vernaccia di Oristano'],
+  },
+  {
+    d: 'Vernaccia di Oristano DOC liquoroso',
+
+    v: ['Vernaccia di Oristano'],
+  },
+  {
+    d: 'Vernaccia di Oristano DOC riserva',
+
+    v: ['Vernaccia di Oristano'],
+  },
+  {
+    d: 'Vernaccia di Oristano DOC superiore',
+
+    v: ['Vernaccia di Oristano'],
+  },
+  {
+    d: 'Vernaccia di San Gimignano DOCG',
+
+    v: ['Vernaccia di San Gimignano'],
+  },
+  {
+    d: 'Vernaccia di San Gimignano riserva DOCG',
+
+    v: ['Vernaccia di San Gimignano'],
+  },
+  {
+    d: 'Vernaccia di Serrapetrona DOCG',
+
+    v: ['Vernaccia nera'],
+  },
+  {
+    d: 'Vesuvio DOC bianco',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Vesuvio DOC Lacryma Christi bianco',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Vesuvio DOC Lacryma Christi bianco liquoroso',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Vesuvio DOC Lacryma Christi bianco spumante',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Vesuvio DOC Lacryma Christi rosato',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Vesuvio DOC Lacryma Christi rosso',
+
+    v: ['Coda di Volpe'],
+  },
+  {
+    d: 'Vesuvio DOC rosato',
+
+    v: ['Piedirosso, Sciascinoso'],
+  },
+  {
+    d: 'Vesuvio DOC rosso',
+
+    v: ['Piedirosso, Sciascinoso'],
+  },
+  {
+    d: 'Vicenza Bianco DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Vicenza Bianco frizzante DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Vicenza Bianco spumante DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Vicenza Cabernet DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Vicenza Cabernet riserva DOC',
+
+    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+  },
+  {
+    d: 'Vicenza Cabernet sauvignon DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Vicenza Cabernet sauvignon riserva DOC',
+
+    v: ['Cabernet Sauvignon'],
+  },
+  {
+    d: 'Vicenza Chardonnay DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Vicenza Chardonnay Spumante DOC',
+
+    v: ['Chardonnay'],
+  },
+  {
+    d: 'Vicenza Garganego DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Vicenza Garganego spumante DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Vicenza Manzoni bianco DOC',
+
+    v: ['Manzoni bianco'],
+  },
+  {
+    d: 'Vicenza Merlot DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Vicenza Merlot riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Vicenza Moscato DOC',
+
+    v: ['Moscato bianco, Moscato giallo'],
+  },
+  {
+    d: 'Vicenza Moscato spumante DOC',
+
+    v: ['Moscato bianco, Moscato giallo'],
+  },
+  {
+    d: 'Vicenza Novello DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Vicenza Passito DOC',
+
+    v: ['Garganega'],
+  },
+  {
+    d: 'Vicenza Pinot bianco DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Vicenza Pinot bianco spumante DOC',
+
+    v: ['Pinot bianco'],
+  },
+  {
+    d: 'Vicenza Pinot grigio DOC',
+
+    v: ['Pinot grigio'],
+  },
+  {
+    d: 'Vicenza Pinot nero DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Vicenza Pinot nero riserva DOC',
+
+    v: ['Pinot nero'],
+  },
+  {
+    d: 'Vicenza Raboso DOC',
+
+    v: ['Raboso Veronese'],
+  },
+  {
+    d: 'Vicenza Raboso riserva DOC',
+
+    v: ['Raboso Veronese'],
+  },
+  {
+    d: 'Vicenza Riesling DOC',
+
+    v: ['Riesling, Riesling Italico'],
+  },
+  {
+    d: 'Vicenza Rosato DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Vicenza Rosato frizzante DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Vicenza Rosso DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Vicenza Rosso riserva DOC',
+
+    v: ['Merlot'],
+  },
+  {
+    d: 'Vicenza Sauvignon DOC',
+
+    v: ['Sauvignon'],
+  },
+  {
+    d: 'Viganello DOC bianco',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia bianca lunga',
+    ],
+  },
+  {
+    d: 'Viganello DOC bianco superiore',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia bianca lunga',
+    ],
+  },
+  {
+    d: 'Viganello DOC bianco vendemmia tardiva',
+
+    v: [
+      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia bianca lunga',
+    ],
+  },
+  {
+    d: 'Viganello DOC Greco',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Viganello DOC Greco spumante',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Viganello DOC Greco vendemmia tardiva',
+
+    v: ['Greco'],
+  },
+  {
+    d: 'Viganello DOC rosso',
+
+    v: ['Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Viganello DOC rosso novello',
+
+    v: ['Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Viganello DOC rosso riserva',
+
+    v: ['Sangiovese, Ciliegiolo'],
+  },
+  {
+    d: 'Vigneti della Serenissima o Serenissima DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Vigneti della Serenissima o Serenissima Millesimato DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Vigneti della Serenissima o Serenissima Riserva DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Vigneti della Serenissima o Serenissima rosè DOC',
+
+    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+  },
+  {
+    d: 'Villamagna DOC rosso',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Villamagna DOC rosso riserva',
+
+    v: ['Montepulciano'],
+  },
+  {
+    d: 'Vin Santo del Chianti classico DOC',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti classico DOC Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Colli Aretini',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Colli Aretini riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Colli Fiorentini',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Colli Fiorentini riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Colli Senesi',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Colli Senesi riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Colline Pisane',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Colline Pisane riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Montalbano',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Montalbano riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Montespertoli',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Montespertoli riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Colli Aretini',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Colli Aretini riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Colli Fiorentini',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Colli Fiorentini riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Colli Senesi',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Colli Senesi riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Colline Pisane',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Colline Pisane riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Montalbano',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Montalbano riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Montespertoli',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Montespertoli riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Rufina',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Occhio di Pernice Rufina riserva',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Rufina',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti DOC Rufina riserva',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo del Chianti riserva DOC',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo di Carmignano DOC',
+
+    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+  },
+  {
+    d: 'Vin Santo di Carmignano DOC Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo di Montepulciano DOC',
+
+    v: ['Malvasia bianca lunga, Grechetto, Trebbiano Toscano'],
+  },
+  {
+    d: 'Vin Santo di Montepulciano DOC Occhio di Pernice',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vin Santo di Montepulciano DOC riserva',
+
+    v: ['Malvasia bianca lunga, Grechetto, Trebbiano Toscano'],
+  },
+  {
+    d: 'Vino nobile di Montepulciano DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vino nobile di Montepulciano riserva DOCG',
+
+    v: ['Sangiovese'],
+  },
+  {
+    d: 'Vittoria DOC Ansonica o Inzolia o Insolia',
+
+    v: ['Ansonica'],
+  },
+  {
+    d: 'Vittoria DOC Calabrese o Nero d’Avola',
+
+    v: ['Calabrese'],
+  },
+  {
+    d: 'Vittoria DOC Frappato',
+
+    v: ['Frappato'],
+  },
+  {
+    d: 'Vittoria DOC Novello',
+
+    v: ['Calabrese, Frappato'],
+  },
+  {
+    d: 'Vittoria DOC rosso',
+
+    v: ['Calabrese, Frappato'],
+  },
+  {
+    d: 'Zagarolo DOC',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+    ],
+  },
+  {
+    d: 'Zagarolo DOC superiore',
+
+    v: [
+      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+    ],
+  },
 ];
