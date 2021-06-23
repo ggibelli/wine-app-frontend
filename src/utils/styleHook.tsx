@@ -49,7 +49,7 @@ export const useStyles = makeStyles(
         },
       },
     }),
-  { index: 1 }
+  { index: 1 },
 );
 
 export const useStylesForms = makeStyles(
@@ -143,7 +143,7 @@ export const useStylesForms = makeStyles(
       error: {},
     },
   }),
-  { index: 1 }
+  { index: 1 },
 );
 
 export const useStyleRating = makeStyles(
@@ -164,7 +164,7 @@ export const useStyleRating = makeStyles(
       paddingBottom: 10,
     },
   }),
-  { index: 1 }
+  { index: 1 },
 );
 
 export const StyledRating = withStyles({

@@ -13,6 +13,7 @@ import {
   CreateNegotiationMutation,
   CreateReviewMutation,
   DeleteNegotiationMutation,
+  FavoriteDocument,
   MeDocument,
   Message,
   MessagesDocument,
@@ -322,6 +323,13 @@ export const updateCacheSaveAd = (
   const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     cache.readQuery({
       query: MeDocument,
+      variables: {}
+    })
+  );
+  const cachedFavoriteLocal: ICachedMe | null = cloneDeep(
+    cache.readQuery({
+      query: FavoriteDocument,
+      variables: {}
     })
   );
   const adCache: { savedTimes: number } | null = cloneDeep(
@@ -335,11 +343,11 @@ export const updateCacheSaveAd = (
       `,
     })
   );
-  if (!cachedDataMeLocal || !adCache) {
+  if ((!cachedDataMeLocal && !cachedFavoriteLocal) || !adCache) {
     return;
   }
-  // let times: number;
-  if (
+  if (cachedDataMeLocal) {
+    if (
     cachedDataMeLocal?.me.savedAds
       ?.map((ad) => ad._id)
       .includes(ad?._id as string)
@@ -353,6 +361,30 @@ export const updateCacheSaveAd = (
     cachedDataMeLocal?.me.savedAds.push(ad as AdWine);
     adCache.savedTimes += 1;
   }
+  
+  cache.writeQuery({ query: MeDocument, data: cachedDataMeLocal });
+  myInfo({ ...cachedDataMeLocal?.me });
+  } else if (cachedFavoriteLocal) {
+    if (
+    cachedFavoriteLocal?.me.savedAds
+      ?.map((ad) => ad._id)
+      .includes(ad?._id as string)
+  ) {
+    const indexAd = cachedFavoriteLocal?.me.savedAds.findIndex(
+      (adSaved) => adSaved._id === ad?._id
+    );
+    cachedFavoriteLocal?.me.savedAds.splice(indexAd, 1);
+    adCache.savedTimes -= 1;
+  } else if (cachedFavoriteLocal?.me.savedAds) {
+    cachedFavoriteLocal?.me.savedAds.push(ad as AdWine);
+    adCache.savedTimes += 1;
+  }
+  
+  cache.writeQuery({ query: FavoriteDocument, data: cachedFavoriteLocal });
+  myInfo({ ...cachedFavoriteLocal?.me });
+  }
+  // let times: number;
+  
   cache.writeFragment({
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     id: `AdWine:${ad?._id}`,
@@ -363,8 +395,6 @@ export const updateCacheSaveAd = (
     `,
     data: adCache,
   });
-  cache.writeQuery({ query: MeDocument, data: cachedDataMeLocal });
-  myInfo({ ...cachedDataMeLocal?.me });
 };
 
 export const updateRemovedNeg = (

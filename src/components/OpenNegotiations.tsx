@@ -72,6 +72,7 @@ export const OpenNegotiations: React.FC<{
                     className={classes.buyButton}
                     component={Link}
                     to={`/messaggi/${negotiation._id}`}
+                    fullWidth
                   >
                     Vai alla chat
                   </Button>

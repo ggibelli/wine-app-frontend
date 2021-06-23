@@ -1,8 +1,15 @@
 import { FavoriteButton } from '../FavoriteButton';
 import * as React from 'react';
 import { renderApolloNoRouter, cleanup } from '../../test-utils/test-utils';
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { act, waitFor } from '@testing-library/react';
 import { SaveAdDocument } from '../../generated/graphql';
+import { useLocation } from '@reach/router';
+
+jest.mock('@reach/router', () => ({
+  __esModule: true, // this property makes it work
+  ...jest.requireActual<any>('@reach/router'),
+  useLocation: jest.fn(),
+}));
 
 const savedAdSuccess = {
   request: {
@@ -29,13 +36,19 @@ describe('FavoriteButton Component', () => {
   afterEach(cleanup);
 
   it('renders the FavoriteButton component', async () => {
-    await waitFor(() =>
+    useLocation.mockImplementation(() => ({ pathname: '/test' }));
+
+    // renderApolloNoRouter(<FavoriteButton id='123' timesFavorite={0} />, {
+    //   mocks: [],
+    //   addTypename: false,
+    // });
+    await waitFor(() => {
       act(() => {
-        renderApolloNoRouter(<FavoriteButton id='123' />, {
+        renderApolloNoRouter(<FavoriteButton id='123' timesFavorite={0} />, {
           mocks: [],
           addTypename: false,
         });
-      })
-    );
+      });
+    });
   });
 });

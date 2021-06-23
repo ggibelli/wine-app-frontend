@@ -36,7 +36,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
     DeepExtractType<AdsWineQuery, ['ads']>['ads']
   >([]);
   const [order, setOrder] = React.useState<QueryOrderBy>(
-    QueryOrderBy.CreatedAtDesc
+    QueryOrderBy.CreatedAtDesc,
   );
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
@@ -72,26 +72,15 @@ const Ads: React.FC<RouteComponentProps> = () => {
     }
   }, [order]);
 
-  const onClick = async () => {
-    if (searchedWineCache === undefined) {
-      return;
-    } else {
-      searchedWine({
-        ...searchedWineCache,
-      });
-      const url = searchedWineCache.typeAd === TypeAd.Buy ? '/buy' : '/sell';
-      await navigate(url);
-    }
-  };
-
   const defaultText =
     "Questi sono gli annunci che abbiamo trovato per te: sono stati pubblicati da utenti interessati all'acquisto.";
   const noAdsText =
     'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli';
 
   const NoResults = () => (
-    <div data-testid='no-result' onClick={onClick}>
-      Non abbiamo trovato nulla, vuoi creare un annuncio?
+    <div data-testid='no-result'>
+      Non abbiamo trovato nulla, riceverai una notifica appena troveremo un
+      match
     </div>
   );
   if (data?.ads && data?.ads?.pageCount === 0) {

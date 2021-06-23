@@ -17,7 +17,7 @@ export const StyledBox: React.FC<BoxProps> = (props) => {
     <Box
       boxShadow={3}
       p={2}
-      m={2}
+      m={0}
       mt={2}
       px={2}
       pt={2}

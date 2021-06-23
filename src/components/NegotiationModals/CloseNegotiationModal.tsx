@@ -13,6 +13,8 @@ export const CloseNegotiationModal: React.FC<{
   isMessage?: boolean;
 }> = ({ id, isBuy, isMessage }) => {
   const classes = useStyles();
+  // const randomN = Math.floor(Math.random() * 10);
+  // console.log(isBuy, randomN, isMessage);
   const [open, setOpen] = React.useState<boolean>(false);
   const handleModal = () => {
     setOpen(true);
@@ -20,7 +22,7 @@ export const CloseNegotiationModal: React.FC<{
   const handleClose = () => {
     setOpen(false);
   };
-  isBuy = !!isMessage;
+  isBuy = isMessage ? !!isMessage : isBuy; 
   return (
     <>
       <Button

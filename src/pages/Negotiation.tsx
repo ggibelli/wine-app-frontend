@@ -68,6 +68,7 @@ const Negotiation: React.FC<RouteComponentProps> = () => {
         className={classes.sellButton}
         component={Link}
         to={`/messaggi/${data?.negotiation?._id}`}
+        fullWidth
       >
         Vai alla chat
       </Button>

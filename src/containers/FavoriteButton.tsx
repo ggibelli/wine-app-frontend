@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useSaveAdMutation, useMyInfoQuery } from '../generated/graphql';
 import { updateCacheSaveAd } from '../utils/updateCache';
+import { useLocation } from '@reach/router';
 
 type FontSize = 'small' | 'inherit' | 'default' | 'large';
 
@@ -12,6 +13,7 @@ export const FavoriteButton: React.FC<{
   timesFavorite: number;
   fontSize?: FontSize;
 }> = ({ id, fontSize = 'default', timesFavorite }) => {
+  const { pathname } = useLocation();
   const { data } = useMyInfoQuery();
   const [saveAd] = useSaveAdMutation({
     variables: { id },
@@ -20,7 +22,13 @@ export const FavoriteButton: React.FC<{
     },
     onError: (error) => console.error(error),
     update: (cache, { data }) => {
+      if (pathname === '/salvati') {
+        setTimeout(() => updateCacheSaveAd(cache, data?.saveAd?.response), 500);
+
+      } else {
       updateCacheSaveAd(cache, data?.saveAd?.response);
+
+      }
     },
   });
   const [stop, setStop] = React.useState<boolean>(false);
