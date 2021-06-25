@@ -18,17 +18,57 @@ export type Scalars = {
   Date: any;
 };
 
-export type Address = {
-  __typename?: 'Address';
-  via?: Maybe<Scalars['String']>;
-  CAP?: Maybe<Scalars['String']>;
-  comune: Scalars['String'];
+export type Ad = {
+  _id: Scalars['ID'];
+  postedBy: User;
+  harvest: Scalars['Int'];
+  abv: Scalars['Float'];
+  priceFrom: Scalars['Float'];
+  priceTo: Scalars['Float'];
+  content?: Maybe<Scalars['String']>;
+  negotiations?: Maybe<Array<Negotiation>>;
+  activeNegotiations?: Maybe<Scalars['Int']>;
+  savedTimes?: Maybe<Scalars['Int']>;
+  /** viewedBy: [User] */
+  numberViews?: Maybe<Scalars['Int']>;
+  typeAd: TypeAd;
+  typeProduct: TypeProduct;
+  isActive: Scalars['Boolean'];
+  datePosted?: Maybe<Scalars['String']>;
+  needsFollowUp?: Maybe<Scalars['Boolean']>;
 };
 
-export type AddressInput = {
-  via?: Maybe<Scalars['String']>;
-  CAP?: Maybe<Scalars['String']>;
-  comune: Scalars['String'];
+export type AdDatePostedArgs = {
+  format?: Maybe<Scalars['String']>;
+};
+
+export type AdGrape = Ad & {
+  __typename?: 'AdGrape';
+  _id: Scalars['ID'];
+  postedBy: User;
+  vineyardName: Scalars['String'];
+  vineyard?: Maybe<Vineyard>;
+  harvest: Scalars['Int'];
+  abv: Scalars['Float'];
+  priceFrom: Scalars['Float'];
+  priceTo: Scalars['Float'];
+  kgFrom: Scalars['Int'];
+  kgTo: Scalars['Int'];
+  content?: Maybe<Scalars['String']>;
+  negotiations?: Maybe<Array<Negotiation>>;
+  activeNegotiations?: Maybe<Scalars['Int']>;
+  savedTimes?: Maybe<Scalars['Int']>;
+  /** viewedBy: [User] */
+  numberViews?: Maybe<Scalars['Int']>;
+  typeAd: TypeAd;
+  typeProduct: TypeProduct;
+  isActive: Scalars['Boolean'];
+  datePosted?: Maybe<Scalars['String']>;
+  needsFollowUp?: Maybe<Scalars['Boolean']>;
+};
+
+export type AdGrapeDatePostedArgs = {
+  format?: Maybe<Scalars['String']>;
 };
 
 export type AdInput = {
@@ -74,28 +114,10 @@ export type AdInputUpdate = {
   needsFollowUp?: Maybe<Scalars['Boolean']>;
 };
 
-export type Ad = {
-  _id: Scalars['ID'];
-  postedBy: User;
-  harvest: Scalars['Int'];
-  abv: Scalars['Float'];
-  priceFrom: Scalars['Float'];
-  priceTo: Scalars['Float'];
-  content?: Maybe<Scalars['String']>;
-  negotiations?: Maybe<Array<Negotiation>>;
-  activeNegotiations?: Maybe<Scalars['Int']>;
-  savedTimes?: Maybe<Scalars['Int']>;
-  /** viewedBy: [User] */
-  numberViews?: Maybe<Scalars['Int']>;
-  typeAd: TypeAd;
-  typeProduct: TypeProduct;
-  isActive: Scalars['Boolean'];
-  datePosted?: Maybe<Scalars['String']>;
-  needsFollowUp?: Maybe<Scalars['Boolean']>;
-};
-
-export type AdDatePostedArgs = {
-  format?: Maybe<Scalars['String']>;
+export type AdPayload = {
+  __typename?: 'AdPayload';
+  response?: Maybe<Ad>;
+  errors?: Maybe<Array<Maybe<Errors>>>;
 };
 
 export type AdWine = Ad & {
@@ -130,33 +152,15 @@ export type AdWineDatePostedArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
-export type AdGrape = Ad & {
-  __typename?: 'AdGrape';
-  _id: Scalars['ID'];
-  postedBy: User;
-  vineyardName: Scalars['String'];
-  vineyard?: Maybe<Vineyard>;
-  harvest: Scalars['Int'];
-  abv: Scalars['Float'];
-  priceFrom: Scalars['Float'];
-  priceTo: Scalars['Float'];
-  kgFrom: Scalars['Int'];
-  kgTo: Scalars['Int'];
-  content?: Maybe<Scalars['String']>;
-  negotiations?: Maybe<Array<Negotiation>>;
-  activeNegotiations?: Maybe<Scalars['Int']>;
-  savedTimes?: Maybe<Scalars['Int']>;
-  /** viewedBy: [User] */
-  numberViews?: Maybe<Scalars['Int']>;
-  typeAd: TypeAd;
-  typeProduct: TypeProduct;
-  isActive: Scalars['Boolean'];
-  datePosted?: Maybe<Scalars['String']>;
-  needsFollowUp?: Maybe<Scalars['Boolean']>;
+export type Address = {
+  __typename?: 'Address';
+  via?: Maybe<Scalars['String']>;
+  comune: Scalars['String'];
 };
 
-export type AdGrapeDatePostedArgs = {
-  format?: Maybe<Scalars['String']>;
+export type AddressInput = {
+  via?: Maybe<Scalars['String']>;
+  comune: Scalars['String'];
 };
 
 export type AdsResult = {
@@ -165,116 +169,103 @@ export type AdsResult = {
   pageCount?: Maybe<Scalars['Int']>;
 };
 
-export type AdPayload = {
-  __typename?: 'AdPayload';
-  response?: Maybe<Ad>;
+export enum AlertStatus {
+  Success = 'success',
+  Warning = 'warning',
+  Info = 'info',
+  Error = 'error',
+}
+
+export type AuthUser = {
+  __typename?: 'AuthUser';
+  token: Scalars['String'];
+  user: User;
+};
+
+export type AuthUserPayload = {
+  __typename?: 'AuthUserPayload';
+  response?: Maybe<AuthUser>;
   errors?: Maybe<Array<Maybe<Errors>>>;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  ad?: Maybe<Ad>;
-  ads?: Maybe<AdsResult>;
-  adsForUser?: Maybe<AdsResult>;
-  isLoggedIn: Scalars['Boolean'];
-  me?: Maybe<User>;
-  message?: Maybe<Message>;
-  messages?: Maybe<Array<Message>>;
-  messagesForNegotiation?: Maybe<MessageResult>;
-  messagesToUser?: Maybe<Array<Message>>;
-  myInfo?: Maybe<User>;
-  negotiation?: Maybe<Negotiation>;
-  negotiations?: Maybe<NegotiationResult>;
-  negotiationsForAd?: Maybe<Array<Negotiation>>;
-  negotiationsWithUser?: Maybe<Array<Negotiation>>;
-  notification?: Maybe<Notification>;
-  review?: Maybe<Review>;
-  reviews?: Maybe<ReviewResult>;
-  searchedWine?: Maybe<WineSearched>;
-  user?: Maybe<User>;
-  users?: Maybe<Array<User>>;
-  vineyard?: Maybe<Vineyard>;
-  vineyards?: Maybe<Array<Vineyard>>;
-  wine?: Maybe<Wine>;
-  wines?: Maybe<Array<Wine>>;
+export enum Colore {
+  Bianca = 'BIANCA',
+  Rossa = 'ROSSA',
+}
+
+export type Coordinates = {
+  __typename?: 'Coordinates';
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
 };
 
-export type QueryAdArgs = {
-  id: Scalars['ID'];
+export enum DenomZona {
+  Doc = 'DOC',
+  Docg = 'DOCG',
+  Igt = 'IGT',
+  Varietale = 'VARIETALE',
+  Vino = 'VINO',
+}
+
+export type Errors = {
+  __typename?: 'Errors';
+  name?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
 };
 
-export type QueryAdsArgs = {
-  typeAd: TypeAd;
-  typeProduct: TypeProduct;
-  wineName?: Maybe<Scalars['String']>;
-  vineyardName?: Maybe<Scalars['String']>;
-  offset?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<QueryOrderBy>;
-  limit?: Maybe<Scalars['Int']>;
+export enum EspressioneComunitaria {
+  Dop = 'DOP',
+  Igp = 'IGP',
+  Nd = 'ND',
+}
+
+export enum Menzione {
+  Classico = 'CLASSICO',
+  Riserva = 'RISERVA',
+  Superiore = 'SUPERIORE',
+  Vigna = 'VIGNA',
+}
+
+export type Message = {
+  __typename?: 'Message';
+  _id: Scalars['ID'];
+  content: Scalars['String'];
+  sentBy: User;
+  sentTo: User;
+  negotiation: Negotiation;
+  dateSent?: Maybe<Scalars['String']>;
+  isViewed: Scalars['Boolean'];
 };
 
-export type QueryAdsForUserArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<QueryOrderBy>;
-  limit?: Maybe<Scalars['Int']>;
-  isActive?: Maybe<Scalars['Boolean']>;
-  user: Scalars['ID'];
+export type MessageDateSentArgs = {
+  format?: Maybe<Scalars['String']>;
 };
 
-export type QueryMessageArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryMessagesForNegotiationArgs = {
-  negotiation: Scalars['ID'];
-  offset?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-export type QueryMessagesToUserArgs = {
+export type MessageInput = {
+  content: Scalars['String'];
   sentTo: Scalars['ID'];
+  negotiation: Scalars['ID'];
 };
 
-export type QueryNegotiationArgs = {
-  id: Scalars['ID'];
+export type MessagePayload = {
+  __typename?: 'MessagePayload';
+  response?: Maybe<Message>;
+  errors?: Maybe<Array<Maybe<Errors>>>;
 };
 
-export type QueryNegotiationsArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<QueryOrderBy>;
-  limit?: Maybe<Scalars['Int']>;
-  isConcluded?: Maybe<Scalars['Boolean']>;
+export type MessageResult = {
+  __typename?: 'MessageResult';
+  messages?: Maybe<Array<Maybe<Message>>>;
+  pageCount?: Maybe<Scalars['Int']>;
 };
 
-export type QueryNegotiationsForAdArgs = {
-  ad: Scalars['ID'];
-};
-
-export type QueryNegotiationsWithUserArgs = {
-  forUserAd: Scalars['ID'];
-};
-
-export type QueryReviewArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryReviewsArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<QueryOrderBy>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-export type QueryUserArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryVineyardArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryWineArgs = {
-  id: Scalars['ID'];
-};
+export enum MetodoProduttivo {
+  Convenzionale = 'CONVENZIONALE',
+  Biologico = 'BIOLOGICO',
+  Biodinamico = 'BIODINAMICO',
+  Naturale = 'NATURALE',
+  Vegano = 'VEGANO',
+}
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -386,60 +377,6 @@ export type MutationDeleteVineyardArgs = {
   id: Scalars['ID'];
 };
 
-export type Subscription = {
-  __typename?: 'Subscription';
-  adPostedFollowUp: Ad;
-  adRemoved: Ad;
-  messageSent: Message;
-  negotiationCreated: Negotiation;
-  negotiationClosed: Ad;
-  reviewCreated: Review;
-};
-
-export type MessageInput = {
-  content: Scalars['String'];
-  sentTo: Scalars['ID'];
-  negotiation: Scalars['ID'];
-};
-
-export type Message = {
-  __typename?: 'Message';
-  _id: Scalars['ID'];
-  content: Scalars['String'];
-  sentBy: User;
-  sentTo: User;
-  negotiation: Negotiation;
-  dateSent?: Maybe<Scalars['String']>;
-  isViewed: Scalars['Boolean'];
-};
-
-export type MessageDateSentArgs = {
-  format?: Maybe<Scalars['String']>;
-};
-
-export type MessagePayload = {
-  __typename?: 'MessagePayload';
-  response?: Maybe<Message>;
-  errors?: Maybe<Array<Maybe<Errors>>>;
-};
-
-export type MessageResult = {
-  __typename?: 'MessageResult';
-  messages?: Maybe<Array<Maybe<Message>>>;
-  pageCount?: Maybe<Scalars['Int']>;
-};
-
-export type NegotiationInput = {
-  ad: Scalars['ID'];
-  forUserAd: Scalars['ID'];
-  type: TypeAd;
-};
-
-export type NegotiationInputUpdate = {
-  _id: Scalars['ID'];
-  isConcluded?: Maybe<Scalars['Boolean']>;
-};
-
 export type Negotiation = {
   __typename?: 'Negotiation';
   _id: Scalars['ID'];
@@ -462,10 +399,15 @@ export type NegotiationDateConcludedArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
-export type NegotiationResult = {
-  __typename?: 'NegotiationResult';
-  negotiations?: Maybe<Array<Maybe<Negotiation>>>;
-  pageCount?: Maybe<Scalars['Int']>;
+export type NegotiationInput = {
+  ad: Scalars['ID'];
+  forUserAd: Scalars['ID'];
+  type: TypeAd;
+};
+
+export type NegotiationInputUpdate = {
+  _id: Scalars['ID'];
+  isConcluded: Scalars['Boolean'];
 };
 
 export type NegotiationPayload = {
@@ -474,25 +416,129 @@ export type NegotiationPayload = {
   errors?: Maybe<Array<Maybe<Errors>>>;
 };
 
-export type ReviewInput = {
-  negotiation: Scalars['ID'];
-  forUser: Scalars['ID'];
-  rating: Scalars['Float'];
-  content: Scalars['String'];
-  type: TypeAd;
-};
-
-export type ReviewInputUpdate = {
-  _id: Scalars['ID'];
-  rating?: Maybe<Scalars['Float']>;
-  content?: Maybe<Scalars['String']>;
-};
-
-export type ReviewResult = {
-  __typename?: 'ReviewResult';
-  reviews?: Maybe<Array<Maybe<Review>>>;
+export type NegotiationResult = {
+  __typename?: 'NegotiationResult';
+  negotiations?: Maybe<Array<Maybe<Negotiation>>>;
   pageCount?: Maybe<Scalars['Int']>;
 };
+
+export type Notification = {
+  __typename?: 'Notification';
+  type?: AlertStatus;
+  message?: Maybe<Scalars['String']>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  ad?: Maybe<Ad>;
+  ads?: Maybe<AdsResult>;
+  adsForUser?: Maybe<AdsResult>;
+  isLoggedIn: Scalars['Boolean'];
+  me?: Maybe<User>;
+  message?: Maybe<Message>;
+  messages?: Maybe<Array<Message>>;
+  messagesForNegotiation?: Maybe<MessageResult>;
+  messagesToUser?: Maybe<Array<Message>>;
+  myInfo?: Maybe<User>;
+  negotiation?: Maybe<Negotiation>;
+  negotiations?: Maybe<NegotiationResult>;
+  negotiationsForAd?: Maybe<Array<Negotiation>>;
+  negotiationsWithUser?: Maybe<Array<Negotiation>>;
+  notification?: Maybe<Notification>;
+  review?: Maybe<Review>;
+  reviews?: Maybe<ReviewResult>;
+  searchedWine?: Maybe<WineSearched>;
+  user?: Maybe<User>;
+  users?: Maybe<Array<User>>;
+  vineyard?: Maybe<Vineyard>;
+  vineyards?: Maybe<Array<Vineyard>>;
+  wine?: Maybe<Wine>;
+  wines?: Maybe<Array<Wine>>;
+};
+
+export type QueryAdArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryAdsArgs = {
+  typeAd: TypeAd;
+  typeProduct: TypeProduct;
+  wineName?: Maybe<Scalars['String']>;
+  vineyardName?: Maybe<Scalars['String']>;
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type QueryAdsForUserArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+  isActive?: Maybe<Scalars['Boolean']>;
+  user: Scalars['ID'];
+};
+
+export type QueryMessageArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryMessagesForNegotiationArgs = {
+  negotiation: Scalars['ID'];
+  offset?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type QueryMessagesToUserArgs = {
+  sentTo: Scalars['ID'];
+};
+
+export type QueryNegotiationArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryNegotiationsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+  isConcluded?: Maybe<Scalars['Boolean']>;
+};
+
+export type QueryNegotiationsForAdArgs = {
+  ad: Scalars['ID'];
+};
+
+export type QueryNegotiationsWithUserArgs = {
+  forUserAd: Scalars['ID'];
+};
+
+export type QueryReviewArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryReviewsArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type QueryUserArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryVineyardArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryWineArgs = {
+  id: Scalars['ID'];
+};
+
+export enum QueryOrderBy {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  PriceAsc = 'price_ASC',
+  PriceDesc = 'price_DESC',
+}
 
 export type Review = {
   __typename?: 'Review';
@@ -510,72 +556,52 @@ export type ReviewDateCreatedArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
+export type ReviewInput = {
+  negotiation: Scalars['ID'];
+  forUser: Scalars['ID'];
+  rating: Scalars['Float'];
+  content: Scalars['String'];
+  type: TypeAd;
+};
+
+export type ReviewInputUpdate = {
+  _id: Scalars['ID'];
+  rating?: Maybe<Scalars['Float']>;
+  content?: Maybe<Scalars['String']>;
+};
+
 export type ReviewPayload = {
   __typename?: 'ReviewPayload';
   response?: Maybe<Review>;
   errors?: Maybe<Array<Maybe<Errors>>>;
 };
 
-export type ProducedWines = {
-  __typename?: 'ProducedWines';
-  wine: Wine;
-  bottlesProduced: Scalars['Int'];
-  metodoProduttivo: MetodoProduttivo;
+export type ReviewResult = {
+  __typename?: 'ReviewResult';
+  reviews?: Maybe<Array<Maybe<Review>>>;
+  pageCount?: Maybe<Scalars['Int']>;
 };
 
-export type OwnedVineyards = {
-  __typename?: 'OwnedVineyards';
-  vineyard: Vineyard;
-  tonsProduced: Scalars['Int'];
-  metodoProduttivo: MetodoProduttivo;
+export type Subscription = {
+  __typename?: 'Subscription';
+  adPostedFollowUp: Ad;
+  adRemoved: Ad;
+  adSaved: Ad;
+  messageSent: Message;
+  negotiationCreated: Negotiation;
+  negotiationClosed: Ad;
+  reviewCreated: Review;
 };
 
-export type ProducedWinesInput = {
-  wine: Scalars['ID'];
-  bottlesProduced?: Maybe<Scalars['Int']>;
-  metodoProduttivo?: Maybe<MetodoProduttivo>;
-};
+export enum TypeAd {
+  Sell = 'SELL',
+  Buy = 'BUY',
+}
 
-export type OwnedVineyardsInput = {
-  vineyard: Scalars['ID'];
-  tonsProduced?: Maybe<Scalars['Int']>;
-  metodoProduttivo?: Maybe<MetodoProduttivo>;
-};
-
-export type UserInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  pIva: Scalars['String'];
-  phoneNumber: Scalars['String'];
-  address: AddressInput;
-  hideContact: Scalars['Boolean'];
-  producedWines?: Maybe<ProducedWinesInput>;
-  ownedVineyards?: Maybe<OwnedVineyardsInput>;
-};
-
-export type UserInputUpdate = {
-  _id: Scalars['ID'];
-  email?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  pIva?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-  address?: Maybe<AddressInput>;
-  isVerified?: Maybe<Scalars['Boolean']>;
-  isPremium?: Maybe<Scalars['Boolean']>;
-  hideContact: Scalars['Boolean'];
-  producedWines?: Maybe<ProducedWinesInput>;
-  ownedVineyards?: Maybe<OwnedVineyardsInput>;
-};
-
-export type Coordinates = {
-  __typename?: 'Coordinates';
-  latitude?: Maybe<Scalars['Float']>;
-  longitude?: Maybe<Scalars['Float']>;
-};
+export enum TypeProduct {
+  AdWine = 'AdWine',
+  AdGrape = 'AdGrape',
+}
 
 export type User = {
   __typename?: 'User';
@@ -598,62 +624,40 @@ export type User = {
   reviews?: Maybe<Array<Review>>;
   adsRemaining?: Maybe<Scalars['Int']>;
   dateCreated?: Maybe<Scalars['String']>;
-  producedWines?: Maybe<ProducedWines>;
-  ownedVineyards?: Maybe<OwnedVineyards>;
 };
 
 export type UserDateCreatedArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
-export type AuthUser = {
-  __typename?: 'AuthUser';
-  token: Scalars['String'];
-  user: User;
+export type UserInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  pIva: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  address: AddressInput;
+  hideContact: Scalars['Boolean'];
 };
 
-export type AuthUserPayload = {
-  __typename?: 'AuthUserPayload';
-  response?: Maybe<AuthUser>;
-  errors?: Maybe<Array<Maybe<Errors>>>;
+export type UserInputUpdate = {
+  _id: Scalars['ID'];
+  email?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  pIva?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  address?: Maybe<AddressInput>;
+  isVerified?: Maybe<Scalars['Boolean']>;
+  isPremium?: Maybe<Scalars['Boolean']>;
+  hideContact: Scalars['Boolean'];
 };
 
 export type UserPayload = {
   __typename?: 'UserPayload';
   response?: Maybe<User>;
-  errors?: Maybe<Array<Maybe<Errors>>>;
-};
-
-export type WineInput = {
-  denominazioneVino: Scalars['String'];
-  tipoVino?: Maybe<Scalars['String']>;
-  espressioneComunitaria: EspressioneComunitaria;
-  denominazioneZona: DenomZona;
-  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type WineInputUpdate = {
-  _id: Scalars['ID'];
-  denominazioneVino?: Maybe<Scalars['String']>;
-  tipoVino?: Maybe<Scalars['String']>;
-  espressioneComunitaria?: Maybe<EspressioneComunitaria>;
-  denominazioneZona?: Maybe<DenomZona>;
-  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type Wine = {
-  __typename?: 'Wine';
-  _id: Scalars['ID'];
-  denominazioneVino: Scalars['String'];
-  tipoVino?: Maybe<Scalars['String']>;
-  espressioneComunitaria: EspressioneComunitaria;
-  denominazioneZona: DenomZona;
-  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type WinePayload = {
-  __typename?: 'WinePayload';
-  response?: Maybe<Wine>;
   errors?: Maybe<Array<Maybe<Errors>>>;
 };
 
@@ -681,202 +685,38 @@ export type VineyardPayload = {
   errors?: Maybe<Array<Maybe<Errors>>>;
 };
 
-// export enum Province {
-//   Ag = 'AG',
-//   Al = 'AL',
-//   An = 'AN',
-//   Ao = 'AO',
-//   Ap = 'AP',
-//   Aq = 'AQ',
-//   Ar = 'AR',
-//   At = 'AT',
-//   Av = 'AV',
-//   Ba = 'BA',
-//   Bg = 'BG',
-//   Bi = 'BI',
-//   Bl = 'BL',
-//   Bn = 'BN',
-//   Bo = 'BO',
-//   Br = 'BR',
-//   Bs = 'BS',
-//   Bt = 'BT',
-//   Bz = 'BZ',
-//   Ca = 'CA',
-//   Cb = 'CB',
-//   Ce = 'CE',
-//   Ch = 'CH',
-//   Cl = 'CL',
-//   Cn = 'CN',
-//   Co = 'CO',
-//   Cr = 'CR',
-//   Cs = 'CS',
-//   Ct = 'CT',
-//   Cz = 'CZ',
-//   En = 'EN',
-//   Fc = 'FC',
-//   Fe = 'FE',
-//   Fg = 'FG',
-//   Fi = 'FI',
-//   Fm = 'FM',
-//   Fr = 'FR',
-//   Ge = 'GE',
-//   Go = 'GO',
-//   Gr = 'GR',
-//   Im = 'IM',
-//   Is = 'IS',
-//   Kr = 'KR',
-//   Lc = 'LC',
-//   Le = 'LE',
-//   Li = 'LI',
-//   Lo = 'LO',
-//   Lt = 'LT',
-//   Lu = 'LU',
-//   Mb = 'MB',
-//   Mc = 'MC',
-//   Me = 'ME',
-//   Mi = 'MI',
-//   Mn = 'MN',
-//   Mo = 'MO',
-//   Ms = 'MS',
-//   Mt = 'MT',
-//   Na = 'NA',
-//   No = 'NO',
-//   Nu = 'NU',
-//   Or = 'OR',
-//   Pa = 'PA',
-//   Pc = 'PC',
-//   Pd = 'PD',
-//   Pe = 'PE',
-//   Pg = 'PG',
-//   Pi = 'PI',
-//   Pn = 'PN',
-//   Po = 'PO',
-//   Pr = 'PR',
-//   Pt = 'PT',
-//   Pu = 'PU',
-//   Pv = 'PV',
-//   Pz = 'PZ',
-//   Ra = 'RA',
-//   Rc = 'RC',
-//   Re = 'RE',
-//   Rg = 'RG',
-//   Ri = 'RI',
-//   Rm = 'RM',
-//   Rn = 'RN',
-//   Ro = 'RO',
-//   Sa = 'SA',
-//   Si = 'SI',
-//   So = 'SO',
-//   Sp = 'SP',
-//   Sr = 'SR',
-//   Ss = 'SS',
-//   Su = 'SU',
-//   Sv = 'SV',
-//   Ta = 'TA',
-//   Te = 'TE',
-//   Tn = 'TN',
-//   To = 'TO',
-//   Tp = 'TP',
-//   Tr = 'TR',
-//   Ts = 'TS',
-//   Tv = 'TV',
-//   Ud = 'UD',
-//   Va = 'VA',
-//   Vb = 'VB',
-//   Vc = 'VC',
-//   Ve = 'VE',
-//   Vi = 'VI',
-//   Vr = 'VR',
-//   Vt = 'VT',
-//   Vv = 'VV'
-// }
-
-// export enum Regioni {
-//   Abruzzo = 'ABRUZZO',
-//   Basilicata = 'BASILICATA',
-//   Calabria = 'CALABRIA',
-//   Campania = 'CAMPANIA',
-//   Emilia = 'EMILIA',
-//   Friuli = 'FRIULI',
-//   Lazio = 'LAZIO',
-//   Liguria = 'LIGURIA',
-//   Lombardia = 'LOMBARDIA',
-//   Marche = 'MARCHE',
-//   Molise = 'MOLISE',
-//   Piemonte = 'PIEMONTE',
-//   Puglia = 'PUGLIA',
-//   Sardegna = 'SARDEGNA',
-//   Sicilia = 'SICILIA',
-//   Toscana = 'TOSCANA',
-//   Trentino = 'TRENTINO',
-//   Umbria = 'UMBRIA',
-//   Valdaosta = 'VALDAOSTA',
-//   Veneto = 'VENETO'
-// }
-
-export enum TypeAd {
-  Sell = 'SELL',
-  Buy = 'BUY',
-}
-
-export enum TypeProduct {
-  AdWine = 'AdWine',
-  AdGrape = 'AdGrape',
-}
-
-export enum Menzione {
-  Classico = 'CLASSICO',
-  Riserva = 'RISERVA',
-  Superiore = 'SUPERIORE',
-  Vigna = 'VIGNA',
-}
-
-export enum MetodoProduttivo {
-  Convenzionale = 'CONVENZIONALE',
-  Biologico = 'BIOLOGICO',
-  Biodinamico = 'BIODINAMICO',
-  Naturale = 'NATURALE',
-  Vegano = 'VEGANO',
-}
-
-export enum Colore {
-  Bianca = 'BIANCA',
-  Rossa = 'ROSSA',
-}
-
-export enum EspressioneComunitaria {
-  Dop = 'DOP',
-  Igp = 'IGP',
-  Nd = 'ND',
-}
-
-export enum DenomZona {
-  Doc = 'DOC',
-  Docg = 'DOCG',
-  Igt = 'IGT',
-  Varietale = 'VARIETALE',
-  Vino = 'VINO',
-}
-
-export enum QueryOrderBy {
-  CreatedAtAsc = 'createdAt_ASC',
-  CreatedAtDesc = 'createdAt_DESC',
-  PriceAsc = 'price_ASC',
-  PriceDesc = 'price_DESC',
-}
-
-export type Errors = {
-  __typename?: 'Errors';
-  name?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
+export type Wine = {
+  __typename?: 'Wine';
+  _id: Scalars['ID'];
+  denominazioneVino: Scalars['String'];
+  tipoVino?: Maybe<Scalars['String']>;
+  espressioneComunitaria: EspressioneComunitaria;
+  denominazioneZona: DenomZona;
+  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
-export enum AlertStatus {
-  Success = 'success',
-  Warning = 'warning',
-  Info = 'info',
-  Error = 'error',
-}
+export type WineInput = {
+  denominazioneVino: Scalars['String'];
+  tipoVino?: Maybe<Scalars['String']>;
+  espressioneComunitaria: EspressioneComunitaria;
+  denominazioneZona: DenomZona;
+  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type WineInputUpdate = {
+  _id: Scalars['ID'];
+  denominazioneVino?: Maybe<Scalars['String']>;
+  tipoVino?: Maybe<Scalars['String']>;
+  espressioneComunitaria?: Maybe<EspressioneComunitaria>;
+  denominazioneZona?: Maybe<DenomZona>;
+  vitigni?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type WinePayload = {
+  __typename?: 'WinePayload';
+  response?: Maybe<Wine>;
+  errors?: Maybe<Array<Maybe<Errors>>>;
+};
 
 export type WineSearched = {
   __typename?: 'WineSearched';
@@ -888,12 +728,6 @@ export type WineSearched = {
   price?: Maybe<Scalars['Float']>;
   liters?: Maybe<Scalars['Int']>;
   isPost?: Maybe<Scalars['Boolean']>;
-};
-
-export type Notification = {
-  __typename?: 'Notification';
-  type?: AlertStatus;
-  message?: Maybe<Scalars['String']>;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -979,6 +813,18 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
   createAd?: Maybe<
     { __typename?: 'AdPayload' } & {
       response?: Maybe<
+        | ({ __typename?: 'AdGrape' } & Pick<
+            AdGrape,
+            | '_id'
+            | 'harvest'
+            | 'abv'
+            | 'priceFrom'
+            | 'priceTo'
+            | 'typeAd'
+            | 'activeNegotiations'
+            | 'numberViews'
+            | 'datePosted'
+          > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
         | ({ __typename?: 'AdWine' } & Pick<
             AdWine,
             | 'wineName'
@@ -1000,18 +846,6 @@ export type CreateAdWineMutation = { __typename?: 'Mutation' } & {
               >;
               postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
             })
-        | ({ __typename?: 'AdGrape' } & Pick<
-            AdGrape,
-            | '_id'
-            | 'harvest'
-            | 'abv'
-            | 'priceFrom'
-            | 'priceTo'
-            | 'typeAd'
-            | 'activeNegotiations'
-            | 'numberViews'
-            | 'datePosted'
-          > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
       >;
       errors?: Maybe<
         Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
@@ -1028,8 +862,8 @@ export type UpdateAdWineMutation = { __typename?: 'Mutation' } & {
   updateAd?: Maybe<
     { __typename?: 'AdPayload' } & {
       response?: Maybe<
-        | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
         | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+        | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
       >;
       errors?: Maybe<
         Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
@@ -1046,6 +880,10 @@ export type SaveAdMutation = { __typename?: 'Mutation' } & {
   saveAd?: Maybe<
     { __typename?: 'AdPayload' } & {
       response?: Maybe<
+        | ({ __typename?: 'AdGrape' } & Pick<
+            AdGrape,
+            '_id' | 'harvest' | 'abv' | 'priceFrom' | 'priceTo' | 'datePosted'
+          >)
         | ({ __typename?: 'AdWine' } & Pick<
             AdWine,
             | 'wineName'
@@ -1062,10 +900,6 @@ export type SaveAdMutation = { __typename?: 'Mutation' } & {
                 { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
               >;
             })
-        | ({ __typename?: 'AdGrape' } & Pick<
-            AdGrape,
-            '_id' | 'harvest' | 'abv' | 'priceFrom' | 'priceTo' | 'datePosted'
-          >)
       >;
       errors?: Maybe<
         Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
@@ -1082,8 +916,8 @@ export type DeleteAdMutation = { __typename?: 'Mutation' } & {
   deleteAd?: Maybe<
     { __typename?: 'AdPayload' } & {
       response?: Maybe<
-        | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
         | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+        | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
       >;
       errors?: Maybe<
         Array<Maybe<{ __typename?: 'Errors' } & Pick<Errors, 'name' | 'text'>>>
@@ -1173,6 +1007,24 @@ export type CreateReviewMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+type AdDetails_AdGrape_Fragment = { __typename?: 'AdGrape' } & Pick<
+  AdGrape,
+  | '_id'
+  | 'needsFollowUp'
+  | 'harvest'
+  | 'abv'
+  | 'priceFrom'
+  | 'priceTo'
+  | 'typeAd'
+  | 'activeNegotiations'
+  | 'datePosted'
+> & {
+    postedBy: { __typename?: 'User' } & Pick<
+      User,
+      '_id' | 'firstName' | 'lastName' | 'hideContact'
+    >;
+  };
+
 type AdDetails_AdWine_Fragment = { __typename?: 'AdWine' } & Pick<
   AdWine,
   | 'wineName'
@@ -1195,27 +1047,9 @@ type AdDetails_AdWine_Fragment = { __typename?: 'AdWine' } & Pick<
     >;
   };
 
-type AdDetails_AdGrape_Fragment = { __typename?: 'AdGrape' } & Pick<
-  AdGrape,
-  | '_id'
-  | 'needsFollowUp'
-  | 'harvest'
-  | 'abv'
-  | 'priceFrom'
-  | 'priceTo'
-  | 'typeAd'
-  | 'activeNegotiations'
-  | 'datePosted'
-> & {
-    postedBy: { __typename?: 'User' } & Pick<
-      User,
-      '_id' | 'firstName' | 'lastName' | 'hideContact'
-    >;
-  };
-
 export type AdDetailsFragment =
-  | AdDetails_AdWine_Fragment
-  | AdDetails_AdGrape_Fragment;
+  | AdDetails_AdGrape_Fragment
+  | AdDetails_AdWine_Fragment;
 
 export type NegotiationDetailsFragment = { __typename?: 'Negotiation' } & Pick<
   Negotiation,
@@ -1223,13 +1057,13 @@ export type NegotiationDetailsFragment = { __typename?: 'Negotiation' } & Pick<
 > & {
     createdBy: { __typename?: 'User' } & Pick<User, '_id' | 'firstName'>;
     ad:
-      | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'> & {
+      | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'> & {
             postedBy: { __typename?: 'User' } & Pick<
               User,
               '_id' | 'firstName' | 'lastName'
             >;
           })
-      | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'> & {
+      | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'> & {
             postedBy: { __typename?: 'User' } & Pick<
               User,
               '_id' | 'firstName' | 'lastName'
@@ -1264,8 +1098,8 @@ export type MessageDetailsFragment = { __typename?: 'Message' } & Pick<
       '_id' | 'type' | 'isConcluded'
     > & {
         ad:
-          | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'>)
-          | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+          | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+          | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'>);
       };
   };
 
@@ -1279,8 +1113,8 @@ export type ReviewDetailsFragment = { __typename?: 'Review' } & Pick<
     >;
     negotiation: { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'> & {
         ad:
-          | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'>)
-          | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+          | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+          | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id'>);
       };
     forUser: { __typename?: 'User' } & Pick<
       User,
@@ -1295,12 +1129,8 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
     { __typename?: 'User' } & {
       savedAds?: Maybe<
         Array<
-          | ({ __typename?: 'AdWine' } & Pick<
-              AdWine,
-              | 'wineName'
-              | 'litersFrom'
-              | 'litersTo'
-              | 'metodoProduttivo'
+          | ({ __typename?: 'AdGrape' } & Pick<
+              AdGrape,
               | '_id'
               | 'harvest'
               | 'abv'
@@ -1313,8 +1143,12 @@ export type FavoriteQuery = { __typename?: 'Query' } & {
               | 'isActive'
               | 'savedTimes'
             > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
-          | ({ __typename?: 'AdGrape' } & Pick<
-              AdGrape,
+          | ({ __typename?: 'AdWine' } & Pick<
+              AdWine,
+              | 'wineName'
+              | 'litersFrom'
+              | 'litersTo'
+              | 'metodoProduttivo'
               | '_id'
               | 'harvest'
               | 'abv'
@@ -1351,20 +1185,20 @@ export type MeQuery = { __typename?: 'Query' } & {
         address: { __typename?: 'Address' } & Pick<Address, 'comune'>;
         ads?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<
-                AdWine,
-                'wineName' | '_id' | 'isActive' | 'harvest' | 'typeAd'
-              > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
             | ({ __typename?: 'AdGrape' } & Pick<
                 AdGrape,
                 '_id' | 'isActive' | 'harvest' | 'typeAd'
+              > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
+            | ({ __typename?: 'AdWine' } & Pick<
+                AdWine,
+                'wineName' | '_id' | 'isActive' | 'harvest' | 'typeAd'
               > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
           >
         >;
         savedAds?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
             | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
           >
         >;
         messages?: Maybe<
@@ -1381,8 +1215,8 @@ export type MeQuery = { __typename?: 'Query' } & {
               '_id' | 'isConcluded'
             > & {
                 ad:
-                  | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
-                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+                  | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>);
               }
           >
         >;
@@ -1420,19 +1254,19 @@ export type MyInfoQuery = { __typename?: 'Query' } & {
         address: { __typename?: 'Address' } & Pick<Address, 'comune'>;
         ads?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id' | 'isActive'> & {
-                  postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-                })
             | ({ __typename?: 'AdGrape' } & Pick<
                 AdGrape,
                 '_id' | 'isActive'
               > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id' | 'isActive'> & {
+                  postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
+                })
           >
         >;
         savedAds?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
             | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
           >
         >;
         messages?: Maybe<
@@ -1449,8 +1283,8 @@ export type MyInfoQuery = { __typename?: 'Query' } & {
               '_id' | 'isConcluded'
             > & {
                 ad:
-                  | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
-                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+                  | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>);
               }
           >
         >;
@@ -1494,6 +1328,20 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
         ads?: Maybe<
           Array<
             Maybe<
+              | ({ __typename?: 'AdGrape' } & Pick<
+                  AdGrape,
+                  | '_id'
+                  | 'harvest'
+                  | 'abv'
+                  | 'priceFrom'
+                  | 'priceTo'
+                  | 'typeAd'
+                  | 'activeNegotiations'
+                  | 'numberViews'
+                  | 'savedTimes'
+                  | 'isActive'
+                  | 'datePosted'
+                > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
               | ({ __typename?: 'AdWine' } & Pick<
                   AdWine,
                   | 'wineName'
@@ -1517,20 +1365,6 @@ export type AdsWineQuery = { __typename?: 'Query' } & {
                     >;
                     postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
                   })
-              | ({ __typename?: 'AdGrape' } & Pick<
-                  AdGrape,
-                  | '_id'
-                  | 'harvest'
-                  | 'abv'
-                  | 'priceFrom'
-                  | 'priceTo'
-                  | 'typeAd'
-                  | 'activeNegotiations'
-                  | 'numberViews'
-                  | 'savedTimes'
-                  | 'isActive'
-                  | 'datePosted'
-                > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
             >
           >
         >;
@@ -1544,6 +1378,31 @@ export type AdQueryVariables = Exact<{
 
 export type AdQuery = { __typename?: 'Query' } & {
   ad?: Maybe<
+    | ({ __typename?: 'AdGrape' } & Pick<
+        AdGrape,
+        | '_id'
+        | 'needsFollowUp'
+        | 'harvest'
+        | 'abv'
+        | 'priceFrom'
+        | 'priceTo'
+        | 'typeAd'
+        | 'activeNegotiations'
+        | 'numberViews'
+        | 'savedTimes'
+        | 'datePosted'
+        | 'isActive'
+      > & {
+          postedBy: { __typename?: 'User' } & Pick<
+            User,
+            | '_id'
+            | 'firstName'
+            | 'lastName'
+            | 'hideContact'
+            | 'email'
+            | 'phoneNumber'
+          >;
+        })
     | ({ __typename?: 'AdWine' } & Pick<
         AdWine,
         | 'wineName'
@@ -1576,31 +1435,6 @@ export type AdQuery = { __typename?: 'Query' } & {
             | 'phoneNumber'
           >;
         })
-    | ({ __typename?: 'AdGrape' } & Pick<
-        AdGrape,
-        | '_id'
-        | 'needsFollowUp'
-        | 'harvest'
-        | 'abv'
-        | 'priceFrom'
-        | 'priceTo'
-        | 'typeAd'
-        | 'activeNegotiations'
-        | 'numberViews'
-        | 'savedTimes'
-        | 'datePosted'
-        | 'isActive'
-      > & {
-          postedBy: { __typename?: 'User' } & Pick<
-            User,
-            | '_id'
-            | 'firstName'
-            | 'lastName'
-            | 'hideContact'
-            | 'email'
-            | 'phoneNumber'
-          >;
-        })
   >;
   me?: Maybe<
     { __typename?: 'User' } & Pick<User, '_id'> & {
@@ -1608,15 +1442,15 @@ export type AdQuery = { __typename?: 'Query' } & {
           Array<
             { __typename?: 'Negotiation' } & Pick<Negotiation, '_id'> & {
                 ad:
-                  | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
-                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+                  | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+                  | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>);
               }
           >
         >;
         savedAds?: Maybe<
           Array<
-            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
             | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+            | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
           >
         >;
       }
@@ -1671,16 +1505,16 @@ export type NegotiationQuery = { __typename?: 'Query' } & {
   negotiation?: Maybe<
     { __typename?: 'Negotiation' } & {
       ad:
-        | ({ __typename?: 'AdWine' } & {
-            wine?: Maybe<
-              { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
-            >;
+        | ({ __typename?: 'AdGrape' } & {
             postedBy: { __typename?: 'User' } & Pick<
               User,
               'hideContact' | 'phoneNumber' | 'email'
             >;
           })
-        | ({ __typename?: 'AdGrape' } & {
+        | ({ __typename?: 'AdWine' } & {
+            wine?: Maybe<
+              { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>
+            >;
             postedBy: { __typename?: 'User' } & Pick<
               User,
               'hideContact' | 'phoneNumber' | 'email'
@@ -1770,6 +1604,26 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
         ads?: Maybe<
           Array<
             Maybe<
+              | ({ __typename?: 'AdGrape' } & Pick<
+                  AdGrape,
+                  | '_id'
+                  | 'needsFollowUp'
+                  | 'harvest'
+                  | 'abv'
+                  | 'priceFrom'
+                  | 'priceTo'
+                  | 'typeAd'
+                  | 'activeNegotiations'
+                  | 'numberViews'
+                  | 'datePosted'
+                  | 'isActive'
+                  | 'savedTimes'
+                > & {
+                    postedBy: { __typename?: 'User' } & Pick<
+                      User,
+                      '_id' | 'firstName' | 'lastName' | 'hideContact'
+                    >;
+                  })
               | ({ __typename?: 'AdWine' } & Pick<
                   AdWine,
                   | 'wineName'
@@ -1797,26 +1651,6 @@ export type AdsForUserQuery = { __typename?: 'Query' } & {
                       '_id' | 'firstName' | 'lastName' | 'hideContact'
                     >;
                   })
-              | ({ __typename?: 'AdGrape' } & Pick<
-                  AdGrape,
-                  | '_id'
-                  | 'needsFollowUp'
-                  | 'harvest'
-                  | 'abv'
-                  | 'priceFrom'
-                  | 'priceTo'
-                  | 'typeAd'
-                  | 'activeNegotiations'
-                  | 'numberViews'
-                  | 'datePosted'
-                  | 'isActive'
-                  | 'savedTimes'
-                > & {
-                    postedBy: { __typename?: 'User' } & Pick<
-                      User,
-                      '_id' | 'firstName' | 'lastName' | 'hideContact'
-                    >;
-                  })
             >
           >
         >;
@@ -1838,12 +1672,8 @@ export type AdPostedFollowUpSubscriptionVariables = Exact<{
 
 export type AdPostedFollowUpSubscription = { __typename?: 'Subscription' } & {
   adPostedFollowUp:
-    | ({ __typename?: 'AdWine' } & Pick<
-        AdWine,
-        | 'wineName'
-        | 'litersFrom'
-        | 'litersTo'
-        | 'metodoProduttivo'
+    | ({ __typename?: 'AdGrape' } & Pick<
+        AdGrape,
         | '_id'
         | 'harvest'
         | 'abv'
@@ -1854,8 +1684,12 @@ export type AdPostedFollowUpSubscription = { __typename?: 'Subscription' } & {
         | 'numberViews'
         | 'datePosted'
       > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
-    | ({ __typename?: 'AdGrape' } & Pick<
-        AdGrape,
+    | ({ __typename?: 'AdWine' } & Pick<
+        AdWine,
+        | 'wineName'
+        | 'litersFrom'
+        | 'litersTo'
+        | 'metodoProduttivo'
         | '_id'
         | 'harvest'
         | 'abv'
@@ -1872,8 +1706,16 @@ export type AdRemovedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type AdRemovedSubscription = { __typename?: 'Subscription' } & {
   adRemoved:
-    | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>)
-    | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>);
+    | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id'>)
+    | ({ __typename?: 'AdWine' } & Pick<AdWine, '_id'>);
+};
+
+export type AdSavedSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type AdSavedSubscription = { __typename?: 'Subscription' } & {
+  adSaved:
+    | ({ __typename?: 'AdGrape' } & Pick<AdGrape, '_id' | 'typeAd'>)
+    | ({ __typename?: 'AdWine' } & Pick<AdWine, 'wineName' | '_id' | 'typeAd'>);
 };
 
 export type MessageSentSubscriptionVariables = Exact<{ [key: string]: never }>;
@@ -1898,12 +1740,8 @@ export type NegotiationClosedSubscriptionVariables = Exact<{
 
 export type NegotiationClosedSubscription = { __typename?: 'Subscription' } & {
   negotiationClosed:
-    | ({ __typename?: 'AdWine' } & Pick<
-        AdWine,
-        | 'wineName'
-        | 'litersFrom'
-        | 'litersTo'
-        | 'metodoProduttivo'
+    | ({ __typename?: 'AdGrape' } & Pick<
+        AdGrape,
         | '_id'
         | 'harvest'
         | 'abv'
@@ -1914,8 +1752,12 @@ export type NegotiationClosedSubscription = { __typename?: 'Subscription' } & {
         | 'numberViews'
         | 'datePosted'
       > & { postedBy: { __typename?: 'User' } & Pick<User, '_id'> })
-    | ({ __typename?: 'AdGrape' } & Pick<
-        AdGrape,
+    | ({ __typename?: 'AdWine' } & Pick<
+        AdWine,
+        | 'wineName'
+        | 'litersFrom'
+        | 'litersTo'
+        | 'metodoProduttivo'
         | '_id'
         | 'harvest'
         | 'abv'
@@ -2109,11 +1951,11 @@ export function useLoginMutation(
   baseOptions?: Apollo.MutationHookOptions<
     LoginMutation,
     LoginMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
     LoginDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
@@ -2165,11 +2007,11 @@ export function useCreateUserMutation(
   baseOptions?: Apollo.MutationHookOptions<
     CreateUserMutation,
     CreateUserMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
     CreateUserDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type CreateUserMutationHookResult = ReturnType<
@@ -2221,11 +2063,11 @@ export function useUpdateUserMutation(
   baseOptions?: Apollo.MutationHookOptions<
     UpdateUserMutation,
     UpdateUserMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
     UpdateUserDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type UpdateUserMutationHookResult = ReturnType<
@@ -2277,11 +2119,11 @@ export function useDeleteUserMutation(
   baseOptions?: Apollo.MutationHookOptions<
     DeleteUserMutation,
     DeleteUserMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(
     DeleteUserDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type DeleteUserMutationHookResult = ReturnType<
@@ -2352,7 +2194,7 @@ export function useCreateAdWineMutation(
   baseOptions?: Apollo.MutationHookOptions<
     CreateAdWineMutation,
     CreateAdWineMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<
     CreateAdWineMutation,
@@ -2407,7 +2249,7 @@ export function useUpdateAdWineMutation(
   baseOptions?: Apollo.MutationHookOptions<
     UpdateAdWineMutation,
     UpdateAdWineMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<
     UpdateAdWineMutation,
@@ -2475,11 +2317,11 @@ export function useSaveAdMutation(
   baseOptions?: Apollo.MutationHookOptions<
     SaveAdMutation,
     SaveAdMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<SaveAdMutation, SaveAdMutationVariables>(
     SaveAdDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type SaveAdMutationHookResult = ReturnType<typeof useSaveAdMutation>;
@@ -2527,11 +2369,11 @@ export function useDeleteAdMutation(
   baseOptions?: Apollo.MutationHookOptions<
     DeleteAdMutation,
     DeleteAdMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<DeleteAdMutation, DeleteAdMutationVariables>(
     DeleteAdDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type DeleteAdMutationHookResult = ReturnType<typeof useDeleteAdMutation>;
@@ -2580,7 +2422,7 @@ export function useCreateNegotiationMutation(
   baseOptions?: Apollo.MutationHookOptions<
     CreateNegotiationMutation,
     CreateNegotiationMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<
     CreateNegotiationMutation,
@@ -2636,7 +2478,7 @@ export function useUpdateNegotiationMutation(
   baseOptions?: Apollo.MutationHookOptions<
     UpdateNegotiationMutation,
     UpdateNegotiationMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<
     UpdateNegotiationMutation,
@@ -2691,7 +2533,7 @@ export function useDeleteNegotiationMutation(
   baseOptions?: Apollo.MutationHookOptions<
     DeleteNegotiationMutation,
     DeleteNegotiationMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<
     DeleteNegotiationMutation,
@@ -2747,7 +2589,7 @@ export function useCreateMessageMutation(
   baseOptions?: Apollo.MutationHookOptions<
     CreateMessageMutation,
     CreateMessageMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<
     CreateMessageMutation,
@@ -2803,7 +2645,7 @@ export function useCreateReviewMutation(
   baseOptions?: Apollo.MutationHookOptions<
     CreateReviewMutation,
     CreateReviewMutationVariables
-  >
+  >,
 ) {
   return Apollo.useMutation<
     CreateReviewMutation,
@@ -2864,22 +2706,22 @@ export const FavoriteDocument = gql`
  * });
  */
 export function useFavoriteQuery(
-  baseOptions?: Apollo.QueryHookOptions<FavoriteQuery, FavoriteQueryVariables>
+  baseOptions?: Apollo.QueryHookOptions<FavoriteQuery, FavoriteQueryVariables>,
 ) {
   return Apollo.useQuery<FavoriteQuery, FavoriteQueryVariables>(
     FavoriteDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useFavoriteLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     FavoriteQuery,
     FavoriteQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<FavoriteQuery, FavoriteQueryVariables>(
     FavoriteDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type FavoriteQueryHookResult = ReturnType<typeof useFavoriteQuery>;
@@ -2918,19 +2760,22 @@ export const LightMeDocument = gql`
  * });
  */
 export function useLightMeQuery(
-  baseOptions?: Apollo.QueryHookOptions<LightMeQuery, LightMeQueryVariables>
+  baseOptions?: Apollo.QueryHookOptions<LightMeQuery, LightMeQueryVariables>,
 ) {
   return Apollo.useQuery<LightMeQuery, LightMeQueryVariables>(
     LightMeDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useLightMeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<LightMeQuery, LightMeQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    LightMeQuery,
+    LightMeQueryVariables
+  >,
 ) {
   return Apollo.useLazyQuery<LightMeQuery, LightMeQueryVariables>(
     LightMeDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type LightMeQueryHookResult = ReturnType<typeof useLightMeQuery>;
@@ -3004,16 +2849,16 @@ export const MeDocument = gql`
  * });
  */
 export function useMeQuery(
-  baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>
+  baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>,
 ) {
   return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
 }
 export function useMeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>,
 ) {
   return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(
     MeDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
@@ -3044,22 +2889,22 @@ export function useIsUserLoggedInQuery(
   baseOptions?: Apollo.QueryHookOptions<
     IsUserLoggedInQuery,
     IsUserLoggedInQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<IsUserLoggedInQuery, IsUserLoggedInQueryVariables>(
     IsUserLoggedInDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useIsUserLoggedInLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     IsUserLoggedInQuery,
     IsUserLoggedInQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<IsUserLoggedInQuery, IsUserLoggedInQueryVariables>(
     IsUserLoggedInDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type IsUserLoggedInQueryHookResult = ReturnType<
@@ -3100,22 +2945,22 @@ export function useNotificationQuery(
   baseOptions?: Apollo.QueryHookOptions<
     NotificationQuery,
     NotificationQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<NotificationQuery, NotificationQueryVariables>(
     NotificationDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useNotificationLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     NotificationQuery,
     NotificationQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<NotificationQuery, NotificationQueryVariables>(
     NotificationDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type NotificationQueryHookResult = ReturnType<
@@ -3185,19 +3030,19 @@ export const MyInfoDocument = gql`
  * });
  */
 export function useMyInfoQuery(
-  baseOptions?: Apollo.QueryHookOptions<MyInfoQuery, MyInfoQueryVariables>
+  baseOptions?: Apollo.QueryHookOptions<MyInfoQuery, MyInfoQueryVariables>,
 ) {
   return Apollo.useQuery<MyInfoQuery, MyInfoQueryVariables>(
     MyInfoDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useMyInfoLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<MyInfoQuery, MyInfoQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<MyInfoQuery, MyInfoQueryVariables>,
 ) {
   return Apollo.useLazyQuery<MyInfoQuery, MyInfoQueryVariables>(
     MyInfoDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type MyInfoQueryHookResult = ReturnType<typeof useMyInfoQuery>;
@@ -3240,22 +3085,22 @@ export function useWineSearchedQuery(
   baseOptions?: Apollo.QueryHookOptions<
     WineSearchedQuery,
     WineSearchedQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<WineSearchedQuery, WineSearchedQueryVariables>(
     WineSearchedDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useWineSearchedLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     WineSearchedQuery,
     WineSearchedQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<WineSearchedQuery, WineSearchedQueryVariables>(
     WineSearchedDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type WineSearchedQueryHookResult = ReturnType<
@@ -3337,19 +3182,22 @@ export const AdsWineDocument = gql`
  * });
  */
 export function useAdsWineQuery(
-  baseOptions: Apollo.QueryHookOptions<AdsWineQuery, AdsWineQueryVariables>
+  baseOptions: Apollo.QueryHookOptions<AdsWineQuery, AdsWineQueryVariables>,
 ) {
   return Apollo.useQuery<AdsWineQuery, AdsWineQueryVariables>(
     AdsWineDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useAdsWineLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<AdsWineQuery, AdsWineQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AdsWineQuery,
+    AdsWineQueryVariables
+  >,
 ) {
   return Apollo.useLazyQuery<AdsWineQuery, AdsWineQueryVariables>(
     AdsWineDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type AdsWineQueryHookResult = ReturnType<typeof useAdsWineQuery>;
@@ -3423,16 +3271,16 @@ export const AdDocument = gql`
  * });
  */
 export function useAdQuery(
-  baseOptions: Apollo.QueryHookOptions<AdQuery, AdQueryVariables>
+  baseOptions: Apollo.QueryHookOptions<AdQuery, AdQueryVariables>,
 ) {
   return Apollo.useQuery<AdQuery, AdQueryVariables>(AdDocument, baseOptions);
 }
 export function useAdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<AdQuery, AdQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<AdQuery, AdQueryVariables>,
 ) {
   return Apollo.useLazyQuery<AdQuery, AdQueryVariables>(
     AdDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type AdQueryHookResult = ReturnType<typeof useAdQuery>;
@@ -3467,19 +3315,19 @@ export const WinesDocument = gql`
  * });
  */
 export function useWinesQuery(
-  baseOptions?: Apollo.QueryHookOptions<WinesQuery, WinesQueryVariables>
+  baseOptions?: Apollo.QueryHookOptions<WinesQuery, WinesQueryVariables>,
 ) {
   return Apollo.useQuery<WinesQuery, WinesQueryVariables>(
     WinesDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useWinesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<WinesQuery, WinesQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<WinesQuery, WinesQueryVariables>,
 ) {
   return Apollo.useLazyQuery<WinesQuery, WinesQueryVariables>(
     WinesDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type WinesQueryHookResult = ReturnType<typeof useWinesQuery>;
@@ -3533,22 +3381,22 @@ export function useNegotiationsQuery(
   baseOptions?: Apollo.QueryHookOptions<
     NegotiationsQuery,
     NegotiationsQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<NegotiationsQuery, NegotiationsQueryVariables>(
     NegotiationsDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useNegotiationsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     NegotiationsQuery,
     NegotiationsQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<NegotiationsQuery, NegotiationsQueryVariables>(
     NegotiationsDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type NegotiationsQueryHookResult = ReturnType<
@@ -3602,22 +3450,22 @@ export function useNegotiationQuery(
   baseOptions: Apollo.QueryHookOptions<
     NegotiationQuery,
     NegotiationQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<NegotiationQuery, NegotiationQueryVariables>(
     NegotiationDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useNegotiationLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     NegotiationQuery,
     NegotiationQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<NegotiationQuery, NegotiationQueryVariables>(
     NegotiationDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type NegotiationQueryHookResult = ReturnType<typeof useNegotiationQuery>;
@@ -3653,22 +3501,22 @@ export const MessagesDocument = gql`
  * });
  */
 export function useMessagesQuery(
-  baseOptions?: Apollo.QueryHookOptions<MessagesQuery, MessagesQueryVariables>
+  baseOptions?: Apollo.QueryHookOptions<MessagesQuery, MessagesQueryVariables>,
 ) {
   return Apollo.useQuery<MessagesQuery, MessagesQueryVariables>(
     MessagesDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useMessagesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     MessagesQuery,
     MessagesQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<MessagesQuery, MessagesQueryVariables>(
     MessagesDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type MessagesQueryHookResult = ReturnType<typeof useMessagesQuery>;
@@ -3713,7 +3561,7 @@ export function useMessagesNegotiationQuery(
   baseOptions: Apollo.QueryHookOptions<
     MessagesNegotiationQuery,
     MessagesNegotiationQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<
     MessagesNegotiationQuery,
@@ -3724,7 +3572,7 @@ export function useMessagesNegotiationLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     MessagesNegotiationQuery,
     MessagesNegotiationQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<
     MessagesNegotiationQuery,
@@ -3772,19 +3620,22 @@ export const ReviewsDocument = gql`
  * });
  */
 export function useReviewsQuery(
-  baseOptions?: Apollo.QueryHookOptions<ReviewsQuery, ReviewsQueryVariables>
+  baseOptions?: Apollo.QueryHookOptions<ReviewsQuery, ReviewsQueryVariables>,
 ) {
   return Apollo.useQuery<ReviewsQuery, ReviewsQueryVariables>(
     ReviewsDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useReviewsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<ReviewsQuery, ReviewsQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ReviewsQuery,
+    ReviewsQueryVariables
+  >,
 ) {
   return Apollo.useLazyQuery<ReviewsQuery, ReviewsQueryVariables>(
     ReviewsDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type ReviewsQueryHookResult = ReturnType<typeof useReviewsQuery>;
@@ -3819,19 +3670,19 @@ export const ReviewDocument = gql`
  * });
  */
 export function useReviewQuery(
-  baseOptions: Apollo.QueryHookOptions<ReviewQuery, ReviewQueryVariables>
+  baseOptions: Apollo.QueryHookOptions<ReviewQuery, ReviewQueryVariables>,
 ) {
   return Apollo.useQuery<ReviewQuery, ReviewQueryVariables>(
     ReviewDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useReviewLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<ReviewQuery, ReviewQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<ReviewQuery, ReviewQueryVariables>,
 ) {
   return Apollo.useLazyQuery<ReviewQuery, ReviewQueryVariables>(
     ReviewDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type ReviewQueryHookResult = ReturnType<typeof useReviewQuery>;
@@ -3877,7 +3728,7 @@ export function useNegotiationsForAdQuery(
   baseOptions: Apollo.QueryHookOptions<
     NegotiationsForAdQuery,
     NegotiationsForAdQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<
     NegotiationsForAdQuery,
@@ -3888,7 +3739,7 @@ export function useNegotiationsForAdLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     NegotiationsForAdQuery,
     NegotiationsForAdQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<
     NegotiationsForAdQuery,
@@ -3978,22 +3829,22 @@ export function useAdsForUserQuery(
   baseOptions: Apollo.QueryHookOptions<
     AdsForUserQuery,
     AdsForUserQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<AdsForUserQuery, AdsForUserQueryVariables>(
     AdsForUserDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useAdsForUserLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     AdsForUserQuery,
     AdsForUserQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<AdsForUserQuery, AdsForUserQueryVariables>(
     AdsForUserDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type AdsForUserQueryHookResult = ReturnType<typeof useAdsForUserQuery>;
@@ -4033,22 +3884,22 @@ export function useGetMessageQuery(
   baseOptions: Apollo.QueryHookOptions<
     GetMessageQuery,
     GetMessageQueryVariables
-  >
+  >,
 ) {
   return Apollo.useQuery<GetMessageQuery, GetMessageQueryVariables>(
     GetMessageDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export function useGetMessageLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetMessageQuery,
     GetMessageQueryVariables
-  >
+  >,
 ) {
   return Apollo.useLazyQuery<GetMessageQuery, GetMessageQueryVariables>(
     GetMessageDocument,
-    baseOptions
+    baseOptions,
   );
 }
 export type GetMessageQueryHookResult = ReturnType<typeof useGetMessageQuery>;
@@ -4103,7 +3954,7 @@ export function useAdPostedFollowUpSubscription(
   baseOptions?: Apollo.SubscriptionHookOptions<
     AdPostedFollowUpSubscription,
     AdPostedFollowUpSubscriptionVariables
-  >
+  >,
 ) {
   return Apollo.useSubscription<
     AdPostedFollowUpSubscription,
@@ -4142,7 +3993,7 @@ export function useAdRemovedSubscription(
   baseOptions?: Apollo.SubscriptionHookOptions<
     AdRemovedSubscription,
     AdRemovedSubscriptionVariables
-  >
+  >,
 ) {
   return Apollo.useSubscription<
     AdRemovedSubscription,
@@ -4154,6 +4005,49 @@ export type AdRemovedSubscriptionHookResult = ReturnType<
 >;
 export type AdRemovedSubscriptionResult =
   Apollo.SubscriptionResult<AdRemovedSubscription>;
+export const AdSavedDocument = gql`
+  subscription AdSaved {
+    adSaved {
+      _id
+      typeAd
+      ... on AdWine {
+        wineName
+      }
+    }
+  }
+`;
+
+/**
+ * __useAdSavedSubscription__
+ *
+ * To run a query within a React component, call `useAdSavedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAdSavedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdSavedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdSavedSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    AdSavedSubscription,
+    AdSavedSubscriptionVariables
+  >,
+) {
+  return Apollo.useSubscription<
+    AdSavedSubscription,
+    AdSavedSubscriptionVariables
+  >(AdSavedDocument, baseOptions);
+}
+export type AdSavedSubscriptionHookResult = ReturnType<
+  typeof useAdSavedSubscription
+>;
+export type AdSavedSubscriptionResult =
+  Apollo.SubscriptionResult<AdSavedSubscription>;
 export const MessageSentDocument = gql`
   subscription MessageSent {
     messageSent {
@@ -4182,7 +4076,7 @@ export function useMessageSentSubscription(
   baseOptions?: Apollo.SubscriptionHookOptions<
     MessageSentSubscription,
     MessageSentSubscriptionVariables
-  >
+  >,
 ) {
   return Apollo.useSubscription<
     MessageSentSubscription,
@@ -4222,7 +4116,7 @@ export function useNegotiationCreatedSubscription(
   baseOptions?: Apollo.SubscriptionHookOptions<
     NegotiationCreatedSubscription,
     NegotiationCreatedSubscriptionVariables
-  >
+  >,
 ) {
   return Apollo.useSubscription<
     NegotiationCreatedSubscription,
@@ -4278,7 +4172,7 @@ export function useNegotiationClosedSubscription(
   baseOptions?: Apollo.SubscriptionHookOptions<
     NegotiationClosedSubscription,
     NegotiationClosedSubscriptionVariables
-  >
+  >,
 ) {
   return Apollo.useSubscription<
     NegotiationClosedSubscription,
@@ -4318,7 +4212,7 @@ export function useReviewCreatedSubscription(
   baseOptions?: Apollo.SubscriptionHookOptions<
     ReviewCreatedSubscription,
     ReviewCreatedSubscriptionVariables
-  >
+  >,
 ) {
   return Apollo.useSubscription<
     ReviewCreatedSubscription,

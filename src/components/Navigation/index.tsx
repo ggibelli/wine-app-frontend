@@ -5,6 +5,7 @@ import {
   useNegotiationCreatedSubscription,
   useNegotiationClosedSubscription,
   useAdPostedFollowUpSubscription,
+  useAdSavedSubscription,
   useMessageSentSubscription,
   useIsUserLoggedInQuery,
   useReviewCreatedSubscription,
@@ -56,11 +57,11 @@ export const Header: React.FC = () => {
       if (login?.errors?.length === 0) {
         localStorage.setItem(
           'wineapp-user-token',
-          login?.response?.token as string
+          login?.response?.token as string,
         );
         localStorage.setItem(
           'wineapp-user-id',
-          login?.response?.user._id as string
+          login?.response?.user._id as string,
         );
         isLoggedInVar(true);
         notification({
@@ -104,7 +105,7 @@ export const Header: React.FC = () => {
       updateCacheNegotiations(
         client,
         subscriptionData.data?.negotiationCreated,
-        true
+        true,
       );
     },
   });
@@ -112,7 +113,7 @@ export const Header: React.FC = () => {
     onSubscriptionData: ({ subscriptionData }) => {
       updateCacheMessagesAdmin(
         client,
-        subscriptionData.data?.negotiationClosed
+        subscriptionData.data?.negotiationClosed,
       );
       const wineName =
         subscriptionData.data?.negotiationClosed.__typename === 'AdWine' &&
@@ -129,6 +130,18 @@ export const Header: React.FC = () => {
       notification({
         type: 'info',
         message: 'Qualcuno ha pubblicato un annuncio che ti interessa',
+      });
+    },
+  });
+  useAdSavedSubscription({
+    onSubscriptionData: ({ subscriptionData }) => {
+      const wineName =
+        subscriptionData.data?.adSaved.__typename === 'AdWine'
+          ? subscriptionData.data.adSaved.wineName
+          : 'Vino generico';
+      notification({
+        type: 'info',
+        message: `Una cantina ha salvato il tuo annuncio ${wineName}`,
       });
     },
   });

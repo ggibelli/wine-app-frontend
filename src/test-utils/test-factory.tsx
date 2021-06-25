@@ -25,7 +25,6 @@ export const userFactory = Factory.Sync.makeFactory<User>({
     comune: 'Arosio',
 
     via: 'via della prova 1',
-    CAP: '12345',
   },
   __typename: 'User' as const,
   _id: Factory.Sync.each((i) => i.toString()),

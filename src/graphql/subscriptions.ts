@@ -47,6 +47,19 @@ export const AD_REMOVED = gql`
   ${AD_DETAILS}
 `;
 
+export const AD_SAVED = gql`
+  subscription AdSaved {
+    adSaved {
+      _id
+      typeAd
+      ... on AdWine {
+        wineName
+      }
+    }
+  }
+  ${AD_DETAILS}
+`;
+
 export const MESSAGE_SENT = gql`
   subscription MessageSent {
     messageSent {
