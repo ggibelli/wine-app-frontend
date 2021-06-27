@@ -17,6 +17,7 @@ import { useStyles } from '../../utils/styleHook';
 import { MessagesQuery } from '../../generated/graphql';
 import { myInfo } from '../../cache';
 import { NotificationListEl } from './NotificationListEl';
+// import { InfiniteScroll } from '../../containers/InfiniteScrollFetch';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,31 +55,31 @@ interface NotificationProps {
 }
 
 export const SwipableTabsNotification: React.FC<NotificationProps> = (
-  props
+  props,
 ) => {
   const classes = useStyles();
   const theme = useTheme();
   const me = myInfo();
   const [value, setValue] = React.useState<number>(0);
   const notifications = props.messages?.filter(
-    (message) => message.sentBy.firstName === 'Amministratore'
+    (message) => message.sentBy.firstName === 'Amministratore',
   );
   const messages = props.messages?.filter(
-    (message) => message.sentBy.firstName !== 'Amministratore'
+    (message) => message.sentBy.firstName !== 'Amministratore',
   );
   const messagesForNegotiationObj = groupBy(
     messages,
-    (message) => message.negotiation._id
+    (message) => message.negotiation._id,
   );
   const messagesForNegotiation = Object.entries(messagesForNegotiationObj).sort(
-    (a, b) => a[0].localeCompare(b[0])
+    (a, b) => a[0].localeCompare(b[0]),
   );
   const messNumberRaw = messagesForNegotiation.map((mess) => mess[1]).flat();
   const unreadNotificationsBadge = notifications?.filter(
-    (n) => !n.isViewed
+    (n) => !n.isViewed,
   ).length;
   const unreadBadge = messNumberRaw.filter(
-    (m) => !m.isViewed && m.sentBy._id !== me?._id
+    (m) => !m.isViewed && m.sentBy._id !== me?._id,
   ).length;
   // eslint-disable-next-line @typescript-eslint/ban-types
   const handleChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
@@ -130,11 +131,17 @@ export const SwipableTabsNotification: React.FC<NotificationProps> = (
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
+          {/* <InfiniteScroll
+            fetchMore={handleFetchMore}
+            isVisible={data.ads.ads?.length !== data?.ads?.pageCount}
+            isLoading={isLoadFetchMore}
+          > */}
           <List>
             {messagesForNegotiation.map((el) => (
               <MessageListEl key={el[0]} messages={el[1]} id={el[0]} />
             ))}
           </List>
+          {/* </InfiniteScroll> */}
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <List>

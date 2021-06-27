@@ -9,7 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { Menzione, MetodoProduttivo, TypeAd } from '../../../generated/graphql';
 import { SelectField } from '../../FormFields/SelectField';
 import { useStylesForms } from '../../../utils/styleHook';
-import { WineOption } from '../../../utils/wineList';
+// import { WineOption } from '../../../utils/wineList';
+import { wines } from '../../../utils/wineList';
+import { Collapse } from '@material-ui/core';
 
 export interface WineFormMutation {
   wineName: string;
@@ -26,8 +28,7 @@ export interface WineFormMutation {
 export const WineFormMutation: React.FC<{
   onSubmit: (values: WineFormMutation) => void;
   adType: TypeAd;
-  wines: WineOption[];
-}> = ({ onSubmit, adType, wines }) => {
+}> = ({ onSubmit, adType }) => {
   const classes = useStylesForms();
   const today = new Date();
   const year = today.getFullYear();
@@ -42,7 +43,7 @@ export const WineFormMutation: React.FC<{
     metodoProduttivo: '',
     content: '',
   };
-
+  console.log(wines);
   return (
     <Formik
       initialValues={initialValues}
@@ -100,6 +101,8 @@ export const WineFormMutation: React.FC<{
                   : classes.underlineSell
               }
             />
+            {/* Grape selection field, probably array of grapes with key as selected wine*/}
+            <Collapse in={false}></Collapse>
             <TextField
               required={true}
               name='harvest'

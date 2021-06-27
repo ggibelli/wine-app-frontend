@@ -18,7 +18,6 @@ import { updateCacheAd } from '../utils/updateCache';
 import { BackButton } from '../components/BackButton';
 import { useStyles } from '../utils/styleHook';
 import { Loading } from '../components/Loading';
-import { wines } from '../utils/wineList';
 
 const Buy: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
@@ -87,7 +86,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
         ad.wineName === adInput.wineName &&
         ad.harvest === adInput.harvest &&
         ad.typeAd === adType &&
-        ad.isActive === true
+        ad.isActive === true,
     );
     await client.query({
       query: AdsWineDocument,
@@ -127,11 +126,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
           Inserisci i dati del prodotto che desideri {buyOrSellText}, noi
           cercheremo per te il giusto {buyerSellerText}.
         </Typography>
-        <WineFormMutation
-          wines={wines}
-          onSubmit={onSubmitMutation}
-          adType={adType}
-        />
+        <WineFormMutation onSubmit={onSubmitMutation} adType={adType} />
       </div>
     </Container>
   );

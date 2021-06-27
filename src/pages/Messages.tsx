@@ -11,7 +11,7 @@ import { SwipableTabsNotification } from '../components/SwipableTabsNotification
 
 const Messages: React.FC<RouteComponentProps> = () => {
   const { data, loading, error } = useMessagesQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
     onError: (error) => {
       notification({
         type: 'error',
@@ -41,7 +41,7 @@ const Messages: React.FC<RouteComponentProps> = () => {
   }
 
   if (error) return <div>error</div>;
-
+  console.log(data?.messages);
   return (
     <Container component='main' maxWidth='sm'>
       <CssBaseline />
