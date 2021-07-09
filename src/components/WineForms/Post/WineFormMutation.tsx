@@ -2,6 +2,8 @@ import { Form, Formik } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
 import { TextFieldAdornment } from '../../FormFields/TextFieldAdornment';
+import { TextFieldAdornmentCtx } from '../../FormFields/TextFieldAdornmentCtx';
+
 import { TextField } from '../../FormFields/TextField';
 import { Combobox } from '../../FormFields/ComboboxFieldWines';
 import Button from '@material-ui/core/Button';
@@ -11,7 +13,6 @@ import { SelectField } from '../../FormFields/SelectField';
 import { useStylesForms } from '../../../utils/styleHook';
 // import { WineOption } from '../../../utils/wineList';
 import { wines } from '../../../utils/wineList';
-import { Collapse } from '@material-ui/core';
 
 export interface WineFormMutation {
   wineName: string;
@@ -43,7 +44,6 @@ export const WineFormMutation: React.FC<{
     metodoProduttivo: '',
     content: '',
   };
-  console.log(wines);
   return (
     <Formik
       initialValues={initialValues}
@@ -102,7 +102,17 @@ export const WineFormMutation: React.FC<{
               }
             />
             {/* Grape selection field, probably array of grapes with key as selected wine*/}
-            <Collapse in={false}></Collapse>
+            <TextFieldAdornmentCtx
+              underlineColor={
+                adType === TypeAd.Buy
+                  ? classes.underline
+                  : classes.underlineSell
+              }
+              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
+              inputTextColor={
+                adType === TypeAd.Buy ? classes.input : classes.inputSell
+              }
+            />
             <TextField
               required={true}
               name='harvest'
