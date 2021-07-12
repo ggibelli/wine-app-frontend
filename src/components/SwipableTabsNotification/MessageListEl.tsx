@@ -16,13 +16,13 @@ export const MessageListEl: React.FC<{
   const me = myInfo();
   if (!messages) return null;
   const messagesForMe = messages.filter(
-    (message) => message.sentTo._id === me?._id
+    (message) => message.sentTo._id === me?._id,
   );
   const messagesFromMe = messages.filter(
-    (message) => message.sentBy._id === me?._id
+    (message) => message.sentBy._id === me?._id,
   );
   const unreadMessages = messagesForMe?.filter(
-    (message) => !message.isViewed
+    (message) => !message.isViewed,
   ).length;
   const recipient = messagesForMe.length
     ? messagesForMe[0].sentBy.firstName
@@ -53,7 +53,7 @@ export const MessageListEl: React.FC<{
     >
       <ListItemIcon>
         <Badge badgeContent={unreadMessages} color='primary'>
-          <MailOutlineIcon />
+          <MailOutlineIcon color='primary' />
         </Badge>
       </ListItemIcon>
       <ListItemText primary={`Cantina ${recipient} - ${ad}`} />

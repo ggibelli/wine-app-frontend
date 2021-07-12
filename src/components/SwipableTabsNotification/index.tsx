@@ -106,7 +106,7 @@ export const SwipableTabsNotification: React.FC<NotificationProps> = (
           aria-label='notifications'
         >
           <Tab
-            icon={<ChatBubbleOutlineIcon />}
+            icon={<ChatBubbleOutlineIcon color='primary' />}
             label={
               <Badge badgeContent={unreadBadge} color='primary'>
                 Messaggi
@@ -115,7 +115,7 @@ export const SwipableTabsNotification: React.FC<NotificationProps> = (
             {...a11yProps(0)}
           />
           <Tab
-            icon={<NotificationsNoneOutlinedIcon />}
+            icon={<NotificationsNoneOutlinedIcon color='primary' />}
             label={
               <Badge badgeContent={unreadNotificationsBadge} color='primary'>
                 Notifiche

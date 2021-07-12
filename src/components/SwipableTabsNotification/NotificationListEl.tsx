@@ -19,7 +19,7 @@ export const NotificationListEl: React.FC<{
     >
       <ListItemIcon>
         <Badge badgeContent={notification.isViewed ? 0 : 1} color='primary'>
-          <NotificationsNoneOutlinedIcon />
+          <NotificationsNoneOutlinedIcon color='primary' />
         </Badge>
       </ListItemIcon>
       <ListItemText primary={notification.content} />

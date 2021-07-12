@@ -56,7 +56,7 @@ export const Drawer: React.FC<{
     >
       <Box component='fieldset' mb={3} pt={3} borderColor='transparent'>
         <Avatar>
-          <AccountCircleIcon />
+          <AccountCircleIcon color='primary' />
         </Avatar>
         <Typography color='primary' component='h1'>
           {data.data?.name}
@@ -79,7 +79,7 @@ export const Drawer: React.FC<{
       <List>
         <ListItem button>
           <ListItemIcon>
-            <AccountCircleIcon />
+            <AccountCircleIcon color='primary' />
           </ListItemIcon>
           <ListItemText primary='Profilo' />
         </ListItem>
@@ -92,7 +92,7 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <AssignmentIcon />
+            <AssignmentIcon color='primary' />
           </ListItemIcon>
           <ListItemText
             primary={`Annunci pubblicati (${data.data?.numAds || 0})`}
@@ -107,7 +107,7 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <HandshakeOutline />
+            <HandshakeOutline color='primary' />
           </ListItemIcon>
           <ListItemText
             primary={`Trattative in corso (${data.data?.numOpenNegs || 0})`}
@@ -122,7 +122,7 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <FavoriteIcon />
+            <FavoriteIcon color='primary' />
           </ListItemIcon>
           <ListItemText
             primary={`Annunci salvati (${data.data?.savedAds || 0})`}
@@ -132,7 +132,7 @@ export const Drawer: React.FC<{
         <div data-testid='logout' className={classes.bottomPush}>
           <ListItem button onClick={handleCLick}>
             <ListItemIcon data-testid='logout-button'>
-              <ExitToAppIcon />
+              <ExitToAppIcon color='primary' />
             </ListItemIcon>
             <ListItemText primary='Esci' />
           </ListItem>

@@ -2,17 +2,18 @@ import { Form, Formik } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
 import { TextFieldAdornment } from '../../FormFields/TextFieldAdornment';
-import { TextFieldAdornmentCtx } from '../../FormFields/TextFieldAdornmentCtx';
-
+// import { TextFieldAdornmentCtx } from '../../FormFields/TextFieldAdornmentCtx';
+import { Collapse } from '@material-ui/core';
 import { TextField } from '../../FormFields/TextField';
 import { Combobox } from '../../FormFields/ComboboxFieldWines';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Menzione, MetodoProduttivo, TypeAd } from '../../../generated/graphql';
+import { MetodoProduttivo, TypeAd } from '../../../generated/graphql';
 import { SelectField } from '../../FormFields/SelectField';
 import { useStylesForms } from '../../../utils/styleHook';
 // import { WineOption } from '../../../utils/wineList';
 import { wines } from '../../../utils/wineList';
+import { GrapeFormModal } from '../../GrapeFormModal';
 
 export interface WineFormMutation {
   wineName: string;
@@ -20,8 +21,6 @@ export interface WineFormMutation {
   abv: number | '';
   price: number | '';
   liters: number | '';
-  sottoZona?: string;
-  menzione?: Menzione | '';
   content?: string;
   metodoProduttivo?: MetodoProduttivo | '';
 }
@@ -39,11 +38,11 @@ export const WineFormMutation: React.FC<{
     abv: 13.5 as number,
     price: 3 as number,
     liters: 100 as number,
-    sottoZona: '',
-    menzione: '',
     metodoProduttivo: '',
     content: '',
   };
+  const [open, setOpen] = React.useState<boolean>(false);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -70,7 +69,7 @@ export const WineFormMutation: React.FC<{
       })}
       onSubmit={onSubmit}
     >
-      {({ isValid, dirty, setFieldValue }) => {
+      {({ isValid, dirty, setFieldValue, values }) => {
         return (
           <Form
             className={adType === TypeAd.Buy ? classes.form : classes.formSell}
@@ -101,8 +100,7 @@ export const WineFormMutation: React.FC<{
                   : classes.underlineSell
               }
             />
-            {/* Grape selection field, probably array of grapes with key as selected wine*/}
-            <TextFieldAdornmentCtx
+            {/* <TextFieldAdornmentCtx
               underlineColor={
                 adType === TypeAd.Buy
                   ? classes.underline
@@ -112,7 +110,18 @@ export const WineFormMutation: React.FC<{
               inputTextColor={
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
-            />
+            /> */}
+            <Collapse in={Boolean(values.wineName)}>
+              <Button onClick={() => setOpen(!open)}>
+                Seleziona i vitigni
+              </Button>
+              <GrapeFormModal
+                handleClose={() => setOpen(false)}
+                open={open}
+                grapes={wines.find((wine) => wine.d === values.wineName)}
+              />
+            </Collapse>
+
             <TextField
               required={true}
               name='harvest'
@@ -140,7 +149,7 @@ export const WineFormMutation: React.FC<{
               max='22'
               step='0.5'
               placeholder='Esempio 13.5 vol'
-              adornment='%'
+              // adornment='%'
               underlineColor={
                 adType === TypeAd.Buy
                   ? classes.underline
@@ -170,7 +179,7 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            <TextFieldAdornment
+            <TextField
               name='liters'
               type='number'
               label='Litri richiesti'
@@ -178,7 +187,6 @@ export const WineFormMutation: React.FC<{
               max='999999'
               step='1'
               placeholder='Esempio 1000 litri'
-              adornment='l'
               underlineColor={
                 adType === TypeAd.Buy
                   ? classes.underline

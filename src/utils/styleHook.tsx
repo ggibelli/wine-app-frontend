@@ -105,7 +105,6 @@ export const useStylesForms = makeStyles(
       display: 'flex',
       alignItems: 'center',
     },
-
     input: {
       color: 'white',
     },

@@ -90,7 +90,7 @@ export const cache: InMemoryCache = new InMemoryCache({
             const negotiationsUnsorted = unionBy(
               existing.negotiations,
               incoming.negotiations,
-              '__ref'
+              '__ref',
             );
             if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
               negotiations = orderBy(negotiationsUnsorted, '__ref', ['desc']);
@@ -142,6 +142,11 @@ export const cache: InMemoryCache = new InMemoryCache({
             return searchedWine();
           },
         },
+        compositionWine: {
+          read() {
+            return compositionWine();
+          },
+        },
         myInfo: {
           read() {
             return myInfo();
@@ -153,7 +158,7 @@ export const cache: InMemoryCache = new InMemoryCache({
 });
 
 export const isLoggedInVar = makeVar<boolean>(
-  !!localStorage.getItem('wineapp-user-token')
+  !!localStorage.getItem('wineapp-user-token'),
 );
 
 export const myInfo = makeVar<DeepExtractType<MeQuery, ['me']> | null>({
@@ -163,6 +168,13 @@ export const myInfo = makeVar<DeepExtractType<MeQuery, ['me']> | null>({
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
 
 export const searchedWine = makeVar<AdInput | undefined>(undefined);
+
+export interface ComposedWine {
+  name: string;
+  compisition: Record<string, number>;
+}
+
+export const compositionWine = makeVar<ComposedWine | undefined>(undefined);
 
 interface Notification {
   type: AlertStatus;

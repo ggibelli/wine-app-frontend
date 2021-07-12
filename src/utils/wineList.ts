@@ -7,7 +7,7 @@ export const wines: WineOption[] = [
   {
     d: 'Abruzzo DOC bianco',
 
-    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+    v: ['Trebbiano Abruzzese', 'Trebbiano Toscano'],
   },
   {
     d: 'Abruzzo DOC Cococciola',
@@ -53,7 +53,12 @@ export const wines: WineOption[] = [
     d: 'Abruzzo DOC passito bianco',
 
     v: [
-      'Moscato bianco, Passerina, Pecorino, Riesling Italico, Sauvignon, Gewürztraminer',
+      'Moscato bianco',
+      'Passerina',
+      'Pecorino',
+      'Riesling Italico',
+      'Sauvignon',
+      'Gewürztraminer',
     ],
   },
   {
@@ -80,25 +85,35 @@ export const wines: WineOption[] = [
     d: 'Abruzzo DOC spumante bianco charmat',
 
     v: [
-      'Chardonnay, Cococciola, Montonico bianco, Passerina, Pecorino, Pinot nero',
+      'Chardonnay',
+      'Cococciola',
+      'Montonico bianco',
+      'Passerina',
+      'Pecorino',
+      'Pinot nero',
     ],
   },
   {
     d: 'Abruzzo DOC spumante bianco metodo classico',
 
     v: [
-      'Chardonnay, Cococciola, Montonico bianco, Passerina, Pecorino, Pinot nero',
+      'Chardonnay',
+      'Cococciola',
+      'Montonico bianco',
+      'Passerina',
+      'Pecorino',
+      'Pinot nero',
     ],
   },
   {
     d: 'Abruzzo DOC spumante rosé charmat',
 
-    v: ['Montepulciano, Pinot nero'],
+    v: ['Montepulciano', 'Pinot nero'],
   },
   {
     d: 'Abruzzo DOC spumante rosé metodo classico',
 
-    v: ['Montepulciano, Pinot nero'],
+    v: ['Montepulciano', 'Pinot nero'],
   },
   {
     d: 'Aglianico del Taburno o Taburno rosato DOCG',
@@ -118,37 +133,37 @@ export const wines: WineOption[] = [
   {
     d: 'Aglianico del Vulture DOC',
 
-    v: ['Aglianico del Vulture, Aglianico'],
+    v: ['Aglianico del Vulture', 'Aglianico'],
   },
   {
     d: 'Aglianico del Vulture spumante DOC',
 
-    v: ['Aglianico del Vulture, Aglianico'],
+    v: ['Aglianico del Vulture', 'Aglianico'],
   },
   {
     d: 'Aglianico del Vulture Superiore DOCG',
 
-    v: ['Aglianico del Vulture, Aglianico'],
+    v: ['Aglianico del Vulture', 'Aglianico'],
   },
   {
     d: 'Aglianico del Vulture Superiore riserva DOCG',
 
-    v: ['Aglianico del Vulture, Aglianico'],
+    v: ['Aglianico del Vulture', 'Aglianico'],
   },
   {
     d: 'Alba DOC',
 
-    v: ['Nebbiolo, Barbera'],
+    v: ['Nebbiolo', 'Barbera'],
   },
   {
     d: 'Alba riserva DOC',
 
-    v: ['Nebbiolo, Barbera'],
+    v: ['Nebbiolo', 'Barbera'],
   },
   {
     d: 'Albugnano DOC',
 
-    v: ['Nebbiolo, Freisa, Barbera, Bonarda'],
+    v: ['Nebbiolo', 'Freisa', 'Barbera', 'Bonarda'],
   },
   {
     d: 'Alcamo DOC Ansonica o Inzolia',
@@ -159,19 +174,29 @@ export const wines: WineOption[] = [
     d: 'Alcamo DOC bianco',
 
     v: [
-      'Catarratto bianco lucido, Catarratto bianco comune, Ansonica, Chardonnay, Müller-Thurgau, Sauvignon',
+      'Catarratto bianco lucido',
+      'Catarratto bianco comune',
+      'Ansonica',
+      'Chardonnay',
+      'Müller-Thurgau',
+      'Sauvignon',
     ],
   },
   {
     d: 'Alcamo DOC bianco classico',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune'],
   },
   {
     d: 'Alcamo DOC bianco spumante',
 
     v: [
-      'Catarratto bianco lucido, Catarratto bianco comune, Ansonica, Chardonnay, Müller-Thurgau, Sauvignon',
+      'Catarratto bianco lucido',
+      'Catarratto bianco comune',
+      'Ansonica',
+      'Chardonnay',
+      'Müller-Thurgau',
+      'Sauvignon',
     ],
   },
   {
@@ -187,7 +212,7 @@ export const wines: WineOption[] = [
   {
     d: 'Alcamo DOC Catarratto',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune'],
   },
   {
     d: 'Alcamo DOC Chardonnay',
@@ -218,35 +243,67 @@ export const wines: WineOption[] = [
     d: 'Alcamo DOC rosato',
 
     v: [
-      'Nerello Mascalese, Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+      'Nerello Mascalese',
+      'Calabrese',
+      'Sangiovese',
+      'Frappato',
+      'Perricone',
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Syrah',
     ],
   },
   {
     d: 'Alcamo DOC rosato spumante',
 
     v: [
-      'Nerello Mascalese, Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+      'Nerello Mascalese',
+      'Calabrese',
+      'Sangiovese',
+      'Frappato',
+      'Perricone',
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Syrah',
     ],
   },
   {
     d: 'Alcamo DOC rosso',
 
     v: [
-      'Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+      'Calabrese',
+      'Sangiovese',
+      'Frappato',
+      'Perricone',
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Syrah',
     ],
   },
   {
     d: 'Alcamo DOC rosso novello',
 
     v: [
-      'Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+      'Calabrese',
+      'Sangiovese',
+      'Frappato',
+      'Perricone',
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Syrah',
     ],
   },
   {
     d: 'Alcamo DOC rosso riserva',
 
     v: [
-      'Calabrese, Sangiovese, Frappato, Perricone, Cabernet Sauvignon, Merlot, Syrah',
+      'Calabrese',
+      'Sangiovese',
+      'Frappato',
+      'Perricone',
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Syrah',
     ],
   },
   {
@@ -263,7 +320,12 @@ export const wines: WineOption[] = [
     d: 'Alcamo DOC vendemmia tardiva',
 
     v: [
-      'Catarratto bianco lucido, Catarratto bianco comune, Ansonica, Chardonnay, Müller-Thurgau, Sauvignon',
+      'Catarratto bianco lucido',
+      'Catarratto bianco comune',
+      'Ansonica',
+      'Chardonnay',
+      'Müller-Thurgau',
+      'Sauvignon',
     ],
   },
   {
@@ -294,17 +356,17 @@ export const wines: WineOption[] = [
   {
     d: 'Alezio rosato DOC',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese, Montepulciano'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Sangiovese', 'Montepulciano'],
   },
   {
     d: 'Alezio rosso DOC',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese, Montepulciano'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Sangiovese', 'Montepulciano'],
   },
   {
     d: 'Alezio rosso riserva DOC',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese, Montepulciano'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Sangiovese', 'Montepulciano'],
   },
   {
     d: 'Alghero DOC bianco',
@@ -424,42 +486,42 @@ export const wines: WineOption[] = [
   {
     d: 'Alta Langa spumante DOCG',
 
-    v: ['Pinot nero, Chardonnay'],
+    v: ['Pinot nero', 'Chardonnay'],
   },
   {
     d: 'Alta Langa spumante riserva DOCG',
 
-    v: ['Pinot nero, Chardonnay'],
+    v: ['Pinot nero', 'Chardonnay'],
   },
   {
     d: 'Alta Langa spumante rosato DOCG',
 
-    v: ['Pinot nero, Chardonnay'],
+    v: ['Pinot nero', 'Chardonnay'],
   },
   {
     d: 'Alta Langa spumante rosato riserva DOCG',
 
-    v: ['Pinot nero, Chardonnay'],
+    v: ['Pinot nero', 'Chardonnay'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige bianco DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot grigio'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot grigio'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige bianco passito DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot grigio'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot grigio'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige bianco vendemmia tardiva DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot grigio'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot grigio'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Cabernet franc DOC',
@@ -474,12 +536,12 @@ export const wines: WineOption[] = [
   {
     d: 'Alto Adige o dell’Alto Adige Cabernet-Lagrein DOC',
 
-    v: ['Lagrein, Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Lagrein', 'Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Cabernet-Merlot DOC',
 
-    v: ['Merlot, Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Merlot', 'Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Chardonnay DOC',
@@ -529,22 +591,22 @@ export const wines: WineOption[] = [
   {
     d: 'Alto Adige o dell’Alto Adige Chardonnay-Pinot bianco DOC',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Chardonnay-Pinot bianco passito DOC',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Chardonnay-Pinot grigio DOC',
 
-    v: ['Chardonnay, Pinot grigio'],
+    v: ['Chardonnay', 'Pinot grigio'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Chardonnay-Pinot grigio passito DOC',
 
-    v: ['Chardonnay, Pinot grigio'],
+    v: ['Chardonnay', 'Pinot grigio'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Colli di Bolzano o Bozner Leiten DOC',
@@ -599,12 +661,12 @@ export const wines: WineOption[] = [
   {
     d: 'Alto Adige o dell’Alto Adige Klausner Leitacher DOC',
 
-    v: ['Schiava, Portoghese, Lagrein'],
+    v: ['Schiava', 'Portoghese', 'Lagrein'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Klausner Leitacher Valle Isarco DOC',
 
-    v: ['Schiava, Portoghese, Lagrein'],
+    v: ['Schiava', 'Portoghese', 'Lagrein'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Lagrein DOC',
@@ -619,7 +681,7 @@ export const wines: WineOption[] = [
   {
     d: 'Alto Adige o dell’Alto Adige Lagrein-Merlot DOC',
 
-    v: ['Lagrein, Merlot'],
+    v: ['Lagrein', 'Merlot'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Malvasia DOC',
@@ -779,12 +841,12 @@ export const wines: WineOption[] = [
   {
     d: 'Alto Adige o dell’Alto Adige Pinot bianco-Pinot grigio DOC',
 
-    v: ['Pinot bianco, Pinot grigio'],
+    v: ['Pinot bianco', 'Pinot grigio'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Pinot bianco-Pinot grigio passito DOC',
 
-    v: ['Pinot bianco, Pinot grigio'],
+    v: ['Pinot bianco', 'Pinot grigio'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Pinot grigio DOC',
@@ -1029,7 +1091,7 @@ export const wines: WineOption[] = [
   {
     d: 'Alto Adige o dell’Alto Adige Spumante DOC',
 
-    v: ['Pinot bianco, Pinot nero, Chardonnay'],
+    v: ['Pinot bianco', 'Pinot nero', 'Chardonnay'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Spumante Pinot bianco DOC',
@@ -1049,7 +1111,7 @@ export const wines: WineOption[] = [
   {
     d: 'Alto Adige o dell’Alto Adige Spumante rosé DOC',
 
-    v: ['Pinot bianco, Pinot nero, Chardonnay'],
+    v: ['Pinot bianco', 'Pinot nero', 'Chardonnay'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Sylvaner DOC',
@@ -1099,12 +1161,12 @@ export const wines: WineOption[] = [
   {
     d: 'Alto Adige o dell’Alto Adige Terlano o Terlaner DOC',
 
-    v: ['Pinot bianco, Chardonnay'],
+    v: ['Pinot bianco', 'Chardonnay'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Terlano o Terlaner passito DOC',
 
-    v: ['Pinot bianco, Chardonnay'],
+    v: ['Pinot bianco', 'Chardonnay'],
   },
   {
     d: 'Alto Adige o dell’Alto Adige Traminer aromatico DOC',
@@ -1164,32 +1226,32 @@ export const wines: WineOption[] = [
   {
     d: 'Amarone della Valpolicella Classico DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Amarone della Valpolicella Classico riserva DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Amarone della Valpolicella DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Amarone della Valpolicella riserva DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Amarone della Valpolicella Valpantena DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Amarone della Valpolicella Valpantena riserva DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Amelia DOC bianco',
@@ -1284,12 +1346,12 @@ export const wines: WineOption[] = [
   {
     d: 'Arborea DOC Trebbiano',
 
-    v: ['Trebbiano Romagnolo, Trebbiano Toscano'],
+    v: ['Trebbiano Romagnolo', 'Trebbiano Toscano'],
   },
   {
     d: 'Arborea DOC Trebbiano frizzante',
 
-    v: ['Trebbiano Romagnolo, Trebbiano Toscano'],
+    v: ['Trebbiano Romagnolo', 'Trebbiano Toscano'],
   },
   {
     d: 'Arcole Bianco DOC',
@@ -1314,12 +1376,12 @@ export const wines: WineOption[] = [
   {
     d: 'Arcole Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Arcole Cabernet riserva DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Arcole Cabernet sauvignon DOC',
@@ -1424,7 +1486,7 @@ export const wines: WineOption[] = [
   {
     d: 'Assisi DOC bianco',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Assisi DOC Cabernet sauvignon',
@@ -1454,7 +1516,7 @@ export const wines: WineOption[] = [
   {
     d: 'Assisi DOC Novello',
 
-    v: ['Sangiovese, Merlot'],
+    v: ['Sangiovese', 'Merlot'],
   },
   {
     d: 'Assisi DOC Pinot nero',
@@ -1469,12 +1531,12 @@ export const wines: WineOption[] = [
   {
     d: 'Assisi DOC rosato',
 
-    v: ['Sangiovese, Merlot'],
+    v: ['Sangiovese', 'Merlot'],
   },
   {
     d: 'Assisi DOC rosso',
 
-    v: ['Sangiovese, Merlot'],
+    v: ['Sangiovese', 'Merlot'],
   },
   {
     d: 'Asti o Asti spumante DOCG',
@@ -1489,22 +1551,22 @@ export const wines: WineOption[] = [
   {
     d: 'Atina Cabernet DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc'],
   },
   {
     d: 'Atina Cabernet riserva DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc'],
   },
   {
     d: 'Atina rosso DOC',
 
-    v: ['Cabernet Sauvignon, Syrah, Merlot, Cabernet Franc'],
+    v: ['Cabernet Sauvignon', 'Syrah', 'Merlot', 'Cabernet Franc'],
   },
   {
     d: 'Atina rosso riserva DOC',
 
-    v: ['Cabernet Sauvignon, Syrah, Merlot, Cabernet Franc'],
+    v: ['Cabernet Sauvignon', 'Syrah', 'Merlot', 'Cabernet Franc'],
   },
   {
     d: 'Atina Semillon DOC',
@@ -1524,12 +1586,12 @@ export const wines: WineOption[] = [
   {
     d: 'Bagnoli di sopra o Bagnoli bianco classico DOC',
 
-    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+    v: ['Chardonnay', 'Tocai Friulano', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli bianco DOC',
 
-    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+    v: ['Chardonnay', 'Tocai Friulano', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Cabernet classico DOC',
@@ -1654,72 +1716,72 @@ export const wines: WineOption[] = [
   {
     d: 'Bagnoli di sopra o Bagnoli rosato classico DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli rosato DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli rosso classico DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli rosso classico riserva DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli rosso DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli rosso riserva DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Spumante bianco classico DOC',
 
-    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+    v: ['Chardonnay', 'Tocai Friulano', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Spumante bianco classico storico DOC',
 
-    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+    v: ['Chardonnay', 'Tocai Friulano', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Spumante bianco DOC',
 
-    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+    v: ['Chardonnay', 'Tocai Friulano', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Spumante bianco storico DOC',
 
-    v: ['Chardonnay, Tocai Friulano, Raboso Piave'],
+    v: ['Chardonnay', 'Tocai Friulano', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Spumante rosato o rosé classico DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Spumante rosato o rosé classico storico DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Spumante rosato o rosé DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Spumante rosato o rosé storico DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Raboso Piave'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Raboso Piave'],
   },
   {
     d: 'Bagnoli di sopra o Bagnoli Turchetta classico DOC',
@@ -1814,12 +1876,12 @@ export const wines: WineOption[] = [
   {
     d: 'Barbera d’Alba DOC',
 
-    v: ['Barbera, Nebbiolo'],
+    v: ['Barbera', 'Nebbiolo'],
   },
   {
     d: 'Barbera d’Alba superiore DOC',
 
-    v: ['Barbera, Nebbiolo'],
+    v: ['Barbera', 'Nebbiolo'],
   },
   {
     d: 'Barbera d’Asti DOCG',
@@ -1849,67 +1911,67 @@ export const wines: WineOption[] = [
   {
     d: 'Barbera del Monferrato DOC',
 
-    v: ['Barbera, Freisa, Grignolino, Dolcetto'],
+    v: ['Barbera', 'Freisa', 'Grignolino', 'Dolcetto'],
   },
   {
     d: 'Barbera del Monferrato frizzante DOC',
 
-    v: ['Barbera, Freisa, Grignolino, Dolcetto'],
+    v: ['Barbera', 'Freisa', 'Grignolino', 'Dolcetto'],
   },
   {
     d: 'Barbera del Monferrato Superiore DOCG',
 
-    v: ['Barbera, Freisa, Grignolino, Dolcetto'],
+    v: ['Barbera', 'Freisa', 'Grignolino', 'Dolcetto'],
   },
   {
     d: 'Barco Reale di Carmignano DOC',
 
-    v: ['Sangiovese, Canaiolo nero, Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Sangiovese', 'Canaiolo nero', 'Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Bardolino Chiaretto Classico DOC',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Bardolino Chiaretto DOC',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Bardolino Chiaretto spumante DOC',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Bardolino classico DOC',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Bardolino classico superiore DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Bardolino DOC',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Bardolino novello classico DOC',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Bardolino novello DOC',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Bardolino superiore DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella, Molinara'],
+    v: ['Corvina', 'Corvinone', 'Rondinella', 'Molinara'],
   },
   {
     d: 'Barletta DOC bianco',
@@ -1979,22 +2041,22 @@ export const wines: WineOption[] = [
   {
     d: 'Bianchello del Metauro DOC',
 
-    v: ['Biancame, Malvasia bianca lunga'],
+    v: ['Biancame', 'Malvasia bianca lunga'],
   },
   {
     d: 'Bianchello del Metauro DOC passito',
 
-    v: ['Biancame, Malvasia bianca lunga'],
+    v: ['Biancame', 'Malvasia bianca lunga'],
   },
   {
     d: 'Bianchello del Metauro DOC spumante',
 
-    v: ['Biancame, Malvasia bianca lunga'],
+    v: ['Biancame', 'Malvasia bianca lunga'],
   },
   {
     d: 'Bianchello del Metauro DOC superiore',
 
-    v: ['Biancame, Malvasia bianca lunga'],
+    v: ['Biancame', 'Malvasia bianca lunga'],
   },
   {
     d: 'Bianco Capena DOC',
@@ -2020,53 +2082,59 @@ export const wines: WineOption[] = [
     d: 'Bianco delle Venezie DOC',
 
     v: [
-      'Pinot bianco, Chardonnay, Müller-Thurgau, Garganega, Verduzzo Friulano, Verduzzo Trevigiano, Tocai Friulano',
+      'Pinot bianco',
+      'Chardonnay',
+      'Müller-Thurgau',
+      'Garganega',
+      'Verduzzo Friulano',
+      'Verduzzo Trevigiano',
+      'Tocai Friulano',
     ],
   },
   {
     d: 'Bianco di Aprilia DOC',
 
-    v: ['Trebbiano Toscano, Chardonnay'],
+    v: ['Trebbiano Toscano', 'Chardonnay'],
   },
   {
     d: 'Bianco di Custoza o Custoza DOC',
 
-    v: ['Trebbiano Toscano, Garganega, Tocai Friulano, Cortese'],
+    v: ['Trebbiano Toscano', 'Garganega', 'Tocai Friulano', 'Cortese'],
   },
   {
     d: 'Bianco di Custoza o Custoza passito DOC',
 
-    v: ['Trebbiano Toscano, Garganega, Tocai Friulano, Cortese'],
+    v: ['Trebbiano Toscano', 'Garganega', 'Tocai Friulano', 'Cortese'],
   },
   {
     d: 'Bianco di Custoza o Custoza spumante DOC',
 
-    v: ['Trebbiano Toscano, Garganega, Tocai Friulano, Cortese'],
+    v: ['Trebbiano Toscano', 'Garganega', 'Tocai Friulano', 'Cortese'],
   },
   {
     d: 'Bianco di Custoza o Custoza superiore DOC',
 
-    v: ['Trebbiano Toscano, Garganega, Tocai Friulano, Cortese'],
+    v: ['Trebbiano Toscano', 'Garganega', 'Tocai Friulano', 'Cortese'],
   },
   {
     d: 'Bianco di Pitigliano DOC',
 
-    v: ['Trebbiano Toscano, Greco, Malvasia bianca lunga, Verdello'],
+    v: ['Trebbiano Toscano', 'Greco', 'Malvasia bianca lunga', 'Verdello'],
   },
   {
     d: 'Bianco di Pitigliano DOC spumante',
 
-    v: ['Trebbiano Toscano, Greco, Malvasia bianca lunga, Verdello'],
+    v: ['Trebbiano Toscano', 'Greco', 'Malvasia bianca lunga', 'Verdello'],
   },
   {
     d: 'Bianco di Pitigliano DOC superiore',
 
-    v: ['Trebbiano Toscano, Greco, Malvasia bianca lunga, Verdello'],
+    v: ['Trebbiano Toscano', 'Greco', 'Malvasia bianca lunga', 'Verdello'],
   },
   {
     d: 'Bianco di Pitigliano DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Greco, Malvasia bianca lunga, Verdello'],
+    v: ['Trebbiano Toscano', 'Greco', 'Malvasia bianca lunga', 'Verdello'],
   },
   {
     d: 'Bianco di Torgiano DOC',
@@ -2081,79 +2149,101 @@ export const wines: WineOption[] = [
   {
     d: 'Biferno DOC rosato',
 
-    v: ['Montepulciano, Aglianico'],
+    v: ['Montepulciano', 'Aglianico'],
   },
   {
     d: 'Biferno DOC rosso',
 
-    v: ['Montepulciano, Aglianico'],
+    v: ['Montepulciano', 'Aglianico'],
   },
   {
     d: 'Biferno DOC rosso riserva',
 
-    v: ['Montepulciano, Aglianico'],
+    v: ['Montepulciano', 'Aglianico'],
   },
   {
     d: 'Biferno DOC rosso superiore',
 
-    v: ['Montepulciano, Aglianico'],
+    v: ['Montepulciano', 'Aglianico'],
   },
   {
     d: 'Bivongi DOC bianco',
 
     v: [
-      'Greco Bianco, Guardavalle, Montonico bianco, Malvasia bianca, Ansonica',
+      'Greco Bianco',
+      'Guardavalle',
+      'Montonico bianco',
+      'Malvasia bianca',
+      'Ansonica',
     ],
   },
   {
     d: 'Bivongi DOC novello',
 
-    v: ['Gaglioppo, Greco Nero, Nocera, Calabrese, Castiglione'],
+    v: ['Gaglioppo', 'Greco Nero', 'Nocera', 'Calabrese', 'Castiglione'],
   },
   {
     d: 'Bivongi DOC riserva',
 
-    v: ['Gaglioppo, Greco Nero, Nocera, Calabrese, Castiglione'],
+    v: ['Gaglioppo', 'Greco Nero', 'Nocera', 'Calabrese', 'Castiglione'],
   },
   {
     d: 'Bivongi DOC rosato',
 
-    v: ['Gaglioppo, Greco Nero, Nocera, Calabrese, Castiglione'],
+    v: ['Gaglioppo', 'Greco Nero', 'Nocera', 'Calabrese', 'Castiglione'],
   },
   {
     d: 'Bivongi DOC rosso',
 
-    v: ['Gaglioppo, Greco Nero, Nocera, Calabrese, Castiglione'],
+    v: ['Gaglioppo', 'Greco Nero', 'Nocera', 'Calabrese', 'Castiglione'],
   },
   {
     d: 'Boca DOC',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Boca riserva DOC',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Bolgheri DOC bianco',
 
-    v: ['Vermentino, Sauvignon, Trebbiano Toscano'],
+    v: ['Vermentino', 'Sauvignon', 'Trebbiano Toscano'],
   },
   {
     d: 'Bolgheri DOC rosato',
 
-    v: ['Cabernet Sauvignon, Merlot, Cabernet Franc, Syrah, Sangiovese'],
+    v: [
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Cabernet Franc',
+      'Syrah',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Bolgheri DOC rosso',
 
-    v: ['Cabernet Sauvignon, Merlot, Cabernet Franc, Syrah, Sangiovese'],
+    v: [
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Cabernet Franc',
+      'Syrah',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Bolgheri DOC rosso superiore',
 
-    v: ['Cabernet Sauvignon, Merlot, Cabernet Franc, Syrah, Sangiovese'],
+    v: [
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Cabernet Franc',
+      'Syrah',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Bolgheri DOC Sauvignon',
@@ -2173,22 +2263,22 @@ export const wines: WineOption[] = [
   {
     d: 'Bonarda dell’Oltrepò Pavese DOC',
 
-    v: ['Croatina, Barbera, Vespolina, Uva rara'],
+    v: ['Croatina', 'Barbera', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Bonarda dell’Oltrepò Pavese frizzante DOC',
 
-    v: ['Croatina, Barbera, Vespolina, Uva rara'],
+    v: ['Croatina', 'Barbera', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Bosco Eliceo DOC Bianco',
 
-    v: ['Trebbiano Romagnolo, Sauvignon, Malvasia bianca di Candia'],
+    v: ['Trebbiano Romagnolo', 'Sauvignon', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Bosco Eliceo DOC Bianco frizzante',
 
-    v: ['Trebbiano Romagnolo, Sauvignon, Malvasia bianca di Candia'],
+    v: ['Trebbiano Romagnolo', 'Sauvignon', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Bosco Eliceo DOC Fortana',
@@ -2233,12 +2323,12 @@ export const wines: WineOption[] = [
   {
     d: 'Botticino DOC',
 
-    v: ['Barbera, Schiava gentile, Marzemino, Sangiovese'],
+    v: ['Barbera', 'Schiava gentile', 'Marzemino', 'Sangiovese'],
   },
   {
     d: 'Botticino riserva DOC',
 
-    v: ['Barbera, Schiava gentile, Marzemino, Sangiovese'],
+    v: ['Barbera', 'Schiava gentile', 'Marzemino', 'Sangiovese'],
   },
   {
     d: 'Brachetto d’Acqui o Acqui DOCG',
@@ -2258,12 +2348,12 @@ export const wines: WineOption[] = [
   {
     d: 'Bramaterra DOC',
 
-    v: ['Nebbiolo, Croatina, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Croatina', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Bramaterra riserva DOC',
 
-    v: ['Nebbiolo, Croatina, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Croatina', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Breganze Bianco DOC',
@@ -2273,7 +2363,7 @@ export const wines: WineOption[] = [
   {
     d: 'Breganze Cabernet DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Breganze Cabernet Sauvignon DOC',
@@ -2343,12 +2433,12 @@ export const wines: WineOption[] = [
   {
     d: 'Brindisi DOC bianco',
 
-    v: ['Chardonnay, Malvasia bianca lunga'],
+    v: ['Chardonnay', 'Malvasia bianca lunga'],
   },
   {
     d: 'Brindisi DOC bianco spumante',
 
-    v: ['Chardonnay, Malvasia bianca lunga'],
+    v: ['Chardonnay', 'Malvasia bianca lunga'],
   },
   {
     d: 'Brindisi DOC Chardonnay',
@@ -2404,35 +2494,55 @@ export const wines: WineOption[] = [
     d: 'Brindisi DOC rosato',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Susumaniello',
+      'Sangiovese',
+      'Montepulciano',
     ],
   },
   {
     d: 'Brindisi DOC rosato spumante',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Susumaniello',
+      'Sangiovese',
+      'Montepulciano',
     ],
   },
   {
     d: 'Brindisi DOC rosso',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Susumaniello',
+      'Sangiovese',
+      'Montepulciano',
     ],
   },
   {
     d: 'Brindisi DOC rosso novello',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Susumaniello',
+      'Sangiovese',
+      'Montepulciano',
     ],
   },
   {
     d: 'Brindisi DOC rosso riserva',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Susumaniello, Sangiovese, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Susumaniello',
+      'Sangiovese',
+      'Montepulciano',
     ],
   },
   {
@@ -2463,12 +2573,12 @@ export const wines: WineOption[] = [
   {
     d: 'Buttafuoco dell’Oltrepò Pavese o Buttafuoco DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Buttafuoco dell’Oltrepò Pavese o Buttafuoco frizzante DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Cabernet sauvignon di Torgiano DOC',
@@ -2593,27 +2703,27 @@ export const wines: WineOption[] = [
   {
     d: 'Campi Flegrei rosso DOC',
 
-    v: ['Piedirosso, Aglianico'],
+    v: ['Piedirosso', 'Aglianico'],
   },
   {
     d: 'Campi Flegrei rosso novello DOC',
 
-    v: ['Piedirosso, Aglianico'],
+    v: ['Piedirosso', 'Aglianico'],
   },
   {
     d: 'Campidano di Terralba o Terralba DOC Bovale',
 
-    v: ['Bovale, Bovale grande'],
+    v: ['Bovale', 'Bovale grande'],
   },
   {
     d: 'Campidano di Terralba o Terralba DOC Bovale riserva',
 
-    v: ['Bovale, Bovale grande'],
+    v: ['Bovale', 'Bovale grande'],
   },
   {
     d: 'Campidano di Terralba o Terralba DOC Bovale superiore',
 
-    v: ['Bovale, Bovale grande'],
+    v: ['Bovale', 'Bovale grande'],
   },
   {
     d: 'Canavese Barbera DOC',
@@ -2638,22 +2748,22 @@ export const wines: WineOption[] = [
   {
     d: 'Canavese rosato DOC',
 
-    v: ['Nebbiolo, Barbera, Uva rara, Bonarda'],
+    v: ['Nebbiolo', 'Barbera', 'Uva rara', 'Bonarda'],
   },
   {
     d: 'Canavese rosato spumante DOC',
 
-    v: ['Nebbiolo, Barbera, Uva rara, Bonarda'],
+    v: ['Nebbiolo', 'Barbera', 'Uva rara', 'Bonarda'],
   },
   {
     d: 'Canavese rosso DOC',
 
-    v: ['Nebbiolo, Barbera, Uva rara, Bonarda'],
+    v: ['Nebbiolo', 'Barbera', 'Uva rara', 'Bonarda'],
   },
   {
     d: 'Canavese rosso novello DOC',
 
-    v: ['Nebbiolo, Barbera, Uva rara, Bonarda'],
+    v: ['Nebbiolo', 'Barbera', 'Uva rara', 'Bonarda'],
   },
   {
     d: 'Candia dei Colli Apuani DOC Barsaglina o Massaretta',
@@ -2678,7 +2788,7 @@ export const wines: WineOption[] = [
   {
     d: 'Candia dei Colli Apuani DOC rosato',
 
-    v: ['Sangiovese, Merlot'],
+    v: ['Sangiovese', 'Merlot'],
   },
   {
     d: 'Candia dei Colli Apuani DOC rosato Vermentino nero',
@@ -2688,7 +2798,7 @@ export const wines: WineOption[] = [
   {
     d: 'Candia dei Colli Apuani DOC rosso',
 
-    v: ['Sangiovese, Merlot'],
+    v: ['Sangiovese', 'Merlot'],
   },
   {
     d: 'Candia dei Colli Apuani DOC Vermentino bianco',
@@ -2728,7 +2838,7 @@ export const wines: WineOption[] = [
   {
     d: 'Cannellino di Frascati DOCG',
 
-    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+    v: ['Malvasia bianca di Candia', 'Malvasia del Lazio'],
   },
   {
     d: 'Cannonau di Sardegna DOC classico',
@@ -2808,7 +2918,7 @@ export const wines: WineOption[] = [
   {
     d: 'Capri bianco DOC',
 
-    v: ['Falanghina, Greco, Biancolella'],
+    v: ['Falanghina', 'Greco', 'Biancolella'],
   },
   {
     d: 'Capri rosso DOC',
@@ -2818,12 +2928,12 @@ export const wines: WineOption[] = [
   {
     d: 'Capriano del Colle bianco DOC',
 
-    v: ['Trebbiano di Soave, Trebbiano Toscano'],
+    v: ['Trebbiano di Soave', 'Trebbiano Toscano'],
   },
   {
     d: 'Capriano del Colle bianco superiore DOC',
 
-    v: ['Trebbiano di Soave, Trebbiano Toscano'],
+    v: ['Trebbiano di Soave', 'Trebbiano Toscano'],
   },
   {
     d: 'Capriano del Colle Marzemino DOC',
@@ -2833,22 +2943,22 @@ export const wines: WineOption[] = [
   {
     d: 'Capriano del Colle novello DOC',
 
-    v: ['Marzemino, Merlot, Sangiovese'],
+    v: ['Marzemino', 'Merlot', 'Sangiovese'],
   },
   {
     d: 'Capriano del Colle rosso DOC',
 
-    v: ['Marzemino, Merlot, Sangiovese'],
+    v: ['Marzemino', 'Merlot', 'Sangiovese'],
   },
   {
     d: 'Capriano del Colle rosso riserva DOC',
 
-    v: ['Marzemino, Merlot, Sangiovese'],
+    v: ['Marzemino', 'Merlot', 'Sangiovese'],
   },
   {
     d: 'Capriano del Colle Trebbiano DOC',
 
-    v: ['Trebbiano di Soave, Trebbiano Toscano'],
+    v: ['Trebbiano di Soave', 'Trebbiano Toscano'],
   },
   {
     d: 'Carema DOC',
@@ -2893,13 +3003,19 @@ export const wines: WineOption[] = [
   {
     d: 'Carmignano DOCG',
 
-    v: ['Sangiovese, Canaiolo nero, Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Sangiovese', 'Canaiolo nero', 'Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Carmignano riserva DOCG',
 
     v: [
-      'Sangiovese, Canaiolo bianco, Canaiolo nero, Cabernet Franc, Cabernet Sauvignon, Trebbiano Toscano, Malvasia del Chianti',
+      'Sangiovese',
+      'Canaiolo bianco',
+      'Canaiolo nero',
+      'Cabernet Franc',
+      'Cabernet Sauvignon',
+      'Trebbiano Toscano',
+      'Malvasia del Chianti',
     ],
   },
   {
@@ -2985,7 +3101,7 @@ export const wines: WineOption[] = [
   {
     d: 'Casteggio DOC',
 
-    v: ['Barbera, Croatina, Uva rara, Vespolina, Pinot nero'],
+    v: ['Barbera', 'Croatina', 'Uva rara', 'Vespolina', 'Pinot nero'],
   },
   {
     d: 'Castel del Monte Bombino nero DOCG',
@@ -3015,17 +3131,17 @@ export const wines: WineOption[] = [
   {
     d: 'Castel del Monte DOC bianco',
 
-    v: ['Pampanuto, Chardonnay, Bombino bianco'],
+    v: ['Pampanuto', 'Chardonnay', 'Bombino bianco'],
   },
   {
     d: 'Castel del Monte DOC bianco frizzante',
 
-    v: ['Pampanuto, Chardonnay, Bombino bianco'],
+    v: ['Pampanuto', 'Chardonnay', 'Bombino bianco'],
   },
   {
     d: 'Castel del Monte DOC bianco spumante',
 
-    v: ['Pampanuto, Chardonnay, Bombino bianco'],
+    v: ['Pampanuto', 'Chardonnay', 'Bombino bianco'],
   },
   {
     d: 'Castel del Monte DOC Bombino bianco',
@@ -3045,12 +3161,12 @@ export const wines: WineOption[] = [
   {
     d: 'Castel del Monte DOC Cabernet',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Castel del Monte DOC Cabernet riserva',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Castel del Monte DOC Chardonnay',
@@ -3070,27 +3186,27 @@ export const wines: WineOption[] = [
   {
     d: 'Castel del Monte DOC rosato',
 
-    v: ['Uva di Troia, Aglianico, Bombino nero'],
+    v: ['Uva di Troia', 'Aglianico', 'Bombino nero'],
   },
   {
     d: 'Castel del Monte DOC rosato frizzante',
 
-    v: ['Uva di Troia, Aglianico, Bombino nero'],
+    v: ['Uva di Troia', 'Aglianico', 'Bombino nero'],
   },
   {
     d: 'Castel del Monte DOC rosato spumante',
 
-    v: ['Uva di Troia, Aglianico, Bombino nero'],
+    v: ['Uva di Troia', 'Aglianico', 'Bombino nero'],
   },
   {
     d: 'Castel del Monte DOC rosso',
 
-    v: ['Uva di Troia, Aglianico, Montepulciano'],
+    v: ['Uva di Troia', 'Aglianico', 'Montepulciano'],
   },
   {
     d: 'Castel del Monte DOC rosso novello',
 
-    v: ['Uva di Troia, Aglianico, Montepulciano'],
+    v: ['Uva di Troia', 'Aglianico', 'Montepulciano'],
   },
   {
     d: 'Castel del Monte DOC Sauvignon',
@@ -3125,7 +3241,7 @@ export const wines: WineOption[] = [
   {
     d: 'Castel San Lorenzo DOC bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Castel San Lorenzo DOC Moscato',
@@ -3150,12 +3266,12 @@ export const wines: WineOption[] = [
   {
     d: 'Castel San Lorenzo DOC rosato',
 
-    v: ['Barbera, Sangiovese'],
+    v: ['Barbera', 'Sangiovese'],
   },
   {
     d: 'Castel San Lorenzo DOC rosso',
 
-    v: ['Barbera, Sangiovese'],
+    v: ['Barbera', 'Sangiovese'],
   },
   {
     d: 'Casteller DOC',
@@ -3176,50 +3292,86 @@ export const wines: WineOption[] = [
     d: 'Castelli Romani DOC bianco',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano di Soave',
     ],
   },
   {
     d: 'Castelli Romani DOC bianco frizzante',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano di Soave',
     ],
   },
   {
     d: 'Castelli Romani DOC rosato',
 
-    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+    v: [
+      'Cesanese comune',
+      'Merlot',
+      'Montepulciano',
+      'Nero buono',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Castelli Romani DOC rosato frizzante',
 
-    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+    v: [
+      'Cesanese comune',
+      'Merlot',
+      'Montepulciano',
+      'Nero buono',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Castelli Romani DOC rosso',
 
-    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+    v: [
+      'Cesanese comune',
+      'Merlot',
+      'Montepulciano',
+      'Nero buono',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Castelli Romani DOC rosso frizzante',
 
-    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+    v: [
+      'Cesanese comune',
+      'Merlot',
+      'Montepulciano',
+      'Nero buono',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Castelli Romani DOC rosso novello',
 
-    v: ['Cesanese comune, Merlot, Montepulciano, Nero buono, Sangiovese'],
+    v: [
+      'Cesanese comune',
+      'Merlot',
+      'Montepulciano',
+      'Nero buono',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Cellatica DOC',
 
-    v: ['Marzemino, Barbera, Incrocio Terzi n.1'],
+    v: ['Marzemino', 'Barbera', 'Incrocio Terzi n.1'],
   },
   {
     d: 'Cellatica superiore DOC',
 
-    v: ['Marzemino, Barbera, Incrocio Terzi n.1'],
+    v: ['Marzemino', 'Barbera', 'Incrocio Terzi n.1'],
   },
   {
     d: 'Cerasuolo d’Abruzzo DOC',
@@ -3234,47 +3386,47 @@ export const wines: WineOption[] = [
   {
     d: 'Cerasuolo di Vittoria classico DOCG',
 
-    v: ['Nero d’Avola, Frappato'],
+    v: ['Nero d’Avola', 'Frappato'],
   },
   {
     d: 'Cerasuolo di Vittoria DOCG',
 
-    v: ['Nero d’Avola, Frappato'],
+    v: ['Nero d’Avola', 'Frappato'],
   },
   {
     d: 'Cerveteri DOC bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Cerveteri DOC bianco amabile',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Cerveteri DOC bianco frizzante',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Cerveteri DOC rosato',
 
-    v: ['Sangiovese, Montepulciano, Merlot'],
+    v: ['Sangiovese', 'Montepulciano', 'Merlot'],
   },
   {
     d: 'Cerveteri DOC rosato frizzante',
 
-    v: ['Sangiovese, Montepulciano, Merlot'],
+    v: ['Sangiovese', 'Montepulciano', 'Merlot'],
   },
   {
     d: 'Cerveteri DOC rosso',
 
-    v: ['Sangiovese, Montepulciano, Merlot'],
+    v: ['Sangiovese', 'Montepulciano', 'Merlot'],
   },
   {
     d: 'Cerveteri DOC rosso amabile',
 
-    v: ['Sangiovese, Montepulciano, Merlot'],
+    v: ['Sangiovese', 'Montepulciano', 'Merlot'],
   },
   {
     d: 'Cerveteri DOC Trebbiano o Procanico',
@@ -3284,17 +3436,17 @@ export const wines: WineOption[] = [
   {
     d: 'Cesanese del Piglio o Piglio DOCG',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Cesanese del Piglio o Piglio superiore DOCG',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Cesanese del Piglio o Piglio superiore riserva DOCG',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Cesanese di Affile DOC',
@@ -3314,32 +3466,32 @@ export const wines: WineOption[] = [
   {
     d: 'Cesanese di Olevano Romano amabile DOC',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Cesanese di Olevano Romano DOC',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Cesanese di Olevano Romano dolce DOC',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Cesanese di Olevano Romano dolce frizzante DOC',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Cesanese di Olevano Romano riserva DOC',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Cesanese di Olevano Romano superiore DOC',
 
-    v: ['Cesanese di Affile, Cesanese comune'],
+    v: ['Cesanese di Affile', 'Cesanese comune'],
   },
   {
     d: 'Chardonnay di Torgiano DOC',
@@ -3454,7 +3606,7 @@ export const wines: WineOption[] = [
   {
     d: 'Cilento DOC bianco',
 
-    v: ['Fiano, Trebbiano Toscano, Greco, Malvasia bianca lunga'],
+    v: ['Fiano', 'Trebbiano Toscano', 'Greco', 'Malvasia bianca lunga'],
   },
   {
     d: 'Cilento DOC Fiano',
@@ -3464,57 +3616,57 @@ export const wines: WineOption[] = [
   {
     d: 'Cilento DOC rosato',
 
-    v: ['Sangiovese, Aglianico, Primitivo, Piedirosso'],
+    v: ['Sangiovese', 'Aglianico', 'Primitivo', 'Piedirosso'],
   },
   {
     d: 'Cilento DOC rosso',
 
-    v: ['Aglianico, Piedirosso, Primitivo'],
+    v: ['Aglianico', 'Piedirosso', 'Primitivo'],
   },
   {
     d: 'Cinque Terre DOC',
 
-    v: ['Bosco, Albarola, Vermentino'],
+    v: ['Bosco', 'Albarola', 'Vermentino'],
   },
   {
     d: 'Cinque Terre DOC Costa da Posa',
 
-    v: ['Bosco, Albarola, Vermentino'],
+    v: ['Bosco', 'Albarola', 'Vermentino'],
   },
   {
     d: 'Cinque Terre DOC Costa de Campu',
 
-    v: ['Bosco, Albarola, Vermentino'],
+    v: ['Bosco', 'Albarola', 'Vermentino'],
   },
   {
     d: 'Cinque Terre DOC Costa de Sera',
 
-    v: ['Bosco, Albarola, Vermentino'],
+    v: ['Bosco', 'Albarola', 'Vermentino'],
   },
   {
     d: 'Cinque Terre DOC Sciacchetrà',
 
-    v: ['Bosco, Albarola, Vermentino'],
+    v: ['Bosco', 'Albarola', 'Vermentino'],
   },
   {
     d: 'Cinque Terre DOC Sciacchetrà riserva',
 
-    v: ['Bosco, Albarola, Vermentino'],
+    v: ['Bosco', 'Albarola', 'Vermentino'],
   },
   {
     d: 'Circeo DOC bianco',
 
-    v: ['Trebbiano Toscano, Chardonnay, Malvasia del Lazio'],
+    v: ['Trebbiano Toscano', 'Chardonnay', 'Malvasia del Lazio'],
   },
   {
     d: 'Circeo DOC bianco frizzante',
 
-    v: ['Trebbiano Toscano, Chardonnay, Malvasia del Lazio'],
+    v: ['Trebbiano Toscano', 'Chardonnay', 'Malvasia del Lazio'],
   },
   {
     d: 'Circeo DOC bianco spumante',
 
-    v: ['Trebbiano Toscano, Chardonnay, Malvasia del Lazio'],
+    v: ['Trebbiano Toscano', 'Chardonnay', 'Malvasia del Lazio'],
   },
   {
     d: 'Circeo DOC Merlot',
@@ -3524,27 +3676,27 @@ export const wines: WineOption[] = [
   {
     d: 'Circeo DOC rosato',
 
-    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+    v: ['Merlot', 'Sangiovese', 'Cabernet Sauvignon'],
   },
   {
     d: 'Circeo DOC rosato frizzante',
 
-    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+    v: ['Merlot', 'Sangiovese', 'Cabernet Sauvignon'],
   },
   {
     d: 'Circeo DOC rosso',
 
-    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+    v: ['Merlot', 'Sangiovese', 'Cabernet Sauvignon'],
   },
   {
     d: 'Circeo DOC rosso frizzante',
 
-    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+    v: ['Merlot', 'Sangiovese', 'Cabernet Sauvignon'],
   },
   {
     d: 'Circeo DOC rosso novello',
 
-    v: ['Merlot, Sangiovese, Cabernet Sauvignon'],
+    v: ['Merlot', 'Sangiovese', 'Cabernet Sauvignon'],
   },
   {
     d: 'Circeo DOC Sangiovese',
@@ -3610,28 +3762,40 @@ export const wines: WineOption[] = [
     d: 'Colli Albani DOC',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano di Soave',
     ],
   },
   {
     d: 'Colli Albani novello DOC',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano di Soave',
     ],
   },
   {
     d: 'Colli Albani spumante DOC',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano di Soave',
     ],
   },
   {
     d: 'Colli Albani superiore DOC',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano di Soave',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano di Soave',
     ],
   },
   {
@@ -3642,7 +3806,13 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Altotiberini DOC bianco spumante',
 
-    v: ['Grechetto, Chardonnay, Pinot bianco, Pinot nero, Pinot grigio'],
+    v: [
+      'Grechetto',
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot nero',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Colli Altotiberini DOC bianco superiore',
@@ -3762,7 +3932,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Berici Cabernet DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Colli Berici Cabernet franc DOC',
@@ -3777,7 +3947,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Berici Cabernet riserva DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Colli Berici Cabernet sauvignon DOC',
@@ -3923,7 +4093,12 @@ export const wines: WineOption[] = [
     d: 'Colli Bolognesi DOC Bologna Spumante',
 
     v: [
-      'Chardonnay, Pinot bianco, Sauvignon, Riesling Italico, Pinot nero, Pignoletto',
+      'Chardonnay',
+      'Pinot bianco',
+      'Sauvignon',
+      'Riesling Italico',
+      'Pinot nero',
+      'Pignoletto',
     ],
   },
   {
@@ -4064,22 +4239,46 @@ export const wines: WineOption[] = [
   {
     d: 'Colli del Trasimeno DOC bianco',
 
-    v: ['Trebbiano Toscano, Grechetto, Chardonnay, Pinot bianco, Pinot grigio'],
+    v: [
+      'Trebbiano Toscano',
+      'Grechetto',
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Colli del Trasimeno DOC bianco frizzante',
 
-    v: ['Trebbiano Toscano, Grechetto, Chardonnay, Pinot bianco, Pinot grigio'],
+    v: [
+      'Trebbiano Toscano',
+      'Grechetto',
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Colli del Trasimeno DOC bianco scelto',
 
-    v: ['Trebbiano Toscano, Grechetto, Chardonnay, Pinot bianco, Pinot grigio'],
+    v: [
+      'Trebbiano Toscano',
+      'Grechetto',
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Colli del Trasimeno DOC bianco vino santo',
 
-    v: ['Trebbiano Toscano, Grechetto, Chardonnay, Pinot bianco, Pinot grigio'],
+    v: [
+      'Trebbiano Toscano',
+      'Grechetto',
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Colli del Trasimeno DOC Cabernet sauvignon',
@@ -4120,53 +4319,83 @@ export const wines: WineOption[] = [
     d: 'Colli del Trasimeno DOC rosato',
 
     v: [
-      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+      'Sangiovese',
+      'Ciliegiolo',
+      'Merlot',
+      'Cabernet Sauvignon',
+      'Gamay del Trasimeno',
     ],
   },
   {
     d: 'Colli del Trasimeno DOC rosso',
 
     v: [
-      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+      'Sangiovese',
+      'Ciliegiolo',
+      'Merlot',
+      'Cabernet Sauvignon',
+      'Gamay del Trasimeno',
     ],
   },
   {
     d: 'Colli del Trasimeno DOC rosso frizzante',
 
     v: [
-      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+      'Sangiovese',
+      'Ciliegiolo',
+      'Merlot',
+      'Cabernet Sauvignon',
+      'Gamay del Trasimeno',
     ],
   },
   {
     d: 'Colli del Trasimeno DOC rosso novello',
 
     v: [
-      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+      'Sangiovese',
+      'Ciliegiolo',
+      'Merlot',
+      'Cabernet Sauvignon',
+      'Gamay del Trasimeno',
     ],
   },
   {
     d: 'Colli del Trasimeno DOC rosso riserva',
 
     v: [
-      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+      'Sangiovese',
+      'Ciliegiolo',
+      'Merlot',
+      'Cabernet Sauvignon',
+      'Gamay del Trasimeno',
     ],
   },
   {
     d: 'Colli del Trasimeno DOC rosso scelto',
 
     v: [
-      'Sangiovese, Ciliegiolo, Merlot, Cabernet Sauvignon, Gamay del Trasimeno',
+      'Sangiovese',
+      'Ciliegiolo',
+      'Merlot',
+      'Cabernet Sauvignon',
+      'Gamay del Trasimeno',
     ],
   },
   {
     d: 'Colli del Trasimeno DOC spumante metodo classico',
 
-    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero, Grechetto'],
+    v: [
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot grigio',
+      'Pinot nero',
+      'Grechetto',
+    ],
   },
   {
     d: 'Colli del Trasimeno DOC spumante metodo classico rosè',
 
-    v: ['Pinot nero, Chardonnay, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Colli dell’Etruria Centrale DOC bianco',
@@ -4191,7 +4420,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli dell’Etruria Centrale DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Colli dell’Etruria Centrale DOC Vin Santo Occhio di Pernice',
@@ -4206,22 +4435,28 @@ export const wines: WineOption[] = [
   {
     d: 'Colli dell’Etruria Centrale DOC Vin Santo riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Colli della Sabina bianco DOC',
 
-    v: ['Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo'],
+    v: ['Malvasia del Lazio', 'Trebbiano Toscano', 'Trebbiano giallo'],
   },
   {
     d: 'Colli della Sabina rosso DOC',
 
-    v: ['Sangiovese, Montepulciano'],
+    v: ['Sangiovese', 'Montepulciano'],
   },
   {
     d: 'Colli di Conegliano bianco DOCG',
 
-    v: ['Manzoni bianco, Pinot bianco, Chardonnay, Riesling, Sauvignon'],
+    v: [
+      'Manzoni bianco',
+      'Pinot bianco',
+      'Chardonnay',
+      'Riesling',
+      'Sauvignon',
+    ],
   },
   {
     d: 'Colli di Conegliano Refrontolo DOCG',
@@ -4236,22 +4471,28 @@ export const wines: WineOption[] = [
   {
     d: 'Colli di Conegliano rosso DOCG',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Marzemino, Merlot'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Marzemino', 'Merlot'],
   },
   {
     d: 'Colli di Conegliano rosso riserva DOCG',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Marzemino, Merlot'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Marzemino', 'Merlot'],
   },
   {
     d: 'Colli di Conegliano Torchiato di Fregona DOCG',
 
-    v: ['Glera, Verdiso, Boschera'],
+    v: ['Glera', 'Verdiso', 'Boschera'],
   },
   {
     d: 'Colli di Faenza DOC bianco',
 
-    v: ['Chardonnay, Pignoletto, Pinot bianco, Sauvignon, Trebbiano Romagnolo'],
+    v: [
+      'Chardonnay',
+      'Pignoletto',
+      'Pinot bianco',
+      'Sauvignon',
+      'Trebbiano Romagnolo',
+    ],
   },
   {
     d: 'Colli di Faenza DOC Pinot bianco',
@@ -4261,12 +4502,24 @@ export const wines: WineOption[] = [
   {
     d: 'Colli di Faenza DOC rosso',
 
-    v: ['Cabernet Sauvignon, Ancellotta, Ciliegiolo, Merlot, Sangiovese'],
+    v: [
+      'Cabernet Sauvignon',
+      'Ancellotta',
+      'Ciliegiolo',
+      'Merlot',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Colli di Faenza DOC rosso riserva',
 
-    v: ['Cabernet Sauvignon, Ancellotta, Ciliegiolo, Merlot, Sangiovese'],
+    v: [
+      'Cabernet Sauvignon',
+      'Ancellotta',
+      'Ciliegiolo',
+      'Merlot',
+      'Sangiovese',
+    ],
   },
   {
     d: 'Colli di Faenza DOC Sangiovese',
@@ -4291,7 +4544,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli di Luni DOC bianco',
 
-    v: ['Vermentino, Trebbiano Toscano'],
+    v: ['Vermentino', 'Trebbiano Toscano'],
   },
   {
     d: 'Colli di Luni DOC rosso',
@@ -4411,12 +4664,12 @@ export const wines: WineOption[] = [
   {
     d: 'Colli di Parma DOC rosso',
 
-    v: ['Barbera, Bonarda, Croatina'],
+    v: ['Barbera', 'Bonarda', 'Croatina'],
   },
   {
     d: 'Colli di Parma DOC rosso frizzante',
 
-    v: ['Barbera, Bonarda, Croatina'],
+    v: ['Barbera', 'Bonarda', 'Croatina'],
   },
   {
     d: 'Colli di Parma DOC Sauvignon',
@@ -4436,7 +4689,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli di Parma DOC Spumante',
 
-    v: ['Pinot nero, Chardonnay, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Colli di Rimini DOC Biancame',
@@ -4446,7 +4699,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli di Rimini DOC bianco',
 
-    v: ['Trebbiano Romagnolo, Biancame, Mostosa'],
+    v: ['Trebbiano Romagnolo', 'Biancame', 'Mostosa'],
   },
   {
     d: 'Colli di Rimini DOC Cabernet Sauvignon',
@@ -4481,7 +4734,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli di Rimini DOC rosso',
 
-    v: ['Sangiovese, Merlot, Barbera'],
+    v: ['Sangiovese', 'Merlot', 'Barbera'],
   },
   {
     d: 'Colli di Rimini DOC Sangiovese',
@@ -4542,14 +4795,20 @@ export const wines: WineOption[] = [
     d: 'Colli di Scandiano e Canossa DOC Lambrusco',
 
     v: [
-      'Lambrusco Maestri, Lambrusco Barghi, Lambrusco Marani, Lambrusco Salamino',
+      'Lambrusco Maestri',
+      'Lambrusco Barghi',
+      'Lambrusco Marani',
+      'Lambrusco Salamino',
     ],
   },
   {
     d: 'Colli di Scandiano e Canossa DOC Lambrusco frizzante',
 
     v: [
-      'Lambrusco Maestri, Lambrusco Barghi, Lambrusco Marani, Lambrusco Salamino',
+      'Lambrusco Maestri',
+      'Lambrusco Barghi',
+      'Lambrusco Marani',
+      'Lambrusco Salamino',
     ],
   },
   {
@@ -4645,32 +4904,32 @@ export const wines: WineOption[] = [
   {
     d: 'Colli di Scandiano e Canossa DOC Pinot',
 
-    v: ['Pinot bianco, Pinot grigio, Pinot nero'],
+    v: ['Pinot bianco', 'Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Colli di Scandiano e Canossa DOC Pinot frizzante',
 
-    v: ['Pinot bianco, Pinot grigio, Pinot nero'],
+    v: ['Pinot bianco', 'Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Colli di Scandiano e Canossa DOC Pinot spumante',
 
-    v: ['Pinot bianco, Pinot grigio, Pinot nero'],
+    v: ['Pinot bianco', 'Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Colli di Scandiano e Canossa DOC rosso',
 
-    v: ['Marzemino, Cabernet Sauvignon, Malbo gentile'],
+    v: ['Marzemino', 'Cabernet Sauvignon', 'Malbo gentile'],
   },
   {
     d: 'Colli di Scandiano e Canossa DOC rosso frizzante',
 
-    v: ['Marzemino, Cabernet Sauvignon, Malbo gentile'],
+    v: ['Marzemino', 'Cabernet Sauvignon', 'Malbo gentile'],
   },
   {
     d: 'Colli di Scandiano e Canossa DOC rosso novello',
 
-    v: ['Marzemino, Cabernet Sauvignon, Malbo gentile'],
+    v: ['Marzemino', 'Cabernet Sauvignon', 'Malbo gentile'],
   },
   {
     d: 'Colli di Scandiano e Canossa DOC Sauvignon',
@@ -4715,17 +4974,17 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC bianco',
 
-    v: ['Trebbiano Toscano, Malvasia del Lazio, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia del Lazio', 'Malvasia bianca lunga'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC bianco amabile',
 
-    v: ['Trebbiano Toscano, Malvasia del Lazio, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia del Lazio', 'Malvasia bianca lunga'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC bianco frizzante',
 
-    v: ['Trebbiano Toscano, Malvasia del Lazio, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia del Lazio', 'Malvasia bianca lunga'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC Canaiolo',
@@ -4790,17 +5049,17 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC rosato',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC rosato amabile',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC rosato frizzante',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC Rossetto',
@@ -4815,22 +5074,22 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC rosso',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC rosso amabile',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC rosso frizzante',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC rosso novello',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Etruschi Viterbesi o Tuscia DOC Sangiovese',
@@ -4870,7 +5129,13 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Euganei Bianco DOC',
 
-    v: ['Garganega, Tocai Friulano, Sauvignon, Moscato bianco, Moscato giallo'],
+    v: [
+      'Garganega',
+      'Tocai Friulano',
+      'Sauvignon',
+      'Moscato bianco',
+      'Moscato giallo',
+    ],
   },
   {
     d: 'Colli Euganei Bianco spumante DOC',
@@ -4970,22 +5235,34 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Euganei Raboso DOC',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Colli Euganei Raboso riserva DOC',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Colli Euganei Rosso DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Carmènere, Raboso Piave, Raboso Veronese'],
+    v: [
+      'Merlot',
+      'Cabernet Sauvignon',
+      'Carmènere',
+      'Raboso Piave',
+      'Raboso Veronese',
+    ],
   },
   {
     d: 'Colli Euganei Rosso riserva DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Carmènere, Raboso Piave, Raboso Veronese'],
+    v: [
+      'Merlot',
+      'Cabernet Sauvignon',
+      'Carmènere',
+      'Raboso Piave',
+      'Raboso Veronese',
+    ],
   },
   {
     d: 'Colli Euganei Sauvignon DOC',
@@ -5011,37 +5288,46 @@ export const wines: WineOption[] = [
     d: 'Colli Lanuvini bianco DOC',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
     ],
   },
   {
     d: 'Colli Lanuvini bianco spumante DOC',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
     ],
   },
   {
     d: 'Colli Lanuvini bianco superiore DOC',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
     ],
   },
   {
     d: 'Colli Lanuvini rosso DOC',
 
-    v: ['Merlot, Montepulciano, Sangiovese'],
+    v: ['Merlot', 'Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Lanuvini rosso riserva DOC',
 
-    v: ['Merlot, Montepulciano, Sangiovese'],
+    v: ['Merlot', 'Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Lanuvini rosso superiore DOC',
 
-    v: ['Merlot, Montepulciano, Sangiovese'],
+    v: ['Merlot', 'Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Colli Maceratesi DOC bianco',
@@ -5131,7 +5417,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Martani DOC Riesling',
 
-    v: ['Riesling, Riesling Italico'],
+    v: ['Riesling', 'Riesling Italico'],
   },
   {
     d: 'Colli Martani DOC rosso',
@@ -5156,7 +5442,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Martani DOC spumante',
 
-    v: ['Grechetto, Chardonnay, Pinot nero'],
+    v: ['Grechetto', 'Chardonnay', 'Pinot nero'],
   },
   {
     d: 'Colli Martani DOC Trebbiano',
@@ -5231,7 +5517,13 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Perugini DOC spumante',
 
-    v: ['Grechetto, Chardonnay, Pinot bianco, Pinot nero, Pinot grigio'],
+    v: [
+      'Grechetto',
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot nero',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Colli Perugini DOC Trebbiano',
@@ -5251,7 +5543,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Pesaresi DOC bianco',
 
-    v: ['Trebbiano Toscano, Verdicchio, Biancame'],
+    v: ['Trebbiano Toscano', 'Verdicchio', 'Biancame'],
   },
   {
     d: 'Colli Pesaresi DOC Focara Pinot nero',
@@ -5281,12 +5573,12 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Pesaresi DOC Focara rosso',
 
-    v: ['Pinot nero, Cabernet Franc, Cabernet Sauvignon, Merlot'],
+    v: ['Pinot nero', 'Cabernet Franc', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Colli Pesaresi DOC Focara rosso riserva',
 
-    v: ['Pinot nero, Cabernet Franc, Cabernet Sauvignon, Merlot'],
+    v: ['Pinot nero', 'Cabernet Franc', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Colli Pesaresi DOC Parco naturale Monte San Bartolo Cabernet sauvignon',
@@ -5311,12 +5603,12 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Pesaresi DOC Roncaglia bianco',
 
-    v: ['Pinot nero, Trebbiano Toscano, Chardonnay'],
+    v: ['Pinot nero', 'Trebbiano Toscano', 'Chardonnay'],
   },
   {
     d: 'Colli Pesaresi DOC Roncaglia bianco riserva',
 
-    v: ['Pinot nero, Trebbiano Toscano, Chardonnay'],
+    v: ['Pinot nero', 'Trebbiano Toscano', 'Chardonnay'],
   },
   {
     d: 'Colli Pesaresi DOC Roncaglia Pinot nero',
@@ -5371,7 +5663,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Pesaresi DOC spumante',
 
-    v: ['Trebbiano Toscano, Verdicchio, Biancame'],
+    v: ['Trebbiano Toscano', 'Verdicchio', 'Biancame'],
   },
   {
     d: 'Colli Pesaresi DOC Trebbiano',
@@ -5442,27 +5734,36 @@ export const wines: WineOption[] = [
     d: 'Colli Piacentini DOC Monterosso Val d’Arda',
 
     v: [
-      'Malvasia di Candia aromatica, Moscato bianco, Trebbiano Romagnolo, Ortrugo',
+      'Malvasia di Candia aromatica',
+      'Moscato bianco',
+      'Trebbiano Romagnolo',
+      'Ortrugo',
     ],
   },
   {
     d: 'Colli Piacentini DOC Monterosso Val d’Arda frizzante',
 
     v: [
-      'Malvasia di Candia aromatica, Moscato bianco, Trebbiano Romagnolo, Ortrugo',
+      'Malvasia di Candia aromatica',
+      'Moscato bianco',
+      'Trebbiano Romagnolo',
+      'Ortrugo',
     ],
   },
   {
     d: 'Colli Piacentini DOC Monterosso Val d’Arda spumante',
 
     v: [
-      'Malvasia di Candia aromatica, Moscato bianco, Trebbiano Romagnolo, Ortrugo',
+      'Malvasia di Candia aromatica',
+      'Moscato bianco',
+      'Trebbiano Romagnolo',
+      'Ortrugo',
     ],
   },
   {
     d: 'Colli Piacentini DOC Novello',
 
-    v: ['Pinot nero, Barbera, Croatina'],
+    v: ['Pinot nero', 'Barbera', 'Croatina'],
   },
   {
     d: 'Colli Piacentini DOC Pinot grigio',
@@ -5508,55 +5809,75 @@ export const wines: WineOption[] = [
     d: 'Colli Piacentini DOC Trebbianino Val Trebbia',
 
     v: [
-      'Ortrugo, Malvasia di Candia aromatica, Moscato bianco, Sauvignon, Trebbiano Romagnolo',
+      'Ortrugo',
+      'Malvasia di Candia aromatica',
+      'Moscato bianco',
+      'Sauvignon',
+      'Trebbiano Romagnolo',
     ],
   },
   {
     d: 'Colli Piacentini DOC Trebbianino Val Trebbia frizzante',
 
     v: [
-      'Ortrugo, Malvasia di Candia aromatica, Moscato bianco, Sauvignon, Trebbiano Romagnolo',
+      'Ortrugo',
+      'Malvasia di Candia aromatica',
+      'Moscato bianco',
+      'Sauvignon',
+      'Trebbiano Romagnolo',
     ],
   },
   {
     d: 'Colli Piacentini DOC Trebbianino Val Trebbia spumante',
 
     v: [
-      'Ortrugo, Malvasia di Candia aromatica, Moscato bianco, Sauvignon, Trebbiano Romagnolo',
+      'Ortrugo',
+      'Malvasia di Candia aromatica',
+      'Moscato bianco',
+      'Sauvignon',
+      'Trebbiano Romagnolo',
     ],
   },
   {
     d: 'Colli Piacentini DOC Valnure',
 
-    v: ['Malvasia di Candia aromatica, Trebbiano Romagnolo, Ortrugo'],
+    v: ['Malvasia di Candia aromatica', 'Trebbiano Romagnolo', 'Ortrugo'],
   },
   {
     d: 'Colli Piacentini DOC Valnure frizzante',
 
-    v: ['Malvasia di Candia aromatica, Trebbiano Romagnolo, Ortrugo'],
+    v: ['Malvasia di Candia aromatica', 'Trebbiano Romagnolo', 'Ortrugo'],
   },
   {
     d: 'Colli Piacentini DOC Valnure spumante',
 
-    v: ['Malvasia di Candia aromatica, Trebbiano Romagnolo, Ortrugo'],
+    v: ['Malvasia di Candia aromatica', 'Trebbiano Romagnolo', 'Ortrugo'],
   },
   {
     d: 'Colli Piacentini DOC Vin Santo',
 
     v: [
-      'Malvasia di Candia aromatica, Ortrugo, Sauvignon, Marsanne, Trebbiano Romagnolo',
+      'Malvasia di Candia aromatica',
+      'Ortrugo',
+      'Sauvignon',
+      'Marsanne',
+      'Trebbiano Romagnolo',
     ],
   },
   {
     d: 'Colli Piacentini DOC Vin Santo di Vigoleno',
 
-    v: ['Santa Maria, Melara, Bervedino, Ortrugo, Trebbiano Romagnolo'],
+    v: ['Santa Maria', 'Melara', 'Bervedino', 'Ortrugo', 'Trebbiano Romagnolo'],
   },
   {
     d: 'Colli Romagna Centrale DOC bianco',
 
     v: [
-      'Chardonnay, Bombino bianco, Sauvignon, Trebbiano Romagnolo, Pinot bianco',
+      'Chardonnay',
+      'Bombino bianco',
+      'Sauvignon',
+      'Trebbiano Romagnolo',
+      'Pinot bianco',
     ],
   },
   {
@@ -5582,12 +5903,24 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Romagna Centrale DOC rosso',
 
-    v: ['Cabernet Sauvignon, Sangiovese, Barbera, Merlot, Montepulciano'],
+    v: [
+      'Cabernet Sauvignon',
+      'Sangiovese',
+      'Barbera',
+      'Merlot',
+      'Montepulciano',
+    ],
   },
   {
     d: 'Colli Romagna Centrale DOC rosso riserva',
 
-    v: ['Cabernet Sauvignon, Sangiovese, Barbera, Merlot, Montepulciano'],
+    v: [
+      'Cabernet Sauvignon',
+      'Sangiovese',
+      'Barbera',
+      'Merlot',
+      'Montepulciano',
+    ],
   },
   {
     d: 'Colli Romagna Centrale DOC Sangiovese',
@@ -5622,22 +5955,34 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Tortonesi Bianco DOC',
 
-    v: ['Cortese, Favorita, Müller-Thurgau, Pinot bianco, Pinot grigio'],
+    v: [
+      'Cortese',
+      'Favorita',
+      'Müller-Thurgau',
+      'Pinot bianco',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Colli Tortonesi Bianco frizzante DOC',
 
-    v: ['Cortese, Favorita, Müller-Thurgau, Pinot bianco, Pinot grigio'],
+    v: [
+      'Cortese',
+      'Favorita',
+      'Müller-Thurgau',
+      'Pinot bianco',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Colli Tortonesi Chiaretto DOC',
 
-    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+    v: ['Aleatico', 'Barbera', 'Bonarda', 'Dolcetto', 'Freisa', 'Grignolino'],
   },
   {
     d: 'Colli Tortonesi Chiaretto frizzante DOC',
 
-    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+    v: ['Aleatico', 'Barbera', 'Bonarda', 'Dolcetto', 'Freisa', 'Grignolino'],
   },
   {
     d: 'Colli Tortonesi Cortese DOC',
@@ -5702,17 +6047,17 @@ export const wines: WineOption[] = [
   {
     d: 'Colli Tortonesi Novello DOC',
 
-    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+    v: ['Aleatico', 'Barbera', 'Bonarda', 'Dolcetto', 'Freisa', 'Grignolino'],
   },
   {
     d: 'Colli Tortonesi Rosso DOC',
 
-    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+    v: ['Aleatico', 'Barbera', 'Bonarda', 'Dolcetto', 'Freisa', 'Grignolino'],
   },
   {
     d: 'Colli Tortonesi Rosso frizzante DOC',
 
-    v: ['Aleatico, Barbera, Bonarda, Dolcetto, Freisa, Grignolino'],
+    v: ['Aleatico', 'Barbera', 'Bonarda', 'Dolcetto', 'Freisa', 'Grignolino'],
   },
   {
     d: 'Colli Tortonesi Terre di Libarna Bianco DOC',
@@ -5757,7 +6102,7 @@ export const wines: WineOption[] = [
   {
     d: 'Collina Torinese Malvasia DOC',
 
-    v: ['Malvasia di Schierano, Malvasia nera lunga'],
+    v: ['Malvasia di Schierano', 'Malvasia nera lunga'],
   },
   {
     d: 'Collina Torinese Pelaverga o Cari DOC',
@@ -5767,27 +6112,27 @@ export const wines: WineOption[] = [
   {
     d: 'Collina Torinese rosso DOC',
 
-    v: ['Barbera, Freisa'],
+    v: ['Barbera', 'Freisa'],
   },
   {
     d: 'Collina Torinese rosso novello DOC',
 
-    v: ['Barbera, Freisa'],
+    v: ['Barbera', 'Freisa'],
   },
   {
     d: 'Colline di Levanto DOC bianco',
 
-    v: ['Vermentino, Albarola, Bosco'],
+    v: ['Vermentino', 'Albarola', 'Bosco'],
   },
   {
     d: 'Colline di Levanto DOC novello',
 
-    v: ['Sangiovese, Ciliegiolo'],
+    v: ['Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Colline di Levanto DOC rosso',
 
-    v: ['Sangiovese, Ciliegiolo'],
+    v: ['Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Colline di Levanto DOC Vermentino',
@@ -5852,7 +6197,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colline Lucchesi DOC bianco',
 
-    v: ['Trebbiano Toscano, Chardonnay, Greco'],
+    v: ['Trebbiano Toscano', 'Chardonnay', 'Greco'],
   },
   {
     d: 'Colline Lucchesi DOC Merlot',
@@ -5862,7 +6207,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colline Lucchesi DOC rosso',
 
-    v: ['Sangiovese, Canaiolo nero, Ciliegiolo, Merlot, Syrah'],
+    v: ['Sangiovese', 'Canaiolo nero', 'Ciliegiolo', 'Merlot', 'Syrah'],
   },
   {
     d: 'Colline Lucchesi DOC Sangiovese',
@@ -5942,7 +6287,7 @@ export const wines: WineOption[] = [
   {
     d: 'Colline Saluzzesi DOC (rosso)',
 
-    v: ['Barbera, Nebbiolo, Pelaverga, Chatus'],
+    v: ['Barbera', 'Nebbiolo', 'Pelaverga', 'Chatus'],
   },
   {
     d: 'Colline Saluzzesi DOC Barbera',
@@ -5982,7 +6327,7 @@ export const wines: WineOption[] = [
   {
     d: 'Collio Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Collio Cabernet franc DOC',
@@ -6097,7 +6442,7 @@ export const wines: WineOption[] = [
   {
     d: 'Conero DOCG',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Contea di Sclafani DOC Ansonica o Inzolia',
@@ -6112,12 +6457,12 @@ export const wines: WineOption[] = [
   {
     d: 'Contea di Sclafani DOC bianco',
 
-    v: ['Catarratto bianco comune, Inzolia'],
+    v: ['Catarratto bianco comune', 'Inzolia'],
   },
   {
     d: 'Contea di Sclafani DOC bianco spumante',
 
-    v: ['Catarratto bianco comune, Inzolia'],
+    v: ['Catarratto bianco comune', 'Inzolia'],
   },
   {
     d: 'Contea di Sclafani DOC Cabernet Sauvignon',
@@ -6132,12 +6477,12 @@ export const wines: WineOption[] = [
   {
     d: 'Contea di Sclafani DOC Catarratto',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune'],
   },
   {
     d: 'Contea di Sclafani DOC Catarratto spumante',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune'],
   },
   {
     d: 'Contea di Sclafani DOC Chardonnay',
@@ -6152,12 +6497,12 @@ export const wines: WineOption[] = [
   {
     d: 'Contea di Sclafani DOC dolce',
 
-    v: ['Calabrese, Perricone'],
+    v: ['Calabrese', 'Perricone'],
   },
   {
     d: 'Contea di Sclafani DOC dolce vendemmia tardiva',
 
-    v: ['Calabrese, Perricone'],
+    v: ['Calabrese', 'Perricone'],
   },
   {
     d: 'Contea di Sclafani DOC Grecanico',
@@ -6207,7 +6552,7 @@ export const wines: WineOption[] = [
   {
     d: 'Contea di Sclafani DOC novello',
 
-    v: ['Calabrese, Perricone'],
+    v: ['Calabrese', 'Perricone'],
   },
   {
     d: 'Contea di Sclafani DOC Perricone',
@@ -6252,7 +6597,7 @@ export const wines: WineOption[] = [
   {
     d: 'Contea di Sclafani DOC rosso',
 
-    v: ['Calabrese, Perricone'],
+    v: ['Calabrese', 'Perricone'],
   },
   {
     d: 'Contea di Sclafani DOC Sangiovese',
@@ -6302,7 +6647,7 @@ export const wines: WineOption[] = [
   {
     d: 'Contessa Entellina DOC Catarratto',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune'],
   },
   {
     d: 'Contessa Entellina DOC Chardonnay',
@@ -6337,17 +6682,17 @@ export const wines: WineOption[] = [
   {
     d: 'Contessa Entellina DOC rosato',
 
-    v: ['Calabrese, Syrah'],
+    v: ['Calabrese', 'Syrah'],
   },
   {
     d: 'Contessa Entellina DOC rosso',
 
-    v: ['Calabrese, Syrah'],
+    v: ['Calabrese', 'Syrah'],
   },
   {
     d: 'Contessa Entellina DOC rosso riserva',
 
-    v: ['Calabrese, Syrah'],
+    v: ['Calabrese', 'Syrah'],
   },
   {
     d: 'Contessa Entellina DOC Sauvignon',
@@ -6372,17 +6717,17 @@ export const wines: WineOption[] = [
   {
     d: 'Controguerra DOC bianco',
 
-    v: ['Trebbiano Toscano, Trebbiano Abruzzese, Passerina'],
+    v: ['Trebbiano Toscano', 'Trebbiano Abruzzese', 'Passerina'],
   },
   {
     d: 'Controguerra DOC bianco passito',
 
-    v: ['Trebbiano Toscano, Trebbiano Abruzzese, Passerina'],
+    v: ['Trebbiano Toscano', 'Trebbiano Abruzzese', 'Passerina'],
   },
   {
     d: 'Controguerra DOC Cabernet',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Controguerra DOC Chardonnay',
@@ -6432,27 +6777,39 @@ export const wines: WineOption[] = [
   {
     d: 'Controguerra DOC spumante metodo classico',
 
-    v: ['Trebbiano Toscano, Trebbiano Abruzzese, Chardonnay, Pecorino'],
+    v: ['Trebbiano Toscano', 'Trebbiano Abruzzese', 'Chardonnay', 'Pecorino'],
   },
   {
     d: 'Copertino DOC rosato',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Sangiovese, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Lecce',
+      'Sangiovese',
+      'Montepulciano',
     ],
   },
   {
     d: 'Copertino DOC rosso',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Sangiovese, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Lecce',
+      'Sangiovese',
+      'Montepulciano',
     ],
   },
   {
     d: 'Copertino DOC rosso riserva',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Sangiovese, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Lecce',
+      'Sangiovese',
+      'Montepulciano',
     ],
   },
   {
@@ -6463,7 +6820,7 @@ export const wines: WineOption[] = [
   {
     d: 'Cori DOC bianco',
 
-    v: ['Bellone, Malvasia del Lazio, Greco'],
+    v: ['Bellone', 'Malvasia del Lazio', 'Greco'],
   },
   {
     d: 'Cori DOC Nero buono',
@@ -6478,7 +6835,7 @@ export const wines: WineOption[] = [
   {
     d: 'Cori DOC rosso',
 
-    v: ['Nero buono, Montepulciano, Cesanese comune, Cesanese di Affile'],
+    v: ['Nero buono', 'Montepulciano', 'Cesanese comune', 'Cesanese di Affile'],
   },
   {
     d: 'Cortese dell’Alto Monferrato DOC',
@@ -6503,12 +6860,12 @@ export const wines: WineOption[] = [
   {
     d: 'Corti Benedettine del Padovano Cabernet DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Corti Benedettine del Padovano Cabernet riserva DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Corti Benedettine del Padovano Cabernet Sauvignon DOC',
@@ -6533,7 +6890,7 @@ export const wines: WineOption[] = [
   {
     d: 'Corti Benedettine del Padovano Novello DOC',
 
-    v: ['Merlot, Raboso Piave'],
+    v: ['Merlot', 'Raboso Piave'],
   },
   {
     d: 'Corti Benedettine del Padovano Passito DOC',
@@ -6578,12 +6935,12 @@ export const wines: WineOption[] = [
   {
     d: 'Corti Benedettine del Padovano Rosato DOC',
 
-    v: ['Merlot, Raboso Piave'],
+    v: ['Merlot', 'Raboso Piave'],
   },
   {
     d: 'Corti Benedettine del Padovano Rosso DOC',
 
-    v: ['Merlot, Raboso Piave'],
+    v: ['Merlot', 'Raboso Piave'],
   },
   {
     d: 'Corti Benedettine del Padovano Sauvignon DOC',
@@ -6633,7 +6990,7 @@ export const wines: WineOption[] = [
   {
     d: 'Cortona DOC rosso',
 
-    v: ['Syrah, Merlot'],
+    v: ['Syrah', 'Merlot'],
   },
   {
     d: 'Cortona DOC Sangiovese',
@@ -6663,47 +7020,47 @@ export const wines: WineOption[] = [
   {
     d: 'Cortona DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Grechetto, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Grechetto', 'Malvasia bianca lunga'],
   },
   {
     d: 'Cortona DOC Vin Santo Occhio di Pernice',
 
-    v: ['Sangiovese, Malvasia nera'],
+    v: ['Sangiovese', 'Malvasia nera'],
   },
   {
     d: 'Cortona DOC Vin Santo riserva',
 
-    v: ['Trebbiano Toscano, Grechetto, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Grechetto', 'Malvasia bianca lunga'],
   },
   {
     d: 'Costa d’Amalfi DOC bianco',
 
-    v: ['Falanghina, Biancolella'],
+    v: ['Falanghina', 'Biancolella'],
   },
   {
     d: 'Costa d’Amalfi DOC bianco passito',
 
-    v: ['Falanghina, Biancolella'],
+    v: ['Falanghina', 'Biancolella'],
   },
   {
     d: 'Costa d’Amalfi DOC bianco spumante',
 
-    v: ['Falanghina, Biancolella'],
+    v: ['Falanghina', 'Biancolella'],
   },
   {
     d: 'Costa d’Amalfi DOC rosato',
 
-    v: ['Piedirosso, Sciascinoso, Aglianico'],
+    v: ['Piedirosso', 'Sciascinoso', 'Aglianico'],
   },
   {
     d: 'Costa d’Amalfi DOC rosso',
 
-    v: ['Piedirosso, Sciascinoso, Aglianico'],
+    v: ['Piedirosso', 'Sciascinoso', 'Aglianico'],
   },
   {
     d: 'Costa d’Amalfi DOC rosso passito',
 
-    v: ['Piedirosso, Sciascinoso, Aglianico'],
+    v: ['Piedirosso', 'Sciascinoso', 'Aglianico'],
   },
   {
     d: 'Coste della Sesia DOC bianco',
@@ -6738,22 +7095,22 @@ export const wines: WineOption[] = [
   {
     d: 'Curtefranca bianco DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Curtefranca rosso DOC',
 
-    v: ['Cabernet Franc, Carmènere, Merlot, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Carmènere', 'Merlot', 'Cabernet Sauvignon'],
   },
   {
     d: 'Delia Nivolelli DOC bianco',
 
-    v: ['Grecanico dorato, Ansonica'],
+    v: ['Grecanico dorato', 'Ansonica'],
   },
   {
     d: 'Delia Nivolelli DOC bianco frizzante',
 
-    v: ['Grecanico dorato, Ansonica'],
+    v: ['Grecanico dorato', 'Ansonica'],
   },
   {
     d: 'Delia Nivolelli DOC Cabernet sauvignon',
@@ -6818,7 +7175,7 @@ export const wines: WineOption[] = [
   {
     d: 'Delia Nivolelli DOC novello',
 
-    v: ['Calabrese, Perricone, Cabernet Sauvignon, Syrah, Sangiovese'],
+    v: ['Calabrese', 'Perricone', 'Cabernet Sauvignon', 'Syrah', 'Sangiovese'],
   },
   {
     d: 'Delia Nivolelli DOC Pignatello o Perricone',
@@ -6833,12 +7190,12 @@ export const wines: WineOption[] = [
   {
     d: 'Delia Nivolelli DOC rosso',
 
-    v: ['Calabrese, Perricone, Cabernet Sauvignon, Syrah, Sangiovese'],
+    v: ['Calabrese', 'Perricone', 'Cabernet Sauvignon', 'Syrah', 'Sangiovese'],
   },
   {
     d: 'Delia Nivolelli DOC rosso riserva',
 
-    v: ['Calabrese, Perricone, Cabernet Sauvignon, Syrah, Sangiovese'],
+    v: ['Calabrese', 'Perricone', 'Cabernet Sauvignon', 'Syrah', 'Sangiovese'],
   },
   {
     d: 'Delia Nivolelli DOC Sangiovese',
@@ -6858,7 +7215,7 @@ export const wines: WineOption[] = [
   {
     d: 'Delia Nivolelli DOC spumante',
 
-    v: ['Ansonica, Damaschino, Chardonnay'],
+    v: ['Ansonica', 'Damaschino', 'Chardonnay'],
   },
   {
     d: 'Delia Nivolelli DOC Syrah',
@@ -6963,17 +7320,17 @@ export const wines: WineOption[] = [
   {
     d: 'Elba DOC bianco',
 
-    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+    v: ['Trebbiano Toscano', 'Ansonica', 'Vermentino'],
   },
   {
     d: 'Elba DOC bianco passito',
 
-    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+    v: ['Trebbiano Toscano', 'Ansonica', 'Vermentino'],
   },
   {
     d: 'Elba DOC bianco spumante',
 
-    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+    v: ['Trebbiano Toscano', 'Ansonica', 'Vermentino'],
   },
   {
     d: 'Elba DOC Moscato passito',
@@ -7013,7 +7370,7 @@ export const wines: WineOption[] = [
   {
     d: 'Elba DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+    v: ['Trebbiano Toscano', 'Ansonica', 'Vermentino'],
   },
   {
     d: 'Elba DOC Vin Santo Occhio di Pernice',
@@ -7033,7 +7390,7 @@ export const wines: WineOption[] = [
   {
     d: 'Eloro DOC Pachino',
 
-    v: ['Frappato, Perricone'],
+    v: ['Frappato', 'Perricone'],
   },
   {
     d: 'Eloro DOC Pignatello',
@@ -7043,12 +7400,12 @@ export const wines: WineOption[] = [
   {
     d: 'Eloro DOC rosato',
 
-    v: ['Calabrese, Frappato, Perricone'],
+    v: ['Calabrese', 'Frappato', 'Perricone'],
   },
   {
     d: 'Eloro DOC rosso',
 
-    v: ['Calabrese, Frappato, Perricone'],
+    v: ['Calabrese', 'Frappato', 'Perricone'],
   },
   {
     d: 'Erbaluce di Caluso o Caluso DOCG',
@@ -7078,7 +7435,7 @@ export const wines: WineOption[] = [
   {
     d: 'Erice DOC bianco',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Erice DOC Cabernet sauvignon',
@@ -7093,7 +7450,7 @@ export const wines: WineOption[] = [
   {
     d: 'Erice DOC Catarratto',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Erice DOC Chardonnay',
@@ -7193,58 +7550,67 @@ export const wines: WineOption[] = [
   {
     d: 'Esino DOC novello',
 
-    v: ['Sangiovese, Montepulciano'],
+    v: ['Sangiovese', 'Montepulciano'],
   },
   {
     d: 'Esino DOC rosso',
 
-    v: ['Sangiovese, Montepulciano'],
+    v: ['Sangiovese', 'Montepulciano'],
   },
   {
     d: 'Est!! Est!! Est!! di Montefiascone DOC',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca lunga, Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca lunga',
+      'Malvasia del Lazio',
     ],
   },
   {
     d: 'Est!! Est!! Est!! di Montefiascone DOC classico',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca lunga, Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca lunga',
+      'Malvasia del Lazio',
     ],
   },
   {
     d: 'Est!! Est!! Est!! di Montefiascone DOC spumante',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca lunga, Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca lunga',
+      'Malvasia del Lazio',
     ],
   },
   {
     d: 'Etna DOC bianco',
 
-    v: ['Carricante, Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Carricante', 'Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Etna DOC bianco superiore',
 
-    v: ['Carricante, Trebbiano Toscano, Minnella bianca'],
+    v: ['Carricante', 'Trebbiano Toscano', 'Minnella bianca'],
   },
   {
     d: 'Etna DOC rosato',
 
-    v: ['Nerello Mascalese, Nerello Cappuccio'],
+    v: ['Nerello Mascalese', 'Nerello Cappuccio'],
   },
   {
     d: 'Etna DOC rosso',
 
-    v: ['Nerello Mascalese, Nerello Cappuccio'],
+    v: ['Nerello Mascalese', 'Nerello Cappuccio'],
   },
   {
     d: 'Etna DOC rosso riserva',
 
-    v: ['Nerello Mascalese, Nerello Cappuccio'],
+    v: ['Nerello Mascalese', 'Nerello Cappuccio'],
   },
   {
     d: 'Etna DOC spumante (vinificato in bianco)',
@@ -7409,12 +7775,12 @@ export const wines: WineOption[] = [
   {
     d: 'Falerio DOC',
 
-    v: ['Trebbiano Toscano, Passerina, Pecorino'],
+    v: ['Trebbiano Toscano', 'Passerina', 'Pecorino'],
   },
   {
     d: 'Falerio DOC Pecorino',
 
-    v: ['Trebbiano Toscano, Passerina, Pecorino'],
+    v: ['Trebbiano Toscano', 'Passerina', 'Pecorino'],
   },
   {
     d: 'Falerno del Massico DOC bianco',
@@ -7434,97 +7800,97 @@ export const wines: WineOption[] = [
   {
     d: 'Falerno del Massico DOC rosso',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Falerno del Massico DOC rosso riserva',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Fara DOC',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Fara DOC con menzione vigna',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Faro DOC',
 
-    v: ['Nerello Mascalese, Nocera, Nerello Cappuccio'],
+    v: ['Nerello Mascalese', 'Nocera', 'Nerello Cappuccio'],
   },
   {
     d: 'Fiano di Avellino DOCG',
 
-    v: ['Fiano, Greco, Coda di Volpe, Trebbiano Toscano'],
+    v: ['Fiano', 'Greco', 'Coda di Volpe', 'Trebbiano Toscano'],
   },
   {
     d: 'Franciacorta DOCG',
 
-    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot nero', 'Pinot bianco'],
   },
   {
     d: 'Franciacorta millesimato DOCG',
 
-    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot nero', 'Pinot bianco'],
   },
   {
     d: 'Franciacorta riserva DOCG',
 
-    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot nero', 'Pinot bianco'],
   },
   {
     d: 'Franciacorta Rosé DOCG',
 
-    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot nero', 'Pinot bianco'],
   },
   {
     d: 'Franciacorta Rosé millesimato DOCG',
 
-    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot nero', 'Pinot bianco'],
   },
   {
     d: 'Franciacorta Rosé riserva DOCG',
 
-    v: ['Chardonnay, Pinot nero, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot nero', 'Pinot bianco'],
   },
   {
     d: 'Franciacorta Satèn DOCG',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Franciacorta Satèn millesimato DOCG',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Franciacorta Satèn riserva DOCG',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Frascati DOC',
 
-    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+    v: ['Malvasia bianca di Candia', 'Malvasia del Lazio'],
   },
   {
     d: 'Frascati spumante DOC',
 
-    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+    v: ['Malvasia bianca di Candia', 'Malvasia del Lazio'],
   },
   {
     d: 'Frascati superiore DOCG',
 
-    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+    v: ['Malvasia bianca di Candia', 'Malvasia del Lazio'],
   },
   {
     d: 'Frascati superiore riserva DOCG',
 
-    v: ['Malvasia bianca di Candia, Malvasia del Lazio'],
+    v: ['Malvasia bianca di Candia', 'Malvasia del Lazio'],
   },
   {
     d: 'Freisa d’Asti DOC',
@@ -7634,7 +8000,7 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Annia Spumante DOC',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Friuli Annia Traminer aromatico DOC',
@@ -7649,7 +8015,7 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Aquileia Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Friuli Aquileia Cabernet franc DOC',
@@ -7735,13 +8101,22 @@ export const wines: WineOption[] = [
     d: 'Friuli Bianco DOC',
 
     v: [
-      'Chardonnay, Tocai Friulano, Malvasia Istriana, Pinot bianco, Pinot grigio, Riesling Renano, Sauvignon, Traminer aromatico, Verduzzo Friulano, Ribolla gialla',
+      'Chardonnay',
+      'Tocai Friulano',
+      'Malvasia Istriana',
+      'Pinot bianco',
+      'Pinot grigio',
+      'Riesling Renano',
+      'Sauvignon',
+      'Traminer aromatico',
+      'Verduzzo Friulano',
+      'Ribolla gialla',
     ],
   },
   {
     d: 'Friuli Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Friuli Cabernet Franc DOC',
@@ -7771,7 +8146,7 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Colli Orientali Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Friuli Colli Orientali Cabernet franc DOC',
@@ -7931,7 +8306,7 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Grave Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Friuli Grave Cabernet franc DOC',
@@ -8026,7 +8401,7 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Isonzo Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Friuli Isonzo Cabernet franc DOC',
@@ -8046,7 +8421,7 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Isonzo Chardonnay spumante DOC',
 
-    v: ['Chardonnay, Pinot nero'],
+    v: ['Chardonnay', 'Pinot nero'],
   },
   {
     d: 'Friuli Isonzo Franconia DOC',
@@ -8162,7 +8537,12 @@ export const wines: WineOption[] = [
     d: 'Friuli Isonzo Vendemmia Tardiva DOC',
 
     v: [
-      'Tocai Friulano, Sauvignon, Verduzzo Friulano, Pinot bianco, Chardonnay, Malvasia Istriana',
+      'Tocai Friulano',
+      'Sauvignon',
+      'Verduzzo Friulano',
+      'Pinot bianco',
+      'Chardonnay',
+      'Malvasia Istriana',
     ],
   },
   {
@@ -8178,12 +8558,12 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Latisana Bianco DOC',
 
-    v: ['Tocai Friulano, Chardonnay, Pinot bianco'],
+    v: ['Tocai Friulano', 'Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Friuli Latisana Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Friuli Latisana Cabernet franc DOC',
@@ -8198,7 +8578,7 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Latisana Cabernet novello DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Friuli Latisana Cabernet sauvignon DOC',
@@ -8278,7 +8658,7 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Latisana Passito DOC',
 
-    v: ['Tocai Friulano, Chardonnay, Pinot bianco'],
+    v: ['Tocai Friulano', 'Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Friuli Latisana Pinot bianco DOC',
@@ -8333,17 +8713,17 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Latisana Rosato DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Friuli Latisana Rosato frizzante DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Friuli Latisana Rosso DOC',
 
-    v: ['Merlot, Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Friuli Latisana Sauvignon DOC',
@@ -8408,13 +8788,18 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Riesling DOC',
 
-    v: ['Riesling Italico, Riesling Renano'],
+    v: ['Riesling Italico', 'Riesling Renano'],
   },
   {
     d: 'Friuli Rosso DOC',
 
     v: [
-      'Merlot, Cabernet Franc, Cabernet Sauvignon, Carmènere, Pinot nero, Refosco dal peduncolo rosso',
+      'Merlot',
+      'Cabernet Franc',
+      'Cabernet Sauvignon',
+      'Carmènere',
+      'Pinot nero',
+      'Refosco dal peduncolo rosso',
     ],
   },
   {
@@ -8425,12 +8810,12 @@ export const wines: WineOption[] = [
   {
     d: 'Friuli Spumante DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Friuli Spumante Metodo Classico DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Friuli Traminer aromatico DOC',
@@ -8445,7 +8830,7 @@ export const wines: WineOption[] = [
   {
     d: 'Gabiano DOC',
 
-    v: ['Barbera, Freisa, Grignolino'],
+    v: ['Barbera', 'Freisa', 'Grignolino'],
   },
   {
     d: 'Galatina DOC bianco',
@@ -8540,7 +8925,7 @@ export const wines: WineOption[] = [
   {
     d: 'Garda Colli Mantovani bianco DOC',
 
-    v: ['Garganega, Trebbiano Toscano, Chardonnay'],
+    v: ['Garganega', 'Trebbiano Toscano', 'Chardonnay'],
   },
   {
     d: 'Garda Colli Mantovani Cabernet DOC',
@@ -8570,12 +8955,12 @@ export const wines: WineOption[] = [
   {
     d: 'Garda Colli Mantovani rosato DOC',
 
-    v: ['Merlot, Rondinella, Cabernet Sauvignon'],
+    v: ['Merlot', 'Rondinella', 'Cabernet Sauvignon'],
   },
   {
     d: 'Garda Colli Mantovani rosso DOC',
 
-    v: ['Merlot, Rondinella, Cabernet Sauvignon'],
+    v: ['Merlot', 'Rondinella', 'Cabernet Sauvignon'],
   },
   {
     d: 'Garda Colli Mantovani Sauvignon DOC',
@@ -8590,7 +8975,7 @@ export const wines: WineOption[] = [
   {
     d: 'Garda DOC Cabernet',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Garda DOC Cabernet sauvignon',
@@ -8610,7 +8995,7 @@ export const wines: WineOption[] = [
   {
     d: 'Garda DOC Classico bianco',
 
-    v: ['Riesling Italico, Riesling'],
+    v: ['Riesling Italico', 'Riesling'],
   },
   {
     d: 'Garda DOC Classico chiaretto',
@@ -8655,7 +9040,7 @@ export const wines: WineOption[] = [
   {
     d: 'Garda DOC frizzante',
 
-    v: ['Riesling Italico, Riesling'],
+    v: ['Riesling Italico', 'Riesling'],
   },
   {
     d: 'Garda DOC Garganega',
@@ -8705,7 +9090,7 @@ export const wines: WineOption[] = [
   {
     d: 'Garda DOC Riesling spumante',
 
-    v: ['Riesling Italico, Riesling'],
+    v: ['Riesling Italico', 'Riesling'],
   },
   {
     d: 'Garda DOC Sauvignon',
@@ -8725,12 +9110,12 @@ export const wines: WineOption[] = [
   {
     d: 'Gattinara DOCG',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Gattinara riserva DOCG',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Gavi o Cortese di Gavi frizzante DOCG',
@@ -8770,12 +9155,12 @@ export const wines: WineOption[] = [
   {
     d: 'Ghemme DOCG',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Ghemme riserva DOCG',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Gioia del Colle DOC Aleatico dolce',
@@ -8801,14 +9186,22 @@ export const wines: WineOption[] = [
     d: 'Gioia del Colle DOC rosato',
 
     v: [
-      'Primitivo, Montepulciano, Sangiovese, Negro Amaro, Malvasia nera di Lecce',
+      'Primitivo',
+      'Montepulciano',
+      'Sangiovese',
+      'Negro Amaro',
+      'Malvasia nera di Lecce',
     ],
   },
   {
     d: 'Gioia del Colle DOC rosso',
 
     v: [
-      'Primitivo, Montepulciano, Sangiovese, Negro Amaro, Malvasia nera di Lecce',
+      'Primitivo',
+      'Montepulciano',
+      'Sangiovese',
+      'Negro Amaro',
+      'Malvasia nera di Lecce',
     ],
   },
   {
@@ -8839,12 +9232,12 @@ export const wines: WineOption[] = [
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC bianco',
 
-    v: ['Vermentino, Bianchetta Genovese'],
+    v: ['Vermentino', 'Bianchetta Genovese'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC bianco frizzante',
 
-    v: ['Vermentino, Bianchetta Genovese'],
+    v: ['Vermentino', 'Bianchetta Genovese'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Ciliegiolo',
@@ -8864,7 +9257,7 @@ export const wines: WineOption[] = [
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi bianco',
 
-    v: ['Vermentino, Bianchetta Genovese'],
+    v: ['Vermentino', 'Bianchetta Genovese'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi moscato',
@@ -8879,17 +9272,17 @@ export const wines: WineOption[] = [
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi passito',
 
-    v: ['Vermentino, Bianchetta Genovese'],
+    v: ['Vermentino', 'Bianchetta Genovese'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi rosso',
 
-    v: ['Ciliegiolo, Dolcetto'],
+    v: ['Ciliegiolo', 'Dolcetto'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Costa dei Fieschi spumante',
 
-    v: ['Vermentino, Bianchetta Genovese'],
+    v: ['Vermentino', 'Bianchetta Genovese'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Moscato',
@@ -8904,32 +9297,32 @@ export const wines: WineOption[] = [
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC novello',
 
-    v: ['Ciliegiolo, Dolcetto'],
+    v: ['Ciliegiolo', 'Dolcetto'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC passito',
 
-    v: ['Vermentino, Bianchetta Genovese'],
+    v: ['Vermentino', 'Bianchetta Genovese'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC rosato',
 
-    v: ['Ciliegiolo, Dolcetto'],
+    v: ['Ciliegiolo', 'Dolcetto'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC rosato frizzante',
 
-    v: ['Ciliegiolo, Dolcetto'],
+    v: ['Ciliegiolo', 'Dolcetto'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC rosso',
 
-    v: ['Ciliegiolo, Dolcetto'],
+    v: ['Ciliegiolo', 'Dolcetto'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC rosso frizzante',
 
-    v: ['Ciliegiolo, Dolcetto'],
+    v: ['Ciliegiolo', 'Dolcetto'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Scimscià (Cimixa)',
@@ -8939,7 +9332,7 @@ export const wines: WineOption[] = [
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC spumante',
 
-    v: ['Vermentino, Bianchetta Genovese'],
+    v: ['Vermentino', 'Bianchetta Genovese'],
   },
   {
     d: 'Golfo del Tigullio-Portofino o Portofino DOC Vermentino',
@@ -8954,7 +9347,7 @@ export const wines: WineOption[] = [
   {
     d: 'Grance Senesi DOC bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Grance Senesi DOC Cabernet Sauvignon',
@@ -8979,7 +9372,7 @@ export const wines: WineOption[] = [
   {
     d: 'Grance Senesi DOC passito',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Grance Senesi DOC rosso',
@@ -8999,36 +9392,46 @@ export const wines: WineOption[] = [
   {
     d: 'Grance Senesi DOC vendemmia tardiva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Gravina DOC bianco',
 
-    v: ['Greco, Malvasia bianca, Malvasia bianca lunga'],
+    v: ['Greco', 'Malvasia bianca', 'Malvasia bianca lunga'],
   },
   {
     d: 'Gravina DOC passito',
 
-    v: ['Malvasia bianca, Malvasia bianca lunga'],
+    v: ['Malvasia bianca', 'Malvasia bianca lunga'],
   },
   {
     d: 'Gravina DOC rosato',
 
     v: [
-      'Primitivo, Montepulciano, Aglianico, Uva di Troia, Cabernet Sauvignon, Cabernet Sauvignon',
+      'Primitivo',
+      'Montepulciano',
+      'Aglianico',
+      'Uva di Troia',
+      'Cabernet Sauvignon',
+      'Cabernet Sauvignon',
     ],
   },
   {
     d: 'Gravina DOC rosso',
 
     v: [
-      'Primitivo, Montepulciano, Aglianico, Uva di Troia, Cabernet Sauvignon, Cabernet Sauvignon',
+      'Primitivo',
+      'Montepulciano',
+      'Aglianico',
+      'Uva di Troia',
+      'Cabernet Sauvignon',
+      'Cabernet Sauvignon',
     ],
   },
   {
     d: 'Gravina DOC spumante',
 
-    v: ['Greco, Malvasia bianca, Malvasia bianca lunga'],
+    v: ['Greco', 'Malvasia bianca', 'Malvasia bianca lunga'],
   },
   {
     d: 'Greco di Bianco DOC',
@@ -9038,22 +9441,22 @@ export const wines: WineOption[] = [
   {
     d: 'Greco di Tufo DOCG',
 
-    v: ['Greco, Coda di Volpe'],
+    v: ['Greco', 'Coda di Volpe'],
   },
   {
     d: 'Greco di Tufo spumante DOCG',
 
-    v: ['Greco, Coda di Volpe'],
+    v: ['Greco', 'Coda di Volpe'],
   },
   {
     d: 'Grignolino d’Asti DOC',
 
-    v: ['Grignolino, Freisa'],
+    v: ['Grignolino', 'Freisa'],
   },
   {
     d: 'Grignolino del Monferrato Casalese DOC',
 
-    v: ['Grignolino, Freisa'],
+    v: ['Grignolino', 'Freisa'],
   },
   {
     d: 'Grottino di Roccanova DOC bianco',
@@ -9064,47 +9467,56 @@ export const wines: WineOption[] = [
     d: 'Grottino di Roccanova DOC rosato',
 
     v: [
-      'Sangiovese, Cabernet Sauvignon, Malvasia nera di Basilicata, Montepulciano',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Malvasia nera di Basilicata',
+      'Montepulciano',
     ],
   },
   {
     d: 'Grottino di Roccanova DOC rosso',
 
     v: [
-      'Sangiovese, Cabernet Sauvignon, Malvasia nera di Basilicata, Montepulciano',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Malvasia nera di Basilicata',
+      'Montepulciano',
     ],
   },
   {
     d: 'Grottino di Roccanova DOC rosso riserva',
 
     v: [
-      'Sangiovese, Cabernet Sauvignon, Malvasia nera di Basilicata, Montepulciano',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Malvasia nera di Basilicata',
+      'Montepulciano',
     ],
   },
   {
     d: 'Gutturnio DOC classico riserva',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Gutturnio DOC classico superiore',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Gutturnio DOC frizzante',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Gutturnio DOC riserva',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Gutturnio DOC superiore',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'I Terreni di San Severino DOC moro',
@@ -9144,7 +9556,7 @@ export const wines: WineOption[] = [
   {
     d: 'Irpinia DOC bianco',
 
-    v: ['Greco, Fiano'],
+    v: ['Greco', 'Fiano'],
   },
   {
     d: 'Irpinia DOC Coda di Volpe',
@@ -9224,17 +9636,17 @@ export const wines: WineOption[] = [
   {
     d: 'Ischia DOC bianco',
 
-    v: ['Forastera, Biancolella'],
+    v: ['Forastera', 'Biancolella'],
   },
   {
     d: 'Ischia DOC bianco spumante',
 
-    v: ['Forastera, Biancolella'],
+    v: ['Forastera', 'Biancolella'],
   },
   {
     d: 'Ischia DOC bianco superiore',
 
-    v: ['Forastera, Biancolella'],
+    v: ['Forastera', 'Biancolella'],
   },
   {
     d: 'Ischia DOC Biancolella',
@@ -9259,7 +9671,7 @@ export const wines: WineOption[] = [
   {
     d: 'Ischia DOC rosso',
 
-    v: ['Guarnaccia, Piedirosso'],
+    v: ['Guarnaccia', 'Piedirosso'],
   },
   {
     d: 'Lacrima di Morro d’Alba DOC',
@@ -9279,32 +9691,32 @@ export const wines: WineOption[] = [
   {
     d: 'Lago di Caldaro o Caldaro classico superiore DOC',
 
-    v: ['Schiava grossa, Schiava gentile, Schiava grigia'],
+    v: ['Schiava grossa', 'Schiava gentile', 'Schiava grigia'],
   },
   {
     d: 'Lago di Caldaro o Caldaro DOC',
 
-    v: ['Schiava grossa, Schiava gentile, Schiava grigia'],
+    v: ['Schiava grossa', 'Schiava gentile', 'Schiava grigia'],
   },
   {
     d: 'Lago di Caldaro o Caldaro scelto (Auslese) classico superiore DOC',
 
-    v: ['Schiava grossa, Schiava gentile, Schiava grigia'],
+    v: ['Schiava grossa', 'Schiava gentile', 'Schiava grigia'],
   },
   {
     d: 'Lago di Caldaro o Caldaro scelto (Auslese) DOC',
 
-    v: ['Schiava grossa, Schiava gentile, Schiava grigia'],
+    v: ['Schiava grossa', 'Schiava gentile', 'Schiava grigia'],
   },
   {
     d: 'Lago di Corbara DOC bianco',
 
-    v: ['Grechetto, Sauvignon'],
+    v: ['Grechetto', 'Sauvignon'],
   },
   {
     d: 'Lago di Corbara DOC bianco riserva',
 
-    v: ['Grechetto, Sauvignon'],
+    v: ['Grechetto', 'Sauvignon'],
   },
   {
     d: 'Lago di Corbara DOC Cabernet sauvignon',
@@ -9349,12 +9761,12 @@ export const wines: WineOption[] = [
   {
     d: 'Lago di Corbara DOC passito',
 
-    v: ['Grechetto, Sauvignon'],
+    v: ['Grechetto', 'Sauvignon'],
   },
   {
     d: 'Lago di Corbara DOC passito riserva',
 
-    v: ['Grechetto, Sauvignon'],
+    v: ['Grechetto', 'Sauvignon'],
   },
   {
     d: 'Lago di Corbara DOC Pinot nero',
@@ -9369,12 +9781,12 @@ export const wines: WineOption[] = [
   {
     d: 'Lago di Corbara DOC rosso',
 
-    v: ['Cabernet Sauvignon, Merlot, Pinot nero, Sangiovese'],
+    v: ['Cabernet Sauvignon', 'Merlot', 'Pinot nero', 'Sangiovese'],
   },
   {
     d: 'Lago di Corbara DOC rosso riserva',
 
-    v: ['Cabernet Sauvignon, Merlot, Pinot nero, Sangiovese'],
+    v: ['Cabernet Sauvignon', 'Merlot', 'Pinot nero', 'Sangiovese'],
   },
   {
     d: 'Lago di Corbara DOC Sangiovese',
@@ -9399,7 +9811,7 @@ export const wines: WineOption[] = [
   {
     d: 'Lago di Corbara DOC Vendemmia tardiva',
 
-    v: ['Grechetto, Sauvignon'],
+    v: ['Grechetto', 'Sauvignon'],
   },
   {
     d: 'Lago di Corbara DOC Vermentino',
@@ -9414,22 +9826,22 @@ export const wines: WineOption[] = [
   {
     d: 'Lambrusco di Sorbara DOC rosato frizzante',
 
-    v: ['Lambrusco di Sorbara, Lambrusco Salamino'],
+    v: ['Lambrusco di Sorbara', 'Lambrusco Salamino'],
   },
   {
     d: 'Lambrusco di Sorbara DOC rosato spumante',
 
-    v: ['Lambrusco di Sorbara, Lambrusco Salamino'],
+    v: ['Lambrusco di Sorbara', 'Lambrusco Salamino'],
   },
   {
     d: 'Lambrusco di Sorbara DOC rosso frizzante',
 
-    v: ['Lambrusco di Sorbara, Lambrusco Salamino'],
+    v: ['Lambrusco di Sorbara', 'Lambrusco Salamino'],
   },
   {
     d: 'Lambrusco di Sorbara DOC rosso spumante',
 
-    v: ['Lambrusco di Sorbara, Lambrusco Salamino'],
+    v: ['Lambrusco di Sorbara', 'Lambrusco Salamino'],
   },
   {
     d: 'Lambrusco Grasparossa di Castelvetro DOC rosato frizzante',
@@ -9529,37 +9941,37 @@ export const wines: WineOption[] = [
   {
     d: 'Lamezia DOC novello',
 
-    v: ['Gaglioppo, Magliocco canino, Greco Nero'],
+    v: ['Gaglioppo', 'Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Lamezia DOC passito',
 
-    v: ['Greco, Montonico bianco'],
+    v: ['Greco', 'Montonico bianco'],
   },
   {
     d: 'Lamezia DOC rosato',
 
-    v: ['Gaglioppo, Magliocco canino, Greco Nero'],
+    v: ['Gaglioppo', 'Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Lamezia DOC rosso',
 
-    v: ['Gaglioppo, Magliocco canino, Greco Nero'],
+    v: ['Gaglioppo', 'Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Lamezia DOC rosso riserva',
 
-    v: ['Gaglioppo, Magliocco canino, Greco Nero'],
+    v: ['Gaglioppo', 'Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Lamezia DOC spumante',
 
-    v: ['Greco, Montonico bianco'],
+    v: ['Greco', 'Montonico bianco'],
   },
   {
     d: 'Lamezia DOC spumante rosato',
 
-    v: ['Greco, Montonico bianco, Gaglioppo'],
+    v: ['Greco', 'Montonico bianco', 'Gaglioppo'],
   },
   {
     d: 'Langhe DOC Arneis',
@@ -9584,7 +9996,7 @@ export const wines: WineOption[] = [
   {
     d: 'Langhe DOC bianco passito',
 
-    v: ['Arneis, Chardonnay, Nascetta, Riesling Italico'],
+    v: ['Arneis', 'Chardonnay', 'Nascetta', 'Riesling Italico'],
   },
   {
     d: 'Langhe DOC Cabernet Sauvignon',
@@ -9649,7 +10061,7 @@ export const wines: WineOption[] = [
   {
     d: 'Langhe DOC rosato',
 
-    v: ['Barbera, Dolcetto, Nebbiolo'],
+    v: ['Barbera', 'Dolcetto', 'Nebbiolo'],
   },
   {
     d: 'Langhe DOC Rossese bianco',
@@ -9664,7 +10076,7 @@ export const wines: WineOption[] = [
   {
     d: 'Langhe DOC rosso passito',
 
-    v: ['Barbera, Dolcetto, Nebbiolo'],
+    v: ['Barbera', 'Dolcetto', 'Nebbiolo'],
   },
   {
     d: 'Langhe DOC Sauvignon',
@@ -9684,27 +10096,27 @@ export const wines: WineOption[] = [
   {
     d: 'Lessona DOC',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Lessona DOC riserva',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Leverano DOC bianco',
 
-    v: ['Malvasia bianca, Vermentino'],
+    v: ['Malvasia bianca', 'Vermentino'],
   },
   {
     d: 'Leverano DOC bianco dolce naturale',
 
-    v: ['Malvasia bianca, Vermentino'],
+    v: ['Malvasia bianca', 'Vermentino'],
   },
   {
     d: 'Leverano DOC bianco passito',
 
-    v: ['Malvasia bianca, Vermentino'],
+    v: ['Malvasia bianca', 'Vermentino'],
   },
   {
     d: 'Leverano DOC Chardonnay',
@@ -9744,22 +10156,22 @@ export const wines: WineOption[] = [
   {
     d: 'Leverano DOC rosato',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Montepulciano, Sangiovese'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Leverano DOC rosso',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Montepulciano, Sangiovese'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Leverano DOC rosso novello',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Montepulciano, Sangiovese'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Leverano DOC rosso riserva',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Montepulciano, Sangiovese'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Lison classico DOCG',
@@ -9784,7 +10196,7 @@ export const wines: WineOption[] = [
   {
     d: 'Lison Pramaggiore Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Lison Pramaggiore Cabernet franc DOC',
@@ -9859,7 +10271,7 @@ export const wines: WineOption[] = [
   {
     d: 'Lison Pramaggiore Spumante DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Lison Pramaggiore Verduzzo DOC',
@@ -9875,27 +10287,42 @@ export const wines: WineOption[] = [
     d: 'Lizzano DOC bianco',
 
     v: [
-      'Trebbiano Toscano, Chardonnay, Pinot bianco, Malvasia bianca lunga, Bianco d’Alessano, Sauvignon',
+      'Trebbiano Toscano',
+      'Chardonnay',
+      'Pinot bianco',
+      'Malvasia bianca lunga',
+      'Bianco d’Alessano',
+      'Sauvignon',
     ],
   },
   {
     d: 'Lizzano DOC bianco frizzante',
 
     v: [
-      'Trebbiano Toscano, Chardonnay, Pinot bianco, Malvasia bianca lunga, Bianco d’Alessano, Sauvignon',
+      'Trebbiano Toscano',
+      'Chardonnay',
+      'Pinot bianco',
+      'Malvasia bianca lunga',
+      'Bianco d’Alessano',
+      'Sauvignon',
     ],
   },
   {
     d: 'Lizzano DOC bianco spumante',
 
     v: [
-      'Trebbiano Toscano, Chardonnay, Pinot bianco, Malvasia bianca lunga, Bianco d’Alessano, Sauvignon',
+      'Trebbiano Toscano',
+      'Chardonnay',
+      'Pinot bianco',
+      'Malvasia bianca lunga',
+      'Bianco d’Alessano',
+      'Sauvignon',
     ],
   },
   {
     d: 'Lizzano DOC Malvasia nera',
 
-    v: ['Malvasia nera di Brindisi, Malvasia nera di Lecce'],
+    v: ['Malvasia nera di Brindisi', 'Malvasia nera di Lecce'],
   },
   {
     d: 'Lizzano DOC Negroamaro rosato',
@@ -9910,37 +10337,79 @@ export const wines: WineOption[] = [
   {
     d: 'Lizzano DOC rosato',
 
-    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+    v: [
+      'Negro Amaro',
+      'Montepulciano',
+      'Sangiovese',
+      'Bombino nero',
+      'Pinot nero',
+    ],
   },
   {
     d: 'Lizzano DOC rosato frizzante',
 
-    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+    v: [
+      'Negro Amaro',
+      'Montepulciano',
+      'Sangiovese',
+      'Bombino nero',
+      'Pinot nero',
+    ],
   },
   {
     d: 'Lizzano DOC rosato novello',
 
-    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+    v: [
+      'Negro Amaro',
+      'Montepulciano',
+      'Sangiovese',
+      'Bombino nero',
+      'Pinot nero',
+    ],
   },
   {
     d: 'Lizzano DOC rosato spumante',
 
-    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+    v: [
+      'Negro Amaro',
+      'Montepulciano',
+      'Sangiovese',
+      'Bombino nero',
+      'Pinot nero',
+    ],
   },
   {
     d: 'Lizzano DOC rosso',
 
-    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+    v: [
+      'Negro Amaro',
+      'Montepulciano',
+      'Sangiovese',
+      'Bombino nero',
+      'Pinot nero',
+    ],
   },
   {
     d: 'Lizzano DOC rosso frizzante',
 
-    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+    v: [
+      'Negro Amaro',
+      'Montepulciano',
+      'Sangiovese',
+      'Bombino nero',
+      'Pinot nero',
+    ],
   },
   {
     d: 'Lizzano DOC rosso novello',
 
-    v: ['Negro Amaro, Montepulciano, Sangiovese, Bombino nero, Pinot nero'],
+    v: [
+      'Negro Amaro',
+      'Montepulciano',
+      'Sangiovese',
+      'Bombino nero',
+      'Pinot nero',
+    ],
   },
   {
     d: 'Loazzolo DOC',
@@ -9950,7 +10419,7 @@ export const wines: WineOption[] = [
   {
     d: 'Locorotondo DOC',
 
-    v: ['Verdeca, Bianco d’Alessano'],
+    v: ['Verdeca', 'Bianco d’Alessano'],
   },
   {
     d: 'Locorotondo DOC Bianco d’Alessano',
@@ -9965,22 +10434,22 @@ export const wines: WineOption[] = [
   {
     d: 'Locorotondo DOC passito',
 
-    v: ['Verdeca, Bianco d’Alessano'],
+    v: ['Verdeca', 'Bianco d’Alessano'],
   },
   {
     d: 'Locorotondo DOC riserva',
 
-    v: ['Verdeca, Bianco d’Alessano'],
+    v: ['Verdeca', 'Bianco d’Alessano'],
   },
   {
     d: 'Locorotondo DOC spumante',
 
-    v: ['Verdeca, Bianco d’Alessano'],
+    v: ['Verdeca', 'Bianco d’Alessano'],
   },
   {
     d: 'Locorotondo DOC superiore',
 
-    v: ['Verdeca, Bianco d’Alessano'],
+    v: ['Verdeca', 'Bianco d’Alessano'],
   },
   {
     d: 'Locorotondo DOC Verdeca',
@@ -10015,17 +10484,17 @@ export const wines: WineOption[] = [
   {
     d: 'Malvasia delle Lipari DOC bianco o dolce naturale',
 
-    v: ['Malvasia di Lipari, Corinto nero'],
+    v: ['Malvasia di Lipari', 'Corinto nero'],
   },
   {
     d: 'Malvasia delle Lipari DOC liquoroso',
 
-    v: ['Malvasia di Lipari, Corinto nero'],
+    v: ['Malvasia di Lipari', 'Corinto nero'],
   },
   {
     d: 'Malvasia delle Lipari DOC passito',
 
-    v: ['Malvasia di Lipari, Corinto nero'],
+    v: ['Malvasia di Lipari', 'Corinto nero'],
   },
   {
     d: 'Malvasia di Bosa DOC',
@@ -10050,37 +10519,37 @@ export const wines: WineOption[] = [
   {
     d: 'Malvasia di Casorzo o Casorzo DOC',
 
-    v: ['Malvasia di Casorzo, Freisa, Grignolino, Barbera'],
+    v: ['Malvasia di Casorzo', 'Freisa', 'Grignolino', 'Barbera'],
   },
   {
     d: 'Malvasia di Casorzo o Casorzo DOC passito',
 
-    v: ['Malvasia di Casorzo, Freisa, Grignolino, Barbera'],
+    v: ['Malvasia di Casorzo', 'Freisa', 'Grignolino', 'Barbera'],
   },
   {
     d: 'Malvasia di Casorzo o Casorzo DOC spumante',
 
-    v: ['Malvasia di Casorzo, Freisa, Grignolino, Barbera'],
+    v: ['Malvasia di Casorzo', 'Freisa', 'Grignolino', 'Barbera'],
   },
   {
     d: 'Malvasia di Castelnuovo Don Bosco DOC',
 
-    v: ['Malvasia di Schierano, Malvasia nera lunga, Freisa'],
+    v: ['Malvasia di Schierano', 'Malvasia nera lunga', 'Freisa'],
   },
   {
     d: 'Malvasia di Castelnuovo Don Bosco DOC spumante',
 
-    v: ['Malvasia di Schierano, Malvasia nera lunga, Freisa'],
+    v: ['Malvasia di Schierano', 'Malvasia nera lunga', 'Freisa'],
   },
   {
     d: 'Mamertino di Milazzo o Mamertino DOC bianco',
 
-    v: ['Ansonica, Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Ansonica', 'Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Mamertino di Milazzo o Mamertino DOC bianco riserva',
 
-    v: ['Ansonica, Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Ansonica', 'Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Mamertino di Milazzo o Mamertino DOC Calabrese o Nero d’Avola',
@@ -10100,27 +10569,27 @@ export const wines: WineOption[] = [
   {
     d: 'Mamertino di Milazzo o Mamertino DOC rosso',
 
-    v: ['Calabrese, Nocera'],
+    v: ['Calabrese', 'Nocera'],
   },
   {
     d: 'Mamertino di Milazzo o Mamertino DOC rosso riserva',
 
-    v: ['Calabrese, Nocera'],
+    v: ['Calabrese', 'Nocera'],
   },
   {
     d: 'Mandrolisai o Sardegna Mandrolisai DOC rosato',
 
-    v: ['Bovale, Cannonau, Monica'],
+    v: ['Bovale', 'Cannonau', 'Monica'],
   },
   {
     d: 'Mandrolisai o Sardegna Mandrolisai DOC rosso',
 
-    v: ['Bovale, Cannonau, Monica'],
+    v: ['Bovale', 'Cannonau', 'Monica'],
   },
   {
     d: 'Mandrolisai o Sardegna Mandrolisai DOC rosso superiore',
 
-    v: ['Bovale, Cannonau, Monica'],
+    v: ['Bovale', 'Cannonau', 'Monica'],
   },
   {
     d: 'Maremma Toscana DOC Alicante',
@@ -10150,32 +10619,32 @@ export const wines: WineOption[] = [
   {
     d: 'Maremma Toscana DOC bianco',
 
-    v: ['Trebbiano Toscano, Vermentino'],
+    v: ['Trebbiano Toscano', 'Vermentino'],
   },
   {
     d: 'Maremma Toscana DOC bianco passito',
 
-    v: ['Trebbiano Toscano, Vermentino'],
+    v: ['Trebbiano Toscano', 'Vermentino'],
   },
   {
     d: 'Maremma Toscana DOC bianco spumante',
 
-    v: ['Trebbiano Toscano, Vermentino'],
+    v: ['Trebbiano Toscano', 'Vermentino'],
   },
   {
     d: 'Maremma Toscana DOC bianco vendemmia tardiva',
 
-    v: ['Trebbiano Toscano, Vermentino'],
+    v: ['Trebbiano Toscano', 'Vermentino'],
   },
   {
     d: 'Maremma Toscana DOC Cabernet',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc'],
   },
   {
     d: 'Maremma Toscana DOC Cabernet passito',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc'],
   },
   {
     d: 'Maremma Toscana DOC Cabernet sauvignon',
@@ -10225,7 +10694,7 @@ export const wines: WineOption[] = [
   {
     d: 'Maremma Toscana DOC rosato',
 
-    v: ['Sangiovese, Ciliegiolo'],
+    v: ['Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Maremma Toscana DOC rosso',
@@ -10305,7 +10774,7 @@ export const wines: WineOption[] = [
   {
     d: 'Maremma Toscana DOC vin santo',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Maremma Toscana DOC Viognier',
@@ -10396,106 +10865,148 @@ export const wines: WineOption[] = [
     d: 'Marsala DOC ambra fine',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC ambra superiore',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC ambra superiore riserva',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC ambra Vergine o Soleras',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC ambra Vergine stravecchio o riserva',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC oro fine',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC oro superiore',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC oro superiore riserva',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC oro Vergine o Soleras',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC oro Vergine stravecchio o riserva',
 
     v: [
-      'Ansonica, Catarratto bianco comune, Catarratto bianco lucido, Damaschino',
+      'Ansonica',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Damaschino',
     ],
   },
   {
     d: 'Marsala DOC rubino fine',
 
-    v: ['Perricone, Calabrese, Nerello Mascalese'],
+    v: ['Perricone', 'Calabrese', 'Nerello Mascalese'],
   },
   {
     d: 'Marsala DOC rubino superiore',
 
-    v: ['Perricone, Calabrese, Nerello Mascalese'],
+    v: ['Perricone', 'Calabrese', 'Nerello Mascalese'],
   },
   {
     d: 'Marsala DOC rubino superiore riserva',
 
-    v: ['Perricone, Calabrese, Nerello Mascalese'],
+    v: ['Perricone', 'Calabrese', 'Nerello Mascalese'],
   },
   {
     d: 'Marsala DOC rubino Vergine o Soleras',
 
-    v: ['Perricone, Calabrese, Nerello Mascalese'],
+    v: ['Perricone', 'Calabrese', 'Nerello Mascalese'],
   },
   {
     d: 'Marsala DOC rubino Vergine stravecchio o riserva',
 
-    v: ['Perricone, Calabrese, Nerello Mascalese'],
+    v: ['Perricone', 'Calabrese', 'Nerello Mascalese'],
   },
   {
     d: 'Martina o Martinafranca DOC',
 
-    v: ['Verdeca, Bianco d’Alessano, Fiano, Bombino bianco, Malvasia bianca'],
+    v: [
+      'Verdeca',
+      'Bianco d’Alessano',
+      'Fiano',
+      'Bombino bianco',
+      'Malvasia bianca',
+    ],
   },
   {
     d: 'Martina o Martinafranca DOC spumante',
 
-    v: ['Verdeca, Bianco d’Alessano, Fiano, Bombino bianco, Malvasia bianca'],
+    v: [
+      'Verdeca',
+      'Bianco d’Alessano',
+      'Fiano',
+      'Bombino bianco',
+      'Malvasia bianca',
+    ],
   },
   {
     d: 'Matera DOC bianco',
@@ -10515,12 +11026,12 @@ export const wines: WineOption[] = [
   {
     d: 'Matera DOC Moro',
 
-    v: ['Cabernet Sauvignon, Primitivo, Merlot'],
+    v: ['Cabernet Sauvignon', 'Primitivo', 'Merlot'],
   },
   {
     d: 'Matera DOC Moro riserva',
 
-    v: ['Cabernet Sauvignon, Primitivo, Merlot'],
+    v: ['Cabernet Sauvignon', 'Primitivo', 'Merlot'],
   },
   {
     d: 'Matera DOC Primitivo',
@@ -10540,7 +11051,7 @@ export const wines: WineOption[] = [
   {
     d: 'Matera DOC rosso',
 
-    v: ['Sangiovese, Primitivo'],
+    v: ['Sangiovese', 'Primitivo'],
   },
   {
     d: 'Matera DOC spumante',
@@ -10555,46 +11066,54 @@ export const wines: WineOption[] = [
   {
     d: 'Matino DOC rosato',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Sangiovese'],
   },
   {
     d: 'Matino DOC rosso',
 
-    v: ['Negro Amaro, Malvasia nera di Lecce, Sangiovese'],
+    v: ['Negro Amaro', 'Malvasia nera di Lecce', 'Sangiovese'],
   },
   {
     d: 'Melissa DOC bianco',
 
-    v: ['Greco Bianco, Trebbiano Toscano, Malvasia bianca'],
+    v: ['Greco Bianco', 'Trebbiano Toscano', 'Malvasia bianca'],
   },
   {
     d: 'Melissa DOC rosso',
 
     v: [
-      'Gaglioppo, Greco Nero, Greco Bianco, Trebbiano Toscano, Malvasia bianca',
+      'Gaglioppo',
+      'Greco Nero',
+      'Greco Bianco',
+      'Trebbiano Toscano',
+      'Malvasia bianca',
     ],
   },
   {
     d: 'Melissa DOC rosso superiore',
 
     v: [
-      'Gaglioppo, Greco Nero, Greco Bianco, Trebbiano Toscano, Malvasia bianca',
+      'Gaglioppo',
+      'Greco Nero',
+      'Greco Bianco',
+      'Trebbiano Toscano',
+      'Malvasia bianca',
     ],
   },
   {
     d: 'Menfi DOC bianco',
 
-    v: ['Ansonica, Chardonnay, Catarratto bianco lucido'],
+    v: ['Ansonica', 'Chardonnay', 'Catarratto bianco lucido'],
   },
   {
     d: 'Menfi DOC Bonera',
 
-    v: ['Calabrese, Sangiovese, Cabernet Sauvignon, Syrah, Syrah'],
+    v: ['Calabrese', 'Sangiovese', 'Cabernet Sauvignon', 'Syrah', 'Syrah'],
   },
   {
     d: 'Menfi DOC Bonera riserva',
 
-    v: ['Calabrese, Sangiovese, Cabernet Sauvignon, Syrah, Syrah'],
+    v: ['Calabrese', 'Sangiovese', 'Cabernet Sauvignon', 'Syrah', 'Syrah'],
   },
   {
     d: 'Menfi DOC Cabernet sauvignon',
@@ -10614,7 +11133,7 @@ export const wines: WineOption[] = [
   {
     d: 'Menfi DOC Feudo dei Fiori',
 
-    v: ['Chardonnay, Ansonica'],
+    v: ['Chardonnay', 'Ansonica'],
   },
   {
     d: 'Menfi DOC Grecanico',
@@ -10639,12 +11158,12 @@ export const wines: WineOption[] = [
   {
     d: 'Menfi DOC rosso',
 
-    v: ['Calabrese, Sangiovese, Cabernet Sauvignon, Syrah, Syrah'],
+    v: ['Calabrese', 'Sangiovese', 'Cabernet Sauvignon', 'Syrah', 'Syrah'],
   },
   {
     d: 'Menfi DOC rosso riserva',
 
-    v: ['Calabrese, Sangiovese, Cabernet Sauvignon, Syrah, Syrah'],
+    v: ['Calabrese', 'Sangiovese', 'Cabernet Sauvignon', 'Syrah', 'Syrah'],
   },
   {
     d: 'Menfi DOC Sangiovese',
@@ -10664,7 +11183,7 @@ export const wines: WineOption[] = [
   {
     d: 'Menfi DOC vendemmia tardiva',
 
-    v: ['Chardonnay, Catarratto bianco lucido, Ansonica, Sauvignon'],
+    v: ['Chardonnay', 'Catarratto bianco lucido', 'Ansonica', 'Sauvignon'],
   },
   {
     d: 'Merlara Bianco DOC',
@@ -10679,7 +11198,7 @@ export const wines: WineOption[] = [
   {
     d: 'Merlara Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Merlara Cabernet Sauvignon DOC',
@@ -10724,7 +11243,7 @@ export const wines: WineOption[] = [
   {
     d: 'Merlara Raboso DOC',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Merlara Refosco DOC',
@@ -10734,7 +11253,7 @@ export const wines: WineOption[] = [
   {
     d: 'Merlara Riesling DOC',
 
-    v: ['Riesling Italico, Riesling'],
+    v: ['Riesling Italico', 'Riesling'],
   },
   {
     d: 'Merlara Rosso DOC',
@@ -10759,12 +11278,12 @@ export const wines: WineOption[] = [
   {
     d: 'Modena DOC bianco frizzante',
 
-    v: ['Montù, Pignoletto, Trebbiano Romagnolo'],
+    v: ['Montù', 'Pignoletto', 'Trebbiano Romagnolo'],
   },
   {
     d: 'Modena DOC bianco spumante',
 
-    v: ['Montù, Pignoletto, Trebbiano Romagnolo'],
+    v: ['Montù', 'Pignoletto', 'Trebbiano Romagnolo'],
   },
   {
     d: 'Modena DOC Lambrusco frizzante',
@@ -10840,7 +11359,14 @@ export const wines: WineOption[] = [
     d: 'Molise o del Molise DOC bianco spumante di qualità',
 
     v: [
-      'Chardonnay, Pinot bianco, Pinot grigio, Moscato bianco, Falanghina, Montepulciano, Fiano, Malvasia bianca lunga',
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot grigio',
+      'Moscato bianco',
+      'Falanghina',
+      'Montepulciano',
+      'Fiano',
+      'Malvasia bianca lunga',
     ],
   },
   {
@@ -10997,7 +11523,14 @@ export const wines: WineOption[] = [
     d: 'Molise o del Molise DOC rosato spumante di qualità',
 
     v: [
-      'Chardonnay, Pinot bianco, Pinot grigio, Moscato bianco, Falanghina, Montepulciano, Fiano, Malvasia bianca lunga',
+      'Chardonnay',
+      'Pinot bianco',
+      'Pinot grigio',
+      'Moscato bianco',
+      'Falanghina',
+      'Montepulciano',
+      'Fiano',
+      'Malvasia bianca lunga',
     ],
   },
   {
@@ -11044,7 +11577,15 @@ export const wines: WineOption[] = [
     d: 'Monferrato DOC Chiaretto o Ciaret',
 
     v: [
-      'Barbera, Bonarda, Cabernet Franc, Cabernet Sauvignon, Dolcetto, Freisa, Grignolino, Pinot nero, Nebbiolo',
+      'Barbera',
+      'Bonarda',
+      'Cabernet Franc',
+      'Cabernet Sauvignon',
+      'Dolcetto',
+      'Freisa',
+      'Grignolino',
+      'Pinot nero',
+      'Nebbiolo',
     ],
   },
   {
@@ -11090,12 +11631,12 @@ export const wines: WineOption[] = [
   {
     d: 'Monreale DOC bianco',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido, Ansonica'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido', 'Ansonica'],
   },
   {
     d: 'Monreale DOC bianco superiore',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido, Ansonica'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido', 'Ansonica'],
   },
   {
     d: 'Monreale DOC Cabernet sauvignon',
@@ -11120,12 +11661,12 @@ export const wines: WineOption[] = [
   {
     d: 'Monreale DOC Catarratto',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Monreale DOC Catarratto superiore',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Monreale DOC Chardonnay',
@@ -11160,7 +11701,7 @@ export const wines: WineOption[] = [
   {
     d: 'Monreale DOC Novello',
 
-    v: ['Calabrese, Perricone'],
+    v: ['Calabrese', 'Perricone'],
   },
   {
     d: 'Monreale DOC Perricone',
@@ -11195,17 +11736,17 @@ export const wines: WineOption[] = [
   {
     d: 'Monreale DOC rosato',
 
-    v: ['Nerello Mascalese, Perricone, Sangiovese'],
+    v: ['Nerello Mascalese', 'Perricone', 'Sangiovese'],
   },
   {
     d: 'Monreale DOC rosso',
 
-    v: ['Calabrese, Perricone'],
+    v: ['Calabrese', 'Perricone'],
   },
   {
     d: 'Monreale DOC rosso riserva',
 
-    v: ['Calabrese, Perricone'],
+    v: ['Calabrese', 'Perricone'],
   },
   {
     d: 'Monreale DOC Sangiovese',
@@ -11230,13 +11771,19 @@ export const wines: WineOption[] = [
   {
     d: 'Monreale DOC vendemmia tardiva',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido, Ansonica'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido', 'Ansonica'],
   },
   {
     d: 'Montecarlo DOC bianco',
 
     v: [
-      'Trebbiano Toscano, Sémillon, Pinot grigio, Pinot bianco, Vermentino, Sauvignon, Roussanne',
+      'Trebbiano Toscano',
+      'Sémillon',
+      'Pinot grigio',
+      'Pinot bianco',
+      'Vermentino',
+      'Sauvignon',
+      'Roussanne',
     ],
   },
   {
@@ -11252,12 +11799,12 @@ export const wines: WineOption[] = [
   {
     d: 'Montecarlo DOC rosso',
 
-    v: ['Sangiovese, Canaiolo nero, Merlot, Syrah'],
+    v: ['Sangiovese', 'Canaiolo nero', 'Merlot', 'Syrah'],
   },
   {
     d: 'Montecarlo DOC rosso riserva',
 
-    v: ['Sangiovese, Canaiolo nero, Merlot, Syrah'],
+    v: ['Sangiovese', 'Canaiolo nero', 'Merlot', 'Syrah'],
   },
   {
     d: 'Montecarlo DOC Sauvignon',
@@ -11278,38 +11825,44 @@ export const wines: WineOption[] = [
     d: 'Montecarlo DOC Vin Santo',
 
     v: [
-      'Trebbiano Toscano, Sémillon, Pinot grigio, Pinot bianco, Vermentino, Sauvignon, Roussanne',
+      'Trebbiano Toscano',
+      'Sémillon',
+      'Pinot grigio',
+      'Pinot bianco',
+      'Vermentino',
+      'Sauvignon',
+      'Roussanne',
     ],
   },
   {
     d: 'Montecarlo DOC Vin Santo Occhio di Pernice',
 
-    v: ['Sangiovese, Canaiolo nero, Merlot, Syrah'],
+    v: ['Sangiovese', 'Canaiolo nero', 'Merlot', 'Syrah'],
   },
   {
     d: 'Montecompatri Colonna DOC',
 
-    v: ['Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo'],
+    v: ['Malvasia del Lazio', 'Trebbiano Toscano', 'Trebbiano giallo'],
   },
   {
     d: 'Montecompatri Colonna frizzante DOC',
 
-    v: ['Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo'],
+    v: ['Malvasia del Lazio', 'Trebbiano Toscano', 'Trebbiano giallo'],
   },
   {
     d: 'Montecompatri Colonna superiore DOC',
 
-    v: ['Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo'],
+    v: ['Malvasia del Lazio', 'Trebbiano Toscano', 'Trebbiano giallo'],
   },
   {
     d: 'Montecucco DOC bianco',
 
-    v: ['Trebbiano Toscano, Vermentino'],
+    v: ['Trebbiano Toscano', 'Vermentino'],
   },
   {
     d: 'Montecucco DOC rosato',
 
-    v: ['Sangiovese, Ciliegiolo'],
+    v: ['Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Montecucco DOC rosso',
@@ -11329,7 +11882,7 @@ export const wines: WineOption[] = [
   {
     d: 'Montecucco DOC Vin Santo',
 
-    v: ['Malvasia bianca lunga, Grechetto, Trebbiano Toscano'],
+    v: ['Malvasia bianca lunga', 'Grechetto', 'Trebbiano Toscano'],
   },
   {
     d: 'Montecucco DOC Vin Santo Occhio di Pernice',
@@ -11349,17 +11902,17 @@ export const wines: WineOption[] = [
   {
     d: 'Montefalco DOC bianco',
 
-    v: ['Grechetto, Trebbiano Toscano'],
+    v: ['Grechetto', 'Trebbiano Toscano'],
   },
   {
     d: 'Montefalco DOC rosso',
 
-    v: ['Sangiovese, Sagrantino'],
+    v: ['Sangiovese', 'Sagrantino'],
   },
   {
     d: 'Montefalco DOC rosso riserva',
 
-    v: ['Sangiovese, Sagrantino'],
+    v: ['Sangiovese', 'Sagrantino'],
   },
   {
     d: 'Montefalco Sagrantino DOCG',
@@ -11380,13 +11933,16 @@ export const wines: WineOption[] = [
     d: 'Montello e Colli Asolani Bianco DOC',
 
     v: [
-      'Chardonnay, Manzoni bianco, Bianchetta Trevigiana, Bianchetta Trevigiana',
+      'Chardonnay',
+      'Manzoni bianco',
+      'Bianchetta Trevigiana',
+      'Bianchetta Trevigiana',
     ],
   },
   {
     d: 'Montello e Colli Asolani Cabernet DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Carmènere'],
   },
   {
     d: 'Montello e Colli Asolani Cabernet franc DOC',
@@ -11446,27 +12002,27 @@ export const wines: WineOption[] = [
   {
     d: 'Montello e Colli Asolani Rosso DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Merlot', 'Carmènere'],
   },
   {
     d: 'Montello e Colli Asolani Venegazzù DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Merlot', 'Carmènere'],
   },
   {
     d: 'Montello e Colli Asolani Venegazzù superiore DOC',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Merlot', 'Carmènere'],
   },
   {
     d: 'Montello rosso DOCG',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Merlot', 'Carmènere'],
   },
   {
     d: 'Montello rosso superiore DOCG',
 
-    v: ['Cabernet Sauvignon, Cabernet Franc, Merlot, Carmènere'],
+    v: ['Cabernet Sauvignon', 'Cabernet Franc', 'Merlot', 'Carmènere'],
   },
   {
     d: 'Montepulciano d’Abruzzo Colline Teramane DOCG',
@@ -11541,7 +12097,7 @@ export const wines: WineOption[] = [
   {
     d: 'Monteregio di Massa Marittima DOC bianco',
 
-    v: ['Trebbiano Toscano, Vermentino'],
+    v: ['Trebbiano Toscano', 'Vermentino'],
   },
   {
     d: 'Monteregio di Massa Marittima DOC Novello',
@@ -11596,7 +12152,7 @@ export const wines: WineOption[] = [
   {
     d: 'Monteregio di Massa Marittima DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Vermentino'],
+    v: ['Trebbiano Toscano', 'Vermentino'],
   },
   {
     d: 'Monteregio di Massa Marittima DOC Vin Santo Occhio di Pernice',
@@ -11611,7 +12167,7 @@ export const wines: WineOption[] = [
   {
     d: 'Monteregio di Massa Marittima DOC Vin Santo riserva',
 
-    v: ['Trebbiano Toscano, Vermentino'],
+    v: ['Trebbiano Toscano', 'Vermentino'],
   },
   {
     d: 'Monteregio di Massa Marittima DOC Viognier',
@@ -11842,21 +12398,30 @@ export const wines: WineOption[] = [
     d: 'Nardò DOC rosato',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Lecce',
+      'Montepulciano',
     ],
   },
   {
     d: 'Nardò DOC rosso',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Lecce',
+      'Montepulciano',
     ],
   },
   {
     d: 'Nardò DOC rosso riserva',
 
     v: [
-      'Negro Amaro, Malvasia nera di Brindisi, Malvasia nera di Lecce, Montepulciano',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Lecce',
+      'Montepulciano',
     ],
   },
   {
@@ -11922,7 +12487,7 @@ export const wines: WineOption[] = [
   {
     d: 'Nettuno DOC bianco',
 
-    v: ['Bellone, Trebbiano Toscano'],
+    v: ['Bellone', 'Trebbiano Toscano'],
   },
   {
     d: 'Nettuno DOC bianco Bellone',
@@ -11937,27 +12502,27 @@ export const wines: WineOption[] = [
   {
     d: 'Nettuno DOC bianco frizzante',
 
-    v: ['Bellone, Trebbiano Toscano'],
+    v: ['Bellone', 'Trebbiano Toscano'],
   },
   {
     d: 'Nettuno DOC novello',
 
-    v: ['Merlot, Sangiovese'],
+    v: ['Merlot', 'Sangiovese'],
   },
   {
     d: 'Nettuno DOC rosato',
 
-    v: ['Sangiovese, Trebbiano Toscano'],
+    v: ['Sangiovese', 'Trebbiano Toscano'],
   },
   {
     d: 'Nettuno DOC rosato frizzante',
 
-    v: ['Sangiovese, Trebbiano Toscano'],
+    v: ['Sangiovese', 'Trebbiano Toscano'],
   },
   {
     d: 'Nettuno DOC rosso',
 
-    v: ['Merlot, Sangiovese'],
+    v: ['Merlot', 'Sangiovese'],
   },
   {
     d: 'Nizza DOCG',
@@ -12022,7 +12587,7 @@ export const wines: WineOption[] = [
   {
     d: 'Oltrepò Pavese bianco DOC',
 
-    v: ['Riesling, Riesling Italico, Pinot nero'],
+    v: ['Riesling', 'Riesling Italico', 'Pinot nero'],
   },
   {
     d: 'Oltrepò Pavese Cabernet Sauvignon DOC',
@@ -12077,152 +12642,182 @@ export const wines: WineOption[] = [
   {
     d: 'Oltrepò Pavese Metodo Classico DOCG',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Metodo Classico millesimato DOCG',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Metodo Classico pinot-nero DOCG',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Metodo Classico pinot-nero millesimato DOCG',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Metodo Classico pinot-nero rosé DOCG',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Metodo Classico pinot-nero rosé millesimato DOCG',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Metodo Classico rosé DOCG',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Metodo Classico rosé millesimato DOCG',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Moscato DOC',
 
-    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+    v: ['Moscato bianco', 'Malvasia di Candia aromatica'],
   },
   {
     d: 'Oltrepò Pavese Moscato frizzante DOC',
 
-    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+    v: ['Moscato bianco', 'Malvasia di Candia aromatica'],
   },
   {
     d: 'Oltrepò Pavese Moscato liquoroso DOC',
 
-    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+    v: ['Moscato bianco', 'Malvasia di Candia aromatica'],
   },
   {
     d: 'Oltrepò Pavese Moscato passito DOC',
 
-    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+    v: ['Moscato bianco', 'Malvasia di Candia aromatica'],
   },
   {
     d: 'Oltrepò Pavese Moscato spumante dolce DOC',
 
-    v: ['Moscato bianco, Malvasia di Candia aromatica'],
+    v: ['Moscato bianco', 'Malvasia di Candia aromatica'],
   },
   {
     d: 'Oltrepò Pavese Pinot grigio DOC',
 
-    v: ['Pinot grigio, Pinot nero'],
+    v: ['Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Oltrepò Pavese Pinot grigio frizzante DOC',
 
-    v: ['Pinot grigio, Pinot nero'],
+    v: ['Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Oltrepò Pavese Pinot nero (vinificato in Bianco) DOC',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Pinot nero (vinificato in Bianco) frizzante DOC',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Pinot nero (vinificato in Bianco) spumante DOC',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Pinot nero (vinificato in rosato) DOC',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Pinot nero (vinificato in rosato) frizzante DOC',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Pinot nero (vinificato in rosato) spumante DOC',
 
-    v: ['Pinot nero, Chardonnay, Pinot grigio, Pinot bianco'],
+    v: ['Pinot nero', 'Chardonnay', 'Pinot grigio', 'Pinot bianco'],
   },
   {
     d: 'Oltrepò Pavese Riesling DOC',
 
-    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+    v: [
+      'Riesling',
+      'Riesling Italico',
+      'Pinot nero',
+      'Pinot grigio',
+      'Pinot bianco',
+    ],
   },
   {
     d: 'Oltrepò Pavese Riesling frizzante DOC',
 
-    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+    v: [
+      'Riesling',
+      'Riesling Italico',
+      'Pinot nero',
+      'Pinot grigio',
+      'Pinot bianco',
+    ],
   },
   {
     d: 'Oltrepò Pavese Riesling riserva DOC',
 
-    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+    v: [
+      'Riesling',
+      'Riesling Italico',
+      'Pinot nero',
+      'Pinot grigio',
+      'Pinot bianco',
+    ],
   },
   {
     d: 'Oltrepò Pavese Riesling spumante DOC',
 
-    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+    v: [
+      'Riesling',
+      'Riesling Italico',
+      'Pinot nero',
+      'Pinot grigio',
+      'Pinot bianco',
+    ],
   },
   {
     d: 'Oltrepò Pavese Riesling superiore DOC',
 
-    v: ['Riesling, Riesling Italico, Pinot nero, Pinot grigio, Pinot bianco'],
+    v: [
+      'Riesling',
+      'Riesling Italico',
+      'Pinot nero',
+      'Pinot grigio',
+      'Pinot bianco',
+    ],
   },
   {
     d: 'Oltrepò Pavese rosato DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Oltrepò Pavese rosato frizzante DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Oltrepò Pavese rosso DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Oltrepò Pavese rosso riserva DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Oltrepò Pavese Sauvignon DOC',
@@ -12267,26 +12862,34 @@ export const wines: WineOption[] = [
   {
     d: 'Orcia DOC Vinsanto o Vin Santo',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Orta Nova rosato DOC',
 
     v: [
-      'Sangiovese, Uva di Troia, Montepulciano, Lambrusco Maestri, Trebbiano Toscano',
+      'Sangiovese',
+      'Uva di Troia',
+      'Montepulciano',
+      'Lambrusco Maestri',
+      'Trebbiano Toscano',
     ],
   },
   {
     d: 'Orta Nova rosso DOC',
 
     v: [
-      'Sangiovese, Uva di Troia, Montepulciano, Lambrusco Maestri, Trebbiano Toscano',
+      'Sangiovese',
+      'Uva di Troia',
+      'Montepulciano',
+      'Lambrusco Maestri',
+      'Trebbiano Toscano',
     ],
   },
   {
     d: 'Ortona DOC bianco',
 
-    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+    v: ['Trebbiano Abruzzese', 'Trebbiano Toscano'],
   },
   {
     d: 'Ortona DOC rosso',
@@ -12311,53 +12914,57 @@ export const wines: WineOption[] = [
   {
     d: 'Orvieto classico DOC',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Orvieto DOC',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Orvieto DOC classico muffa nobile',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Orvieto DOC classico superiore',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Orvieto DOC classico vendemmia tardiva',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Orvieto DOC muffa nobile',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Orvieto DOC superiore',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Orvieto DOC vendemmia tardiva',
 
-    v: ['Trebbiano Toscano, Grechetto'],
+    v: ['Trebbiano Toscano', 'Grechetto'],
   },
   {
     d: 'Ostuni bianco DOC',
 
-    v: ['Impigno, Bianco d’Alessano, Verdeca'],
+    v: ['Impigno', 'Bianco d’Alessano', 'Verdeca'],
   },
   {
     d: 'Ostuni Ottavianello o Ottavianello di Ostuni DOC',
 
     v: [
-      'Ottavianello, Negro Amaro, Malvasia nera di Brindisi, Notardomenico, Susumaniello',
+      'Ottavianello',
+      'Negro Amaro',
+      'Malvasia nera di Brindisi',
+      'Notardomenico',
+      'Susumaniello',
     ],
   },
   {
@@ -12398,7 +13005,7 @@ export const wines: WineOption[] = [
   {
     d: 'Parrina DOC bianco',
 
-    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+    v: ['Trebbiano Toscano', 'Ansonica', 'Vermentino'],
   },
   {
     d: 'Parrina DOC Cabernet sauvignon',
@@ -12453,7 +13060,7 @@ export const wines: WineOption[] = [
   {
     d: 'Parrina DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Ansonica, Vermentino'],
+    v: ['Trebbiano Toscano', 'Ansonica', 'Vermentino'],
   },
   {
     d: 'Passito di Pantelleria DOC',
@@ -12463,57 +13070,57 @@ export const wines: WineOption[] = [
   {
     d: 'Penisola Sorrentina DOC bianco',
 
-    v: ['Falanghina, Biancolella, Greco'],
+    v: ['Falanghina', 'Biancolella', 'Greco'],
   },
   {
     d: 'Penisola Sorrentina DOC bianco Sorrento',
 
-    v: ['Falanghina, Biancolella, Greco'],
+    v: ['Falanghina', 'Biancolella', 'Greco'],
   },
   {
     d: 'Penisola Sorrentina DOC rosso',
 
-    v: ['Piedirosso, Sciascinoso, Aglianico'],
+    v: ['Piedirosso', 'Sciascinoso', 'Aglianico'],
   },
   {
     d: 'Penisola Sorrentina DOC rosso frizzante',
 
-    v: ['Piedirosso, Sciascinoso, Aglianico'],
+    v: ['Piedirosso', 'Sciascinoso', 'Aglianico'],
   },
   {
     d: 'Penisola Sorrentina DOC rosso frizzante Gragnano',
 
-    v: ['Piedirosso, Sciascinoso, Aglianico'],
+    v: ['Piedirosso', 'Sciascinoso', 'Aglianico'],
   },
   {
     d: 'Penisola Sorrentina DOC rosso frizzante Lettere',
 
-    v: ['Piedirosso, Sciascinoso, Aglianico'],
+    v: ['Piedirosso', 'Sciascinoso', 'Aglianico'],
   },
   {
     d: 'Penisola Sorrentina DOC rosso Sorrento',
 
-    v: ['Piedirosso, Sciascinoso, Aglianico'],
+    v: ['Piedirosso', 'Sciascinoso', 'Aglianico'],
   },
   {
     d: 'Pentro d’Isernia o Pentro DOC bianco',
 
-    v: ['Trebbiano Toscano, Bombino bianco'],
+    v: ['Trebbiano Toscano', 'Bombino bianco'],
   },
   {
     d: 'Pentro d’Isernia o Pentro DOC rosato',
 
-    v: ['Montepulciano, Tintilia'],
+    v: ['Montepulciano', 'Tintilia'],
   },
   {
     d: 'Pentro d’Isernia o Pentro DOC rosso',
 
-    v: ['Montepulciano, Tintilia'],
+    v: ['Montepulciano', 'Tintilia'],
   },
   {
     d: 'Pentro d’Isernia o Pentro DOC rosso riserva',
 
-    v: ['Montepulciano, Tintilia'],
+    v: ['Montepulciano', 'Tintilia'],
   },
   {
     d: 'Pergola DOC Aleatico',
@@ -12578,12 +13185,12 @@ export const wines: WineOption[] = [
   {
     d: 'Piave Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Piave Cabernet riserva DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Piave Carmenère DOC',
@@ -12598,7 +13205,7 @@ export const wines: WineOption[] = [
   {
     d: 'Piave Malanotte DOCG',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Piave Manzoni bianco DOC',
@@ -12643,12 +13250,12 @@ export const wines: WineOption[] = [
   {
     d: 'Piave Verduzzo DOC',
 
-    v: ['Verduzzo Friulano, Verduzzo Trevigiano'],
+    v: ['Verduzzo Friulano', 'Verduzzo Trevigiano'],
   },
   {
     d: 'Piave Verduzzo passito DOC',
 
-    v: ['Verduzzo Friulano, Verduzzo Trevigiano'],
+    v: ['Verduzzo Friulano', 'Verduzzo Trevigiano'],
   },
   {
     d: 'Piemonte DOC Albarossa',
@@ -12668,17 +13275,17 @@ export const wines: WineOption[] = [
   {
     d: 'Piemonte DOC bianco',
 
-    v: ['Cortese, Chardonnay, Favorita, Erbaluce'],
+    v: ['Cortese', 'Chardonnay', 'Favorita', 'Erbaluce'],
   },
   {
     d: 'Piemonte DOC bianco da due v',
 
-    v: ['Cortese, Chardonnay, Sauvignon'],
+    v: ['Cortese', 'Chardonnay', 'Sauvignon'],
   },
   {
     d: 'Piemonte DOC bianco frizzante',
 
-    v: ['Cortese, Chardonnay, Favorita, Erbaluce'],
+    v: ['Cortese', 'Chardonnay', 'Favorita', 'Erbaluce'],
   },
   {
     d: 'Piemonte DOC Bonarda',
@@ -12728,7 +13335,7 @@ export const wines: WineOption[] = [
   {
     d: 'Piemonte DOC Chardonnay-Pinot spumante',
 
-    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Piemonte DOC Cortese',
@@ -12803,34 +13410,41 @@ export const wines: WineOption[] = [
   {
     d: 'Piemonte DOC Pinot spumante',
 
-    v: ['Pinot bianco, Pinot grigio, Pinot nero'],
+    v: ['Pinot bianco', 'Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Piemonte DOC rosato',
 
-    v: ['Barbera, Nebbiolo, Dolcetto, Freisa, Croatina'],
+    v: ['Barbera', 'Nebbiolo', 'Dolcetto', 'Freisa', 'Croatina'],
   },
   {
     d: 'Piemonte DOC rosato frizzante',
 
-    v: ['Barbera, Nebbiolo, Dolcetto, Freisa, Croatina'],
+    v: ['Barbera', 'Nebbiolo', 'Dolcetto', 'Freisa', 'Croatina'],
   },
   {
     d: 'Piemonte DOC rosso',
 
-    v: ['Barbera, Nebbiolo, Dolcetto, Freisa, Croatina'],
+    v: ['Barbera', 'Nebbiolo', 'Dolcetto', 'Freisa', 'Croatina'],
   },
   {
     d: 'Piemonte DOC rosso da due v',
 
     v: [
-      'Barbera, Dolcetto, Freisa, Bonarda, Cabernet Sauvignon, Merlot, Syrah, Pinot nero',
+      'Barbera',
+      'Dolcetto',
+      'Freisa',
+      'Bonarda',
+      'Cabernet Sauvignon',
+      'Merlot',
+      'Syrah',
+      'Pinot nero',
     ],
   },
   {
     d: 'Piemonte DOC rosso frizzante',
 
-    v: ['Barbera, Nebbiolo, Dolcetto, Freisa, Croatina'],
+    v: ['Barbera', 'Nebbiolo', 'Dolcetto', 'Freisa', 'Croatina'],
   },
   {
     d: 'Piemonte DOC Sauvignon',
@@ -12840,7 +13454,7 @@ export const wines: WineOption[] = [
   {
     d: 'Piemonte DOC spumante',
 
-    v: ['Chardonnay, Pinot bianco, Pinot grigio, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot grigio', 'Pinot nero'],
   },
   {
     d: 'Piemonte DOC Syrah',
@@ -12875,17 +13489,17 @@ export const wines: WineOption[] = [
   {
     d: 'Pinerolese DOC Ramie',
 
-    v: ['Avanà, Avarengo, Neretto di Bairo'],
+    v: ['Avanà', 'Avarengo', 'Neretto di Bairo'],
   },
   {
     d: 'Pinerolese DOC rosato',
 
-    v: ['Barbera, Bonarda, Nebbiolo, Neretto di Bairo'],
+    v: ['Barbera', 'Bonarda', 'Nebbiolo', 'Neretto di Bairo'],
   },
   {
     d: 'Pinerolese DOC rosso',
 
-    v: ['Barbera, Bonarda, Nebbiolo, Neretto di Bairo'],
+    v: ['Barbera', 'Bonarda', 'Nebbiolo', 'Neretto di Bairo'],
   },
   {
     d: 'Pinot grigio delle Venezie DOC',
@@ -12925,17 +13539,17 @@ export const wines: WineOption[] = [
   {
     d: 'Pomino DOC bianco',
 
-    v: ['Pinot bianco, Pinot grigio, Chardonnay'],
+    v: ['Pinot bianco', 'Pinot grigio', 'Chardonnay'],
   },
   {
     d: 'Pomino DOC bianco riserva',
 
-    v: ['Pinot bianco, Pinot grigio, Chardonnay'],
+    v: ['Pinot bianco', 'Pinot grigio', 'Chardonnay'],
   },
   {
     d: 'Pomino DOC bianco vendemmia tardiva',
 
-    v: ['Pinot bianco, Pinot grigio, Chardonnay'],
+    v: ['Pinot bianco', 'Pinot grigio', 'Chardonnay'],
   },
   {
     d: 'Pomino DOC Chardonnay',
@@ -12955,17 +13569,17 @@ export const wines: WineOption[] = [
   {
     d: 'Pomino DOC rosso',
 
-    v: ['Sangiovese, Pinot nero, Merlot'],
+    v: ['Sangiovese', 'Pinot nero', 'Merlot'],
   },
   {
     d: 'Pomino DOC rosso riserva',
 
-    v: ['Sangiovese, Pinot nero, Merlot'],
+    v: ['Sangiovese', 'Pinot nero', 'Merlot'],
   },
   {
     d: 'Pomino DOC rosso vendemmia tardiva',
 
-    v: ['Sangiovese, Pinot nero, Merlot'],
+    v: ['Sangiovese', 'Pinot nero', 'Merlot'],
   },
   {
     d: 'Pomino DOC Sauvignon',
@@ -12975,32 +13589,32 @@ export const wines: WineOption[] = [
   {
     d: 'Pomino DOC spumante bianco',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Pomino DOC spumante bianco riserva',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Pomino DOC spumante rosato',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Pomino DOC spumante rosato riserva',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Pomino DOC Vin Santo',
 
-    v: ['Pinot bianco, Pinot grigio, Chardonnay, Trebbiano Toscano'],
+    v: ['Pinot bianco', 'Pinot grigio', 'Chardonnay', 'Trebbiano Toscano'],
   },
   {
     d: 'Pomino DOC Vin Santo Occhio di Pernice',
 
-    v: ['Sangiovese, Pinot nero, Merlot'],
+    v: ['Sangiovese', 'Pinot nero', 'Merlot'],
   },
   {
     d: 'Pornassio o Ormeasco di Pornassio DOC passito',
@@ -13055,7 +13669,7 @@ export const wines: WineOption[] = [
   {
     d: 'Prosecco rosé DOC',
 
-    v: ['Glera, Pinot nero'],
+    v: ['Glera', 'Pinot nero'],
   },
   {
     d: 'Prosecco spumante DOC',
@@ -13070,32 +13684,32 @@ export const wines: WineOption[] = [
   {
     d: 'Recioto della Valpolicella Classico DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Recioto della Valpolicella DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Recioto della Valpolicella spumante Classico DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Recioto della Valpolicella spumante DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Recioto della Valpolicella spumante Valpantena DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Recioto della Valpolicella Valpantena DOCG',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Recioto di Gambellara classico DOCG',
@@ -13110,22 +13724,22 @@ export const wines: WineOption[] = [
   {
     d: 'Recioto di Soave classico DOCG',
 
-    v: ['Garganega, Trebbiano di Soave'],
+    v: ['Garganega', 'Trebbiano di Soave'],
   },
   {
     d: 'Recioto di Soave DOCG',
 
-    v: ['Garganega, Trebbiano di Soave'],
+    v: ['Garganega', 'Trebbiano di Soave'],
   },
   {
     d: 'Recioto di Soave spumante classico DOCG',
 
-    v: ['Garganega, Trebbiano di Soave'],
+    v: ['Garganega', 'Trebbiano di Soave'],
   },
   {
     d: 'Recioto di Soave spumante DOCG',
 
-    v: ['Garganega, Trebbiano di Soave'],
+    v: ['Garganega', 'Trebbiano di Soave'],
   },
   {
     d: 'Reggiano DOC bianco spumante',
@@ -13185,17 +13799,17 @@ export const wines: WineOption[] = [
   {
     d: 'Reno DOC bianco',
 
-    v: ['Albana, Trebbiano Romagnolo'],
+    v: ['Albana', 'Trebbiano Romagnolo'],
   },
   {
     d: 'Reno DOC bianco frizzante',
 
-    v: ['Albana, Trebbiano Romagnolo'],
+    v: ['Albana', 'Trebbiano Romagnolo'],
   },
   {
     d: 'Reno DOC bianco spumante',
 
-    v: ['Albana, Trebbiano Romagnolo'],
+    v: ['Albana', 'Trebbiano Romagnolo'],
   },
   {
     d: 'Reno DOC Montuni',
@@ -13230,7 +13844,7 @@ export const wines: WineOption[] = [
   {
     d: 'Riesi DOC bianco',
 
-    v: ['Ansonica, Chardonnay'],
+    v: ['Ansonica', 'Chardonnay'],
   },
   {
     d: 'Riesi DOC Cabernet sauvignon',
@@ -13260,22 +13874,22 @@ export const wines: WineOption[] = [
   {
     d: 'Riesi DOC novello',
 
-    v: ['Calabrese, Cabernet Sauvignon'],
+    v: ['Calabrese', 'Cabernet Sauvignon'],
   },
   {
     d: 'Riesi DOC rosato',
 
-    v: ['Calabrese, Cabernet Sauvignon, Nerello Mascalese'],
+    v: ['Calabrese', 'Cabernet Sauvignon', 'Nerello Mascalese'],
   },
   {
     d: 'Riesi DOC rosso',
 
-    v: ['Calabrese, Cabernet Sauvignon'],
+    v: ['Calabrese', 'Cabernet Sauvignon'],
   },
   {
     d: 'Riesi DOC spumante',
 
-    v: ['Ansonica, Chardonnay'],
+    v: ['Ansonica', 'Chardonnay'],
   },
   {
     d: 'Riesi DOC superiore',
@@ -13295,7 +13909,7 @@ export const wines: WineOption[] = [
   {
     d: 'Riesi DOC vendemmia tardiva',
 
-    v: ['Ansonica, Chardonnay'],
+    v: ['Ansonica', 'Chardonnay'],
   },
   {
     d: 'Riesling Italico di Torgiano DOC',
@@ -13315,12 +13929,12 @@ export const wines: WineOption[] = [
   {
     d: 'Riviera del Brenta Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Riviera del Brenta Cabernet DOC riserva',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Riviera del Brenta Chardonnay DOC',
@@ -13370,12 +13984,12 @@ export const wines: WineOption[] = [
   {
     d: 'Riviera del Brenta Raboso DOC',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Riviera del Brenta Raboso DOC riserva',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Riviera del Brenta Refosco DOC',
@@ -13410,12 +14024,12 @@ export const wines: WineOption[] = [
   {
     d: 'Riviera del Garda Bresciano bianco DOC',
 
-    v: ['Riesling Italico, Riesling'],
+    v: ['Riesling Italico', 'Riesling'],
   },
   {
     d: 'Riviera del Garda Bresciano chiaretto DOC',
 
-    v: ['Sangiovese, Marzemino, Barbera'],
+    v: ['Sangiovese', 'Marzemino', 'Barbera'],
   },
   {
     d: 'Riviera del Garda Bresciano Groppello DOC',
@@ -13425,49 +14039,73 @@ export const wines: WineOption[] = [
   {
     d: 'Riviera del Garda Bresciano rosé o rosato DOC',
 
-    v: ['Sangiovese, Marzemino, Barbera'],
+    v: ['Sangiovese', 'Marzemino', 'Barbera'],
   },
   {
     d: 'Riviera del Garda Bresciano rosso DOC',
 
-    v: ['Sangiovese, Marzemino, Barbera'],
+    v: ['Sangiovese', 'Marzemino', 'Barbera'],
   },
   {
     d: 'Riviera del Garda Classico bianco DOC',
 
-    v: ['Riesling Italico, Riesling'],
+    v: ['Riesling Italico', 'Riesling'],
   },
   {
     d: 'Riviera del Garda Classico Chiaretto DOC',
 
     v: [
-      'Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano, Barbera, Sangiovese, Marzemino',
+      'Groppello di Mocasina',
+      'Groppello di Revò',
+      'Groppello di Santo Stefano',
+      'Barbera',
+      'Sangiovese',
+      'Marzemino',
     ],
   },
   {
     d: 'Riviera del Garda Classico Groppello DOC',
 
-    v: ['Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano'],
+    v: [
+      'Groppello di Mocasina',
+      'Groppello di Revò',
+      'Groppello di Santo Stefano',
+    ],
   },
   {
     d: 'Riviera del Garda Classico rosso DOC',
 
     v: [
-      'Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano, Sangiovese, Marzemino, Barbera',
+      'Groppello di Mocasina',
+      'Groppello di Revò',
+      'Groppello di Santo Stefano',
+      'Sangiovese',
+      'Marzemino',
+      'Barbera',
     ],
   },
   {
     d: 'Riviera del Garda Classico rosso superiore DOC',
 
     v: [
-      'Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano, Sangiovese, Marzemino, Barbera',
+      'Groppello di Mocasina',
+      'Groppello di Revò',
+      'Groppello di Santo Stefano',
+      'Sangiovese',
+      'Marzemino',
+      'Barbera',
     ],
   },
   {
     d: 'Riviera del Garda Classico spumante rosé DOC',
 
     v: [
-      'Groppello di Mocasina, Groppello di Revò, Groppello di Santo Stefano, Sangiovese, Marzemino, Barbera',
+      'Groppello di Mocasina',
+      'Groppello di Revò',
+      'Groppello di Santo Stefano',
+      'Sangiovese',
+      'Marzemino',
+      'Barbera',
     ],
   },
   {
@@ -13648,12 +14286,24 @@ export const wines: WineOption[] = [
   {
     d: 'Roma DOC bianco',
 
-    v: ['Malvasia del Lazio, Bellone, Bombino bianco, Greco, Trebbiano giallo'],
+    v: [
+      'Malvasia del Lazio',
+      'Bellone',
+      'Bombino bianco',
+      'Greco',
+      'Trebbiano giallo',
+    ],
   },
   {
     d: 'Roma DOC bianco classico',
 
-    v: ['Malvasia del Lazio, Bellone, Bombino bianco, Greco, Trebbiano giallo'],
+    v: [
+      'Malvasia del Lazio',
+      'Bellone',
+      'Bombino bianco',
+      'Greco',
+      'Trebbiano giallo',
+    ],
   },
   {
     d: 'Roma DOC Malvasia puntinata',
@@ -13668,48 +14318,90 @@ export const wines: WineOption[] = [
   {
     d: 'Roma DOC Romanella spumante',
 
-    v: ['Malvasia del Lazio, Bellone, Bombino bianco, Greco, Trebbiano giallo'],
+    v: [
+      'Malvasia del Lazio',
+      'Bellone',
+      'Bombino bianco',
+      'Greco',
+      'Trebbiano giallo',
+    ],
   },
   {
     d: 'Roma DOC rosato',
 
     v: [
-      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+      'Montepulciano',
+      'Cesanese comune',
+      'Cesanese di Affile',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Cabernet Franc',
+      'Syrah',
     ],
   },
   {
     d: 'Roma DOC rosato classico',
 
     v: [
-      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+      'Montepulciano',
+      'Cesanese comune',
+      'Cesanese di Affile',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Cabernet Franc',
+      'Syrah',
     ],
   },
   {
     d: 'Roma DOC rosso',
 
     v: [
-      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+      'Montepulciano',
+      'Cesanese comune',
+      'Cesanese di Affile',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Cabernet Franc',
+      'Syrah',
     ],
   },
   {
     d: 'Roma DOC rosso classico',
 
     v: [
-      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+      'Montepulciano',
+      'Cesanese comune',
+      'Cesanese di Affile',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Cabernet Franc',
+      'Syrah',
     ],
   },
   {
     d: 'Roma DOC rosso classico riserva',
 
     v: [
-      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+      'Montepulciano',
+      'Cesanese comune',
+      'Cesanese di Affile',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Cabernet Franc',
+      'Syrah',
     ],
   },
   {
     d: 'Roma DOC rosso riserva',
 
     v: [
-      'Montepulciano, Cesanese comune, Cesanese di Affile, Sangiovese, Cabernet Sauvignon, Cabernet Franc, Syrah',
+      'Montepulciano',
+      'Cesanese comune',
+      'Cesanese di Affile',
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Cabernet Franc',
+      'Syrah',
     ],
   },
   {
@@ -13935,12 +14627,12 @@ export const wines: WineOption[] = [
   {
     d: 'Rosato di Aprilia DOC',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Rosato di Carmignano DOC',
 
-    v: ['Sangiovese, Canaiolo nero, Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Sangiovese', 'Canaiolo nero', 'Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Rosato di Torgiano DOC',
@@ -13950,7 +14642,7 @@ export const wines: WineOption[] = [
   {
     d: 'Rosazzo DOCG',
 
-    v: ['Tocai Friulano, Sauvignon, Ribolla gialla'],
+    v: ['Tocai Friulano', 'Sauvignon', 'Ribolla gialla'],
   },
   {
     d: 'Rossese di Dolceacqua o Dolceacqua DOC',
@@ -13970,30 +14662,42 @@ export const wines: WineOption[] = [
   {
     d: 'Rosso della Val di Cornia DOCG',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Rosso della Val di Cornia riserva DOCG',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Rosso di Aprilia DOC',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Rosso di Cerignola DOC',
 
     v: [
-      'Uva di Troia, Negro Amaro, Sangiovese, Barbera, Montepulciano, Malbech, Trebbiano Toscano',
+      'Uva di Troia',
+      'Negro Amaro',
+      'Sangiovese',
+      'Barbera',
+      'Montepulciano',
+      'Malbech',
+      'Trebbiano Toscano',
     ],
   },
   {
     d: 'Rosso di Cerignola riserva DOC',
 
     v: [
-      'Uva di Troia, Negro Amaro, Sangiovese, Barbera, Montepulciano, Malbech, Trebbiano Toscano',
+      'Uva di Troia',
+      'Negro Amaro',
+      'Sangiovese',
+      'Barbera',
+      'Montepulciano',
+      'Malbech',
+      'Trebbiano Toscano',
     ],
   },
   {
@@ -14015,7 +14719,15 @@ export const wines: WineOption[] = [
     d: 'Rosso Orvietano o Orvietano rosso DOC',
 
     v: [
-      'Aleatico, Cabernet Franc, Cabernet Sauvignon, Canaiolo nero, Ciliegiolo, Merlot, Montepulciano, Pinot nero, Sangiovese',
+      'Aleatico',
+      'Cabernet Franc',
+      'Cabernet Sauvignon',
+      'Canaiolo nero',
+      'Ciliegiolo',
+      'Merlot',
+      'Montepulciano',
+      'Pinot nero',
+      'Sangiovese',
     ],
   },
   {
@@ -14026,7 +14738,7 @@ export const wines: WineOption[] = [
   {
     d: 'Rosso Orvietano o Orvietano rosso DOC Cabernet',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon'],
   },
   {
     d: 'Rosso Orvietano o Orvietano rosso DOC Cabernet franc',
@@ -14066,12 +14778,12 @@ export const wines: WineOption[] = [
   {
     d: 'Rosso Piceno DOC',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Rosso Piceno DOC novello',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Rosso Piceno DOC Sangiovese',
@@ -14081,36 +14793,48 @@ export const wines: WineOption[] = [
   {
     d: 'Rosso Piceno DOC superiore',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'Rubino di Cantavenna DOC',
 
-    v: ['Barbera, Grignolino, Freisa'],
+    v: ['Barbera', 'Grignolino', 'Freisa'],
   },
   {
     d: 'Ruchè di Castagnole Monferrato DOCG',
 
-    v: ['Ruchè, Barbera, Brachetto'],
+    v: ['Ruchè', 'Barbera', 'Brachetto'],
   },
   {
     d: 'S.Anna Isola di Capo Rizzuto DOC bianco',
 
     v: [
-      'Gaglioppo, Nocera, Nerello Mascalese, Nerello Cappuccio, Malvasia nera di Basilicata, Malvasia bianca, Greco Bianco',
+      'Gaglioppo',
+      'Nocera',
+      'Nerello Mascalese',
+      'Nerello Cappuccio',
+      'Malvasia nera di Basilicata',
+      'Malvasia bianca',
+      'Greco Bianco',
     ],
   },
   {
     d: 'S.Anna Isola di Capo Rizzuto DOC rosso',
 
     v: [
-      'Gaglioppo, Nocera, Nerello Mascalese, Nerello Cappuccio, Malvasia nera di Basilicata, Malvasia bianca, Greco Bianco',
+      'Gaglioppo',
+      'Nocera',
+      'Nerello Mascalese',
+      'Nerello Cappuccio',
+      'Malvasia nera di Basilicata',
+      'Malvasia bianca',
+      'Greco Bianco',
     ],
   },
   {
     d: 'Salaparuta DOC bianco',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Salaparuta DOC Cabernet sauvignon',
@@ -14125,7 +14849,7 @@ export const wines: WineOption[] = [
   {
     d: 'Salaparuta DOC Catarratto',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Salaparuta DOC Chardonnay',
@@ -14165,7 +14889,7 @@ export const wines: WineOption[] = [
   {
     d: 'Salaparuta DOC novello',
 
-    v: ['Calabrese, Merlot'],
+    v: ['Calabrese', 'Merlot'],
   },
   {
     d: 'Salaparuta DOC rosso',
@@ -14370,42 +15094,42 @@ export const wines: WineOption[] = [
   {
     d: 'San Colombano al Lambro o San Colombano bianco DOC',
 
-    v: ['Chardonnay, Pinot nero'],
+    v: ['Chardonnay', 'Pinot nero'],
   },
   {
     d: 'San Colombano al Lambro o San Colombano bianco frizzante DOC',
 
-    v: ['Chardonnay, Pinot nero'],
+    v: ['Chardonnay', 'Pinot nero'],
   },
   {
     d: 'San Colombano al Lambro o San Colombano bianco menzione vigna DOC',
 
-    v: ['Chardonnay, Pinot nero'],
+    v: ['Chardonnay', 'Pinot nero'],
   },
   {
     d: 'San Colombano al Lambro o San Colombano bianco menzione vigna frizzante DOC',
 
-    v: ['Chardonnay, Pinot nero'],
+    v: ['Chardonnay', 'Pinot nero'],
   },
   {
     d: 'San Colombano al Lambro o San Colombano rosso con menzione vigna DOC',
 
-    v: ['Croatina, Barbera, Uva rara'],
+    v: ['Croatina', 'Barbera', 'Uva rara'],
   },
   {
     d: 'San Colombano al Lambro o San Colombano rosso DOC',
 
-    v: ['Croatina, Barbera, Uva rara'],
+    v: ['Croatina', 'Barbera', 'Uva rara'],
   },
   {
     d: 'San Colombano al Lambro o San Colombano rosso frizzante DOC',
 
-    v: ['Croatina, Barbera, Uva rara'],
+    v: ['Croatina', 'Barbera', 'Uva rara'],
   },
   {
     d: 'San Colombano al Lambro o San Colombano rosso riserva con menzione vigna DOC',
 
-    v: ['Croatina, Barbera, Uva rara'],
+    v: ['Croatina', 'Barbera', 'Uva rara'],
   },
   {
     d: 'San Gimignano DOC Cabernet sauvignon',
@@ -14440,17 +15164,17 @@ export const wines: WineOption[] = [
   {
     d: 'San Gimignano DOC rosato',
 
-    v: ['Sangiovese, Merlot, Syrah, Pinot nero'],
+    v: ['Sangiovese', 'Merlot', 'Syrah', 'Pinot nero'],
   },
   {
     d: 'San Gimignano DOC rosso',
 
-    v: ['Sangiovese, Merlot, Syrah, Pinot nero'],
+    v: ['Sangiovese', 'Merlot', 'Syrah', 'Pinot nero'],
   },
   {
     d: 'San Gimignano DOC rosso riserva',
 
-    v: ['Sangiovese, Merlot, Syrah, Pinot nero'],
+    v: ['Sangiovese', 'Merlot', 'Syrah', 'Pinot nero'],
   },
   {
     d: 'San Gimignano DOC Sangiovese',
@@ -14475,7 +15199,7 @@ export const wines: WineOption[] = [
   {
     d: 'San Gimignano DOC Vinsanto o Vin Santo',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'San Gimignano DOC Vinsanto Occhio di Pernice o Vin Santo Occhio di Pernice',
@@ -14485,7 +15209,7 @@ export const wines: WineOption[] = [
   {
     d: 'San Ginesio DOC rosso',
 
-    v: ['Sangiovese, Vernaccia nera'],
+    v: ['Sangiovese', 'Vernaccia nera'],
   },
   {
     d: 'San Ginesio DOC spumante dolce',
@@ -14510,17 +15234,17 @@ export const wines: WineOption[] = [
   {
     d: 'San Severo DOC bianco',
 
-    v: ['Bombino bianco, Trebbiano Toscano'],
+    v: ['Bombino bianco', 'Trebbiano Toscano'],
   },
   {
     d: 'San Severo DOC bianco frizzante',
 
-    v: ['Bombino bianco, Trebbiano Toscano'],
+    v: ['Bombino bianco', 'Trebbiano Toscano'],
   },
   {
     d: 'San Severo DOC bianco spumante',
 
-    v: ['Bombino bianco, Trebbiano Toscano'],
+    v: ['Bombino bianco', 'Trebbiano Toscano'],
   },
   {
     d: 'San Severo DOC Bombino bianco',
@@ -14560,27 +15284,27 @@ export const wines: WineOption[] = [
   {
     d: 'San Severo DOC rosato',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'San Severo DOC rosato frizzante',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'San Severo DOC rosso',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'San Severo DOC rosso novello',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'San Severo DOC rosso riserva',
 
-    v: ['Montepulciano, Sangiovese'],
+    v: ['Montepulciano', 'Sangiovese'],
   },
   {
     d: 'San Severo DOC Sangiovese',
@@ -14645,27 +15369,27 @@ export const wines: WineOption[] = [
   {
     d: 'San Torpè DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'San Torpè DOC Vin Santo riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda frizzante DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Sangue di Giuda dell’Oltrepò Pavese o Sangue di Giuda spumante dolce DOC',
 
-    v: ['Barbera, Croatina'],
+    v: ['Barbera', 'Croatina'],
   },
   {
     d: 'Sannio DOC Aglianico',
@@ -14725,12 +15449,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Aglianico-Piedirosso',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Aglianico-Piedirosso rosato',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Barbera',
@@ -14760,12 +15484,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC bianco frizzante',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Coda di Volpe',
@@ -14900,12 +15624,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico-Piedirosso',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo Aglianico-Piedirosso rosato',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo Barbera',
@@ -14935,12 +15659,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo bianco frizzante',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo Coda di Volpe',
@@ -15130,17 +15854,17 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo spumante',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo spumante spumante di qualità',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Guardia Sanframondi o Guardiolo spumante spumante di qualità metodo classico',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Moscato',
@@ -15285,12 +16009,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Sant’Agata dei Goti Aglianico-Piedirosso',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Sant’Agata dei Goti Aglianico-Piedirosso rosato',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Sant’Agata dei Goti Barbera',
@@ -15320,12 +16044,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Sant’Agata dei Goti bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Sant’Agata dei Goti bianco frizzante',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Sant’Agata dei Goti Coda di Volpe',
@@ -15515,17 +16239,17 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Sant’Agata dei Goti spumante',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Sant’Agata dei Goti spumante spumante di qualità',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Sant’Agata dei Goti spumante spumante di qualità metodo classico',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Sciascinoso',
@@ -15610,12 +16334,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Solopaca Aglianico-Piedirosso',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Solopaca Aglianico-Piedirosso rosato',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Solopaca Barbera',
@@ -15645,12 +16369,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Solopaca bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Solopaca bianco frizzante',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Solopaca classico Aglianico',
@@ -15710,12 +16434,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Solopaca classico Aglianico-Piedirosso',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Solopaca classico Aglianico-Piedirosso rosato',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Solopaca classico Barbera',
@@ -15745,12 +16469,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Solopaca classico bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Solopaca classico bianco frizzante',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Solopaca classico Coda di Volpe',
@@ -15940,17 +16664,17 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Solopaca classico spumante',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Solopaca classico spumante spumante di qualità',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Solopaca classico spumante spumante di qualità metodo classico',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Solopaca Coda di Volpe',
@@ -16140,32 +16864,32 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Solopaca spumante',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Solopaca spumante spumante di qualità',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Solopaca spumante spumante di qualità metodo classico',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC spumante',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC spumante spumante di qualità',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC spumante spumante di qualità metodo classico',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Taburno Aglianico',
@@ -16225,12 +16949,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Taburno Aglianico-Piedirosso',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Taburno Aglianico-Piedirosso rosato',
 
-    v: ['Aglianico, Piedirosso'],
+    v: ['Aglianico', 'Piedirosso'],
   },
   {
     d: 'Sannio DOC Taburno Barbera',
@@ -16260,12 +16984,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Taburno bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Taburno bianco frizzante',
 
-    v: ['Trebbiano Toscano, Malvasia bianca di Candia'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca di Candia'],
   },
   {
     d: 'Sannio DOC Taburno Coda di Volpe',
@@ -16455,17 +17179,17 @@ export const wines: WineOption[] = [
   {
     d: 'Sannio DOC Taburno spumante',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Taburno spumante spumante di qualità',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sannio DOC Taburno spumante spumante di qualità metodo classico',
 
-    v: ['Aglianico, Falanghina'],
+    v: ['Aglianico', 'Falanghina'],
   },
   {
     d: 'Sant’Antimo DOC bianco',
@@ -16510,22 +17234,22 @@ export const wines: WineOption[] = [
   {
     d: 'Sant’Antimo DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Sant’Antimo DOC Vin Santo Occhio di Pernice',
 
-    v: ['Sangiovese, Malvasia nera'],
+    v: ['Sangiovese', 'Malvasia nera'],
   },
   {
     d: 'Sant’Antimo DOC Vin Santo Occhio di Pernice riserva',
 
-    v: ['Sangiovese, Malvasia nera'],
+    v: ['Sangiovese', 'Malvasia nera'],
   },
   {
     d: 'Sant’Antimo DOC Vin Santo riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Santa Margherita di Belice DOC Ansonica',
@@ -16535,12 +17259,12 @@ export const wines: WineOption[] = [
   {
     d: 'Santa Margherita di Belice DOC bianco',
 
-    v: ['Ansonica, Catarratto bianco lucido'],
+    v: ['Ansonica', 'Catarratto bianco lucido'],
   },
   {
     d: 'Santa Margherita di Belice DOC Catarratto',
 
-    v: ['Catarratto bianco comune, Catarratto bianco lucido'],
+    v: ['Catarratto bianco comune', 'Catarratto bianco lucido'],
   },
   {
     d: 'Santa Margherita di Belice DOC Grecanico',
@@ -16555,7 +17279,7 @@ export const wines: WineOption[] = [
   {
     d: 'Santa Margherita di Belice DOC rosso',
 
-    v: ['Calabrese, Sangiovese, Cabernet Sauvignon'],
+    v: ['Calabrese', 'Sangiovese', 'Cabernet Sauvignon'],
   },
   {
     d: 'Santa Margherita di Belice DOC Sangiovese',
@@ -16590,22 +17314,22 @@ export const wines: WineOption[] = [
   {
     d: 'Savuto DOC bianco',
 
-    v: ['Chardonnay, Greco Bianco, Malvasia bianca'],
+    v: ['Chardonnay', 'Greco Bianco', 'Malvasia bianca'],
   },
   {
     d: 'Savuto DOC rosato',
 
-    v: ['Gaglioppo, Aglianico, Greco Nero, Nerello Cappuccio'],
+    v: ['Gaglioppo', 'Aglianico', 'Greco Nero', 'Nerello Cappuccio'],
   },
   {
     d: 'Savuto DOC rosso',
 
-    v: ['Gaglioppo, Aglianico, Greco Nero, Nerello Cappuccio'],
+    v: ['Gaglioppo', 'Aglianico', 'Greco Nero', 'Nerello Cappuccio'],
   },
   {
     d: 'Savuto DOC rosso superiore',
 
-    v: ['Gaglioppo, Aglianico, Greco Nero, Nerello Cappuccio'],
+    v: ['Gaglioppo', 'Aglianico', 'Greco Nero', 'Nerello Cappuccio'],
   },
   {
     d: 'Scanzo o Moscato di Scanzo DOCG',
@@ -16615,22 +17339,22 @@ export const wines: WineOption[] = [
   {
     d: 'Scavigna DOC bianco',
 
-    v: ['Gewürztraminer, Chardonnay, Pinot bianco, Riesling Italico'],
+    v: ['Gewürztraminer', 'Chardonnay', 'Pinot bianco', 'Riesling Italico'],
   },
   {
     d: 'Scavigna DOC rosato',
 
-    v: ['Aglianico, Magliocco canino, Marsigliana nera'],
+    v: ['Aglianico', 'Magliocco canino', 'Marsigliana nera'],
   },
   {
     d: 'Scavigna DOC rosso',
 
-    v: ['Aglianico, Magliocco canino, Marsigliana nera'],
+    v: ['Aglianico', 'Magliocco canino', 'Marsigliana nera'],
   },
   {
     d: 'Sciacca DOC bianco',
 
-    v: ['Ansonica, Chardonnay, Catarratto bianco lucido'],
+    v: ['Ansonica', 'Chardonnay', 'Catarratto bianco lucido'],
   },
   {
     d: 'Sciacca DOC Cabernet sauvignon',
@@ -16665,22 +17389,22 @@ export const wines: WineOption[] = [
   {
     d: 'Sciacca DOC riserva Rayana',
 
-    v: ['Catarratto bianco lucido, Ansonica'],
+    v: ['Catarratto bianco lucido', 'Ansonica'],
   },
   {
     d: 'Sciacca DOC rosato',
 
-    v: ['Merlot, Cabernet Sauvignon, Nero d’Avola, Sangiovese'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Nero d’Avola', 'Sangiovese'],
   },
   {
     d: 'Sciacca DOC rosso',
 
-    v: ['Merlot, Cabernet Sauvignon, Nero d’Avola, Sangiovese'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Nero d’Avola', 'Sangiovese'],
   },
   {
     d: 'Sciacca DOC rosso riserva',
 
-    v: ['Merlot, Cabernet Sauvignon, Nero d’Avola, Sangiovese'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Nero d’Avola', 'Sangiovese'],
   },
   {
     d: 'Sciacca DOC Sangiovese',
@@ -16706,14 +17430,20 @@ export const wines: WineOption[] = [
     d: 'Sicilia DOC bianco',
 
     v: [
-      'Inzolia, Catarratto bianco comune, Catarratto bianco lucido, Grecanico dorato',
+      'Inzolia',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Grecanico dorato',
     ],
   },
   {
     d: 'Sicilia DOC bianco vendemmia tardiva',
 
     v: [
-      'Inzolia, Catarratto bianco comune, Catarratto bianco lucido, Grecanico dorato',
+      'Inzolia',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Grecanico dorato',
     ],
   },
   {
@@ -16734,7 +17464,7 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Carignano – Alicante',
 
-    v: ['Carignano, Alicante'],
+    v: ['Carignano', 'Alicante'],
   },
   {
     d: 'Sicilia DOC Carricante',
@@ -16744,12 +17474,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Carricante – Catarratto',
 
-    v: ['Carricante, Catarratto bianco lucido, Catarratto bianco comune'],
+    v: ['Carricante', 'Catarratto bianco lucido', 'Catarratto bianco comune'],
   },
   {
     d: 'Sicilia DOC Carricante – Chardonnay',
 
-    v: ['Carricante, Chardonnay'],
+    v: ['Carricante', 'Chardonnay'],
   },
   {
     d: 'Sicilia DOC Carricante – Grecanico',
@@ -16759,32 +17489,32 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Catarratto',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune'],
   },
   {
     d: 'Sicilia DOC Catarratto – Chardonnay',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune, Chardonnay'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune', 'Chardonnay'],
   },
   {
     d: 'Sicilia DOC Catarratto – Fiano',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune, Fiano'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune', 'Fiano'],
   },
   {
     d: 'Sicilia DOC Catarratto – Grillo',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune'],
   },
   {
     d: 'Sicilia DOC Catarratto – Inzolia',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune, Inzolia'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune', 'Inzolia'],
   },
   {
     d: 'Sicilia DOC Catarratto – Viogner',
 
-    v: ['Catarratto bianco lucido, Catarratto bianco comune, Viognier'],
+    v: ['Catarratto bianco lucido', 'Catarratto bianco comune', 'Viognier'],
   },
   {
     d: 'Sicilia DOC Chardonnay',
@@ -16809,12 +17539,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Frappato – Cabernet sauvignon',
 
-    v: ['Frappato, Cabernet Sauvignon'],
+    v: ['Frappato', 'Cabernet Sauvignon'],
   },
   {
     d: 'Sicilia DOC Frappato – Syrah',
 
-    v: ['Frappato, Syrah'],
+    v: ['Frappato', 'Syrah'],
   },
   {
     d: 'Sicilia DOC Grecanico',
@@ -16874,7 +17604,7 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Inzolia – Chardonnay',
 
-    v: ['Inzolia, Chardonnay'],
+    v: ['Inzolia', 'Chardonnay'],
   },
   {
     d: 'Sicilia DOC Inzolia – Grillo',
@@ -16884,22 +17614,22 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Inzolia – Sauvignon',
 
-    v: ['Inzolia, Sauvignon'],
+    v: ['Inzolia', 'Sauvignon'],
   },
   {
     d: 'Sicilia DOC Inzolia – Viognier',
 
-    v: ['Inzolia, Viognier'],
+    v: ['Inzolia', 'Viognier'],
   },
   {
     d: 'Sicilia DOC Merlot – Cabernet sauvignon',
 
-    v: ['Merlot, Cabernet Sauvignon'],
+    v: ['Merlot', 'Cabernet Sauvignon'],
   },
   {
     d: 'Sicilia DOC Merlot – Syrah',
 
-    v: ['Merlot, Syrah'],
+    v: ['Merlot', 'Syrah'],
   },
   {
     d: 'Sicilia DOC Mondeuse',
@@ -16924,12 +17654,12 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Nerello mascalese – Merlot',
 
-    v: ['Nerello Mascalese, Merlot'],
+    v: ['Nerello Mascalese', 'Merlot'],
   },
   {
     d: 'Sicilia DOC Nerello mascalese – Nerello cappuccio',
 
-    v: ['Nerello Mascalese, Nerello Cappuccio'],
+    v: ['Nerello Mascalese', 'Nerello Cappuccio'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola',
@@ -16939,47 +17669,47 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Nero d’Avola – Cabernet franc',
 
-    v: ['Nero d’Avola, Cabernet Franc'],
+    v: ['Nero d’Avola', 'Cabernet Franc'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola – Cabernet sauvignon',
 
-    v: ['Nero d’Avola, Cabernet Sauvignon'],
+    v: ['Nero d’Avola', 'Cabernet Sauvignon'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola – Frappato',
 
-    v: ['Nero d’Avola, Frappato'],
+    v: ['Nero d’Avola', 'Frappato'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola – Merlot',
 
-    v: ['Nero d’Avola, Merlot'],
+    v: ['Nero d’Avola', 'Merlot'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola – Nerello cappuccio',
 
-    v: ['Nero d’Avola, Nerello Cappuccio'],
+    v: ['Nero d’Avola', 'Nerello Cappuccio'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola – Nerello mascalese',
 
-    v: ['Nero d’Avola, Nerello Mascalese'],
+    v: ['Nero d’Avola', 'Nerello Mascalese'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola – Perricone',
 
-    v: ['Nero d’Avola, Perricone'],
+    v: ['Nero d’Avola', 'Perricone'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola – Pinot nero',
 
-    v: ['Nero d’Avola, Pinot nero'],
+    v: ['Nero d’Avola', 'Pinot nero'],
   },
   {
     d: 'Sicilia DOC Nero d’Avola – Syrah',
 
-    v: ['Nero d’Avola, Syrah'],
+    v: ['Nero d’Avola', 'Syrah'],
   },
   {
     d: 'Sicilia DOC Nocera',
@@ -16994,7 +17724,7 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Perricone – Nerello mascalese',
 
-    v: ['Perricone, Nerello Mascalese'],
+    v: ['Perricone', 'Nerello Mascalese'],
   },
   {
     d: 'Sicilia DOC Pinot grigio',
@@ -17009,22 +17739,22 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC rosato',
 
-    v: ['Calabrese, Frappato, Nerello Mascalese, Perricone'],
+    v: ['Calabrese', 'Frappato', 'Nerello Mascalese', 'Perricone'],
   },
   {
     d: 'Sicilia DOC rosso',
 
-    v: ['Calabrese, Frappato, Nerello Mascalese, Perricone'],
+    v: ['Calabrese', 'Frappato', 'Nerello Mascalese', 'Perricone'],
   },
   {
     d: 'Sicilia DOC rosso riserva',
 
-    v: ['Calabrese, Frappato, Nerello Mascalese, Perricone'],
+    v: ['Calabrese', 'Frappato', 'Nerello Mascalese', 'Perricone'],
   },
   {
     d: 'Sicilia DOC rosso vendemmia tardiva',
 
-    v: ['Calabrese, Frappato, Nerello Mascalese, Perricone'],
+    v: ['Calabrese', 'Frappato', 'Nerello Mascalese', 'Perricone'],
   },
   {
     d: 'Sicilia DOC Sauvignon',
@@ -17035,13 +17765,20 @@ export const wines: WineOption[] = [
     d: 'Sicilia DOC spumante bianco',
 
     v: [
-      'Inzolia, Catarratto bianco comune, Catarratto bianco lucido, Grecanico dorato, Carricante, Pinot nero, Moscato bianco, Zibibbo',
+      'Inzolia',
+      'Catarratto bianco comune',
+      'Catarratto bianco lucido',
+      'Grecanico dorato',
+      'Carricante',
+      'Pinot nero',
+      'Moscato bianco',
+      'Zibibbo',
     ],
   },
   {
     d: 'Sicilia DOC spumante rosato',
 
-    v: ['Calabrese, Frappato, Nerello Mascalese, Pinot nero'],
+    v: ['Calabrese', 'Frappato', 'Nerello Mascalese', 'Pinot nero'],
   },
   {
     d: 'Sicilia DOC Syrah',
@@ -17051,22 +17788,22 @@ export const wines: WineOption[] = [
   {
     d: 'Sicilia DOC Syrah – Alicante',
 
-    v: ['Syrah, Alicante'],
+    v: ['Syrah', 'Alicante'],
   },
   {
     d: 'Sicilia DOC Syrah – Cabernet sauvignon',
 
-    v: ['Syrah, Cabernet Sauvignon'],
+    v: ['Syrah', 'Cabernet Sauvignon'],
   },
   {
     d: 'Sicilia DOC Syrah – Carignano',
 
-    v: ['Syrah, Carignano'],
+    v: ['Syrah', 'Carignano'],
   },
   {
     d: 'Sicilia DOC Syrah – Merlot',
 
-    v: ['Syrah, Merlot'],
+    v: ['Syrah', 'Merlot'],
   },
   {
     d: 'Sicilia DOC Viognier',
@@ -17111,52 +17848,52 @@ export const wines: WineOption[] = [
   {
     d: 'Sizzano DOC',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Sizzano DOC riserva',
 
-    v: ['Nebbiolo, Vespolina, Uva rara'],
+    v: ['Nebbiolo', 'Vespolina', 'Uva rara'],
   },
   {
     d: 'Soave classico DOC',
 
-    v: ['Garganega, Trebbiano di Soave, Chardonnay'],
+    v: ['Garganega', 'Trebbiano di Soave', 'Chardonnay'],
   },
   {
     d: 'Soave Colli Scaligeri DOC',
 
-    v: ['Garganega, Trebbiano di Soave, Chardonnay'],
+    v: ['Garganega', 'Trebbiano di Soave', 'Chardonnay'],
   },
   {
     d: 'Soave DOC',
 
-    v: ['Garganega, Trebbiano di Soave, Chardonnay'],
+    v: ['Garganega', 'Trebbiano di Soave', 'Chardonnay'],
   },
   {
     d: 'Soave spumante DOC',
 
-    v: ['Garganega, Trebbiano di Soave, Chardonnay'],
+    v: ['Garganega', 'Trebbiano di Soave', 'Chardonnay'],
   },
   {
     d: 'Soave superiore classico DOCG',
 
-    v: ['Garganega, Trebbiano di Soave'],
+    v: ['Garganega', 'Trebbiano di Soave'],
   },
   {
     d: 'Soave superiore classico riserva DOCG',
 
-    v: ['Garganega, Trebbiano di Soave'],
+    v: ['Garganega', 'Trebbiano di Soave'],
   },
   {
     d: 'Soave superiore DOCG',
 
-    v: ['Garganega, Trebbiano di Soave'],
+    v: ['Garganega', 'Trebbiano di Soave'],
   },
   {
     d: 'Soave superiore riserva DOCG',
 
-    v: ['Garganega, Trebbiano di Soave'],
+    v: ['Garganega', 'Trebbiano di Soave'],
   },
   {
     d: 'Sovana DOC Aleatico passito',
@@ -17266,12 +18003,12 @@ export const wines: WineOption[] = [
   {
     d: 'Squinzano DOC bianco',
 
-    v: ['Chardonnay, Malvasia bianca lunga'],
+    v: ['Chardonnay', 'Malvasia bianca lunga'],
   },
   {
     d: 'Squinzano DOC bianco spumante',
 
-    v: ['Chardonnay, Malvasia bianca lunga'],
+    v: ['Chardonnay', 'Malvasia bianca lunga'],
   },
   {
     d: 'Squinzano DOC Chardonnay',
@@ -17381,7 +18118,7 @@ export const wines: WineOption[] = [
   {
     d: 'Suvereto DOCG',
 
-    v: ['Cabernet Sauvignon, Merlot'],
+    v: ['Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Suvereto Merlot DOCG',
@@ -17396,7 +18133,7 @@ export const wines: WineOption[] = [
   {
     d: 'Suvereto riserva DOCG',
 
-    v: ['Cabernet Sauvignon, Merlot'],
+    v: ['Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Suvereto Sangiovese DOCG',
@@ -17412,42 +18149,51 @@ export const wines: WineOption[] = [
     d: 'Tarquinia DOC bianco',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
     ],
   },
   {
     d: 'Tarquinia DOC bianco amabile',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
     ],
   },
   {
     d: 'Tarquinia DOC bianco frizzante',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
     ],
   },
   {
     d: 'Tarquinia DOC rosato',
 
-    v: ['Sangiovese, Montepulciano, Cesanese comune'],
+    v: ['Sangiovese', 'Montepulciano', 'Cesanese comune'],
   },
   {
     d: 'Tarquinia DOC rosso',
 
-    v: ['Sangiovese, Montepulciano, Cesanese comune'],
+    v: ['Sangiovese', 'Montepulciano', 'Cesanese comune'],
   },
   {
     d: 'Tarquinia DOC rosso amabile',
 
-    v: ['Sangiovese, Montepulciano, Cesanese comune'],
+    v: ['Sangiovese', 'Montepulciano', 'Cesanese comune'],
   },
   {
     d: 'Tarquinia DOC rosso novello',
 
-    v: ['Sangiovese, Montepulciano, Cesanese comune'],
+    v: ['Sangiovese', 'Montepulciano', 'Cesanese comune'],
   },
   {
     d: 'Taurasi DOCG',
@@ -17537,32 +18283,40 @@ export const wines: WineOption[] = [
   {
     d: 'Terra d’Otranto DOC Malvasia bianca',
 
-    v: ['Malvasia bianca di Candia, Malvasia bianca lunga'],
+    v: ['Malvasia bianca di Candia', 'Malvasia bianca lunga'],
   },
   {
     d: 'Terra d’Otranto DOC Malvasia bianca frizzante',
 
-    v: ['Malvasia bianca di Candia, Malvasia bianca lunga'],
+    v: ['Malvasia bianca di Candia', 'Malvasia bianca lunga'],
   },
   {
     d: 'Terra d’Otranto DOC Malvasia nera',
 
     v: [
-      'Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+      'Malvasia nera di Lecce',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Basilicata',
     ],
   },
   {
     d: 'Terra d’Otranto DOC Primitivo',
 
     v: [
-      'Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+      'Malvasia nera di Lecce',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Basilicata',
     ],
   },
   {
     d: 'Terra d’Otranto DOC rosato',
 
     v: [
-      'Negro Amaro, Primitivo, Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+      'Negro Amaro',
+      'Primitivo',
+      'Malvasia nera di Lecce',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Basilicata',
     ],
   },
   {
@@ -17579,14 +18333,22 @@ export const wines: WineOption[] = [
     d: 'Terra d’Otranto DOC rosso',
 
     v: [
-      'Negro Amaro, Primitivo, Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+      'Negro Amaro',
+      'Primitivo',
+      'Malvasia nera di Lecce',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Basilicata',
     ],
   },
   {
     d: 'Terra d’Otranto DOC rosso riserva',
 
     v: [
-      'Negro Amaro, Primitivo, Malvasia nera di Lecce, Malvasia nera di Brindisi, Malvasia nera di Basilicata',
+      'Negro Amaro',
+      'Primitivo',
+      'Malvasia nera di Lecce',
+      'Malvasia nera di Brindisi',
+      'Malvasia nera di Basilicata',
     ],
   },
   {
@@ -17637,17 +18399,17 @@ export const wines: WineOption[] = [
   {
     d: 'Terratico di Bibbona DOC rosato',
 
-    v: ['Sangiovese, Merlot'],
+    v: ['Sangiovese', 'Merlot'],
   },
   {
     d: 'Terratico di Bibbona DOC rosso',
 
-    v: ['Sangiovese, Merlot'],
+    v: ['Sangiovese', 'Merlot'],
   },
   {
     d: 'Terratico di Bibbona DOC rosso superiore',
 
-    v: ['Sangiovese, Merlot'],
+    v: ['Sangiovese', 'Merlot'],
   },
   {
     d: 'Terratico di Bibbona DOC Sangiovese',
@@ -17757,7 +18519,7 @@ export const wines: WineOption[] = [
   {
     d: 'Terre del Colleoni o Colleoni Novello DOC',
 
-    v: ['Cabernet Sauvignon, Franconia, Incrocio Terzi n.1'],
+    v: ['Cabernet Sauvignon', 'Franconia', 'Incrocio Terzi n.1'],
   },
   {
     d: 'Terre del Colleoni o Colleoni Pinot bianco DOC',
@@ -17777,12 +18539,12 @@ export const wines: WineOption[] = [
   {
     d: 'Terre del Colleoni o Colleoni Spumante DOC',
 
-    v: ['Pinot grigio, Chardonnay, Manzoni bianco'],
+    v: ['Pinot grigio', 'Chardonnay', 'Manzoni bianco'],
   },
   {
     d: 'Terre dell’Alta Val d’Agri DOC rosato',
 
-    v: ['Merlot, Malvasia nera di Basilicata'],
+    v: ['Merlot', 'Malvasia nera di Basilicata'],
   },
   {
     d: 'Terre dell’Alta Val d’Agri DOC rosso',
@@ -17837,22 +18599,22 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC bianco',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC bianco passito',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC bianco spumante',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC bianco vendemmia tardiva',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Cabernet',
@@ -17882,17 +18644,17 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Colline dei Crati bianco',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Colline dei Crati bianco passito',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Colline dei Crati bianco vendemmia tardiva',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Colline dei Crati Magliocco',
@@ -17907,7 +18669,13 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Colline dei Crati rosato',
 
-    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+    v: [
+      'Greco Nero',
+      'Magliocco canino',
+      'Gaglioppo',
+      'Aglianico',
+      'Calabrese',
+    ],
   },
   {
     d: 'Terre di Cosenza DOC Colline dei Crati rosso',
@@ -17932,17 +18700,17 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Condoleo bianco',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Condoleo bianco passito',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Condoleo bianco vendemmia tardiva',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Condoleo Greco nero',
@@ -17957,7 +18725,13 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Condoleo rosato',
 
-    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+    v: [
+      'Greco Nero',
+      'Magliocco canino',
+      'Gaglioppo',
+      'Aglianico',
+      'Calabrese',
+    ],
   },
   {
     d: 'Terre di Cosenza DOC Condoleo rosso',
@@ -17987,17 +18761,17 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Donnici bianco',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Donnici bianco passito',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Donnici bianco vendemmia tardiva',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Donnici Magliocco',
@@ -18012,47 +18786,47 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Donnici rosato',
 
-    v: ['Magliocco canino, Greco Nero'],
+    v: ['Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Terre di Cosenza DOC Donnici rosso',
 
-    v: ['Magliocco canino, Greco Nero'],
+    v: ['Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Terre di Cosenza DOC Donnici rosso novello',
 
-    v: ['Magliocco canino, Greco Nero'],
+    v: ['Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Terre di Cosenza DOC Donnici rosso passito',
 
-    v: ['Magliocco canino, Greco Nero'],
+    v: ['Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Terre di Cosenza DOC Donnici rosso riserva',
 
-    v: ['Magliocco canino, Greco Nero'],
+    v: ['Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Terre di Cosenza DOC Donnici rosso vendemmia tardiva',
 
-    v: ['Magliocco canino, Greco Nero'],
+    v: ['Magliocco canino', 'Greco Nero'],
   },
   {
     d: 'Terre di Cosenza DOC Esaro bianco',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Esaro bianco passito',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Esaro bianco vendemmia tardiva',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Esaro Magliocco',
@@ -18067,7 +18841,13 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Esaro rosato',
 
-    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+    v: [
+      'Greco Nero',
+      'Magliocco canino',
+      'Gaglioppo',
+      'Aglianico',
+      'Calabrese',
+    ],
   },
   {
     d: 'Terre di Cosenza DOC Esaro rosso',
@@ -18197,17 +18977,17 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Pollino bianco',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Pollino bianco passito',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Pollino bianco vendemmia tardiva',
 
-    v: ['Greco Bianco, Guarnaccia, Pecorello, Montonico bianco'],
+    v: ['Greco Bianco', 'Guarnaccia', 'Pecorello', 'Montonico bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Pollino Magliocco',
@@ -18227,7 +19007,13 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Pollino rosato',
 
-    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+    v: [
+      'Greco Nero',
+      'Magliocco canino',
+      'Gaglioppo',
+      'Aglianico',
+      'Calabrese',
+    ],
   },
   {
     d: 'Terre di Cosenza DOC Pollino rosso',
@@ -18267,12 +19053,24 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC rosato',
 
-    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+    v: [
+      'Greco Nero',
+      'Magliocco canino',
+      'Gaglioppo',
+      'Aglianico',
+      'Calabrese',
+    ],
   },
   {
     d: 'Terre di Cosenza DOC rosato spumante',
 
-    v: ['Greco Nero, Magliocco canino, Gaglioppo, Aglianico, Calabrese'],
+    v: [
+      'Greco Nero',
+      'Magliocco canino',
+      'Gaglioppo',
+      'Aglianico',
+      'Calabrese',
+    ],
   },
   {
     d: 'Terre di Cosenza DOC rosso',
@@ -18302,17 +19100,17 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi bianco',
 
-    v: ['Malvasia bianca, Greco Bianco, Guarnaccia'],
+    v: ['Malvasia bianca', 'Greco Bianco', 'Guarnaccia'],
   },
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi bianco passito',
 
-    v: ['Malvasia bianca, Greco Bianco, Guarnaccia'],
+    v: ['Malvasia bianca', 'Greco Bianco', 'Guarnaccia'],
   },
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi bianco vendemmia tardiva',
 
-    v: ['Malvasia bianca, Greco Bianco, Guarnaccia'],
+    v: ['Malvasia bianca', 'Greco Bianco', 'Guarnaccia'],
   },
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi Magliocco',
@@ -18327,32 +19125,32 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi rosato',
 
-    v: ['Gaglioppo, Magliocco canino, Malvasia bianca'],
+    v: ['Gaglioppo', 'Magliocco canino', 'Malvasia bianca'],
   },
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi rosso',
 
-    v: ['Gaglioppo, Magliocco canino'],
+    v: ['Gaglioppo', 'Magliocco canino'],
   },
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi rosso novello',
 
-    v: ['Gaglioppo, Magliocco canino'],
+    v: ['Gaglioppo', 'Magliocco canino'],
   },
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi rosso passito',
 
-    v: ['Gaglioppo, Magliocco canino'],
+    v: ['Gaglioppo', 'Magliocco canino'],
   },
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi rosso riserva',
 
-    v: ['Gaglioppo, Magliocco canino'],
+    v: ['Gaglioppo', 'Magliocco canino'],
   },
   {
     d: 'Terre di Cosenza DOC San Vito di Luzzi rosso vendemmia tardiva',
 
-    v: ['Gaglioppo, Magliocco canino'],
+    v: ['Gaglioppo', 'Magliocco canino'],
   },
   {
     d: 'Terre di Cosenza DOC Sangiovese',
@@ -18362,17 +19160,17 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Verbicaro bianco',
 
-    v: ['Greco Bianco, Malvasia bianca, Guarnaccia'],
+    v: ['Greco Bianco', 'Malvasia bianca', 'Guarnaccia'],
   },
   {
     d: 'Terre di Cosenza DOC Verbicaro bianco passito',
 
-    v: ['Greco Bianco, Malvasia bianca, Guarnaccia'],
+    v: ['Greco Bianco', 'Malvasia bianca', 'Guarnaccia'],
   },
   {
     d: 'Terre di Cosenza DOC Verbicaro bianco vendemmia tardiva',
 
-    v: ['Greco Bianco, Malvasia bianca, Guarnaccia'],
+    v: ['Greco Bianco', 'Malvasia bianca', 'Guarnaccia'],
   },
   {
     d: 'Terre di Cosenza DOC Verbicaro Magliocco',
@@ -18392,32 +19190,32 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Cosenza DOC Verbicaro rosato',
 
-    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+    v: ['Magliocco canino', 'Malvasia bianca', 'Guarnaccia', 'Greco Bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Verbicaro rosso',
 
-    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+    v: ['Magliocco canino', 'Malvasia bianca', 'Guarnaccia', 'Greco Bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Verbicaro rosso novello',
 
-    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+    v: ['Magliocco canino', 'Malvasia bianca', 'Guarnaccia', 'Greco Bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Verbicaro rosso passito',
 
-    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+    v: ['Magliocco canino', 'Malvasia bianca', 'Guarnaccia', 'Greco Bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Verbicaro rosso riserva',
 
-    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+    v: ['Magliocco canino', 'Malvasia bianca', 'Guarnaccia', 'Greco Bianco'],
   },
   {
     d: 'Terre di Cosenza DOC Verbicaro rosso vendemmia tardiva',
 
-    v: ['Magliocco canino, Malvasia bianca, Guarnaccia, Greco Bianco'],
+    v: ['Magliocco canino', 'Malvasia bianca', 'Guarnaccia', 'Greco Bianco'],
   },
   {
     d: 'Terre di Offida DOC passito',
@@ -18437,7 +19235,7 @@ export const wines: WineOption[] = [
   {
     d: 'Terre di Pisa DOC rosso',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot, Syrah'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot', 'Syrah'],
   },
   {
     d: 'Terre di Pisa DOC Sangiovese',
@@ -18447,12 +19245,12 @@ export const wines: WineOption[] = [
   {
     d: 'Terre Tollesi o Tullum DOC bianco',
 
-    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+    v: ['Trebbiano Abruzzese', 'Trebbiano Toscano'],
   },
   {
     d: 'Terre Tollesi o Tullum DOC bianco superiore',
 
-    v: ['Trebbiano Abruzzese, Trebbiano Toscano'],
+    v: ['Trebbiano Abruzzese', 'Trebbiano Toscano'],
   },
   {
     d: 'Terre Tollesi o Tullum DOC Cabernet sauvignon',
@@ -18482,7 +19280,7 @@ export const wines: WineOption[] = [
   {
     d: 'Terre Tollesi o Tullum DOC passito bianco',
 
-    v: ['Malvasia bianca lunga, Moscato bianco'],
+    v: ['Malvasia bianca lunga', 'Moscato bianco'],
   },
   {
     d: 'Terre Tollesi o Tullum DOC passito rosso',
@@ -18612,7 +19410,7 @@ export const wines: WineOption[] = [
   {
     d: 'Torgiano spumante DOC',
 
-    v: ['Chardonnay, Pinot nero'],
+    v: ['Chardonnay', 'Pinot nero'],
   },
   {
     d: 'Torgiano vendemmia tardiva DOC',
@@ -18627,17 +19425,17 @@ export const wines: WineOption[] = [
   {
     d: 'Trebbiano d’Abruzzo DOC',
 
-    v: ['Trebbiano Abruzzese, Trebbiano Toscano, Bombino bianco'],
+    v: ['Trebbiano Abruzzese', 'Trebbiano Toscano', 'Bombino bianco'],
   },
   {
     d: 'Trebbiano d’Abruzzo riserva DOC',
 
-    v: ['Trebbiano Abruzzese, Trebbiano Toscano, Bombino bianco'],
+    v: ['Trebbiano Abruzzese', 'Trebbiano Toscano', 'Bombino bianco'],
   },
   {
     d: 'Trebbiano d’Abruzzo superiore DOC',
 
-    v: ['Trebbiano Abruzzese, Trebbiano Toscano, Bombino bianco'],
+    v: ['Trebbiano Abruzzese', 'Trebbiano Toscano', 'Bombino bianco'],
   },
   {
     d: 'Trentino bianco da due varietà di vite DOC',
@@ -18647,27 +19445,27 @@ export const wines: WineOption[] = [
   {
     d: 'Trentino bianco DOC',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Trentino bianco riserva DOC',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Trentino bianco superiore DOC',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Trentino bianco vendemmia tardiva DOC',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Trentino Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Trentino Cabernet franc DOC',
@@ -18687,7 +19485,7 @@ export const wines: WineOption[] = [
   {
     d: 'Trentino Cabernet riserva DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Trentino Cabernet sauvignon DOC',
@@ -18707,7 +19505,7 @@ export const wines: WineOption[] = [
   {
     d: 'Trentino Cabernet superiore DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Trentino Chardonnay DOC',
@@ -18732,7 +19530,7 @@ export const wines: WineOption[] = [
   {
     d: 'Trentino kretzer o rosato DOC',
 
-    v: ['Schiava, Teroldego, Lagrein'],
+    v: ['Schiava', 'Teroldego', 'Lagrein'],
   },
   {
     d: 'Trentino Lagrein DOC',
@@ -18967,22 +19765,22 @@ export const wines: WineOption[] = [
   {
     d: 'Trentino rosso DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere, Merlot'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere', 'Merlot'],
   },
   {
     d: 'Trentino rosso riserva DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere, Merlot'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere', 'Merlot'],
   },
   {
     d: 'Trentino rosso superiore DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere, Merlot'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere', 'Merlot'],
   },
   {
     d: 'Trentino rosso Vendemmia tardiva DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere, Merlot'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere', 'Merlot'],
   },
   {
     d: 'Trentino Sauvignon DOC',
@@ -19008,18 +19806,23 @@ export const wines: WineOption[] = [
     d: 'Trentino Sorni bianco DOC',
 
     v: [
-      'Nosiola, Müller-Thurgau, Sylvaner verde, Pinot bianco, Pinot grigio, Chardonnay',
+      'Nosiola',
+      'Müller-Thurgau',
+      'Sylvaner verde',
+      'Pinot bianco',
+      'Pinot grigio',
+      'Chardonnay',
     ],
   },
   {
     d: 'Trentino Sorni rosso DOC',
 
-    v: ['Teroldego, Schiava, Lagrein'],
+    v: ['Teroldego', 'Schiava', 'Lagrein'],
   },
   {
     d: 'Trentino superiore bianco DOC Vendemmina tardiva',
 
-    v: ['Chardonnay, Pinot bianco'],
+    v: ['Chardonnay', 'Pinot bianco'],
   },
   {
     d: 'Trentino superiore Castel Beseno DOC',
@@ -19074,22 +19877,22 @@ export const wines: WineOption[] = [
   {
     d: 'Trento DOC (tipo bianco)',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero, Pinot Meunier'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero', 'Pinot Meunier'],
   },
   {
     d: 'Trento DOC (tipo rosato o rosé)',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero, Pinot Meunier'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero', 'Pinot Meunier'],
   },
   {
     d: 'Trento riserva DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero, Pinot Meunier'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero', 'Pinot Meunier'],
   },
   {
     d: 'Val d’Arbia DOC bianco',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Val d’Arbia DOC Chardonnay',
@@ -19129,22 +19932,22 @@ export const wines: WineOption[] = [
   {
     d: 'Val d’Arbia DOC Vin Santo',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Val d’Arbia DOC Vin Santo riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Val d’Arno di sopra DOC bianco',
 
-    v: ['Chardonnay, Malvasia bianca lunga, Trebbiano Toscano'],
+    v: ['Chardonnay', 'Malvasia bianca lunga', 'Trebbiano Toscano'],
   },
   {
     d: 'Val d’Arno di sopra DOC bianco spumante di qualità',
 
-    v: ['Chardonnay, Malvasia bianca lunga, Trebbiano Toscano'],
+    v: ['Chardonnay', 'Malvasia bianca lunga', 'Trebbiano Toscano'],
   },
   {
     d: 'Val d’Arno di sopra DOC Cabernet franc',
@@ -19179,12 +19982,12 @@ export const wines: WineOption[] = [
   {
     d: 'Val d’Arno di sopra DOC Passito',
 
-    v: ['Malvasia bianca lunga, Chardonnay'],
+    v: ['Malvasia bianca lunga', 'Chardonnay'],
   },
   {
     d: 'Val d’Arno di sopra DOC Pietraviva bianco',
 
-    v: ['Sauvignon, Chardonnay'],
+    v: ['Sauvignon', 'Chardonnay'],
   },
   {
     d: 'Val d’Arno di sopra DOC Pietraviva Canaiolo nero',
@@ -19214,12 +20017,12 @@ export const wines: WineOption[] = [
   {
     d: 'Val d’Arno di sopra DOC Pietraviva rosso',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Val d’Arno di sopra DOC Pietraviva rosso riserva',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Val d’Arno di sopra DOC Pietraviva Sangiovese',
@@ -19229,12 +20032,12 @@ export const wines: WineOption[] = [
   {
     d: 'Val d’Arno di sopra DOC Pietraviva vendemmia tardiva',
 
-    v: ['Malvasia bianca lunga, Chardonnay'],
+    v: ['Malvasia bianca lunga', 'Chardonnay'],
   },
   {
     d: 'Val d’Arno di sopra DOC Pratomagno bianco',
 
-    v: ['Sauvignon, Chardonnay'],
+    v: ['Sauvignon', 'Chardonnay'],
   },
   {
     d: 'Val d’Arno di sopra DOC Pratomagno Canaiolo nero',
@@ -19264,12 +20067,12 @@ export const wines: WineOption[] = [
   {
     d: 'Val d’Arno di sopra DOC Pratomagno rosso',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Val d’Arno di sopra DOC Pratomagno rosso riserva',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Merlot'],
+    v: ['Sangiovese', 'Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Val d’Arno di sopra DOC Pratomagno Sangiovese',
@@ -19279,27 +20082,27 @@ export const wines: WineOption[] = [
   {
     d: 'Val d’Arno di sopra DOC Pratomagno vendemmia tardiva',
 
-    v: ['Malvasia bianca lunga, Chardonnay'],
+    v: ['Malvasia bianca lunga', 'Chardonnay'],
   },
   {
     d: 'Val d’Arno di sopra DOC rosato',
 
-    v: ['Merlot, Cabernet Sauvignon, Syrah'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Syrah'],
   },
   {
     d: 'Val d’Arno di sopra DOC rosato spumante di qualità',
 
-    v: ['Merlot, Cabernet Sauvignon, Syrah'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Syrah'],
   },
   {
     d: 'Val d’Arno di sopra DOC rosso',
 
-    v: ['Merlot, Cabernet Sauvignon, Syrah'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Syrah'],
   },
   {
     d: 'Val d’Arno di sopra DOC rosso riserva',
 
-    v: ['Merlot, Cabernet Sauvignon, Syrah'],
+    v: ['Merlot', 'Cabernet Sauvignon', 'Syrah'],
   },
   {
     d: 'Val d’Arno di sopra DOC Sangiovese',
@@ -19340,7 +20143,11 @@ export const wines: WineOption[] = [
     d: 'Val di Cornia DOC bianco',
 
     v: [
-      'Vermentino, Trebbiano Toscano, Ansonica, Viognier, Malvasia bianca lunga',
+      'Vermentino',
+      'Trebbiano Toscano',
+      'Ansonica',
+      'Viognier',
+      'Malvasia bianca lunga',
     ],
   },
   {
@@ -19361,7 +20168,7 @@ export const wines: WineOption[] = [
   {
     d: 'Val di Cornia DOC rosato',
 
-    v: ['Merlot, Cabernet Sauvignon'],
+    v: ['Merlot', 'Cabernet Sauvignon'],
   },
   {
     d: 'Val di Cornia DOC Sangiovese',
@@ -19386,52 +20193,52 @@ export const wines: WineOption[] = [
   {
     d: 'Val Polcevera DOC bianco',
 
-    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+    v: ['Vermentino', 'Bianchetta Genovese', 'Albarola'],
   },
   {
     d: 'Val Polcevera DOC bianco frizzante',
 
-    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+    v: ['Vermentino', 'Bianchetta Genovese', 'Albarola'],
   },
   {
     d: 'Val Polcevera DOC Coronata',
 
-    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+    v: ['Vermentino', 'Bianchetta Genovese', 'Albarola'],
   },
   {
     d: 'Val Polcevera DOC passito',
 
-    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+    v: ['Vermentino', 'Bianchetta Genovese', 'Albarola'],
   },
   {
     d: 'Val Polcevera DOC rosato',
 
-    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+    v: ['Dolcetto', 'Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Val Polcevera DOC rosato frizzante',
 
-    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+    v: ['Dolcetto', 'Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Val Polcevera DOC rosso',
 
-    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+    v: ['Dolcetto', 'Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Val Polcevera DOC rosso frizzante',
 
-    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+    v: ['Dolcetto', 'Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Val Polcevera DOC rosso novello',
 
-    v: ['Dolcetto, Sangiovese, Ciliegiolo'],
+    v: ['Dolcetto', 'Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Val Polcevera DOC spumante di qualità',
 
-    v: ['Vermentino, Bianchetta Genovese, Albarola'],
+    v: ['Vermentino', 'Bianchetta Genovese', 'Albarola'],
   },
   {
     d: 'Val Polcevera DOC Vermentino',
@@ -19446,28 +20253,32 @@ export const wines: WineOption[] = [
   {
     d: 'Valcalepio bianco DOC',
 
-    v: ['Pinot bianco, Chardonnay, Pinot grigio'],
+    v: ['Pinot bianco', 'Chardonnay', 'Pinot grigio'],
   },
   {
     d: 'Valcalepio Moscato passito DOC',
 
-    v: ['Moscato di Scanzo, Moscato bianco'],
+    v: ['Moscato di Scanzo', 'Moscato bianco'],
   },
   {
     d: 'Valcalepio rosso DOC',
 
-    v: ['Cabernet Sauvignon, Merlot'],
+    v: ['Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Valcalepio rosso riserva DOC',
 
-    v: ['Cabernet Sauvignon, Merlot'],
+    v: ['Cabernet Sauvignon', 'Merlot'],
   },
   {
     d: 'Valdadige bianco DOC',
 
     v: [
-      'Pinot bianco, Pinot grigio, Riesling Italico, Müller-Thurgau, Chardonnay',
+      'Pinot bianco',
+      'Pinot grigio',
+      'Riesling Italico',
+      'Müller-Thurgau',
+      'Chardonnay',
     ],
   },
   {
@@ -19498,12 +20309,12 @@ export const wines: WineOption[] = [
   {
     d: 'Valdadige rosato DOC',
 
-    v: ['Lagrein, Teroldego'],
+    v: ['Lagrein', 'Teroldego'],
   },
   {
     d: 'Valdadige rosso DOC',
 
-    v: ['Lagrein, Teroldego'],
+    v: ['Lagrein', 'Teroldego'],
   },
   {
     d: 'Valdadige Schiava DOC',
@@ -19543,12 +20354,24 @@ export const wines: WineOption[] = [
   {
     d: 'Valdichiana Toscana DOC bianco',
 
-    v: ['Trebbiano Toscano, Chardonnay, Pinot bianco, Grechetto, Pinot grigio'],
+    v: [
+      'Trebbiano Toscano',
+      'Chardonnay',
+      'Pinot bianco',
+      'Grechetto',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Valdichiana Toscana DOC bianco vergine',
 
-    v: ['Trebbiano Toscano, Chardonnay, Pinot bianco, Grechetto, Pinot grigio'],
+    v: [
+      'Trebbiano Toscano',
+      'Chardonnay',
+      'Pinot bianco',
+      'Grechetto',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Valdichiana Toscana DOC Chardonnay',
@@ -19558,7 +20381,13 @@ export const wines: WineOption[] = [
   {
     d: 'Valdichiana Toscana DOC frizzante',
 
-    v: ['Trebbiano Toscano, Chardonnay, Pinot bianco, Grechetto, Pinot grigio'],
+    v: [
+      'Trebbiano Toscano',
+      'Chardonnay',
+      'Pinot bianco',
+      'Grechetto',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Valdichiana Toscana DOC Grechetto',
@@ -19568,12 +20397,24 @@ export const wines: WineOption[] = [
   {
     d: 'Valdichiana Toscana DOC rosato',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Cabernet Franc, Merlot, Syrah'],
+    v: [
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Cabernet Franc',
+      'Merlot',
+      'Syrah',
+    ],
   },
   {
     d: 'Valdichiana Toscana DOC rosso',
 
-    v: ['Sangiovese, Cabernet Sauvignon, Cabernet Franc, Merlot, Syrah'],
+    v: [
+      'Sangiovese',
+      'Cabernet Sauvignon',
+      'Cabernet Franc',
+      'Merlot',
+      'Syrah',
+    ],
   },
   {
     d: 'Valdichiana Toscana DOC Sangiovese',
@@ -19583,7 +20424,13 @@ export const wines: WineOption[] = [
   {
     d: 'Valdichiana Toscana DOC spumante',
 
-    v: ['Trebbiano Toscano, Chardonnay, Pinot bianco, Grechetto, Pinot grigio'],
+    v: [
+      'Trebbiano Toscano',
+      'Chardonnay',
+      'Pinot bianco',
+      'Grechetto',
+      'Pinot grigio',
+    ],
   },
   {
     d: 'Valdichiana Toscana DOC Vin Santo',
@@ -19608,12 +20455,12 @@ export const wines: WineOption[] = [
   {
     d: 'Valdinievole DOC rosso',
 
-    v: ['Sangiovese, Canaiolo nero'],
+    v: ['Sangiovese', 'Canaiolo nero'],
   },
   {
     d: 'Valdinievole DOC rosso superiore',
 
-    v: ['Sangiovese, Canaiolo nero'],
+    v: ['Sangiovese', 'Canaiolo nero'],
   },
   {
     d: 'Valdinievole DOC Sangiovese',
@@ -19753,7 +20600,7 @@ export const wines: WineOption[] = [
   {
     d: 'Valle d’Aosta o Vallée d’Aoste DOC Nus',
 
-    v: ['Vien de Nus, Petit Rouge'],
+    v: ['Vien de Nus', 'Petit Rouge'],
   },
   {
     d: 'Valle d’Aosta o Vallée d’Aoste DOC Nus Malvoisie',
@@ -19878,72 +20725,72 @@ export const wines: WineOption[] = [
   {
     d: 'Valli Ossolane DOC rosso',
 
-    v: ['Nebbiolo, Croatina, Merlot'],
+    v: ['Nebbiolo', 'Croatina', 'Merlot'],
   },
   {
     d: 'Valpolicella DOC',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella DOC Classico',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella DOC Classico superiore',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella DOC superiore',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella DOC Valpantena',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella DOC Valpantena superiore',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella Ripasso DOC',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella Ripasso DOC Classico',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella Ripasso DOC Classico superiore',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella Ripasso DOC superiore',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella Ripasso DOC Valpantena',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valpolicella Ripasso DOC Valpantena superiore',
 
-    v: ['Corvina, Corvinone, Rondinella'],
+    v: ['Corvina', 'Corvinone', 'Rondinella'],
   },
   {
     d: 'Valsusa DOC',
 
-    v: ['Avanà, Barbera, Dolcetto, Neretta Cuneese'],
+    v: ['Avanà', 'Barbera', 'Dolcetto', 'Neretta Cuneese'],
   },
   {
     d: 'Valtellina rosso DOC',
@@ -19999,42 +20846,51 @@ export const wines: WineOption[] = [
     d: 'Velletri DOC bianco',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
     ],
   },
   {
     d: 'Velletri DOC riserva',
 
-    v: ['Sangiovese, Montepulciano, Cesanese comune, Cesanese di Affile'],
+    v: ['Sangiovese', 'Montepulciano', 'Cesanese comune', 'Cesanese di Affile'],
   },
   {
     d: 'Velletri DOC rosso',
 
-    v: ['Sangiovese, Montepulciano, Cesanese comune, Cesanese di Affile'],
+    v: ['Sangiovese', 'Montepulciano', 'Cesanese comune', 'Cesanese di Affile'],
   },
   {
     d: 'Velletri DOC spumante',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
     ],
   },
   {
     d: 'Velletri DOC superiore',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
     ],
   },
   {
     d: 'Venezia Bianco frizzante DOC',
 
-    v: ['Verduzzo Friulano, Verduzzo Trevigiano, Glera'],
+    v: ['Verduzzo Friulano', 'Verduzzo Trevigiano', 'Glera'],
   },
   {
     d: 'Venezia Bianco spumante DOC',
 
-    v: ['Verduzzo Friulano, Verduzzo Trevigiano, Glera'],
+    v: ['Verduzzo Friulano', 'Verduzzo Trevigiano', 'Glera'],
   },
   {
     d: 'Venezia Cabernet franc DOC',
@@ -20064,17 +20920,17 @@ export const wines: WineOption[] = [
   {
     d: 'Venezia Rosato o Rosè DOC',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Venezia Rosato o rosè frizzante DOC',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Venezia Rosato o rosè spumante DOC',
 
-    v: ['Raboso Piave, Raboso Veronese'],
+    v: ['Raboso Piave', 'Raboso Veronese'],
   },
   {
     d: 'Venezia Rosso DOC',
@@ -20244,12 +21100,12 @@ export const wines: WineOption[] = [
   {
     d: 'Vesuvio DOC rosato',
 
-    v: ['Piedirosso, Sciascinoso'],
+    v: ['Piedirosso', 'Sciascinoso'],
   },
   {
     d: 'Vesuvio DOC rosso',
 
-    v: ['Piedirosso, Sciascinoso'],
+    v: ['Piedirosso', 'Sciascinoso'],
   },
   {
     d: 'Vicenza Bianco DOC',
@@ -20269,12 +21125,12 @@ export const wines: WineOption[] = [
   {
     d: 'Vicenza Cabernet DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Vicenza Cabernet riserva DOC',
 
-    v: ['Cabernet Franc, Cabernet Sauvignon, Carmènere'],
+    v: ['Cabernet Franc', 'Cabernet Sauvignon', 'Carmènere'],
   },
   {
     d: 'Vicenza Cabernet sauvignon DOC',
@@ -20324,12 +21180,12 @@ export const wines: WineOption[] = [
   {
     d: 'Vicenza Moscato DOC',
 
-    v: ['Moscato bianco, Moscato giallo'],
+    v: ['Moscato bianco', 'Moscato giallo'],
   },
   {
     d: 'Vicenza Moscato spumante DOC',
 
-    v: ['Moscato bianco, Moscato giallo'],
+    v: ['Moscato bianco', 'Moscato giallo'],
   },
   {
     d: 'Vicenza Novello DOC',
@@ -20379,7 +21235,7 @@ export const wines: WineOption[] = [
   {
     d: 'Vicenza Riesling DOC',
 
-    v: ['Riesling, Riesling Italico'],
+    v: ['Riesling', 'Riesling Italico'],
   },
   {
     d: 'Vicenza Rosato DOC',
@@ -20410,21 +21266,30 @@ export const wines: WineOption[] = [
     d: 'Viganello DOC bianco',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia bianca lunga',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia bianca lunga',
     ],
   },
   {
     d: 'Viganello DOC bianco superiore',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia bianca lunga',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia bianca lunga',
     ],
   },
   {
     d: 'Viganello DOC bianco vendemmia tardiva',
 
     v: [
-      'Trebbiano Toscano, Trebbiano giallo, Malvasia bianca di Candia, Malvasia bianca lunga',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia bianca lunga',
     ],
   },
   {
@@ -20445,37 +21310,37 @@ export const wines: WineOption[] = [
   {
     d: 'Viganello DOC rosso',
 
-    v: ['Sangiovese, Ciliegiolo'],
+    v: ['Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Viganello DOC rosso novello',
 
-    v: ['Sangiovese, Ciliegiolo'],
+    v: ['Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Viganello DOC rosso riserva',
 
-    v: ['Sangiovese, Ciliegiolo'],
+    v: ['Sangiovese', 'Ciliegiolo'],
   },
   {
     d: 'Vigneti della Serenissima o Serenissima DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Vigneti della Serenissima o Serenissima Millesimato DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Vigneti della Serenissima o Serenissima Riserva DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Vigneti della Serenissima o Serenissima rosè DOC',
 
-    v: ['Chardonnay, Pinot bianco, Pinot nero'],
+    v: ['Chardonnay', 'Pinot bianco', 'Pinot nero'],
   },
   {
     d: 'Villamagna DOC rosso',
@@ -20490,7 +21355,7 @@ export const wines: WineOption[] = [
   {
     d: 'Vin Santo del Chianti classico DOC',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti classico DOC Occhio di Pernice',
@@ -20500,67 +21365,67 @@ export const wines: WineOption[] = [
   {
     d: 'Vin Santo del Chianti DOC',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Colli Aretini',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Colli Aretini riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Colli Fiorentini',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Colli Fiorentini riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Colli Senesi',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Colli Senesi riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Colline Pisane',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Colline Pisane riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Montalbano',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Montalbano riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Montespertoli',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Montespertoli riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Occhio di Pernice',
@@ -20645,22 +21510,22 @@ export const wines: WineOption[] = [
   {
     d: 'Vin Santo del Chianti DOC Rufina',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti DOC Rufina riserva',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo del Chianti riserva DOC',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo di Carmignano DOC',
 
-    v: ['Trebbiano Toscano, Malvasia bianca lunga'],
+    v: ['Trebbiano Toscano', 'Malvasia bianca lunga'],
   },
   {
     d: 'Vin Santo di Carmignano DOC Occhio di Pernice',
@@ -20670,7 +21535,7 @@ export const wines: WineOption[] = [
   {
     d: 'Vin Santo di Montepulciano DOC',
 
-    v: ['Malvasia bianca lunga, Grechetto, Trebbiano Toscano'],
+    v: ['Malvasia bianca lunga', 'Grechetto', 'Trebbiano Toscano'],
   },
   {
     d: 'Vin Santo di Montepulciano DOC Occhio di Pernice',
@@ -20680,7 +21545,7 @@ export const wines: WineOption[] = [
   {
     d: 'Vin Santo di Montepulciano DOC riserva',
 
-    v: ['Malvasia bianca lunga, Grechetto, Trebbiano Toscano'],
+    v: ['Malvasia bianca lunga', 'Grechetto', 'Trebbiano Toscano'],
   },
   {
     d: 'Vino nobile di Montepulciano DOCG',
@@ -20710,25 +21575,31 @@ export const wines: WineOption[] = [
   {
     d: 'Vittoria DOC Novello',
 
-    v: ['Calabrese, Frappato'],
+    v: ['Calabrese', 'Frappato'],
   },
   {
     d: 'Vittoria DOC rosso',
 
-    v: ['Calabrese, Frappato'],
+    v: ['Calabrese', 'Frappato'],
   },
   {
     d: 'Zagarolo DOC',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
     ],
   },
   {
     d: 'Zagarolo DOC superiore',
 
     v: [
-      'Malvasia bianca di Candia, Malvasia del Lazio, Trebbiano Toscano, Trebbiano giallo',
+      'Malvasia bianca di Candia',
+      'Malvasia del Lazio',
+      'Trebbiano Toscano',
+      'Trebbiano giallo',
     ],
   },
 ];

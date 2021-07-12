@@ -2,14 +2,16 @@
 import * as React from 'react';
 import { useField } from 'formik';
 import TextFieldMaterial from '@material-ui/core/TextField';
-import { InputAdornment } from '@material-ui/core';
+import { IconButton, InputAdornment } from '@material-ui/core';
+import Percent from 'mdi-material-ui/PercentOutline';
+import EuroIcon from '@material-ui/icons/Euro';
 
 interface Props {
   name: string;
   placeholder: string;
   label: string;
   type: string;
-  adornment: string;
+  adornment?: string;
   min?: string;
   max?: string;
   step?: string;
@@ -42,7 +44,23 @@ export const TextFieldAdornment: React.FC<Props> = (props) => {
       className={props.class}
       InputProps={{
         endAdornment: (
-          <InputAdornment position='end'>{props.adornment}</InputAdornment>
+          <InputAdornment position='end'>
+            {props.adornment === '€' ? (
+              <IconButton>
+                <EuroIcon
+                  fontSize='small'
+                  color={props.labelTextColor === '#fff' ? 'action' : 'primary'}
+                />
+              </IconButton>
+            ) : (
+              <IconButton>
+                <Percent
+                  fontSize='small'
+                  color={props.labelTextColor === '#fff' ? 'action' : 'primary'}
+                />
+              </IconButton>
+            )}
+          </InputAdornment>
         ),
         className: props.inputTextColor,
         classes: {
