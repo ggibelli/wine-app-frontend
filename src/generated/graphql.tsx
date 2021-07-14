@@ -482,6 +482,12 @@ export type QueryMessageArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryMessagesArgs = {
+  offset?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<QueryOrderBy>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
 export type QueryMessagesForNegotiationArgs = {
   negotiation: Scalars['ID'];
   offset?: Maybe<Scalars['Int']>;
@@ -1015,6 +1021,7 @@ type AdDetails_AdGrape_Fragment = { __typename?: 'AdGrape' } & Pick<
   | 'abv'
   | 'priceFrom'
   | 'priceTo'
+  | 'content'
   | 'typeAd'
   | 'activeNegotiations'
   | 'datePosted'
@@ -1037,6 +1044,7 @@ type AdDetails_AdWine_Fragment = { __typename?: 'AdWine' } & Pick<
   | 'abv'
   | 'priceFrom'
   | 'priceTo'
+  | 'content'
   | 'typeAd'
   | 'activeNegotiations'
   | 'datePosted'
@@ -1387,6 +1395,7 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'priceFrom'
         | 'priceTo'
         | 'typeAd'
+        | 'content'
         | 'activeNegotiations'
         | 'numberViews'
         | 'savedTimes'
@@ -1416,6 +1425,7 @@ export type AdQuery = { __typename?: 'Query' } & {
         | 'priceFrom'
         | 'priceTo'
         | 'typeAd'
+        | 'content'
         | 'activeNegotiations'
         | 'numberViews'
         | 'savedTimes'
@@ -1803,6 +1813,7 @@ export const AdDetailsFragmentDoc = gql`
       litersTo
       metodoProduttivo
     }
+    content
     typeAd
     activeNegotiations
     datePosted
@@ -3233,6 +3244,7 @@ export const AdDocument = gql`
         }
       }
       typeAd
+      content
       activeNegotiations
       numberViews
       savedTimes

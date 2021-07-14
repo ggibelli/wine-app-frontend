@@ -20,6 +20,7 @@ export const AD_DETAILS = gql`
       litersTo
       metodoProduttivo
     }
+    content
     typeAd
     # address {
     #   regione
@@ -385,6 +386,7 @@ export const AD = gql`
       #   provincia
       #   comune
       # }
+      content
       activeNegotiations
       numberViews
       savedTimes

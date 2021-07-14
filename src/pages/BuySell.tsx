@@ -9,7 +9,7 @@ import {
   AdsWineDocument,
   QueryOrderBy,
 } from '../generated/graphql';
-import { searchedWine, notification, myInfo } from '../cache';
+import { searchedWine, notification, myInfo, compositionWine } from '../cache';
 import { WineFormMutation } from '../components/WineForms/Post/WineFormMutation';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -55,6 +55,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
 
   const onSubmitMutation = async (values: WineFormMutation) => {
     const me = myInfo();
+    const compositionWineObj = compositionWine();
     // if (values.isSameAddress && me?.address) {
     //   sameAddress = {
     //     regione: me.address.regione,
@@ -64,11 +65,12 @@ const Buy: React.FC<RouteComponentProps> = () => {
     // } else {
     //   differentAddress = values.address as AddressInput;
     // }
+    const compositionWineJSON = JSON.stringify(compositionWineObj?.compisition);
     const adInput: AdInput = {
       wineName: values.wineName,
       typeAd: adType,
       typeProduct: TypeProduct.AdWine,
-      content: values.content,
+      content: `${values.content as string} ${compositionWineJSON}`,
       harvest: values.harvest as number,
       abv: values.abv as number,
       priceFrom: values.price as number,
@@ -78,6 +80,7 @@ const Buy: React.FC<RouteComponentProps> = () => {
       // needsFollowUp: values.needsFollowUp,
       // address: values.isSameAddress ? sameAddress : differentAddress,
     };
+    console.log(adInput);
     searchedWine({ ...adInput });
 
     const adAlreadyPosted = me?.ads?.find(

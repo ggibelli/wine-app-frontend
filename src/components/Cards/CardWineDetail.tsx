@@ -1,11 +1,18 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { AdQuery, TypeAd } from '../../generated/graphql';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Collapse, Grid } from '@material-ui/core';
 import { OpenNegotiationModal } from '../NegotiationModals/OpenNegotiationModal';
 import { StyledBox } from '../../containers/StyledBox';
 import { useStyles } from '../../utils/styleHook';
 import { FavoriteButton } from '../../containers/FavoriteButton';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 export const CardWineDetail: React.FC<{
   ad: AdQuery['ad'];
@@ -15,8 +22,15 @@ export const CardWineDetail: React.FC<{
   const classes = useStyles();
   const isBuy = ad?.typeAd === TypeAd.Buy ? true : false;
   const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const [openWineComp, setOpenWineComp] = React.useState<boolean>(false);
   const [copyLinkText, setCopyLinkText] = React.useState<string>('Copia Link');
   if (!ad) return null;
+  const composedWine = ad.content ? ad.content.split(/(?={)/g) : null;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const composedWineObj: Record<string, number> = composedWine
+    ? JSON.parse(composedWine[1])
+    : null;
+  console.log(composedWineObj);
   const handleClickOpen = () => {
     setOpenModal(true);
   };
@@ -89,7 +103,41 @@ export const CardWineDetail: React.FC<{
           <br />
           Prezzo: {ad.priceFrom} euro al litro
         </Typography>
-
+        <Typography align='left' variant='body1'>
+          {composedWine ? composedWine[0] : null}
+        </Typography>
+        {composedWineObj ? (
+          <Button onClick={() => setOpenWineComp(!openWineComp)}>
+            Mostra composizione vino
+          </Button>
+        ) : null}
+        <Collapse in={openWineComp}>
+          <TableContainer component={Paper}>
+            <Table aria-label='wine composition'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Vitigno</TableCell>
+                  <TableCell align='right'>Percentuale</TableCell>
+                  {/* <TableCell align='right'>Fat&nbsp;(g)</TableCell>
+                  <TableCell align='right'>Carbs&nbsp;(g)</TableCell>
+                  <TableCell align='right'>Protein&nbsp;(g)</TableCell> */}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Object.entries(composedWineObj)
+                  .filter(([_key, val]) => val > 0)
+                  .map(([key, value]) => (
+                    <TableRow key={key}>
+                      <TableCell component='th' scope='row'>
+                        {key}
+                      </TableCell>
+                      <TableCell align='right'>{value}</TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Collapse>
         <br />
         <ContactOrEdit />
         <Button

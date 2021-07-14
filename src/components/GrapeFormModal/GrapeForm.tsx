@@ -48,14 +48,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const validate = (values: Record<string, number>) => {
-  const errors = {};
+  const errors: Record<string, string> = {};
   console.log(values);
   const valuesValues = Object.values(values);
   const total = valuesValues.reduce((acc, item) => item + acc, 0);
   console.log(total);
   if (total > 100) {
-    //@ts-expect-error aaas
     errors.total = 'Max value 100';
+  } else if (total < 100) {
+    errors.total = 'The percentage should be 100';
   }
 
   return errors;
@@ -101,7 +102,7 @@ export const GrapeForm: React.FC<{
                     type='number'
                     label={grape}
                     placeholder='Inserisci % vitigno'
-                    underlineColor='#6d1331'
+                    underlineColor={classes.underline}
                     labelTextColor='#6d1331'
                     inputTextColor='#6d1331'
                     min='0'
