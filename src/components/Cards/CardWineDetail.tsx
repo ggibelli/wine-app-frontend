@@ -30,7 +30,7 @@ export const CardWineDetail: React.FC<{
   const composedWineObj: Record<string, number> = composedWine
     ? JSON.parse(composedWine[1])
     : null;
-  console.log(composedWineObj);
+  console.log(composedWineObj, composedWine);
   const handleClickOpen = () => {
     setOpenModal(true);
   };
@@ -107,37 +107,40 @@ export const CardWineDetail: React.FC<{
           {composedWine ? composedWine[0] : null}
         </Typography>
         {composedWineObj ? (
-          <Button onClick={() => setOpenWineComp(!openWineComp)}>
-            Mostra composizione vino
-          </Button>
-        ) : null}
-        <Collapse in={openWineComp}>
-          <TableContainer component={Paper}>
-            <Table aria-label='wine composition'>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Vitigno</TableCell>
-                  <TableCell align='right'>Percentuale</TableCell>
-                  {/* <TableCell align='right'>Fat&nbsp;(g)</TableCell>
+          <>
+            <Button onClick={() => setOpenWineComp(!openWineComp)}>
+              Mostra composizione vino
+            </Button>
+            <Collapse in={openWineComp}>
+              <TableContainer component={Paper}>
+                <Table aria-label='wine composition'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Vitigno</TableCell>
+                      <TableCell align='right'>Percentuale</TableCell>
+                      {/* <TableCell align='right'>Fat&nbsp;(g)</TableCell>
                   <TableCell align='right'>Carbs&nbsp;(g)</TableCell>
                   <TableCell align='right'>Protein&nbsp;(g)</TableCell> */}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {Object.entries(composedWineObj)
-                  .filter(([_key, val]) => val > 0)
-                  .map(([key, value]) => (
-                    <TableRow key={key}>
-                      <TableCell component='th' scope='row'>
-                        {key}
-                      </TableCell>
-                      <TableCell align='right'>{value}</TableCell>
                     </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Collapse>
+                  </TableHead>
+                  <TableBody>
+                    {Object.entries(composedWineObj)
+                      .filter(([_key, val]) => val > 0)
+                      .map(([key, value]) => (
+                        <TableRow key={key}>
+                          <TableCell component='th' scope='row'>
+                            {key}
+                          </TableCell>
+                          <TableCell align='right'>{value}</TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Collapse>
+          </>
+        ) : null}
+
         <br />
         <ContactOrEdit />
         <Button

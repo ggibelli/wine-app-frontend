@@ -24,28 +24,31 @@ export const FavoriteButton: React.FC<{
     update: (cache, { data }) => {
       if (pathname === '/salvati') {
         setTimeout(() => updateCacheSaveAd(cache, data?.saveAd?.response), 500);
-
       } else {
-      updateCacheSaveAd(cache, data?.saveAd?.response);
-
+        updateCacheSaveAd(cache, data?.saveAd?.response);
       }
     },
   });
   const [stop, setStop] = React.useState<boolean>(false);
   const [isFav, setIsFav] = React.useState<boolean>(
-    data?.myInfo?.savedAds?.map((ad) => ad._id).includes(id) || false
+    data?.myInfo?.savedAds?.map((ad) => ad._id).includes(id) || false,
   );
   React.useEffect(() => {
     if (data?.myInfo?.savedAds && !stop) {
       setIsFav(
-        data?.myInfo?.savedAds?.map((ad) => ad._id).includes(id) || false
+        data?.myInfo?.savedAds?.map((ad) => ad._id).includes(id) || false,
       );
       setStop(true);
     }
   }, [data]);
 
   return (
-    <IconButton aria-label='save' onClick={() => saveAd()} size='small'>
+    <IconButton
+      color='primary'
+      aria-label='save'
+      onClick={() => saveAd()}
+      size='small'
+    >
       {isFav ? (
         <FavoriteIcon fontSize={fontSize} />
       ) : (
