@@ -101,18 +101,6 @@ const adsMock4 = {
 describe('Buy or Sell page', () => {
   afterEach(cleanup);
 
-  // it('renders the Buy page loading state', () => {
-  //   const { getByTestId } = renderApollo(
-  //     <Buy path='/buy' />,
-  //     {
-  //       mocks: [],
-  //       addTypename: false,
-  //     },
-  //     { route: '/buy' }
-  //   );
-  //   expect(getByTestId('loading')).toBeTruthy();
-  // });
-
   it('renders the Buy page search', () => {
     const { getByText } = renderApollo(
       <Buy path='/buy' />,
@@ -121,7 +109,7 @@ describe('Buy or Sell page', () => {
         addTypename: false,
         cache: new InMemoryCache({ addTypename: false }),
       },
-      { route: '/buy' }
+      { route: '/buy' },
     );
     expect(getByText('Che cosa vuoi comprare?'));
 
@@ -136,7 +124,7 @@ describe('Buy or Sell page', () => {
         addTypename: false,
         cache: new InMemoryCache({ addTypename: false }),
       },
-      { route: '/sell' }
+      { route: '/sell' },
     );
     expect(getByText('Che cosa vuoi vendere?'));
 
@@ -151,7 +139,7 @@ describe('Buy or Sell page', () => {
         addTypename: false,
         cache: new InMemoryCache({ addTypename: false }),
       },
-      { route: '/sell' }
+      { route: '/sell' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     fireEvent.change(getByRole('spinbutton', { name: /abv/i }), {

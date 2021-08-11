@@ -27,10 +27,10 @@ export const CardWineDetail: React.FC<{
   if (!ad) return null;
   const composedWine = ad.content ? ad.content.split(/(?={)/g) : null;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const composedWineObj: Record<string, number> = composedWine
-    ? JSON.parse(composedWine[1])
-    : null;
-  console.log(composedWineObj, composedWine);
+  const composedWineObj: Record<string, number> =
+    composedWine && composedWine.length > 1
+      ? JSON.parse(composedWine[1])
+      : null;
   const handleClickOpen = () => {
     setOpenModal(true);
   };
@@ -42,7 +42,7 @@ export const CardWineDetail: React.FC<{
     setCopyLinkText('Link Copiato!');
     setTimeout(() => {
       setCopyLinkText('Copia Link');
-    }, 500);
+    }, 1000);
   };
   const ContactOrEdit = () => {
     if (me?._id === ad?.postedBy._id) {
@@ -108,7 +108,10 @@ export const CardWineDetail: React.FC<{
         </Typography>
         {composedWineObj ? (
           <>
-            <Button onClick={() => setOpenWineComp(!openWineComp)}>
+            <Button
+              aria-label='show composition'
+              onClick={() => setOpenWineComp(!openWineComp)}
+            >
               Mostra composizione vino
             </Button>
             <Collapse in={openWineComp}>
@@ -118,9 +121,6 @@ export const CardWineDetail: React.FC<{
                     <TableRow>
                       <TableCell>Vitigno</TableCell>
                       <TableCell align='right'>Percentuale</TableCell>
-                      {/* <TableCell align='right'>Fat&nbsp;(g)</TableCell>
-                  <TableCell align='right'>Carbs&nbsp;(g)</TableCell>
-                  <TableCell align='right'>Protein&nbsp;(g)</TableCell> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>

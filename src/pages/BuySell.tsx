@@ -56,31 +56,23 @@ const Buy: React.FC<RouteComponentProps> = () => {
   const onSubmitMutation = async (values: WineFormMutation) => {
     const me = myInfo();
     const compositionWineObj = compositionWine();
-    // if (values.isSameAddress && me?.address) {
-    //   sameAddress = {
-    //     regione: me.address.regione,
-    //     provincia: me.address.provincia,
-    //     comune: me.address.comune,
-    //   };
-    // } else {
-    //   differentAddress = values.address as AddressInput;
-    // }
-    const compositionWineJSON = JSON.stringify(compositionWineObj?.compisition);
+    const compositionWineJSON = compositionWineObj
+      ? JSON.stringify(compositionWineObj?.compisition)
+      : null;
     const adInput: AdInput = {
       wineName: values.wineName,
       typeAd: adType,
       typeProduct: TypeProduct.AdWine,
-      content: `${values.content as string} ${compositionWineJSON}`,
+      content: compositionWineJSON
+        ? `${values.content as string} ${compositionWineJSON}`
+        : values.content,
       harvest: values.harvest as number,
       abv: values.abv as number,
       priceFrom: values.price as number,
       priceTo: values.price as number,
       litersFrom: values.liters as number,
       litersTo: values.liters as number,
-      // needsFollowUp: values.needsFollowUp,
-      // address: values.isSameAddress ? sameAddress : differentAddress,
     };
-    console.log(adInput);
     searchedWine({ ...adInput });
 
     const adAlreadyPosted = me?.ads?.find(

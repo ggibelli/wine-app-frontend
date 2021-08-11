@@ -3,7 +3,6 @@ import * as React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { TextFieldAdornment } from '../FormFields/TextFieldAdornment';
-// import * as Yup from 'yup';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -49,27 +48,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const validate = (values: Record<string, number>) => {
   const errors: Record<string, string> = {};
-  console.log(values);
   const valuesValues = Object.values(values);
   const total = valuesValues.reduce((acc, item) => item + acc, 0);
-  console.log(total);
   if (total > 100) {
     errors.total = 'Max value 100';
   } else if (total < 100) {
     errors.total = 'The percentage should be 100';
   }
-
   return errors;
 };
 
 export const GrapeForm: React.FC<{
   onSubmit: (values: Record<string, number>) => void;
-  // onClose: () => void;
   grapes?: WineOption;
 }> = ({ onSubmit, grapes }) => {
   const classes = useStyles();
   if (!grapes) return null;
-  console.log(grapes);
   const compositionWineCache = compositionWine();
   const initialValues =
     compositionWineCache?.name === grapes.d
@@ -79,10 +73,6 @@ export const GrapeForm: React.FC<{
     <Formik
       onSubmit={onSubmit}
       initialValues={initialValues}
-      // validationSchema={Yup.object({
-      //   email: Yup.string().email('Invalid email address').required('Required'),
-      //   password: Yup.string().required('Required'),
-      // })}
       validate={validate}
     >
       {({ isValid, dirty, errors }) => {

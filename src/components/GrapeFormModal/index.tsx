@@ -8,10 +8,6 @@ import { GrapeForm } from './GrapeForm';
 import { WineOption } from '../../utils/wineList';
 import { compositionWine } from '../../cache';
 
-export interface LoginData {
-  email: string;
-  password: string;
-}
 export const GrapeFormModal: React.FC<{
   handleClose: () => void;
   open: boolean;

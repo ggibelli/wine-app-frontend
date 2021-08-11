@@ -11,7 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import { MetodoProduttivo, TypeAd } from '../../../generated/graphql';
 import { SelectField } from '../../FormFields/SelectField';
 import { useStylesForms } from '../../../utils/styleHook';
-// import { WineOption } from '../../../utils/wineList';
 import { wines } from '../../../utils/wineList';
 import { GrapeFormModal } from '../../GrapeFormModal';
 
@@ -100,17 +99,6 @@ export const WineFormMutation: React.FC<{
                   : classes.underlineSell
               }
             />
-            {/* <TextFieldAdornmentCtx
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              inputTextColor={
-                adType === TypeAd.Buy ? classes.input : classes.inputSell
-              }
-            /> */}
             <Collapse in={Boolean(values.wineName)}>
               <Button onClick={() => setOpen(!open)}>
                 Seleziona i vitigni
