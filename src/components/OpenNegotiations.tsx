@@ -42,6 +42,7 @@ export const OpenNegotiations: React.FC<{
   return (
     <>
       <IconButton
+        color='primary'
         aria-label='show-open-negotiations'
         data-testid='negotiationsAd'
         onClick={handleShowNegotiations}

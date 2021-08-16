@@ -19,11 +19,12 @@ import Divider from '@material-ui/core/Divider';
 import { PurpleCheckbox } from '../components/FilterAds';
 import { Loading } from '../components/Loading';
 import { ApolloQueryResult } from '@apollo/client';
+import { RadioGroupTypeAd } from '../components/FormFields/RadioGroupTypeAd';
 
 const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
   const [order, setOrder] = React.useState<QueryOrderBy>(
-    QueryOrderBy.CreatedAtDesc
+    QueryOrderBy.CreatedAtDesc,
   );
   const [pageCount, setPageCount] = React.useState<number>(0);
   const { data, loading, error, fetchMore } = useAdsForUserQuery({
@@ -42,6 +43,7 @@ const MyAds: React.FC<RouteComponentProps> = () => {
   const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
+  const [typeAd, setTypeAd] = React.useState<string>('both');
   const handleShowAll = () => {
     setHideNotActive(!hideNotActive);
   };
@@ -121,6 +123,7 @@ const MyAds: React.FC<RouteComponentProps> = () => {
           }
           label='Nascondi gli annunci inattivi'
         />
+        <RadioGroupTypeAd setTypeAd={setTypeAd} typeAd={typeAd} />
         {isLoadOrder ? (
           <Loading />
         ) : (
@@ -132,8 +135,12 @@ const MyAds: React.FC<RouteComponentProps> = () => {
             {' '}
             {data?.adsForUser?.ads
               ?.filter((ad) => {
-                if (hideNotActive) {
+                if (hideNotActive && typeAd !== 'both') {
+                  return ad?.isActive === hideNotActive && ad.typeAd === typeAd;
+                } else if (hideNotActive && typeAd === 'both') {
                   return ad?.isActive === hideNotActive;
+                } else if (!hideNotActive && typeAd !== 'both') {
+                  return ad?.typeAd === typeAd;
                 } else {
                   return ad;
                 }

@@ -34,7 +34,6 @@ const Negotiation: React.FC<RouteComponentProps> = () => {
   };
 
   if (error) return <div>{error.message}</div>;
-
   if (loading) return <Loading />;
   return (
     <Container component='main' maxWidth='xs'>

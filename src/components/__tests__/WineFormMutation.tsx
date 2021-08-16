@@ -43,29 +43,33 @@ describe('Wine form mutation', () => {
   it('renders Wine form query success state, shows address field by default', () => {
     const onSubmit = () => jest.fn();
     renderApolloNoRouter(
-      <WineFormMutation wines={wines} onSubmit={onSubmit} adType={TypeAd.Buy} />
+      <WineFormMutation
+        wines={wines}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
     );
 
     expect(
-      screen.getByRole('spinbutton', { name: /abv/i })
+      screen.getByRole('spinbutton', { name: /abv/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('spinbutton', { name: /harvest/i })
+      screen.getByRole('spinbutton', { name: /harvest/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('spinbutton', { name: /price/i })
+      screen.getByRole('spinbutton', { name: /price/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('spinbutton', { name: /liters/i })
+      screen.getByRole('spinbutton', { name: /liters/i }),
     ).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /vino/i })).toBeInTheDocument();
 
     expect(
-      screen.getByRole('textbox', { name: /content/i })
+      screen.getByRole('textbox', { name: /content/i }),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('combobox', { name: /metodo produttivo/i })
+      screen.getByRole('combobox', { name: /metodo produttivo/i }),
     ).toBeInTheDocument();
 
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
@@ -74,7 +78,11 @@ describe('Wine form mutation', () => {
   it('should validate form fields and not submit if fields empty', async () => {
     const onSubmit = jest.fn();
     const { getAllByText } = renderApolloNoRouter(
-      <WineFormMutation wines={wines} onSubmit={onSubmit} adType={TypeAd.Buy} />
+      <WineFormMutation
+        wines={wines}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
@@ -120,9 +128,14 @@ describe('Wine form mutation', () => {
   it('should validate form fields and not submit if fields are not valid', async () => {
     const onSubmit = jest.fn();
 
-    const { getByTestId, getByText } = renderApolloNoRouter(
-      <WineFormMutation wines={wines} onSubmit={onSubmit} adType={TypeAd.Buy} />
-    );
+    const { getByTestId, getByText, queryByRole, getByRole } =
+      renderApolloNoRouter(
+        <WineFormMutation
+          wines={wines}
+          onSubmit={onSubmit}
+          adType={TypeAd.Buy}
+        />,
+      );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     fireEvent.change(screen.getByRole('spinbutton', { name: /abv/i }), {
@@ -145,6 +158,7 @@ describe('Wine form mutation', () => {
         value: 1000,
       },
     });
+    expect(queryByRole('button', { name: 'Seleziona i vitigni' })).toBeFalsy();
     const comboboxWines = getByTestId('combobox-wines');
     const inputWines = within(comboboxWines).getByRole('textbox');
     comboboxWines.focus();
@@ -157,13 +171,15 @@ describe('Wine form mutation', () => {
     await waitFor(() => {
       fireEvent.keyDown(inputWines, { key: 'Enter' });
     });
+    expect(getByRole('button', { name: 'Seleziona i vitigni' }));
+
     fireEvent.change(screen.getByRole('textbox', { name: /vino/i }));
     fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
     await waitFor(() => {
       expect(getByText("L'anno non può essere maggiore di 2021")).toBeVisible();
 
       expect(
-        getByText('La gradazione alcolica non può essere maggiore di 22')
+        getByText('La gradazione alcolica non può essere maggiore di 22'),
       ).toBeVisible();
 
       expect(onSubmit).toBeCalledTimes(0);
@@ -174,7 +190,11 @@ describe('Wine form mutation', () => {
     const onSubmit = jest.fn();
 
     const { getByTestId } = renderApolloNoRouter(
-      <WineFormMutation wines={wines} onSubmit={onSubmit} adType={TypeAd.Buy} />
+      <WineFormMutation
+        wines={wines}
+        onSubmit={onSubmit}
+        adType={TypeAd.Buy}
+      />,
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 

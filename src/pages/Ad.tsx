@@ -26,11 +26,12 @@ const Ad: React.FC<RouteComponentProps> = () => {
     },
     onError: (error) => console.error(error),
   });
+  const adOwner = data?.ad?.postedBy._id === data?.me?._id;
   const [createNegotiation] = useCreateNegotiationMutation({
     onCompleted: (createdNegotiation) => {
       if (createdNegotiation.createNegotiation?.errors?.length) {
         const errorMessages = createdNegotiation.createNegotiation?.errors.map(
-          (error) => error?.text
+          (error) => error?.text,
         );
         notification({
           type: 'error',
@@ -51,7 +52,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
     update: (cache, response) => {
       updateCacheNegotiations(
         cache,
-        response.data?.createNegotiation?.response
+        response.data?.createNegotiation?.response,
       );
     },
   });
@@ -60,6 +61,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
   const handleShowNegotiations = () => {
     lazyNegotiations({ variables: { ad: id } });
   };
+
   const openNegotiation = async () => {
     const newNegotiation: NegotiationInput = {
       forUserAd: data?.ad?.postedBy._id,
@@ -74,7 +76,7 @@ const Ad: React.FC<RouteComponentProps> = () => {
     return <div>Errore</div>;
   }
   const negotiationsMyAd = data?.me?.negotiations?.filter(
-    (neg) => neg.ad._id === data?.ad?._id
+    (neg) => neg.ad._id === data?.ad?._id,
   );
   const buyerOrSeller =
     data?.ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
@@ -84,20 +86,29 @@ const Ad: React.FC<RouteComponentProps> = () => {
         <CssBaseline />
         <BackButton />
         <div className={classes.paper}>
-          <Typography color='primary' component='h3' variant='h5'>
-            Contatta {buyerOrSeller}
-          </Typography>
-          <Typography color='secondary' variant='body1'>
-            Questo è uno degli annunci che abbiamo selezionato per te: verifica
-            anche tu i parametri e decidi se procedere.
-          </Typography>
+          {!adOwner ? (
+            <>
+              {' '}
+              <Typography color='primary' component='h3' variant='h5'>
+                Contatta {buyerOrSeller}
+              </Typography>
+              <Typography color='secondary' variant='body1'>
+                Questo è uno degli annunci che abbiamo selezionato per te:
+                verifica anche tu i parametri e decidi se procedere.
+              </Typography>
+            </>
+          ) : (
+            <Typography color='primary' component='h3' variant='h5'>
+              Gestisci il tuo annuncio
+            </Typography>
+          )}
         </div>
         <CardWineDetail
           ad={data?.ad}
           createNegotiation={openNegotiation}
           me={data?.me}
         />
-        {data?.me?._id === data?.ad.postedBy._id && negotiationsMyAd?.length ? (
+        {adOwner && negotiationsMyAd?.length ? (
           <OpenNegotiations
             data={lazyNegResult}
             showNegotiations={handleShowNegotiations}

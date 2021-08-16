@@ -6,15 +6,15 @@ import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
-import { deepPurple } from '@material-ui/core/colors';
+// import { deepPurple } from '@material-ui/core/colors';
 import { searchedWine } from '../../cache';
 import { IFilters, multiFilter } from '../../utils/multiFilter';
 
 export const PurpleCheckbox = withStyles({
   root: {
-    color: deepPurple[400],
+    color: '#6d1331',
     '&$checked': {
-      color: deepPurple[600],
+      color: '#8a425a5',
     },
   },
   checked: {},

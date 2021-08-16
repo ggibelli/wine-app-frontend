@@ -17,10 +17,11 @@ import { PurpleCheckbox } from '../components/FilterAds';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import { Loading } from '../components/Loading';
+import { RadioGroupTypeAd } from '../components/FormFields/RadioGroupTypeAd';
 
 const Negotiations: React.FC<RouteComponentProps> = () => {
   const [order, setOrder] = React.useState<QueryOrderBy>(
-    QueryOrderBy.CreatedAtDesc
+    QueryOrderBy.CreatedAtDesc,
   );
   const { data, loading, error, fetchMore } = useNegotiationsQuery({
     variables: {
@@ -34,6 +35,8 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
   const [isShowAll, setIsShowAll] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
+  const [typeAd, setTypeAd] = React.useState<string>('both');
+
   const handleShowAll = async () => {
     if (isShowAll) {
       setIsShowAll(!isShowAll);
@@ -131,6 +134,8 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
           }
           label='Mostra anche le trattative chiuse'
         />
+        <RadioGroupTypeAd setTypeAd={setTypeAd} typeAd={typeAd} />
+
         {isLoadOrder ? (
           <Loading />
         ) : (
@@ -140,11 +145,23 @@ const Negotiations: React.FC<RouteComponentProps> = () => {
             isLoading={isLoadFetchMore}
           >
             {data?.negotiations?.negotiations
-              .filter((negotiation) =>
-                !isShowAll
-                  ? negotiation?.isConcluded === isShowAll
-                  : negotiation
-              )
+              .filter((negotiation) => {
+                // return !isShowAll
+                //   ? negotiation?.isConcluded === isShowAll
+                //   : negotiation;
+                if (!isShowAll && typeAd !== 'both') {
+                  return (
+                    negotiation?.isConcluded === isShowAll &&
+                    negotiation.type === typeAd
+                  );
+                } else if (!isShowAll && typeAd === 'both') {
+                  return negotiation?.isConcluded === isShowAll;
+                } else if (isShowAll && typeAd !== 'both') {
+                  return negotiation?.type === typeAd;
+                } else {
+                  return negotiation;
+                }
+              })
               .map((negotiation) => (
                 <CardNegotiation
                   key={negotiation?._id}
