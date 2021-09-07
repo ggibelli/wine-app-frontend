@@ -41,7 +41,6 @@ const Messages: React.FC<RouteComponentProps> = () => {
   }
 
   if (error) return <div>error</div>;
-  console.log(data?.messages);
   return (
     <Container component='main' maxWidth='sm'>
       <CssBaseline />

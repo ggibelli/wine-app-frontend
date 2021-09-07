@@ -73,10 +73,10 @@ adsBunch.push(
     harvest: 2015,
     litersFrom: 1000,
     litersTo: 1000,
-  })
+  }),
 );
 adsBunch.push(
-  adFactory.build({ datePosted: '08 Apr 21, 18:35', harvest: 2015 })
+  adFactory.build({ datePosted: '08 Apr 21, 18:35', harvest: 2015 }),
 );
 const adsFirstReq = adFactory.buildList(4, {
   datePosted: '08 Apr 21, 18:35',
@@ -286,7 +286,7 @@ describe('Ads page simulating fetch more ads', () => {
           typePolicies,
         }),
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     // await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
@@ -295,14 +295,14 @@ describe('Ads page simulating fetch more ads', () => {
       expect(
         getAllByRole('link', {
           name: 'link-ad',
-        })
+        }),
       ).toHaveLength(4);
     });
     // await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(
       getAllByRole('link', {
         name: 'link-ad',
-      })
+      }),
     ).toHaveLength(8);
   });
 });
@@ -332,7 +332,7 @@ describe('Ads page', () => {
         mocks: [adsMockSuccess],
         addTypename: false,
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     // waiting for the first useeffect
     await waitFor(() => expect(getByTestId('loading')).toBeTruthy());
@@ -357,31 +357,31 @@ describe('Ads page', () => {
         mocks: [adsMockSuccess],
         addTypename: false,
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(
       getByText(
-        'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli'
-      )
+        'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli',
+      ),
     );
     expect(getByText('Ordine risultati')).not.toBeVisible();
     expect(
-      getByText('Mostra tutti gli annunci per questo vino')
+      getByText('Mostra tutti gli annunci per questo vino'),
     ).not.toBeVisible();
     fireEvent.click(getByRole('button', { name: 'filter' }));
     await waitFor(() =>
       fireEvent.click(
         getByRole('checkbox', {
           name: 'Mostra tutti gli annunci per questo vino',
-        })
-      )
+        }),
+      ),
     );
     expect(
       getByRole('link', {
         name: 'link-ad',
-      })
+      }),
     );
   });
 
@@ -393,39 +393,39 @@ describe('Ads page', () => {
         mocks: [adsMockSuccess],
         addTypename: false,
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(navigate).toHaveBeenCalledWith('/');
   });
 
-  it('if renders no ads page and link to create ad', async () => {
-    searchedWine({
-      wineName: "Barbera d'Asti",
-      typeAd: TypeAd.Sell,
-      typeProduct: TypeProduct.AdWine,
-      harvest: 2015,
-      abv: 13.5,
-      priceFrom: 2,
-      priceTo: 2,
-      litersFrom: 1000,
-      litersTo: 1000,
-      content: 'nice nice',
-    });
-    const { getByTestId } = renderApollo(
-      <Ads path='/annunci/' />,
-      {
-        mocks: [adsMockNoAds],
-        addTypename: false,
-      },
-      { route: '/annunci/' }
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(getByTestId('no-result'));
-    fireEvent.click(getByTestId('no-result'));
-    expect(navigate).toHaveBeenCalledWith('/sell');
-  });
+  // it('if renders no ads page and link to create ad', async () => {
+  //   searchedWine({
+  //     wineName: "Barbera d'Asti",
+  //     typeAd: TypeAd.Sell,
+  //     typeProduct: TypeProduct.AdWine,
+  //     harvest: 2015,
+  //     abv: 13.5,
+  //     priceFrom: 2,
+  //     priceTo: 2,
+  //     litersFrom: 1000,
+  //     litersTo: 1000,
+  //     content: 'nice nice',
+  //   });
+  //   const { getByTestId } = renderApollo(
+  //     <Ads path='/annunci/' />,
+  //     {
+  //       mocks: [adsMockNoAds],
+  //       addTypename: false,
+  //     },
+  //     { route: '/annunci/' }
+  //   );
+  //   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+  //   expect(getByTestId('no-result'));
+  //   fireEvent.click(getByTestId('no-result'));
+  //   expect(navigate).toHaveBeenCalledWith('/sell');
+  // });
 
   it('renders the Ads page with matching ads found state', async () => {
     searchedWine({
@@ -446,24 +446,24 @@ describe('Ads page', () => {
         mocks: [adsMockSuccessList8],
         addTypename: false,
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(
       getByText(
-        "Questi sono gli annunci che abbiamo trovato per te: sono stati pubblicati da utenti interessati all'acquisto."
-      )
+        "Questi sono gli annunci che abbiamo trovato per te: sono stati pubblicati da utenti interessati all'acquisto.",
+      ),
     );
     expect(getByText('Ordine risultati')).not.toBeVisible();
     expect(
-      getByText('Mostra tutti gli annunci per questo vino')
+      getByText('Mostra tutti gli annunci per questo vino'),
     ).not.toBeVisible();
     // fireEvent.click(getByRole('button', { name: 'filter' }));
     expect(
       getAllByRole('link', {
         name: 'link-ad',
-      })
+      }),
     ).toHaveLength(6);
   });
 
@@ -490,7 +490,7 @@ describe('Ads page', () => {
           typePolicies,
         }),
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 

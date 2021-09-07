@@ -13,7 +13,6 @@ export const GrapeFormModal: React.FC<{
   open: boolean;
   grapes?: WineOption;
 }> = ({ handleClose, open, grapes }) => {
-  console.log('aperto', grapes);
   if (!grapes) return null;
   const submitGrapes = (values: Record<string, number>) => {
     compositionWine({ name: grapes?.d, compisition: values });

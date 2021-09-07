@@ -93,7 +93,7 @@ export const CardWineDetail: React.FC<{
         </Typography>
         <br />
         <Typography align='left' variant='h6'>
-          {adWine?.wineName} {adWine?.wine?.denominazioneZona}
+          {adWine?.wineName}
           <br />
           Annata: {ad?.harvest}
           <br />

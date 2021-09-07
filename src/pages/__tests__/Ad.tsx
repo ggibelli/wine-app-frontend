@@ -251,7 +251,7 @@ describe('Ad page', () => {
         mocks: [],
         addTypename: false,
       },
-      { route: '/annunci/123' }
+      { route: '/annunci/123' },
     );
     expect(getByTestId('loading')).toBeTruthy();
   });
@@ -264,7 +264,7 @@ describe('Ad page', () => {
         addTypename: false,
         cache: new InMemoryCache({ addTypename: false }),
       },
-      { route: '/annunci/123' }
+      { route: '/annunci/123' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     fireEvent.click(getByRole('button', { name: 'previous-page' }));
@@ -281,12 +281,12 @@ describe('Ad page', () => {
         addTypename: false,
         cache: new InMemoryCache({ addTypename: false }),
       },
-      { route: '/annunci/123' }
+      { route: '/annunci/123' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(getByRole('button', { name: 'previous-page' }));
 
-    expect(getByText("Contatta L'acquirente")).toBeTruthy();
+    expect(getByText('Gestisci il tuo annuncio'));
     expect(queryByTestId('negotiationsAd')).toBeFalsy();
   });
 
@@ -297,7 +297,7 @@ describe('Ad page', () => {
         mocks: [adMockSuccessOtherUserSell],
         addTypename: false,
       },
-      { route: '/annunci/123' }
+      { route: '/annunci/123' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(getByRole('button', { name: 'previous-page' }));
@@ -335,7 +335,7 @@ describe('Ad page', () => {
         mocks: [adMockError],
         addTypename: false,
       },
-      { route: '/annunci/123' }
+      { route: '/annunci/123' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
@@ -351,7 +351,7 @@ describe('Ad page', () => {
         addTypename: false,
         cache,
       },
-      { route: '/annunci/123' }
+      { route: '/annunci/123' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     fireEvent.click(getByRole('button', { name: 'open-negotiation-dialog' }));
@@ -375,7 +375,7 @@ describe('Ad page', () => {
         addTypename: false,
         cache,
       },
-      { route: '/annunci/123' }
+      { route: '/annunci/123' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     fireEvent.click(getByRole('button', { name: 'open-negotiation-dialog' }));
@@ -400,7 +400,7 @@ describe('Ad page', () => {
         addTypename: false,
         cache,
       },
-      { route: '/annunci/123' }
+      { route: '/annunci/123' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     fireEvent.click(getByRole('button', { name: 'show-open-negotiations' }));

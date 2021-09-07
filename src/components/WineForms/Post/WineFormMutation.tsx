@@ -99,7 +99,7 @@ export const WineFormMutation: React.FC<{
                   : classes.underlineSell
               }
             />
-            <Collapse in={Boolean(values.wineName)}>
+            <Collapse in={Boolean(values.wineName && adType === TypeAd.Sell)}>
               <Button onClick={() => setOpen(!open)}>
                 Seleziona i vitigni
               </Button>

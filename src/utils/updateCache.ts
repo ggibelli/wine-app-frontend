@@ -250,7 +250,6 @@ export const updateCacheMessages = (
     DeepExtractType<CreateMessageMutation, ['createMessage']>['response']
   >['data'],
 ): void => {
-  console.log('buovo messagigo');
   const cachedDataMeLocal: ICachedMe | null = cloneDeep(
     client.readQuery({
       query: MeDocument,

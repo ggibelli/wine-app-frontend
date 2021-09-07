@@ -76,7 +76,6 @@ export const GrapeForm: React.FC<{
       validate={validate}
     >
       {({ isValid, dirty, errors }) => {
-        console.log(errors, isValid, 'yoyoyo');
         return (
           <Container component='main'>
             <CssBaseline />
