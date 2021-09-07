@@ -185,7 +185,7 @@ describe('Message component', () => {
         },
       ]);
     const { getByText } = renderApolloNoRouter(<Chat propsMessage={props} />);
-    expect(getByText('Dichiara chiusa la trattativa'));
+    expect(getByText('Chiudi trattativa'));
 
     spyIntersect.mockRestore();
   });

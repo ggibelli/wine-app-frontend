@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import * as React from 'react';
 import { TextField } from '../FormFields/TextField';
 import { PasswordField } from '../FormFields/PasswordField';
-import { optionsRegioni } from './data';
+// import { optionsRegioni } from './data';
 import { validationSchema } from '../../utils/formHelper';
 import { SliderField } from '../FormFields/SliderField';
 import Button from '@material-ui/core/Button';
@@ -12,8 +12,8 @@ import Avatar from '@material-ui/core/Avatar';
 import LinkMUI from '@material-ui/core/Link';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { ComboboxField } from '../FormFields/ComboboxField';
-import { ComboboxProvince } from '../FormFields/ComboboxProvince';
+// import { ComboboxField } from '../FormFields/ComboboxField';
+// import { ComboboxProvince } from '../FormFields/ComboboxProvince';
 import { ComboboxComuni } from '../FormFields/ComboboxComuni';
 // import { AddressForm } from '../AddressForm';
 
@@ -58,17 +58,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface AddressInputForm {
   via: string;
   comune: string;
-  provincia: string;
-  regione: string;
-  CAP: string;
 }
 
 const initialAddress: AddressInputForm = {
   via: '',
   comune: '',
-  provincia: '',
-  regione: '',
-  CAP: '12345',
 };
 
 export interface UserInputForm {
@@ -100,6 +94,8 @@ const initialValues: UserInputForm = {
 export const UserForm: React.FC<{
   onSubmit: (values: UserInputForm) => void;
 }> = ({ onSubmit }) => {
+  const classes = useStyles();
+
   return (
     <Formik
       initialValues={initialValues}
@@ -107,7 +103,6 @@ export const UserForm: React.FC<{
       onSubmit={onSubmit}
     >
       {({ isValid, dirty, setFieldValue }) => {
-        const classes = useStyles();
         return (
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -198,7 +193,7 @@ export const UserForm: React.FC<{
                 </Grid>
                 {/* <AddressForm setFieldValue={setFieldValue} /> */}
                 <Grid item xs={12}>
-                  <ComboboxField
+                  {/* <ComboboxField
                     setFieldValue={setFieldValue}
                     name='address.regione'
                     label='Regione'
@@ -214,7 +209,7 @@ export const UserForm: React.FC<{
                     label='Provincia'
                     labelTextColor={'#6d1331'}
                     underlineColor={classes.underline}
-                  />
+                  />*/}
                 </Grid>
                 <Grid item xs={12}>
                   <ComboboxComuni
@@ -231,18 +226,6 @@ export const UserForm: React.FC<{
                     type='text'
                     label='Via'
                     placeholder='Via'
-                    underlineColor={classes.underline}
-                    labelTextColor={'#6d1331'}
-                    inputTextColor={classes.input}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    name='address.CAP'
-                    type='number'
-                    max='99999'
-                    label='CAP'
-                    placeholder='CAP'
                     underlineColor={classes.underline}
                     labelTextColor={'#6d1331'}
                     inputTextColor={classes.input}

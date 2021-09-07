@@ -1,4 +1,4 @@
-import { AdWine, Wine, User, Address, Maybe } from './generated/graphql';
+import { AdWine, Wine, User, Maybe } from './generated/graphql';
 
 export type AdsWineResult = Pick<
   AdWine,
@@ -14,15 +14,10 @@ export type AdsWineResult = Pick<
   | 'typeAd'
   | 'activeNegotiations'
   | 'numberViews'
+  | 'savedTimes'
   | 'datePosted'
   | 'isActive'
 > & {
-  wine?: Maybe<
-    { __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona' | 'regione'>
-  >;
+  wine?: Maybe<{ __typename?: 'Wine' } & Pick<Wine, 'denominazioneZona'>>;
   postedBy: { __typename?: 'User' } & Pick<User, '_id'>;
-  address: { __typename?: 'Address' } & Pick<
-    Address,
-    'regione' | 'provincia' | 'comune'
-  >;
 };

@@ -1,67 +1,36 @@
-# Wine trading app client
+# Wine trading app frontend
 
-App that connects wine cellars in need to sell or buy bulk wine, choosing between more than 4000 Italian wines. 
-The user can post an ad, and if there is already a wine listed that matches the parameters, the user can send a message to the seller/buyer. 
+This is the front-end of the wine trading app I developed for the Italian market, the app is still work in progress. I followed the design guidelines that were given to me from a designer that used Abode XD.
+The app connects wineries in need to sell or buy bulk wine, choosing between more than 4000 Italian wines.
+Every wine has a different grape composition by Italian law, the user can choose the right vineyards after selecting the wine.
+The user can post an ad, and if there is already a wine listed that matches the parameters, the user can send a message to the seller/buyer.
+The ads, messages, negotiations and reviews can be filtered, sorted and there is pagination on the server to improve performance.
 The app sends a notification and a mail when a new wine is posted that matches the user's active ad, users can chat in real-time, leave reviews and manage active negotiations and posted ads.
 
 ## Technology used
 
-This app is built with React and ApolloServer, I used MaterialUI as a framework
+This app is written using ReactJS, ApolloClient for the state management, JWT token for the user authorization, MaterialUI as a CSS framework, graphQL codegen to generate the types for the graphql operations and Formik for the forms.
+There is an infinite scroll for the ads result, ads posted, ads saved, messages, reviews and negotiations, I used the intersection observer API to create a custom hook, made a component with this hook that is composed with the list of results component. I had to modify ApolloClient cache policies to make the infinite scroll work with sorting and filtering the results.
+For the tests I used jest and react-testing-library.
+The app is written 100% in TypeScript.
 
 ## Features
 
-- Users can signup
+- Users can signup (a mail is sent to verify email address)
 - Users can post/update Ads
+- Users can select the legal vineyards composition of the wine after selecting it
+- Users can filter and sort the ads
+- Users can filter and sort the negotiations
+- Users can filter and sort the reviews
+- Users can save Ad
+- Users can copy Ad link with a button
 - Users can open/close Negotiations
 - Users can review other Users
 - Users can send real time messages
-- Automatic notification after certain actions (ie. when opening or closing a negotiation)
-- Admin can add or remove wines (work in progress)
+- Users can manage their own ads and negotiations
+- Admin can add or remove wines
 
 ## What is missing
 
-The E2E tests using cypress are missing.
-The CI/CD pipeline is also missing.
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+At the moment some components are not fully graphically finished, the 404 page and error pages are missing, the notification texts are work in progress, the profile page is missing and various texts need to be updated.
+The e2e tests are missing and so is the CI/CD pipeline.

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { MeQuery, Exact } from '../../generated/graphql';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,8 +13,9 @@ import { LoginModal } from '../LoginModal';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink, navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
-import { LazyQueryResult } from '@apollo/client';
 import { Badge } from '@material-ui/core';
+import { LazyQueryResult } from '@apollo/client';
+import { MeQuery, Exact } from '../../generated/graphql';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const HeaderBar: React.FC<{
+  isLoggedIn: boolean;
   meQueryResult: LazyQueryResult<
     MeQuery,
     Exact<{
@@ -45,18 +46,17 @@ export const HeaderBar: React.FC<{
     email: string;
     password: string;
   }) => Promise<void>;
-}> = ({ meQueryResult, onSubmitLogin }) => {
+}> = ({ onSubmitLogin, isLoggedIn, meQueryResult }) => {
   const classes = useStyles();
-  const [state, setState] = React.useState(false);
+  const [state, setState] = React.useState<boolean>(false);
   const toggleDrawer = () => {
     setState(!state);
   };
-  const [openModal, setOpenModal] = React.useState(false);
-  const badgeNumber = meQueryResult.data?.me?.messages?.length
-    ? meQueryResult.data?.me?.messages?.filter(
-        (message) =>
-          !message.isViewed &&
-          message.sentBy._id !== meQueryResult.data?.me?._id
+  const me = meQueryResult.data?.me;
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+  const badgeNumber = me?.messages?.length
+    ? me?.messages?.filter(
+        (message) => !message.isViewed && message.sentBy._id !== me?._id
       ).length
     : 0;
   const handleClickOpen = () => {
@@ -78,10 +78,8 @@ export const HeaderBar: React.FC<{
     });
     handleClose();
   };
-  const myReviews = meQueryResult.data?.me?.reviews?.length
-    ? meQueryResult.data?.me?.reviews?.filter(
-        (r) => r.forUser._id === meQueryResult.data?.me?._id
-      )
+  const myReviews = me?.reviews?.length
+    ? me?.reviews?.filter((r) => r.forUser._id === me?._id)
     : null;
   const reducedReview = myReviews?.length
     ? //@ts-expect-error I didn't understand the error????
@@ -93,24 +91,19 @@ export const HeaderBar: React.FC<{
     ? reducedReview.rating / (myReviews?.length as number)
     : null;
   const drawerData: DrawerData = {
-    isLoading: meQueryResult.loading,
-    error: meQueryResult.error,
     data: {
-      numAds: meQueryResult.data?.me?.ads?.length,
-      numOpenNegs: meQueryResult.data?.me?.negotiations?.filter(
-        (neg) => neg && !neg.isConcluded
-      ).length,
-      numClosedNegs: meQueryResult.data?.me?.negotiations?.filter(
-        (neg) => neg && neg.isConcluded
-      ).length,
-      savedAds: meQueryResult.data?.me?.savedAds?.length,
-      name: meQueryResult.data?.me?.firstName,
+      numAds: me?.ads?.length,
+      numOpenNegs: me?.negotiations?.filter((neg) => neg && !neg.isConcluded)
+        .length,
+      numClosedNegs: me?.negotiations?.filter((neg) => neg && neg.isConcluded)
+        .length,
+      savedAds: me?.savedAds?.length,
+      name: me?.firstName,
       rating,
     },
   };
-
   const SigninButton = () => {
-    if (meQueryResult.data?.me?._id) {
+    if (isLoggedIn) {
       return (
         <IconButton
           data-testid='messages'
@@ -122,7 +115,11 @@ export const HeaderBar: React.FC<{
         </IconButton>
       );
     }
-    return <Button onClick={handleClickOpen}>Log in</Button>;
+    return (
+      <Button color='inherit' onClick={handleClickOpen}>
+        Log in
+      </Button>
+    );
   };
 
   const MenuButton = () => (
@@ -141,7 +138,7 @@ export const HeaderBar: React.FC<{
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          {meQueryResult.data?.me?._id ? MenuButton() : null}
+          {isLoggedIn ? MenuButton() : null}
           <Drawer state={state} toggleDrawer={toggleDrawer} data={drawerData} />
           <Link
             className={classes.title}

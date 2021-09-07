@@ -2,8 +2,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { QueryOrderBy, TypeAd, TypeProduct, User } from './generated/graphql';
-import _ from 'lodash';
+import {
+  AdInput,
+  MeQuery,
+  NegotiationResult,
+  QueryOrderBy,
+  User,
+} from './generated/graphql';
+import { orderBy, unionBy } from 'lodash';
+import { DeepExtractType } from 'ts-deep-extract-types';
 
 export const cache: InMemoryCache = new InMemoryCache({
   typePolicies: {
@@ -36,11 +43,11 @@ export const cache: InMemoryCache = new InMemoryCache({
           keyArgs: ['user'],
           merge(existing = [], incoming, { args }) {
             let ads;
-            const adsUnsorted = _.unionBy(existing.ads, incoming.ads, '__ref');
+            const adsUnsorted = unionBy(existing.ads, incoming.ads, '__ref');
             if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
-              ads = _.orderBy(adsUnsorted, '__ref', ['desc']);
+              ads = orderBy(adsUnsorted, '__ref', ['desc']);
             } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
-              ads = _.orderBy(adsUnsorted, '__ref', ['asc']);
+              ads = orderBy(adsUnsorted, '__ref', ['asc']);
             } else {
               ads = adsUnsorted;
             }
@@ -77,16 +84,18 @@ export const cache: InMemoryCache = new InMemoryCache({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
           merge(existing = [], incoming, { args }) {
+            if (args && Object.values(args).every((val) => val == undefined))
+              return incoming as NegotiationResult;
             let negotiations;
-            const negotiationsUnsorted = _.unionBy(
+            const negotiationsUnsorted = unionBy(
               existing.negotiations,
               incoming.negotiations,
-              '__ref'
+              '__ref',
             );
             if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
-              negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['desc']);
+              negotiations = orderBy(negotiationsUnsorted, '__ref', ['desc']);
             } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
-              negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['asc']);
+              negotiations = orderBy(negotiationsUnsorted, '__ref', ['asc']);
             } else {
               negotiations = negotiationsUnsorted;
             }
@@ -133,6 +142,11 @@ export const cache: InMemoryCache = new InMemoryCache({
             return searchedWine();
           },
         },
+        compositionWine: {
+          read() {
+            return compositionWine();
+          },
+        },
         myInfo: {
           read() {
             return myInfo();
@@ -144,27 +158,23 @@ export const cache: InMemoryCache = new InMemoryCache({
 });
 
 export const isLoggedInVar = makeVar<boolean>(
-  !!localStorage.getItem('wineapp-user-token')
+  !!localStorage.getItem('wineapp-user-token'),
 );
 
-export const myInfo = makeVar<User | null>({
+export const myInfo = makeVar<DeepExtractType<MeQuery, ['me']> | null>({
   _id: localStorage.getItem('wineapp-user-id'),
 } as User);
 
 type AlertStatus = 'success' | 'warning' | 'error' | 'info' | undefined;
 
-interface WineSearched {
-  typeAd: TypeAd;
-  typeProduct: TypeProduct;
-  wineName: string;
-  harvest: number;
-  abv: number;
-  price: number;
-  liters: number;
-  isPost: boolean;
+export const searchedWine = makeVar<AdInput | undefined>(undefined);
+
+export interface ComposedWine {
+  name: string;
+  compisition: Record<string, number>;
 }
 
-export const searchedWine = makeVar<WineSearched | undefined>(undefined);
+export const compositionWine = makeVar<ComposedWine | undefined>(undefined);
 
 interface Notification {
   type: AlertStatus;

@@ -3,7 +3,7 @@ import { RouteComponentProps, Router } from '@reach/router';
 import { Header } from '../components/Navigation';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Loading } from '../components/Loading';
-
+// import Buy from './BuySell';
 function createLazyRoute<T extends RouteComponentProps>(
   RouteComponent: React.ComponentType<T>
 ) {

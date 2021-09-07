@@ -28,6 +28,7 @@ export const SelectField: React.FC<Props> = (props) => {
         {props.label}
       </InputLabel>
       <Select
+        style={{ paddingBottom: 10 }}
         native
         className={props.underlineColor}
         classes={{

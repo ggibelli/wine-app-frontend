@@ -15,7 +15,7 @@ import { notification, searchedWine } from '../cache';
 import { CardWine } from '../components/Cards/CardWine';
 import { BackButton } from '../components/BackButton';
 import { Filter } from '../components/FilterAds';
-import { SnackbarAds } from '../components/Snackbar';
+// import { SnackbarAds } from '../components/Snackbar';
 import { useTheme } from '@material-ui/core/styles';
 import { StyledBox } from '../containers/StyledBox';
 import { useMediaQuery } from '@material-ui/core';
@@ -29,64 +29,48 @@ const Ads: React.FC<RouteComponentProps> = () => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const width = matches ? 400 : 250;
   const searchedWineCache = searchedWine();
-  const [ads, setAds] = React.useState<
-    DeepExtractType<AdsWineQuery, ['ads']>['ads']
-  >([]);
+  // const [ads, setAds] = React.useState<
+  //   DeepExtractType<AdsWineQuery, ['ads']>['ads']
+  // >([]);
   const [adsFiltered, setAdsFiltered] = React.useState<
     DeepExtractType<AdsWineQuery, ['ads']>['ads']
   >([]);
   const [order, setOrder] = React.useState<QueryOrderBy>(
-    QueryOrderBy.CreatedAtDesc
+    QueryOrderBy.CreatedAtDesc,
   );
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
-
   const { data, loading, fetchMore } = useAdsWineQuery({
     variables: {
       offset: 0,
       limit: 4,
-      orderBy: order,
+      orderBy: QueryOrderBy.CreatedAtDesc,
       wineName: searchedWineCache?.wineName,
       typeProduct: searchedWineCache?.typeProduct as TypeProduct,
       typeAd:
         searchedWineCache?.typeAd === TypeAd.Buy ? TypeAd.Sell : TypeAd.Buy,
     },
-    onCompleted: ({ ads }) => setAds(ads?.ads),
     onError: (error) => notification({ type: 'error', message: error.message }),
   });
 
   React.useEffect(() => {
     if (!searchedWineCache?.wineName) void navigate('/');
-
-    if (fetchMore && ads?.length) {
+    if (fetchMore && data?.ads?.ads?.length) {
       setIsLoadOrder(true);
       fetchMore({
-        variables: { orderBy: order, limit: ads.length },
+        variables: { orderBy: order, limit: data?.ads?.ads?.length },
       })
-        .then(({ data }) => {
+        .then(() => {
           setIsLoadOrder(false);
-          setAds(data.ads?.ads);
+          // setAds(data.ads?.ads);
         })
         .catch((e) => {
           setIsLoadOrder(false);
 
-          console.log(e);
+          console.error(e);
         });
     }
   }, [order]);
-
-  const onClick = async () => {
-    if (searchedWineCache === undefined) {
-      return;
-    } else {
-      searchedWine({
-        ...searchedWineCache,
-        isPost: true,
-      });
-      const url = searchedWineCache.typeAd === TypeAd.Buy ? '/buy' : '/sell';
-      await navigate(url);
-    }
-  };
 
   const defaultText =
     "Questi sono gli annunci che abbiamo trovato per te: sono stati pubblicati da utenti interessati all'acquisto.";
@@ -94,8 +78,9 @@ const Ads: React.FC<RouteComponentProps> = () => {
     'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli';
 
   const NoResults = () => (
-    <div data-testid='no-result' onClick={onClick}>
-      Non abbiamo trovato nulla, vuoi creare un annuncio?
+    <div data-testid='no-result'>
+      Non abbiamo trovato nulla, riceverai una notifica appena troveremo un
+      match
     </div>
   );
   if (data?.ads && data?.ads?.pageCount === 0) {
@@ -103,24 +88,28 @@ const Ads: React.FC<RouteComponentProps> = () => {
   }
   const handleFetchMore = async () => {
     setIsLoadFetchMore(true);
-    if (ads?.length && fetchMore) {
+    if (fetchMore && data?.ads?.ads?.length) {
       try {
-        const { data } = await fetchMore({
-          variables: { offset: ads.length, orderBy: order },
+        await fetchMore({
+          variables: {
+            offset: data?.ads?.ads?.length,
+            orderBy: order,
+            limit: 4,
+          },
         });
         setIsLoadFetchMore(false);
-        setAds([...ads, ...(data.ads?.ads as [])]);
+        // setAds([...ads, ...(data.ads?.ads as [])]);
       } catch (e) {
         setIsLoadFetchMore(false);
 
-        console.log(e);
+        console.error(e);
       }
     }
   };
   if (loading) {
     return <Loading />;
   }
-  if (ads?.length) {
+  if (data?.ads?.ads?.length) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
@@ -138,9 +127,9 @@ const Ads: React.FC<RouteComponentProps> = () => {
             <br />
             {`Gradazione: ${searchedWineCache?.abv as number} % Vol`}
             <br />
-            {`Quantità: ${searchedWineCache?.liters as number} l`}
+            {`Quantità: ${searchedWineCache?.litersTo as number} l`}
             <br />
-            {`Prezzo: ${searchedWineCache?.price as number} euro al litro`}
+            {`Prezzo: ${searchedWineCache?.priceTo as number} euro al litro`}
           </Typography>
         </StyledBox>
         <br />
@@ -150,7 +139,7 @@ const Ads: React.FC<RouteComponentProps> = () => {
         <Typography variant='body2'>
           {adsFiltered && adsFiltered.length > 0 ? defaultText : noAdsText}
         </Typography>
-        <Filter list={ads} setFilteredList={setAdsFiltered}>
+        <Filter list={data?.ads?.ads} setFilteredList={setAdsFiltered}>
           {' '}
           <Order isAds setOrder={setOrder} order={order} />
         </Filter>
@@ -160,18 +149,17 @@ const Ads: React.FC<RouteComponentProps> = () => {
         ) : (
           <InfiniteScroll
             fetchMore={handleFetchMore}
-            isVisible={ads.length !== data?.ads?.pageCount}
+            isVisible={data.ads.ads?.length !== data?.ads?.pageCount}
             isLoading={isLoadFetchMore}
           >
             {' '}
-            {adsFiltered &&
-              adsFiltered.map((ad) => (
-                <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
-              ))}
+            {adsFiltered?.map((ad) => (
+              <CardWine key={ad?._id} ad={ad as AdsWineResult} />
+            ))}
           </InfiniteScroll>
         )}
 
-        <SnackbarAds onClick={onClick} />
+        {/* <SnackbarAds onClick={onClick} /> */}
       </Container>
     );
   }

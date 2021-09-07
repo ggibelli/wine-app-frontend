@@ -28,6 +28,9 @@ const theme = createMuiTheme({
       primary: '#000',
       secondary: '#fff',
     },
+    action: {
+      active: '#fff',
+    },
   },
 });
 

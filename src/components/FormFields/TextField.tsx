@@ -15,6 +15,7 @@ interface Props {
   inputTextColor?: string;
   labelTextColor?: string;
   underlineColor?: string;
+  required?: boolean;
 }
 export const TextField: React.FC<Props> = (props) => {
   const [field, { error, touched }] = useField({
@@ -23,6 +24,8 @@ export const TextField: React.FC<Props> = (props) => {
   });
   return (
     <TextFieldMaterial
+      style={{ paddingBottom: 10 }}
+      required={props.required}
       {...field}
       fullWidth
       InputLabelProps={{

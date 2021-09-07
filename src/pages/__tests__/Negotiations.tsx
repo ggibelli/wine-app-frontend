@@ -13,7 +13,7 @@ import { NegotiationsDocument, QueryOrderBy } from '../../generated/graphql';
 import { InMemoryCache } from '@apollo/client';
 import { negotiationFactory } from '../../test-utils/test-factory';
 import * as hooks from '../../utils/useIntersectionHook';
-import _ from 'lodash';
+import { unionBy, orderBy } from 'lodash';
 
 const typePolicies = {
   Query: {
@@ -24,15 +24,15 @@ const typePolicies = {
         //@ts-ignore
         merge(existing = [], incoming, { args }) {
           let negotiations;
-          const negotiationsUnsorted = _.unionBy(
+          const negotiationsUnsorted = unionBy(
             existing.negotiations,
             incoming.negotiations,
             '__ref'
           );
           if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
-            negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['desc']);
+            negotiations = orderBy(negotiationsUnsorted, '__ref', ['desc']);
           } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
-            negotiations = _.orderBy(negotiationsUnsorted, '__ref', ['asc']);
+            negotiations = orderBy(negotiationsUnsorted, '__ref', ['asc']);
           } else {
             negotiations = negotiationsUnsorted;
           }
@@ -56,6 +56,10 @@ jest.mock('../../cache', () => ({
 
 const negotiationActive = negotiationFactory.build({
   dateCreated: "l'altroieri",
+});
+const negotiationOther = negotiationFactory.build({
+  dateCreated: 'ieri',
+  isConcluded: false,
 });
 const negotiationClosed = negotiationFactory.build({
   dateCreated: 'ieri',
@@ -122,7 +126,7 @@ const negotiationsSuccessMockFetchMore = {
   result: {
     data: {
       negotiations: {
-        negotiations: [negotiationClosed],
+        negotiations: [negotiationOther],
         pageCount: 2,
       },
     },
@@ -142,7 +146,7 @@ const negotiationsSuccessOrder = {
   result: {
     data: {
       negotiations: {
-        negotiations: [negotiationActive, negotiationClosed],
+        negotiations: [negotiationActive, negotiationOther],
         pageCount: 2,
       },
     },
@@ -188,16 +192,36 @@ const negotiationsErrorMock = {
 // I think mocking the queryhook is more readable than testing the fetchmore with the actual one
 describe('Negotiations page simulating fetch more ads', () => {
   afterEach(cleanup);
+  beforeEach(() => {
+    global.IntersectionObserver = class IntersectionObserver {
+      constructor(private func, private options) {}
+
+      observe(element: HTMLElement) {
+        this.func([
+          { isIntersecting: true, target: element, intersectionRatio: 1 },
+        ]);
+      }
+
+      disconnect() {
+        return null;
+      }
+
+      unobserve() {
+        return null;
+      }
+    };
+  });
   it('it fetches more negotiations on end page', async () => {
     //@ts-expect-error mock reached end of div
-    const endPage = jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
-      jest.fn(),
-      {
-        isIntersecting: true,
-        intersectionRatio: 0.6,
-        target: 'element',
-      },
-    ]);
+    // const endPage = jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
+    //   jest.fn(),
+    //   {
+    //     isIntersecting: true,
+    //     intersectionRatio: 0.6,
+    //     target: 'element',
+    //   },
+    // ]);
+
     const { getByRole, getAllByRole } = renderApollo(
       <Negotiations path='/trattative/' />,
       {
@@ -219,13 +243,13 @@ describe('Negotiations page simulating fetch more ads', () => {
       );
     });
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    // await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(
       getAllByRole('link', {
         name: 'link-negotiation',
       })
     ).toHaveLength(2);
-    endPage.mockRestore();
+    //endPage.mockRestore();
   });
 });
 
@@ -314,7 +338,7 @@ describe('Negotiations page', () => {
   });
 
   it('it changes order negotiations', async () => {
-    const { getByRole, getAllByRole, getByTestId } = renderApollo(
+    const { getByRole, getAllByTestId, getByTestId } = renderApollo(
       <Negotiations path='/trattative/' />,
       {
         mocks: [negotiationsSuccessOrder, negotiationsSuccessOrderRefetch],
@@ -327,26 +351,22 @@ describe('Negotiations page', () => {
       { route: '/trattative/' }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const negotiationsBefore = getAllByRole('link', {
-      name: 'link-negotiation',
-    });
-    expect(negotiationsBefore[0]).toHaveTextContent('Trattativa aperta: ieri');
+    const negotiationsBefore = getAllByTestId('published');
     expect(negotiationsBefore[1]).toHaveTextContent(
       "Trattativa aperta: l'altroieri"
     );
+    expect(negotiationsBefore[0]).toHaveTextContent('Trattativa aperta: ieri');
     const orderSelect = getByRole('combobox', { name: 'Ordine risultati' });
     fireEvent.change(orderSelect, {
       target: { value: QueryOrderBy.CreatedAtAsc },
     });
     expect(getByTestId('loading')).toBeTruthy();
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const negotiationsAfter = getAllByRole('link', {
-      name: 'link-negotiation',
-    });
-    expect(negotiationsAfter[0]).toHaveTextContent(
+    const negotiationsAfter = getAllByTestId('published');
+    expect(negotiationsAfter[2]).toHaveTextContent(
       'Trattativa aperta: mille anni fa'
     );
-    expect(negotiationsAfter[1]).toHaveTextContent(
+    expect(negotiationsAfter[3]).toHaveTextContent(
       'Trattativa aperta: duemila anni fa'
     );
   });

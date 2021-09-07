@@ -19,16 +19,13 @@ export const AD_DETAILS = gql`
       litersFrom
       litersTo
       metodoProduttivo
-      wine {
-        denominazioneZona
-        regione
-      }
     }
+    content
     typeAd
-    address {
-      regione
-      provincia
-    }
+    # address {
+    #   regione
+    #   provincia
+    # }
     activeNegotiations
     datePosted
   }
@@ -147,20 +144,18 @@ export const FAVORITE = gql`
           litersFrom
           litersTo
           metodoProduttivo
-          wine {
-            denominazioneZona
-            regione
-          }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
+        # address {
+        #   regione
+        #   provincia
+        #   comune
+        # }
         activeNegotiations
         numberViews
         datePosted
+        isActive
+        savedTimes
       }
     }
   }
@@ -172,8 +167,8 @@ export const LIGHT_ME = gql`
       _id
       firstName
       address {
-        regione
-        provincia
+        # regione
+        # provincia
         comune
       }
     }
@@ -187,8 +182,8 @@ export const ME = gql`
       firstName
       lastName
       address {
-        regione
-        provincia
+        # regione
+        # provincia
         comune
       }
       ads {
@@ -197,6 +192,11 @@ export const ME = gql`
           _id
         }
         isActive
+        harvest
+        typeAd
+        ... on AdWine {
+          wineName
+        }
       }
       savedAds {
         _id
@@ -248,8 +248,8 @@ export const MY_INFO = gql`
       firstName
       lastName
       address {
-        regione
-        provincia
+        # regione
+        # provincia
         comune
       }
       ads {
@@ -334,17 +334,17 @@ export const ADS_WINE = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
+        # address {
+        #   regione
+        #   provincia
+        #   comune
+        # }
         activeNegotiations
         numberViews
+        savedTimes
         isActive
         datePosted
       }
@@ -378,17 +378,18 @@ export const AD = gql`
         metodoProduttivo
         wine {
           denominazioneZona
-          regione
         }
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
+      # address {
+      #   regione
+      #   provincia
+      #   comune
+      # }
+      content
       activeNegotiations
       numberViews
+      savedTimes
       datePosted
       isActive
     }
@@ -415,7 +416,8 @@ export const WINES = gql`
       denominazioneVino
       espressioneComunitaria
       denominazioneZona
-      regione
+      tipoVino
+      vitigni
     }
   }
 `;
@@ -557,21 +559,30 @@ export const ADS_FOR_USER = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
+        # address {
+        #   regione
+        #   provincia
+        #   comune
+        # }
         activeNegotiations
         numberViews
         datePosted
         isActive
+        savedTimes
       }
       pageCount
     }
   }
+`;
+
+export const GET_MESSAGE = gql`
+  query getMessage($id: ID!) {
+    message(id: $id) {
+      ...MessageDetails
+    }
+  }
+  ${MESSAGE_DETAILS}
 `;

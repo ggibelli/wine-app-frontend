@@ -6,10 +6,10 @@ import { Container, CssBaseline } from '@material-ui/core';
 import { BackButton } from '../components/BackButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { CloseNegotiationButton } from '../containers/CloseNegotiationButton';
 import { useStyles } from '../utils/styleHook';
 import { Loading } from '../components/Loading';
 import { CreateReviewModal } from '../components/ReviewModal';
+import { CloseNegotiationModal } from '../components/NegotiationModals/CloseNegotiationModal';
 
 const Negotiation: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -34,7 +34,6 @@ const Negotiation: React.FC<RouteComponentProps> = () => {
   };
 
   if (error) return <div>{error.message}</div>;
-
   if (loading) return <Loading />;
   return (
     <Container component='main' maxWidth='xs'>
@@ -61,13 +60,14 @@ const Negotiation: React.FC<RouteComponentProps> = () => {
           type={data.negotiation.type}
         />
       ) : (
-        <CloseNegotiationButton id={id} />
+        <CloseNegotiationModal id={id} />
       )}
       <Button
         aria-label='open-chat'
         className={classes.sellButton}
         component={Link}
         to={`/messaggi/${data?.negotiation?._id}`}
+        fullWidth
       >
         Vai alla chat
       </Button>

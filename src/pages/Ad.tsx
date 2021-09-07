@@ -7,45 +7,31 @@ import {
   useCreateNegotiationMutation,
   NegotiationInput,
   useNegotiationsForAdLazyQuery,
-  AdQuery,
-  useSaveAdMutation,
 } from '../generated/graphql';
 import { notification } from '../cache';
 import { CardWineDetail } from '../components/Cards/CardWineDetail';
 import { Container, CssBaseline, Typography } from '@material-ui/core';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import { BackButton } from '../components/BackButton';
-import {
-  updateCacheNegotiations,
-  updateCacheSaveAd,
-} from '../utils/updateCache';
+import { updateCacheNegotiations } from '../utils/updateCache';
 import { OpenNegotiations } from '../components/OpenNegotiations';
 import { useStyles } from '../utils/styleHook';
 import { Loading } from '../components/Loading';
 
 const Ad: React.FC<RouteComponentProps> = () => {
-  const [ad, setAd] = React.useState<AdQuery['ad'] | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const { data, loading, error } = useAdQuery({
     variables: {
       id: id,
     },
-    onCompleted: (data) => (data?.ad ? setAd(data?.ad) : null),
-    onError: (error) => console.log(error),
+    onError: (error) => console.error(error),
   });
-  React.useEffect(() => {
-    if (data?.ad) {
-      setAd(data?.ad);
-    }
-  }, [data?.ad?.activeNegotiations]);
+  const adOwner = data?.ad?.postedBy._id === data?.me?._id;
   const [createNegotiation] = useCreateNegotiationMutation({
     onCompleted: (createdNegotiation) => {
       if (createdNegotiation.createNegotiation?.errors?.length) {
         const errorMessages = createdNegotiation.createNegotiation?.errors.map(
-          (error) => error?.text
+          (error) => error?.text,
         );
         notification({
           type: 'error',
@@ -66,30 +52,21 @@ const Ad: React.FC<RouteComponentProps> = () => {
     update: (cache, response) => {
       updateCacheNegotiations(
         cache,
-        response.data?.createNegotiation?.response
+        response.data?.createNegotiation?.response,
       );
     },
   });
-  const [isFavorite, setIsFavorite] = React.useState<boolean>(
-    data?.me?.savedAds?.map((ad) => ad._id).includes(id) || false
-  );
-  const [saveAd] = useSaveAdMutation({
-    variables: { id: id },
-    onCompleted: () => setIsFavorite(!isFavorite),
-    onError: (error) => console.log(error),
-    update: (cache, { data }) => {
-      updateCacheSaveAd(cache, data?.saveAd?.response);
-    },
-  });
+
   const [lazyNegotiations, lazyNegResult] = useNegotiationsForAdLazyQuery();
   const handleShowNegotiations = () => {
     lazyNegotiations({ variables: { ad: id } });
   };
+
   const openNegotiation = async () => {
     const newNegotiation: NegotiationInput = {
-      forUserAd: ad?.postedBy._id,
-      ad: ad?._id,
-      type: ad?.typeAd,
+      forUserAd: data?.ad?.postedBy._id,
+      ad: data?.ad?._id,
+      type: data?.ad?.typeAd,
     } as NegotiationInput;
     await createNegotiation({ variables: { negotiation: newNegotiation } });
   };
@@ -99,39 +76,39 @@ const Ad: React.FC<RouteComponentProps> = () => {
     return <div>Errore</div>;
   }
   const negotiationsMyAd = data?.me?.negotiations?.filter(
-    (neg) => neg.ad._id === data?.ad?._id
+    (neg) => neg.ad._id === data?.ad?._id,
   );
   const buyerOrSeller =
-    ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
-  if (ad?._id) {
+    data?.ad?.typeAd === TypeAd.Buy ? "L'acquirente" : 'Il venditore';
+  if (data?.ad?._id) {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <BackButton />
         <div className={classes.paper}>
-          <Typography color='primary' component='h3' variant='h5'>
-            Contatta {buyerOrSeller}
-          </Typography>
-          <Typography color='secondary' variant='body1'>
-            Questo è uno degli annunci che abbiamo selezionato per te: verifica
-            anche tu i parametri e decidi se procedere.
-          </Typography>
+          {!adOwner ? (
+            <>
+              {' '}
+              <Typography color='primary' component='h3' variant='h5'>
+                Contatta {buyerOrSeller}
+              </Typography>
+              <Typography color='secondary' variant='body1'>
+                Questo è uno degli annunci che abbiamo selezionato per te:
+                verifica anche tu i parametri e decidi se procedere.
+              </Typography>
+            </>
+          ) : (
+            <Typography color='primary' component='h3' variant='h5'>
+              Gestisci il tuo annuncio
+            </Typography>
+          )}
         </div>
-        {data?.me?._id === ad.postedBy._id ? null : (
-          <IconButton aria-label='save' onClick={() => saveAd()}>
-            {isFavorite ? (
-              <FavoriteIcon data-testid='saved' />
-            ) : (
-              <FavoriteBorderIcon data-testid='not-saved' />
-            )}
-          </IconButton>
-        )}
         <CardWineDetail
-          ad={ad}
+          ad={data?.ad}
           createNegotiation={openNegotiation}
           me={data?.me}
         />
-        {data?.me?._id === ad.postedBy._id && negotiationsMyAd?.length ? (
+        {adOwner && negotiationsMyAd?.length ? (
           <OpenNegotiations
             data={lazyNegResult}
             showNegotiations={handleShowNegotiations}

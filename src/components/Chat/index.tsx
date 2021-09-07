@@ -11,8 +11,8 @@ import { IconButton } from '@material-ui/core';
 import { myInfo } from '../../cache';
 import { InfiniteScroll } from '../../containers/InfiniteScrollFetch';
 import { DeepExtractType } from 'ts-deep-extract-types';
-import { CloseNegotiationButton } from '../../containers/CloseNegotiationButton';
 import { CreateReviewModal } from '../../components/ReviewModal';
+import { CloseNegotiationModal } from '../NegotiationModals/CloseNegotiationModal';
 
 interface PropMessages {
   propsMessage: {
@@ -100,10 +100,11 @@ export const Chat: React.FC<PropMessages> = ({ propsMessage }) => {
           <CreateReviewModal
             idNegotiation={message.negotiation._id}
             idUser={recipient}
+            isMessage
             type={message.negotiation.type}
           />
         ) : (
-          <CloseNegotiationButton id={message.negotiation._id} />
+          <CloseNegotiationModal id={message.negotiation._id} isMessage />
         )}
         <TextField
           fullWidth

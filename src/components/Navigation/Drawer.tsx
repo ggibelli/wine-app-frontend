@@ -9,18 +9,17 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import StoreIcon from '@material-ui/icons/Store';
+import HandshakeOutline from 'mdi-material-ui/HandshakeOutline';
 import Typography from '@material-ui/core/Typography';
-import { ApolloError } from '@apollo/client';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Link as RouterLink } from '@reach/router';
-import { LogoutButton } from '../../containers/LogoutButton';
 import { useStyleRating, StyledRating } from '../../utils/styleHook';
 import Link from '@material-ui/core/Link';
+import { isLoggedInVar } from '../../cache';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useApolloClient } from '@apollo/client';
 
 export interface DrawerData {
-  isLoading: boolean;
-  error?: ApolloError;
   data?: {
     numAds?: number | null;
     numOpenNegs?: number | null;
@@ -37,6 +36,17 @@ export const Drawer: React.FC<{
   data: DrawerData;
 }> = ({ state, toggleDrawer, data }) => {
   const classes = useStyleRating();
+  const client = useApolloClient();
+  const handleCLick = async () => {
+    isLoggedInVar(false);
+    localStorage.removeItem('wineapp-user-token');
+    localStorage.removeItem('wineapp-user-id');
+    try {
+      await client.resetStore();
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const list = () => (
     <div
       className={classes.list}
@@ -46,7 +56,7 @@ export const Drawer: React.FC<{
     >
       <Box component='fieldset' mb={3} pt={3} borderColor='transparent'>
         <Avatar>
-          <AccountCircleIcon />
+          <AccountCircleIcon color='primary' />
         </Avatar>
         <Typography color='primary' component='h1'>
           {data.data?.name}
@@ -59,7 +69,9 @@ export const Drawer: React.FC<{
               readOnly
               precision={0.1}
             />
-            <Box>{data?.data?.rating ? `(${data?.data?.rating})` : null}</Box>
+            <Box>
+              {data?.data?.rating ? `(${data?.data?.rating.toFixed(2)})` : null}
+            </Box>
           </div>
         </Link>
       </Box>
@@ -67,7 +79,7 @@ export const Drawer: React.FC<{
       <List>
         <ListItem button>
           <ListItemIcon>
-            <AccountCircleIcon />
+            <AccountCircleIcon color='primary' />
           </ListItemIcon>
           <ListItemText primary='Profilo' />
         </ListItem>
@@ -80,7 +92,7 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <AssignmentIcon />
+            <AssignmentIcon color='primary' />
           </ListItemIcon>
           <ListItemText
             primary={`Annunci pubblicati (${data.data?.numAds || 0})`}
@@ -95,7 +107,7 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <StoreIcon />
+            <HandshakeOutline color='primary' />
           </ListItemIcon>
           <ListItemText
             primary={`Trattative in corso (${data.data?.numOpenNegs || 0})`}
@@ -110,7 +122,7 @@ export const Drawer: React.FC<{
           ))}
         >
           <ListItemIcon>
-            <FavoriteIcon />
+            <FavoriteIcon color='primary' />
           </ListItemIcon>
           <ListItemText
             primary={`Annunci salvati (${data.data?.savedAds || 0})`}
@@ -118,7 +130,12 @@ export const Drawer: React.FC<{
         </ListItem>
         <Divider />
         <div data-testid='logout' className={classes.bottomPush}>
-          <LogoutButton />
+          <ListItem button onClick={handleCLick}>
+            <ListItemIcon data-testid='logout-button'>
+              <ExitToAppIcon color='primary' />
+            </ListItemIcon>
+            <ListItemText primary='Esci' />
+          </ListItem>
         </div>
       </List>
     </div>

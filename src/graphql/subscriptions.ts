@@ -23,17 +23,13 @@ export const AD_POSTED_FOLLOWUP = gql`
         litersFrom
         litersTo
         metodoProduttivo
-        wine {
-          denominazioneZona
-          regione
-        }
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
+      # address {
+      #   regione
+      #   provincia
+      #   comune
+      # }
       activeNegotiations
       numberViews
       datePosted
@@ -46,6 +42,19 @@ export const AD_REMOVED = gql`
   subscription AdRemoved {
     adRemoved {
       _id
+    }
+  }
+  ${AD_DETAILS}
+`;
+
+export const AD_SAVED = gql`
+  subscription AdSaved {
+    adSaved {
+      _id
+      typeAd
+      ... on AdWine {
+        wineName
+      }
     }
   }
   ${AD_DETAILS}
@@ -86,17 +95,13 @@ export const NEGOTIATION_CLOSED = gql`
         litersFrom
         litersTo
         metodoProduttivo
-        wine {
-          denominazioneZona
-          regione
-        }
       }
       typeAd
-      address {
-        regione
-        provincia
-        comune
-      }
+      # address {
+      #   regione
+      #   provincia
+      #   comune
+      # }
       activeNegotiations
       numberViews
       datePosted

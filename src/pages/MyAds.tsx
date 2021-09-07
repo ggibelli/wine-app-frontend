@@ -6,27 +6,25 @@ import { RouteComponentProps } from '@reach/router';
 import {
   QueryOrderBy,
   useAdsForUserQuery,
-  AdsWineQuery,
+  AdsForUserQuery,
 } from '../generated/graphql';
 import { BackButton } from '../components/BackButton';
 import { Order } from '../components/FilterAds/Order';
 import { InfiniteScroll } from '../containers/InfiniteScrollFetch';
 import { myInfo } from '../cache';
-import { DeepExtractType } from 'ts-deep-extract-types';
 import { CardWine } from '../components/Cards/CardWine';
 import { AdsWineResult } from '../types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import { PurpleCheckbox } from '../components/FilterAds';
 import { Loading } from '../components/Loading';
+import { ApolloQueryResult } from '@apollo/client';
+import { RadioGroupTypeAd } from '../components/FormFields/RadioGroupTypeAd';
 
 const MyAds: React.FC<RouteComponentProps> = () => {
   const me = myInfo();
-  const [ads, setAds] = React.useState<
-    DeepExtractType<AdsWineQuery, ['ads']>['ads']
-  >([]);
   const [order, setOrder] = React.useState<QueryOrderBy>(
-    QueryOrderBy.CreatedAtDesc
+    QueryOrderBy.CreatedAtDesc,
   );
   const [pageCount, setPageCount] = React.useState<number>(0);
   const { data, loading, error, fetchMore } = useAdsForUserQuery({
@@ -37,42 +35,40 @@ const MyAds: React.FC<RouteComponentProps> = () => {
       user: me?._id as string,
       isActive: undefined,
     },
-    onError: (error) => console.log(error),
+    onError: (error) => console.error(error),
     onCompleted: ({ adsForUser }) => {
       setPageCount(adsForUser?.pageCount as number);
-      setAds(adsForUser?.ads);
     },
   });
   const [hideNotActive, setHideNotActive] = React.useState<boolean>(false);
   const [isLoadFetchMore, setIsLoadFetchMore] = React.useState<boolean>(false);
   const [isLoadOrder, setIsLoadOrder] = React.useState<boolean>(false);
+  const [typeAd, setTypeAd] = React.useState<string>('both');
   const handleShowAll = () => {
     setHideNotActive(!hideNotActive);
-    if (!hideNotActive) setAds(ads?.filter((a) => a?.isActive));
-    else setAds(data?.adsForUser?.ads);
   };
 
   React.useEffect(() => {
-    if (ads?.length && fetchMore) {
+    const loadMore = async () => {
       setIsLoadOrder(true);
-      fetchMore({
-        variables: {
-          orderBy: order,
-          limit: ads.length,
-          isActive: hideNotActive,
-        },
-      })
-        .then(({ data }) => {
-          setIsLoadOrder(false);
-          setAds(data.adsForUser?.ads);
-          data.adsForUser?.pageCount !== pageCount &&
-            setPageCount(data.adsForUser?.pageCount as number);
-        })
-        .catch((e) => {
-          setIsLoadOrder(false);
-
-          console.log(e);
+      try {
+        const result: ApolloQueryResult<AdsForUserQuery> = await fetchMore({
+          variables: {
+            orderBy: order,
+            limit: data?.adsForUser?.ads?.length,
+            isActive: hideNotActive,
+          },
         });
+        setIsLoadOrder(false);
+        result.data.adsForUser?.pageCount !== pageCount &&
+          setPageCount(result.data.adsForUser?.pageCount as number);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    if (data?.adsForUser?.ads?.length && fetchMore) {
+      void loadMore();
     }
   }, [order]);
 
@@ -82,29 +78,27 @@ const MyAds: React.FC<RouteComponentProps> = () => {
 
   if (!me?._id || error) return <div>error</div>;
 
-  if (ads?.length === 0) {
+  if (data?.adsForUser?.ads?.length === 0) {
     return <div>Non hai ancora creato annunci</div>;
   }
-  if (ads?.length) {
+  if (data?.adsForUser?.ads?.length) {
     const handleFetchMore = async () => {
       setIsLoadFetchMore(true);
-      if (fetchMore) {
+      if (fetchMore && data?.adsForUser?.ads?.length) {
         try {
-          const { data } = await fetchMore({
+          await fetchMore({
             variables: {
-              offset: ads?.length,
+              offset: data?.adsForUser?.ads?.length,
               orderBy: order,
               isActive: hideNotActive,
             },
           });
           setIsLoadFetchMore(false);
-          setAds([...ads, ...(data.adsForUser?.ads as [])]);
           data.adsForUser?.pageCount !== pageCount &&
             setPageCount(data.adsForUser?.pageCount as number);
         } catch (e) {
           setIsLoadFetchMore(false);
-
-          console.log(e);
+          console.error(e);
         }
       }
     };
@@ -129,18 +123,31 @@ const MyAds: React.FC<RouteComponentProps> = () => {
           }
           label='Nascondi gli annunci inattivi'
         />
+        <RadioGroupTypeAd setTypeAd={setTypeAd} typeAd={typeAd} />
         {isLoadOrder ? (
           <Loading />
         ) : (
           <InfiniteScroll
             fetchMore={handleFetchMore}
-            isVisible={ads.length < pageCount}
+            isVisible={data?.adsForUser?.ads?.length < pageCount}
             isLoading={isLoadFetchMore}
           >
             {' '}
-            {ads.map((ad) => (
-              <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
-            ))}
+            {data?.adsForUser?.ads
+              ?.filter((ad) => {
+                if (hideNotActive && typeAd !== 'both') {
+                  return ad?.isActive === hideNotActive && ad.typeAd === typeAd;
+                } else if (hideNotActive && typeAd === 'both') {
+                  return ad?.isActive === hideNotActive;
+                } else if (!hideNotActive && typeAd !== 'both') {
+                  return ad?.typeAd === typeAd;
+                } else {
+                  return ad;
+                }
+              })
+              .map((ad) => (
+                <CardWine key={ad && ad._id} ad={ad as AdsWineResult} />
+              ))}
           </InfiniteScroll>
         )}
       </Container>

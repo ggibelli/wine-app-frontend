@@ -4,12 +4,7 @@ import { renderApollo, cleanup } from '../../test-utils/test-utils';
 import { act, fireEvent, waitFor, within } from '@testing-library/react';
 import Signup from '../Signup';
 import * as React from 'react';
-import {
-  CreateUserDocument,
-  Province,
-  Regioni,
-  UserInput,
-} from '../../generated/graphql';
+import { CreateUserDocument, UserInput } from '../../generated/graphql';
 import { notification } from '../../cache';
 import { InMemoryCache } from '@apollo/client';
 import { navigate } from '@reach/router';
@@ -63,11 +58,8 @@ const user: UserInput = {
   phoneNumber: '3201234567',
   hideContact: false,
   address: {
-    regione: Regioni.Abruzzo,
-    provincia: Province.AQ,
-    comune: 'Acciano',
+    comune: 'Agliè',
     via: 'via della prova 1',
-    CAP: '12245',
   },
 };
 
@@ -172,31 +164,6 @@ describe('Signup page', () => {
         value: 'via della prova 1',
       },
     });
-    const comboboxRegioni = getByTestId('address.regione');
-    const input = within(comboboxRegioni).getByRole('textbox');
-    comboboxRegioni.focus();
-    fireEvent.change(input, { target: { value: 'a' } });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
-
-      fireEvent.keyDown(comboboxRegioni, { key: 'ArrowDown' });
-    });
-    await waitFor(() => {
-      fireEvent.keyDown(comboboxRegioni, { key: 'Enter' });
-    });
-
-    const comboboxProvince = getByTestId('combobox-province');
-    const inputProvince = within(comboboxProvince).getByRole('textbox');
-    comboboxProvince.focus();
-    fireEvent.change(inputProvince, { target: { value: 'a' } });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
-
-      fireEvent.keyDown(comboboxProvince, { key: 'ArrowDown' });
-    });
-    await waitFor(() => {
-      fireEvent.keyDown(comboboxProvince, { key: 'Enter' });
-    });
 
     const comboboxComuni = getByTestId('combobox-comuni');
     const inputComuni = within(comboboxComuni).getByRole('textbox');
@@ -210,11 +177,7 @@ describe('Signup page', () => {
     await waitFor(() => {
       fireEvent.keyDown(comboboxComuni, { key: 'Enter' });
     });
-    fireEvent.input(getByRole('spinbutton', { name: /cap/i }), {
-      target: {
-        value: '12245',
-      },
-    });
+
     fireEvent.change(getByRole('textbox', { name: /piva/i }), {
       target: {
         value: '26264321204',
@@ -238,7 +201,7 @@ describe('Signup page', () => {
       type: 'error',
       message: 'errore',
     });
-  }, 10000);
+  }, 15000);
 
   it('it calls notification and localstorage if mutation successful', async () => {
     const localStorageSetMock = jest.spyOn(localStorage, 'setItem');
@@ -246,7 +209,7 @@ describe('Signup page', () => {
       <Signup path='/registrati' />,
       {
         mocks: [userCreatedSuccess],
-        addTypename: true,
+        addTypename: false,
       },
       { route: '/registrati' }
     );
@@ -285,31 +248,6 @@ describe('Signup page', () => {
         value: 'via della prova 1',
       },
     });
-    const comboboxRegioni = getByTestId('address.regione');
-    const input = within(comboboxRegioni).getByRole('textbox');
-    comboboxRegioni.focus();
-    fireEvent.change(input, { target: { value: 'a' } });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
-
-      fireEvent.keyDown(comboboxRegioni, { key: 'ArrowDown' });
-    });
-    await waitFor(() => {
-      fireEvent.keyDown(comboboxRegioni, { key: 'Enter' });
-    });
-
-    const comboboxProvince = getByTestId('combobox-province');
-    const inputProvince = within(comboboxProvince).getByRole('textbox');
-    comboboxProvince.focus();
-    fireEvent.change(inputProvince, { target: { value: 'a' } });
-    await waitFor(() => {
-      //const input = within(combobox).querySelector('input');
-
-      fireEvent.keyDown(comboboxProvince, { key: 'ArrowDown' });
-    });
-    await waitFor(() => {
-      fireEvent.keyDown(comboboxProvince, { key: 'Enter' });
-    });
 
     const comboboxComuni = getByTestId('combobox-comuni');
     const inputComuni = within(comboboxComuni).getByRole('textbox');
@@ -323,11 +261,7 @@ describe('Signup page', () => {
     await waitFor(() => {
       fireEvent.keyDown(comboboxComuni, { key: 'Enter' });
     });
-    fireEvent.input(getByRole('spinbutton', { name: /cap/i }), {
-      target: {
-        value: '12245',
-      },
-    });
+
     fireEvent.change(getByRole('textbox', { name: /piva/i }), {
       target: {
         value: '26264321204',
@@ -366,5 +300,5 @@ describe('Signup page', () => {
       message: 'welcome',
       type: 'success',
     });
-  }, 10000);
+  }, 15000);
 });

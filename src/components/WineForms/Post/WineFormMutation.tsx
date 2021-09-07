@@ -2,36 +2,17 @@ import { Form, Formik } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
 import { TextFieldAdornment } from '../../FormFields/TextFieldAdornment';
+// import { TextFieldAdornmentCtx } from '../../FormFields/TextFieldAdornmentCtx';
+import { Collapse } from '@material-ui/core';
 import { TextField } from '../../FormFields/TextField';
 import { Combobox } from '../../FormFields/ComboboxFieldWines';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {
-  Exact,
-  Menzione,
-  MetodoProduttivo,
-  TypeAd,
-  WinesQuery,
-} from '../../../generated/graphql';
+import { MetodoProduttivo, TypeAd } from '../../../generated/graphql';
 import { SelectField } from '../../FormFields/SelectField';
-import { SliderField } from '../../FormFields/SliderField';
-import { searchedWine } from '../../../cache';
-import { AddressForm } from '../../AddressForm';
 import { useStylesForms } from '../../../utils/styleHook';
-import { QueryResult } from '@apollo/client';
-import { Loading } from '../../Loading';
-
-interface AddressInputForm {
-  comune: string;
-  provincia: string;
-  regione: string;
-}
-
-const initialAddress: AddressInputForm = {
-  comune: '',
-  provincia: '',
-  regione: '',
-};
+import { wines } from '../../../utils/wineList';
+import { GrapeFormModal } from '../../GrapeFormModal';
 
 export interface WineFormMutation {
   wineName: string;
@@ -39,58 +20,28 @@ export interface WineFormMutation {
   abv: number | '';
   price: number | '';
   liters: number | '';
-  sottoZona?: string;
-  menzione?: Menzione | '';
-  content: string;
+  content?: string;
   metodoProduttivo?: MetodoProduttivo | '';
-  needsFollowUp: boolean;
-  isSameAddress: boolean;
-  address?: AddressInputForm;
-}
-interface Wine {
-  denominazioneVino: string;
-  regione: [string];
 }
 
 export const WineFormMutation: React.FC<{
   onSubmit: (values: WineFormMutation) => void;
   adType: TypeAd;
-  wines: QueryResult<
-    WinesQuery,
-    Exact<{
-      [key: string]: never;
-    }>
-  >;
-}> = ({ onSubmit, adType, wines }) => {
-  const wineOptions = wines.data?.wines
-    ? wines.data?.wines.map((wine) => ({
-        denominazioneVino: wine.denominazioneVino,
-        regione: wine.regione,
-      }))
-    : null;
+}> = ({ onSubmit, adType }) => {
   const classes = useStylesForms();
   const today = new Date();
   const year = today.getFullYear();
-  const searchedWineCache = searchedWine();
   const initialValues: WineFormMutation = {
-    wineName: searchedWineCache?.wineName as string,
-    harvest: searchedWineCache?.harvest as number,
-    abv: searchedWineCache?.abv as number,
-    price: searchedWineCache?.price as number,
-    liters: searchedWineCache?.liters as number,
-    sottoZona: '',
-    menzione: '',
+    wineName: '' as string,
+    harvest: 2015 as number,
+    abv: 13.5 as number,
+    price: 3 as number,
+    liters: 100 as number,
     metodoProduttivo: '',
     content: '',
-    needsFollowUp: false,
-    isSameAddress: false,
-    address: initialAddress,
   };
+  const [open, setOpen] = React.useState<boolean>(false);
 
-  if (wines.loading) {
-    return <Loading />;
-  }
-  if (wines.error) return <div>Error...{wines.error.message}</div>;
   return (
     <Formik
       initialValues={initialValues}
@@ -112,29 +63,12 @@ export const WineFormMutation: React.FC<{
         liters: Yup.number()
           .positive('La quantità deve essere positiva')
           .required('Required'),
-        sottoZona: Yup.string(),
-        menzione: Yup.string(),
         metodoProduttivo: Yup.string(),
-        content: Yup.string().required('Required'),
-        needsFollowUp: Yup.bool().required('Required'),
-        isSameAddress: Yup.bool().required('Required'),
-        address: Yup.object().when('isSameAddress', {
-          is: true,
-          then: Yup.object().shape({
-            comune: Yup.string(),
-            provincia: Yup.string(),
-            regione: Yup.string(),
-          }),
-          otherwise: Yup.object().shape({
-            comune: Yup.string().required('Required'),
-            provincia: Yup.string().required('Required'),
-            regione: Yup.string().required('Required'),
-          }),
-        }),
+        content: Yup.string(),
       })}
       onSubmit={onSubmit}
     >
-      {({ isValid, dirty, setFieldValue }) => {
+      {({ isValid, dirty, setFieldValue, values }) => {
         return (
           <Form
             className={adType === TypeAd.Buy ? classes.form : classes.formSell}
@@ -143,6 +77,12 @@ export const WineFormMutation: React.FC<{
               component='h3'
               variant='h5'
               color={adType === TypeAd.Buy ? 'textSecondary' : 'primary'}
+              style={{
+                marginLeft: -10,
+                marginTop: -10,
+                paddingBottom: 20,
+                marginBottom: -20,
+              }}
             >
               Dati prodotto
             </Typography>
@@ -150,7 +90,7 @@ export const WineFormMutation: React.FC<{
               name='wineName'
               label='Vino'
               defaultWine={initialValues.wineName}
-              items={wineOptions as Wine[]}
+              items={wines}
               setFieldValue={setFieldValue}
               labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
               underlineColor={
@@ -159,7 +99,19 @@ export const WineFormMutation: React.FC<{
                   : classes.underlineSell
               }
             />
+            <Collapse in={Boolean(values.wineName && adType === TypeAd.Sell)}>
+              <Button onClick={() => setOpen(!open)}>
+                Seleziona i vitigni
+              </Button>
+              <GrapeFormModal
+                handleClose={() => setOpen(false)}
+                open={open}
+                grapes={wines.find((wine) => wine.d === values.wineName)}
+              />
+            </Collapse>
+
             <TextField
+              required={true}
               name='harvest'
               type='number'
               label='Vendemmia'
@@ -185,7 +137,7 @@ export const WineFormMutation: React.FC<{
               max='22'
               step='0.5'
               placeholder='Esempio 13.5 vol'
-              adornment='%'
+              // adornment='%'
               underlineColor={
                 adType === TypeAd.Buy
                   ? classes.underline
@@ -215,7 +167,7 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            <TextFieldAdornment
+            <TextField
               name='liters'
               type='number'
               label='Litri richiesti'
@@ -223,7 +175,6 @@ export const WineFormMutation: React.FC<{
               max='999999'
               step='1'
               placeholder='Esempio 1000 litri'
-              adornment='l'
               underlineColor={
                 adType === TypeAd.Buy
                   ? classes.underline
@@ -234,20 +185,7 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            <SelectField
-              name='menzione'
-              label='Menzione del vino'
-              options={Object.values(Menzione)}
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-              labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              textColor={
-                adType === TypeAd.Buy ? classes.input : classes.inputSell
-              }
-            />
+
             <SelectField
               name='metodoProduttivo'
               label='Metodo produttivo del vino'
@@ -263,26 +201,11 @@ export const WineFormMutation: React.FC<{
               }
             />
             <TextField
-              name='sottoZona'
-              type='text'
-              label='Sotto zona del vino'
-              placeholder='Sotto zona del vino'
-              underlineColor={
-                adType === TypeAd.Buy
-                  ? classes.underline
-                  : classes.underlineSell
-              }
-              labelTextColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-              inputTextColor={
-                adType === TypeAd.Buy ? classes.input : classes.inputSell
-              }
-            />
-            <TextField
               name='content'
               type='text'
               multiline={true}
               label='Descrizione'
-              placeholder='Vino veramente buono'
+              placeholder='Arneis'
               underlineColor={
                 adType === TypeAd.Buy
                   ? classes.underline
@@ -293,20 +216,9 @@ export const WineFormMutation: React.FC<{
                 adType === TypeAd.Buy ? classes.input : classes.inputSell
               }
             />
-            <SliderField
-              name='needsFollowUp'
-              label='Aggiornami se nuovi annunci pertinenti'
-              labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-            />
-            <SliderField
-              name='isSameAddress'
-              label='Indirizzo uguale a quello usato in registrazione'
-              labelColor={adType === TypeAd.Buy ? '#fff' : '#6d1331'}
-            />
-            <AddressForm setFieldValue={setFieldValue} />
 
             <Button
-              //isLoading={isValidating || isSubmitting}
+              fullWidth
               className={
                 adType === TypeAd.Buy ? classes.submit : classes.submitSell
               }

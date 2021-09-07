@@ -10,7 +10,7 @@ export const useStyles = makeStyles(
         color: '#fff',
       },
       paper: {
-        marginTop: theme.spacing(4),
+        marginTop: theme.spacing(3),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
@@ -49,7 +49,7 @@ export const useStyles = makeStyles(
         },
       },
     }),
-  { index: 1 }
+  { index: 1 },
 );
 
 export const useStylesForms = makeStyles(
@@ -63,8 +63,8 @@ export const useStylesForms = makeStyles(
     form: {
       borderRadius: 16,
       color: '#fff',
-      margin: 6,
-      padding: 6,
+      // margin: 6,
+      padding: 40,
       backgroundColor: '#6d1331',
       width: '100%', // Fix IE 11 issue.
       marginTop: theme.spacing(4),
@@ -85,8 +85,8 @@ export const useStylesForms = makeStyles(
       borderStyle: 'solid',
       borderWidth: '1px',
       color: '#6d1331',
-      margin: 6,
-      padding: 6,
+      // margin: 6,
+      padding: 40,
       backgroundColor: '#fff',
       width: '100%', // Fix IE 11 issue.
       marginTop: theme.spacing(4),
@@ -105,7 +105,6 @@ export const useStylesForms = makeStyles(
       display: 'flex',
       alignItems: 'center',
     },
-
     input: {
       color: 'white',
     },
@@ -143,28 +142,28 @@ export const useStylesForms = makeStyles(
       error: {},
     },
   }),
-  { index: 1 }
+  { index: 1 },
 );
 
 export const useStyleRating = makeStyles(
   () => ({
     root: {
-      width: 250,
+      width: 270,
       display: 'flex',
       alignItems: 'center',
     },
     list: {
-      width: 250,
+      width: 270,
     },
     bottomPush: {
-      width: 250,
+      width: 270,
       position: 'fixed',
       bottom: 0,
       textAlign: 'center',
       paddingBottom: 10,
     },
   }),
-  { index: 1 }
+  { index: 1 },
 );
 
 export const StyledRating = withStyles({

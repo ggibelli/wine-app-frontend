@@ -18,14 +18,19 @@ const Message: React.FC<RouteComponentProps> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { id }: { id: string } = useParams();
   const { data, loading, error, fetchMore } = useMessagesNegotiationQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
     variables: { id, offset: 0, limit: 20 },
     onCompleted: ({ messagesForNegotiation }) => {
       setSortedMessage([...(messagesForNegotiation?.messages as [])].reverse());
     },
   });
+  React.useEffect(() => {
+    if (sortedMessage?.length)
+      setSortedMessage(
+        [...(data?.messagesForNegotiation?.messages as [])].reverse(),
+      );
+  }, [data]);
   const [isFirstRender, setIsFirstRender] = React.useState<boolean>(true);
-
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [sortedMessage, setSortedMessage] = React.useState<
     DeepExtractType<
@@ -38,14 +43,14 @@ const Message: React.FC<RouteComponentProps> = () => {
     : null;
   const [createMessage] = useCreateMessageMutation({
     onError: (error) => {
-      console.log(error);
+      console.error(error);
       notification({ type: 'error', message: error.message });
     },
     onCompleted: (createdMessage) => {
       const messageCreated = createdMessage?.createMessage?.response;
       if (createdMessage.createMessage?.errors?.length) {
         const errorMessages = createdMessage.createMessage?.errors.map(
-          (error) => error?.text
+          (error) => error?.text,
         );
         notification({
           type: 'error',
@@ -76,13 +81,14 @@ const Message: React.FC<RouteComponentProps> = () => {
             offset: sortedMessage.length,
           },
         });
-        const sortedNewMessages = data.messagesForNegotiation?.messages?.reverse();
+        const sortedNewMessages =
+          data.messagesForNegotiation?.messages?.reverse();
         setSortedMessage([...(sortedNewMessages as []), ...sortedMessage]);
         setIsLoading(false);
       } catch (e) {
         setIsLoading(false);
 
-        console.log(e);
+        console.error(e);
       }
     }
   };

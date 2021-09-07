@@ -27,7 +27,7 @@ const meResultLoggedOut = {
   }>
 >;
 
-const meResultLoggedIn = ({
+const meResultLoggedIn = {
   client: jest.fn(),
   fetchMore: jest.fn(),
   refetch: jest.fn(),
@@ -61,7 +61,7 @@ const meResultLoggedIn = ({
     loading: false,
     networkStatus: 7,
   },
-} as unknown) as LazyQueryResult<
+} as unknown as LazyQueryResult<
   MeQuery,
   Exact<{
     [key: string]: never;
@@ -80,6 +80,7 @@ describe('PageHeader', () => {
     const { getByText, queryByText } = renderApolloNoRouter(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       <HeaderBar
+        isLoggedIn={false}
         onSubmitLogin={onSubmitLogin}
         meQueryResult={meResultLoggedOut}
       />,
@@ -100,6 +101,7 @@ describe('PageHeader', () => {
       const container = renderApolloNoRouter(
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         <HeaderBar
+          isLoggedIn={true}
           onSubmitLogin={onSubmitLogin}
           meQueryResult={meResultLoggedIn}
         />,

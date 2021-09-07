@@ -68,7 +68,7 @@ describe('Messages page', () => {
 
   it('renders the Message page success state', async () => {
     myInfo(user);
-    const { getByText } = renderApollo(
+    const { getByText, getAllByText } = renderApollo(
       <Messages path='/messaggi' />,
       {
         mocks: [messagesMockSuccess],
@@ -77,7 +77,7 @@ describe('Messages page', () => {
       { route: '/messaggi' }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(getByText('1'));
+    expect(getAllByText('1')).toHaveLength(2);
     expect(getByText("Cantina giovanni - Barbera d'Asti"));
   });
 
@@ -99,7 +99,7 @@ describe('Messages page', () => {
   });
 
   it('renders the Message page error state', async () => {
-    const { getByText } = renderApollo(
+    const { getAllByText } = renderApollo(
       <Messages path='/messaggi' />,
       {
         mocks: [noMessagesMock],
@@ -108,6 +108,6 @@ describe('Messages page', () => {
       { route: '/messaggi' }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(getByText('non ci sono messaggi'));
+    expect(getAllByText('0')).toHaveLength(2);
   });
 });

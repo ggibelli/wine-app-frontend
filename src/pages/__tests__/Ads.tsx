@@ -17,7 +17,6 @@ import { searchedWine } from '../../cache';
 import { InMemoryCache } from '@apollo/client';
 import { navigate } from '@reach/router';
 import { adFactory } from '../../test-utils/test-factory';
-import * as hooks from '../../utils/useIntersectionHook';
 import * as superHooks from '../../generated/graphql';
 
 const typePolicies = {
@@ -36,12 +35,7 @@ const typePolicies = {
               merged[(offset as number) + i] = incoming.ads[i];
             }
           } else {
-            // It's unusual (probably a mistake) for a paginated field not
-            // to receive any arguments, so you might prefer to throw an
-            // exception here, instead of recovering by appending incoming
-            // onto the existing array.
-            // eslint-disable-next-line prefer-spread
-            merged.push.apply(merged, incoming.ads);
+            throw new Error('Cache error');
           }
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
           return {
@@ -79,10 +73,10 @@ adsBunch.push(
     harvest: 2015,
     litersFrom: 1000,
     litersTo: 1000,
-  })
+  }),
 );
 adsBunch.push(
-  adFactory.build({ datePosted: '08 Apr 21, 18:35', harvest: 2015 })
+  adFactory.build({ datePosted: '08 Apr 21, 18:35', harvest: 2015 }),
 );
 const adsFirstReq = adFactory.buildList(4, {
   datePosted: '08 Apr 21, 18:35',
@@ -239,6 +233,25 @@ const adsMockSuccessList8 = {
 // I think mocking the queryhook is more readable than testing the fetchmore with the actual one
 describe('Ads page simulating fetch more ads', () => {
   afterEach(cleanup);
+  beforeEach(() => {
+    global.IntersectionObserver = class IntersectionObserver {
+      constructor(private func, private options) {}
+
+      observe(element: HTMLElement) {
+        this.func([
+          { isIntersecting: true, target: element, intersectionRatio: 1 },
+        ]);
+      }
+
+      disconnect() {
+        return null;
+      }
+
+      unobserve() {
+        return null;
+      }
+    };
+  });
   it('it calls fetch more ads on end page', async () => {
     searchedWine({
       wineName: "Barbera d'Asti",
@@ -246,19 +259,21 @@ describe('Ads page simulating fetch more ads', () => {
       typeProduct: TypeProduct.AdWine,
       harvest: 2015,
       abv: 13.5,
-      price: 2,
-      liters: 1000,
-      isPost: false,
+      priceFrom: 2,
+      priceTo: 2,
+      litersFrom: 1000,
+      litersTo: 1000,
+      content: 'nice nice',
     });
     //@ts-expect-error mock reached end of div
-    const endPage = jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
-      jest.fn(),
-      {
-        isIntersecting: true,
-        intersectionRatio: 0.6,
-        target: 'element',
-      },
-    ]);
+    // const endPage = jest.spyOn(hooks, 'useIntersect').mockImplementation(() => [
+    //   jest.fn(),
+    //   {
+    //     isIntersecting: true,
+    //     intersectionRatio: 0.6,
+    //     target: 'element',
+    //   },
+    // ]);
 
     const { getAllByRole } = renderApollo(
       <Ads path='/annunci/' />,
@@ -271,23 +286,24 @@ describe('Ads page simulating fetch more ads', () => {
           typePolicies,
         }),
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
+    // await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
     await waitFor(async () => {
       await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
       expect(
         getAllByRole('link', {
           name: 'link-ad',
-        })
+        }),
       ).toHaveLength(4);
     });
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    // await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(
       getAllByRole('link', {
         name: 'link-ad',
-      })
+      }),
     ).toHaveLength(8);
-    endPage.mockRestore();
   });
 });
 
@@ -304,9 +320,11 @@ describe('Ads page', () => {
       typeProduct: TypeProduct.AdWine,
       harvest: 2015,
       abv: 13.5,
-      price: 2,
-      liters: 1000,
-      isPost: false,
+      priceFrom: 2,
+      priceTo: 2,
+      litersFrom: 1000,
+      litersTo: 1000,
+      content: 'nice nice',
     });
     const { getByTestId } = renderApollo(
       <Ads path='/annunci/' />,
@@ -314,7 +332,7 @@ describe('Ads page', () => {
         mocks: [adsMockSuccess],
         addTypename: false,
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     // waiting for the first useeffect
     await waitFor(() => expect(getByTestId('loading')).toBeTruthy());
@@ -327,9 +345,11 @@ describe('Ads page', () => {
       typeProduct: TypeProduct.AdWine,
       harvest: 2015,
       abv: 13.5,
-      price: 2,
-      liters: 1000,
-      isPost: false,
+      priceFrom: 2,
+      priceTo: 2,
+      litersFrom: 1000,
+      litersTo: 1000,
+      content: 'nice nice',
     });
     const { getByText, getByRole } = renderApollo(
       <Ads path='/annunci/' />,
@@ -337,34 +357,32 @@ describe('Ads page', () => {
         mocks: [adsMockSuccess],
         addTypename: false,
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(
       getByText(
-        'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli'
-      )
+        'Non abbiamo trovato nulla che corrisponde ai criteri di ricerca, ma esistono annunci per questo vino, clicca su filtri e mostra tutto per vederli',
+      ),
     );
     expect(getByText('Ordine risultati')).not.toBeVisible();
     expect(
-      getByText('Mostra tutti gli annunci per questo vino')
+      getByText('Mostra tutti gli annunci per questo vino'),
     ).not.toBeVisible();
     fireEvent.click(getByRole('button', { name: 'filter' }));
     await waitFor(() =>
       fireEvent.click(
         getByRole('checkbox', {
           name: 'Mostra tutti gli annunci per questo vino',
-        })
-      )
+        }),
+      ),
     );
     expect(
       getByRole('link', {
         name: 'link-ad',
-      })
+      }),
     );
-    fireEvent.click(getByText('Vuoi creare un annuncio?'));
-    expect(navigate).toHaveBeenCalledTimes(1);
   });
 
   it('if no searched wine it navigates to /home', async () => {
@@ -375,39 +393,39 @@ describe('Ads page', () => {
         mocks: [adsMockSuccess],
         addTypename: false,
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(navigate).toHaveBeenCalledWith('/');
   });
 
-  it('if renders no ads page and link to create ad', async () => {
-    searchedWine({
-      wineName: "Barbera d'Asti",
-      typeAd: TypeAd.Sell,
-      typeProduct: TypeProduct.AdWine,
-      harvest: 2015,
-      abv: 13.5,
-      price: 2,
-      liters: 1000,
-      isPost: false,
-    });
-    const { getByTestId } = renderApollo(
-      <Ads path='/annunci/' />,
-      {
-        mocks: [adsMockNoAds],
-        addTypename: false,
-      },
-      { route: '/annunci/' }
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(getByTestId('no-result'));
-    fireEvent.click(getByTestId('no-result'));
-    const searchedWineCache = searchedWine();
-    expect(searchedWineCache?.isPost).toBe(true);
-    expect(navigate).toHaveBeenCalledWith('/sell');
-  });
+  // it('if renders no ads page and link to create ad', async () => {
+  //   searchedWine({
+  //     wineName: "Barbera d'Asti",
+  //     typeAd: TypeAd.Sell,
+  //     typeProduct: TypeProduct.AdWine,
+  //     harvest: 2015,
+  //     abv: 13.5,
+  //     priceFrom: 2,
+  //     priceTo: 2,
+  //     litersFrom: 1000,
+  //     litersTo: 1000,
+  //     content: 'nice nice',
+  //   });
+  //   const { getByTestId } = renderApollo(
+  //     <Ads path='/annunci/' />,
+  //     {
+  //       mocks: [adsMockNoAds],
+  //       addTypename: false,
+  //     },
+  //     { route: '/annunci/' }
+  //   );
+  //   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+  //   expect(getByTestId('no-result'));
+  //   fireEvent.click(getByTestId('no-result'));
+  //   expect(navigate).toHaveBeenCalledWith('/sell');
+  // });
 
   it('renders the Ads page with matching ads found state', async () => {
     searchedWine({
@@ -416,9 +434,11 @@ describe('Ads page', () => {
       typeProduct: TypeProduct.AdWine,
       harvest: 2018,
       abv: 13.5,
-      price: 2,
-      liters: 1000,
-      isPost: false,
+      priceFrom: 2,
+      priceTo: 2,
+      litersFrom: 1000,
+      litersTo: 1000,
+      content: 'nice nice',
     });
     const { getByText, getAllByRole } = renderApollo(
       <Ads path='/annunci/' />,
@@ -426,24 +446,24 @@ describe('Ads page', () => {
         mocks: [adsMockSuccessList8],
         addTypename: false,
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(
       getByText(
-        "Questi sono gli annunci che abbiamo trovato per te: sono stati pubblicati da utenti interessati all'acquisto."
-      )
+        "Questi sono gli annunci che abbiamo trovato per te: sono stati pubblicati da utenti interessati all'acquisto.",
+      ),
     );
     expect(getByText('Ordine risultati')).not.toBeVisible();
     expect(
-      getByText('Mostra tutti gli annunci per questo vino')
+      getByText('Mostra tutti gli annunci per questo vino'),
     ).not.toBeVisible();
     // fireEvent.click(getByRole('button', { name: 'filter' }));
     expect(
       getAllByRole('link', {
         name: 'link-ad',
-      })
+      }),
     ).toHaveLength(6);
   });
 
@@ -454,11 +474,13 @@ describe('Ads page', () => {
       typeProduct: TypeProduct.AdWine,
       harvest: 2015,
       abv: 13.5,
-      price: 2,
-      liters: 1000,
-      isPost: false,
+      priceFrom: 2,
+      priceTo: 2,
+      litersFrom: 1000,
+      litersTo: 1000,
+      content: 'nice nice',
     });
-    const { getByRole, getAllByRole, getByTestId } = renderApollo(
+    const { getByRole, getByTestId, getAllByTestId } = renderApollo(
       <Ads path='/annunci/' />,
       {
         mocks: [adsMockSuccessList8, adsMockSuccessOld],
@@ -468,15 +490,12 @@ describe('Ads page', () => {
           typePolicies,
         }),
       },
-      { route: '/annunci/' }
+      { route: '/annunci/' },
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const myAdsBefore = getAllByRole('link', {
-      name: 'link-ad',
-    });
-    expect(myAdsBefore[0]).toHaveTextContent(
-      'Annuncio pubblicato il 08 Apr 21, 18:35'
-    );
+
+    const myAdsBefore = getAllByTestId('published');
+    expect(myAdsBefore[0]).toHaveTextContent('pubblicato il 08 Apr 21, 18:35');
     // expect(myAdsBefore[1]).toHaveTextContent(
     //   'Annuncio pubblicato il 07 Apr 21, 18:35'
     // );
@@ -488,14 +507,8 @@ describe('Ads page', () => {
     });
     expect(getByTestId('loading')).toBeTruthy();
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const myAdsAfter = getAllByRole('link', {
-      name: 'link-ad',
-    });
-    expect(myAdsAfter[0]).toHaveTextContent(
-      'Annuncio pubblicato il 08 Mar 21, 18:35'
-    );
-    expect(myAdsAfter[1]).toHaveTextContent(
-      'Annuncio pubblicato il 08 Jan 21, 18:35'
-    );
+    const myAdsAfter = getAllByTestId('published');
+    expect(myAdsAfter[0]).toHaveTextContent('pubblicato il 08 Mar 21, 18:35');
+    expect(myAdsAfter[1]).toHaveTextContent('pubblicato il 08 Jan 21, 18:35');
   });
 });

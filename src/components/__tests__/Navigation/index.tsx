@@ -7,12 +7,7 @@ import {
   fireEvent,
 } from '../../../test-utils/test-utils';
 import { act, waitFor } from '@testing-library/react';
-import {
-  LoginDocument,
-  MeDocument,
-  Province,
-  Regioni,
-} from '../../../generated/graphql';
+import { LoginDocument, MeDocument } from '../../../generated/graphql';
 import { isLoggedInVar, cache, notification, myInfo } from '../../../cache';
 import userEvent from '@testing-library/user-event';
 
@@ -71,6 +66,50 @@ describe('Header component', () => {
     expect(getByText('Sign in'));
   });
 
+  it('login mutation error', async () => {
+    const mocks = [
+      {
+        request: {
+          query: LoginDocument,
+          variables: { email: 'jhon.dee@someemail.com', password: 'giovanni' },
+        },
+        result: {
+          data: undefined,
+        },
+        error: new Error('errore'),
+      },
+    ];
+    const localStorageSetMock = jest.spyOn(localStorage, 'setItem');
+
+    const { getByText, getByLabelText, getByTestId, getByRole } =
+      renderApolloNoRouter(
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        <Header />,
+        { mocks, cache, addTypename: true, resolvers: {} }
+      );
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    expect(isLoggedInVar()).toBeFalsy();
+    const loginButton = getByText('Log in');
+
+    await waitFor(() => {
+      fireEvent.click(loginButton);
+    });
+    userEvent.type(getByLabelText(/email/i), 'jhon.dee@someemail.com');
+    userEvent.type(getByTestId('password'), 'giovanni');
+    await waitFor(() => {
+      fireEvent.submit(getByRole('button', { name: /submit/i }));
+    });
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
+    const isLogged = isLoggedInVar();
+    expect(isLogged).toBeFalsy();
+    expect(notification).toHaveBeenCalledWith({
+      message: 'errore',
+      type: 'error',
+    });
+    expect(localStorageSetMock).toHaveBeenCalledTimes(0);
+  }, 10000);
+
   it('login mutation successful', async () => {
     const mocks = [
       {
@@ -108,8 +147,6 @@ describe('Header component', () => {
               firstName: 'Giovanni',
               lastName: 'vabb',
               address: {
-                regione: Regioni.Abruzzo,
-                provincia: Province.AG,
                 comune: 'popopo',
               },
               ads: [],
@@ -124,16 +161,12 @@ describe('Header component', () => {
     ];
     const localStorageSetMock = jest.spyOn(localStorage, 'setItem');
 
-    const {
-      getByText,
-      getByLabelText,
-      getByTestId,
-      getByRole,
-    } = renderApolloNoRouter(
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      <Header />,
-      { mocks, cache, addTypename: true, resolvers: {} }
-    );
+    const { getByText, getByLabelText, getByTestId, getByRole } =
+      renderApolloNoRouter(
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        <Header />,
+        { mocks, cache, addTypename: true, resolvers: {} }
+      );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(isLoggedInVar()).toBeFalsy();
     const loginButton = getByText('Log in');
@@ -173,8 +206,6 @@ describe('Header component', () => {
       firstName: 'Giovanni',
       lastName: 'vabb',
       address: {
-        regione: Regioni.Abruzzo,
-        provincia: Province.AG,
         comune: 'popopo',
       },
       ads: [],
@@ -183,54 +214,6 @@ describe('Header component', () => {
       negotiations: [],
       reviews: [],
     });
-  }, 10000);
-
-  it('login mutation error', async () => {
-    const mocks = [
-      {
-        request: {
-          query: LoginDocument,
-          variables: { email: 'jhon.dee@someemail.com', password: 'giovanni' },
-        },
-        result: {
-          data: undefined,
-        },
-        error: new Error('errore'),
-      },
-    ];
-    const localStorageSetMock = jest.spyOn(localStorage, 'setItem');
-
-    const {
-      getByText,
-      getByLabelText,
-      getByTestId,
-      getByRole,
-    } = renderApolloNoRouter(
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      <Header />,
-      { mocks, cache, addTypename: true, resolvers: {} }
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(isLoggedInVar()).toBeFalsy();
-    const loginButton = getByText('Log in');
-
-    await waitFor(() => {
-      fireEvent.click(loginButton);
-    });
-    userEvent.type(getByLabelText(/email/i), 'jhon.dee@someemail.com');
-    userEvent.type(getByTestId('password'), 'giovanni');
-    await waitFor(() => {
-      fireEvent.submit(getByRole('button', { name: /submit/i }));
-    });
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-
-    const isLogged = isLoggedInVar();
-    expect(isLogged).toBeFalsy();
-    expect(notification).toHaveBeenCalledWith({
-      message: 'errore',
-      type: 'error',
-    });
-    expect(localStorageSetMock).toHaveBeenCalledTimes(0);
   }, 10000);
 
   it('lazy query executed if logged in', async () => {
@@ -248,8 +231,6 @@ describe('Header component', () => {
               firstName: 'Giovanni',
               lastName: 'vabb',
               address: {
-                regione: Regioni.Abruzzo,
-                provincia: Province.AG,
                 comune: 'popopo',
               },
               ads: [],

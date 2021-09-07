@@ -1,24 +1,34 @@
-import { cleanup, renderApolloNoRouter } from '../../test-utils/test-utils';
+import {
+  cleanup,
+  fireEvent,
+  renderApolloNoRouter,
+} from '../../test-utils/test-utils';
 import { CardWine } from '../../components/Cards/CardWine';
 import * as React from 'react';
 import {
-  Province,
-  Regioni,
   MetodoProduttivo,
   TypeAd,
   DenomZona,
+  TypeProduct,
 } from '../../generated/graphql';
+import { myInfo, searchedWine } from '../../cache';
+import { navigate } from '@reach/router';
+
+jest.mock('../../containers/FavoriteButton', () => ({
+  __esModule: true,
+  FavoriteButton: () => <div>ciao</div>,
+}));
+
+jest.mock('@reach/router', () => ({
+  __esModule: true, // this property makes it work
+  ...jest.requireActual<any>('@reach/router'),
+  navigate: jest.fn(),
+}));
 
 const mockAdBuyOwned = {
   ad: {
     abv: 13.5,
     activeNegotiations: 0,
-    address: {
-      comune: 'Arosio',
-      provincia: Province.CO,
-      regione: Regioni.Lombardia,
-      __typename: 'Address' as const,
-    },
 
     datePosted: '07 Apr 21, 18:35',
     harvest: 2018,
@@ -43,7 +53,6 @@ const mockAdBuyOwned = {
     typeAd: TypeAd.Buy,
     wine: {
       denominazioneZona: DenomZona.Docg,
-      regione: [Regioni.Piemonte],
       __typename: 'Wine' as const,
     },
     wineName: "Barbera d'Asti",
@@ -61,12 +70,6 @@ const mockAdSellNotOwned = {
   ad: {
     abv: 13.5,
     activeNegotiations: 0,
-    address: {
-      comune: 'Arosio',
-      provincia: Province.CO,
-      regione: Regioni.Lombardia,
-      __typename: 'Address' as const,
-    },
 
     datePosted: '07 Apr 21, 18:35',
     harvest: 2018,
@@ -91,7 +94,6 @@ const mockAdSellNotOwned = {
     typeAd: TypeAd.Sell,
     wine: {
       denominazioneZona: DenomZona.Docg,
-      regione: [Regioni.Piemonte],
       __typename: 'Wine' as const,
     },
     wineName: "Barbera d'Asti",
@@ -109,12 +111,6 @@ const mockAdSellAdNotActive = {
   ad: {
     abv: 13.5,
     activeNegotiations: 0,
-    address: {
-      comune: 'Arosio',
-      provincia: Province.CO,
-      regione: Regioni.Lombardia,
-      __typename: 'Address' as const,
-    },
 
     datePosted: '07 Apr 21, 18:35',
     harvest: 2018,
@@ -139,7 +135,6 @@ const mockAdSellAdNotActive = {
     typeAd: TypeAd.Sell,
     wine: {
       denominazioneZona: DenomZona.Docg,
-      regione: [Regioni.Piemonte],
       __typename: 'Wine' as const,
     },
     wineName: "Barbera d'Asti",
@@ -164,8 +159,31 @@ describe('CardWine component', () => {
     const { getByText } = renderApolloNoRouter(
       <CardWine ad={mockAdBuyOwned.ad} />
     );
-
     expect(getByText("Compro Barbera d'Asti"));
+  });
+
+  it('if not my ad search again not shown', () => {
+    const { getByText, queryByText } = renderApolloNoRouter(
+      <CardWine ad={mockAdBuyOwned.ad} />
+    );
+    expect(getByText("Compro Barbera d'Asti"));
+    expect(queryByText('Cerca di nuovo')).toBeFalsy();
+  });
+
+  it('if my ad search again button works ', () => {
+    myInfo({ ads: [{ _id: mockAdBuyOwned.ad._id }] });
+
+    const { getByText } = renderApolloNoRouter(
+      <CardWine ad={mockAdBuyOwned.ad} />
+    );
+    expect(getByText("Compro Barbera d'Asti"));
+    fireEvent.click(getByText('Cerca di nuovo'));
+    expect(navigate).toHaveBeenCalledWith('/annunci');
+    expect(searchedWine()).toEqual({
+      ...mockAdBuyOwned.ad,
+      wine: undefined,
+      typeProduct: TypeProduct.AdWine,
+    });
   });
 
   it('if ad sell proper text is rendered', () => {

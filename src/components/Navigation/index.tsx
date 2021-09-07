@@ -5,6 +5,7 @@ import {
   useNegotiationCreatedSubscription,
   useNegotiationClosedSubscription,
   useAdPostedFollowUpSubscription,
+  useAdSavedSubscription,
   useMessageSentSubscription,
   useIsUserLoggedInQuery,
   useReviewCreatedSubscription,
@@ -22,7 +23,13 @@ import {
 import { HeaderBar } from './AppBar';
 
 export const Header: React.FC = () => {
-  const loggedUser = useIsUserLoggedInQuery();
+  // const [stop, setStop] = React.useState(false);
+  const { data } = useIsUserLoggedInQuery();
+  React.useEffect(() => {
+    if (data?.isLoggedIn) {
+      lazyQuery();
+    }
+  }, [data]);
   const client = useApolloClient();
   const [lazyQuery, result] = useMeLazyQuery({
     onCompleted: (data) => {
@@ -30,22 +37,16 @@ export const Header: React.FC = () => {
         myInfo({
           ...data.me,
         } as User);
+        // setStop(true);
       }
     },
     onError: (error) => {
-      console.log(error);
       notification({
         type: 'error',
         message: error.message,
       });
     },
   });
-  React.useEffect(() => {
-    if (loggedUser.data?.isLoggedIn) {
-      lazyQuery();
-    }
-  }, [loggedUser.data?.isLoggedIn]);
-
   const [loginMutation] = useLoginMutation({
     onError: (error) =>
       notification({
@@ -56,11 +57,11 @@ export const Header: React.FC = () => {
       if (login?.errors?.length === 0) {
         localStorage.setItem(
           'wineapp-user-token',
-          login?.response?.token as string
+          login?.response?.token as string,
         );
         localStorage.setItem(
           'wineapp-user-id',
-          login?.response?.user._id as string
+          login?.response?.user._id as string,
         );
         isLoggedInVar(true);
         notification({
@@ -101,10 +102,10 @@ export const Header: React.FC = () => {
         type: 'success',
         message: 'qualcuno ha aperto una trattativa con te',
       });
-
       updateCacheNegotiations(
         client,
-        subscriptionData.data?.negotiationCreated
+        subscriptionData.data?.negotiationCreated,
+        true,
       );
     },
   });
@@ -112,7 +113,7 @@ export const Header: React.FC = () => {
     onSubscriptionData: ({ subscriptionData }) => {
       updateCacheMessagesAdmin(
         client,
-        subscriptionData.data?.negotiationClosed
+        subscriptionData.data?.negotiationClosed,
       );
       const wineName =
         subscriptionData.data?.negotiationClosed.__typename === 'AdWine' &&
@@ -132,6 +133,18 @@ export const Header: React.FC = () => {
       });
     },
   });
+  useAdSavedSubscription({
+    onSubscriptionData: ({ subscriptionData }) => {
+      const wineName =
+        subscriptionData.data?.adSaved.__typename === 'AdWine'
+          ? subscriptionData.data.adSaved.wineName
+          : 'Vino generico';
+      notification({
+        type: 'info',
+        message: `Una cantina ha salvato il tuo annuncio ${wineName}`,
+      });
+    },
+  });
   useMessageSentSubscription({
     onSubscriptionData: ({ subscriptionData }) => {
       updateCacheMessages(client, subscriptionData.data?.messageSent);
@@ -148,5 +161,12 @@ export const Header: React.FC = () => {
       updateCacheReview(client, review);
     },
   });
-  return <HeaderBar meQueryResult={result} onSubmitLogin={onSubmitLogin} />;
+
+  return (
+    <HeaderBar
+      meQueryResult={result}
+      onSubmitLogin={onSubmitLogin}
+      isLoggedIn={data?.isLoggedIn || false}
+    />
+  );
 };

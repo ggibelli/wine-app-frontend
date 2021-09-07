@@ -23,7 +23,7 @@ describe('CardNegotiation component', () => {
     const { getByRole } = renderApolloNoRouter(
       <CardNegotiation negotiation={mockNegotiationActive} />
     );
-    expect(getByRole('button', { name: 'close-negotiation' }));
+    expect(getByRole('button', { name: 'close-negotiation-popup' }));
   });
 
   it('renders the CardNegotiations component closed negotiation', () => {

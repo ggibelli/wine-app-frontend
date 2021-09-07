@@ -15,8 +15,8 @@ export const LOGIN = gql`
           _id
           firstName
           address {
-            regione
-            provincia
+            # regione
+            # provincia
             comune
           }
         }
@@ -97,15 +97,14 @@ export const CREATE_ADWINE = gql`
           metodoProduttivo
           wine {
             denominazioneZona
-            regione
           }
         }
         typeAd
-        address {
-          regione
-          provincia
-          comune
-        }
+        # address {
+        #   regione
+        #   provincia
+        #   comune
+        # }
         activeNegotiations
         numberViews
         datePosted

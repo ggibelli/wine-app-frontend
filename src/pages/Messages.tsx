@@ -1,18 +1,17 @@
 import * as React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import List from '@material-ui/core/List';
-import { useMessagesQuery } from '../generated/graphql';
-import _ from 'lodash';
-import { MessageListEl } from '../components/MessageListEl';
+import { useMessagesQuery, useGetMessageLazyQuery } from '../generated/graphql';
 import { notification } from '../cache';
 import { RouteComponentProps } from '@reach/router';
 import { BackButton } from '../components/BackButton';
 import { Loading } from '../components/Loading';
+import { NotificationModal } from '../components/NotificationModal';
+import { SwipableTabsNotification } from '../components/SwipableTabsNotification';
 
 const Messages: React.FC<RouteComponentProps> = () => {
   const { data, loading, error } = useMessagesQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
     onError: (error) => {
       notification({
         type: 'error',
@@ -20,31 +19,46 @@ const Messages: React.FC<RouteComponentProps> = () => {
       });
     },
   });
-  const messages = data?.messages && data?.messages;
-  const messagesForNegotiationObj = _.groupBy(
-    messages,
-    (message) => message.negotiation._id
-  );
-  const messagesForNegotiation = Object.entries(
-    messagesForNegotiationObj
-  ).sort((a, b) => a[0].localeCompare(b[0]));
+  const [lazyMessage, result] = useGetMessageLazyQuery({
+    onError: (error) => {
+      notification({
+        type: 'error',
+        message: error.message,
+      });
+    },
+  });
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleClickNotification = (id: string) => {
+    lazyMessage({ variables: { id: id } });
+    setOpen(true);
+  };
+
   if (loading) {
     return <Loading />;
   }
+
   if (error) return <div>error</div>;
-  if (!messagesForNegotiation.length) return <div>non ci sono messaggi</div>;
-  if (!messages) return null;
   return (
     <Container component='main' maxWidth='sm'>
       <CssBaseline />
       <BackButton />
-      <List>
-        {messagesForNegotiation.map((el) => (
-          <div key={el[0]}>
-            <MessageListEl messages={el[1]} id={el[0]} />
-          </div>
-        ))}
-      </List>
+      <SwipableTabsNotification
+        messages={data?.messages}
+        handleClickNotification={handleClickNotification}
+      />
+      {result.loading ? (
+        <Loading />
+      ) : (
+        <NotificationModal
+          open={open}
+          handleClose={handleClose}
+          content={result.data?.message?.content}
+          loading={result.loading}
+        />
+      )}
     </Container>
   );
 };

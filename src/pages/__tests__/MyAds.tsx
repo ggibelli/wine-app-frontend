@@ -13,7 +13,7 @@ import { AdsForUserDocument, QueryOrderBy } from '../../generated/graphql';
 import { myInfo } from '../../cache';
 import { adFactory, user } from '../../test-utils/test-factory';
 import * as hooks from '../../utils/useIntersectionHook';
-import _ from 'lodash';
+import { unionBy, orderBy } from 'lodash';
 import { InMemoryCache } from '@apollo/client';
 
 const typePolicies = {
@@ -23,11 +23,11 @@ const typePolicies = {
         keyArgs: ['user'],
         merge(existing = [], incoming, { args }) {
           let ads;
-          const adsUnsorted = _.unionBy(existing.ads, incoming.ads, '__ref');
+          const adsUnsorted = unionBy(existing.ads, incoming.ads, '__ref');
           if (args && args.orderBy === QueryOrderBy.CreatedAtDesc) {
-            ads = _.orderBy(adsUnsorted, '__ref', ['desc']);
+            ads = orderBy(adsUnsorted, '__ref', ['desc']);
           } else if (args && args.orderBy === QueryOrderBy.CreatedAtAsc) {
-            ads = _.orderBy(adsUnsorted, '__ref', ['asc']);
+            ads = orderBy(adsUnsorted, '__ref', ['asc']);
           } else {
             ads = adsUnsorted;
           }
@@ -317,7 +317,7 @@ describe('MyAds page', () => {
   it('it changes order ads', async () => {
     myInfo(user);
 
-    const { getByRole, getAllByRole, getByTestId } = renderApollo(
+    const { getByRole, getAllByTestId, getByTestId } = renderApollo(
       <MyAds path='/creati/' />,
       {
         mocks: [adsMockSuccess, adsMockSuccessOld],
@@ -330,29 +330,17 @@ describe('MyAds page', () => {
       { route: '/creati/' }
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const myAdsBefore = getAllByRole('link', {
-      name: 'link-ad',
-    });
-    expect(myAdsBefore[0]).toHaveTextContent(
-      'Annuncio pubblicato il 08 Apr 21, 18:35'
-    );
-    expect(myAdsBefore[1]).toHaveTextContent(
-      'Annuncio pubblicato il 07 Apr 21, 18:35'
-    );
+    const myAdsBefore = getAllByTestId('published');
+    expect(myAdsBefore[0]).toHaveTextContent('pubblicato il 08 Apr 21, 18:35');
+    expect(myAdsBefore[1]).toHaveTextContent('pubblicato il 07 Apr 21, 18:35');
     const orderSelect = getByRole('combobox', { name: 'Ordine risultati' });
     fireEvent.change(orderSelect, {
       target: { value: QueryOrderBy.CreatedAtAsc },
     });
     expect(getByTestId('loading')).toBeTruthy();
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const myAdsAfter = getAllByRole('link', {
-      name: 'link-ad',
-    });
-    expect(myAdsAfter[0]).toHaveTextContent(
-      'Annuncio pubblicato il 08 Mar 21, 18:35'
-    );
-    expect(myAdsAfter[1]).toHaveTextContent(
-      'Annuncio pubblicato il 08 Jan 21, 18:35'
-    );
+    const myAdsAfter = getAllByTestId('published');
+    expect(myAdsAfter[0]).toHaveTextContent('pubblicato il 07 Apr 21, 18:35');
+    expect(myAdsAfter[1]).toHaveTextContent('pubblicato il 08 Mar 21, 18:35');
   });
 });
